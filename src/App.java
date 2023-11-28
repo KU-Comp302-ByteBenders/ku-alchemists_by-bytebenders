@@ -1,5 +1,6 @@
 //Enes Can Ulutaş 75632
 import javax.swing.JFrame;
+import ui.EndGameJFrame;
 
 public class App {
     String EnesCanUlutas;
