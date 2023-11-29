@@ -1,7 +1,7 @@
 //Enes Can Ulutaş 75632
 import javax.swing.JFrame;
-import ui.EndGameJFrame;
-import ui.MainMenuJFrame;
+
+import ui.BoardJFrame;
 
 public class App {
     String EnesCanUlutas;
@@ -11,8 +11,11 @@ public class App {
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //frame.setVisible(true);
 
-        MainMenuJFrame mainMenu = new MainMenuJFrame();
-        mainMenu.setVisible(true);
+        // MainMenuJFrame mainMenu = new MainMenuJFrame();
+        // mainMenu.setVisible(true);
+
+        BoardJFrame board = new BoardJFrame(null, null, null, null, null);
+
 
     }
 }
