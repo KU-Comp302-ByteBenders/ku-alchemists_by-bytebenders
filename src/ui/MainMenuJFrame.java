@@ -8,11 +8,10 @@ import javax.swing.*;
 public class MainMenuJFrame extends JFrame {
 
     public MainMenuJFrame() {
-        JFrame frame = new JFrame("KU ALCHEMIST");
-        frame.setSize(1280, 720);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(null);
-        frame.setResizable(false);
+        this.setSize(1280, 720);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLayout(null);
+        this.setResizable(false);
 
         JLabel titleLabel = new JLabel("KU ALCHEMIST");
         titleLabel.setForeground(Color.RED);
@@ -34,7 +33,7 @@ public class MainMenuJFrame extends JFrame {
                 loginScreen.setVisible(true);
 
                 // Hide the current main menu screen if needed
-                frame.setVisible(false);
+                MainMenuJFrame.this.setVisible(false);
             }
         });
 
@@ -44,12 +43,10 @@ public class MainMenuJFrame extends JFrame {
         JButton exitButton = new JButton("EXIT");
         exitButton.setBounds(550, 300, 150, 30);
 
-        frame.add(titleLabel);
-        frame.add(versionLabel);
-        frame.add(newGameButton);
-        frame.add(helpButton);
-        frame.add(exitButton);
-
-        frame.setVisible(true);
+        this.add(titleLabel);
+        this.add(versionLabel);
+        this.add(newGameButton);
+        this.add(helpButton);
+        this.add(exitButton);
     }
 }

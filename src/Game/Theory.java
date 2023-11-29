@@ -1,4 +1,4 @@
-package Game;
+package game;
 import java.util.ArrayList;
 
 //integerleri sametin commitinden sonra degistiricem
