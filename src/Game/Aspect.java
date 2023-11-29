@@ -8,5 +8,6 @@ public class Aspect {
         this.size = size;
         this.sign = sign;
     }
+    
 
 }

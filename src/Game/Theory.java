@@ -4,12 +4,11 @@ import java.util.ArrayList;
 
 public class Theory {
     private String theoryName;
-    private Integer[] theoryIngredients;
+    private Ingredient[] theoryIngredients;
 
-    public Theory(Integer ingredient, AlchemyMarker alchemyMarker) {
+    public Theory(Ingredient ingredient, AlchemyMarker alchemyMarker) {
         this.theoryName = "DefaultTheoryName";
-        this.theoryIngredients = new Integer[]{ingredient};
-
+        this.theoryIngredients = new Ingredient[0];
 
 }
 
