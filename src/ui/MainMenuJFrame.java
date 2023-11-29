@@ -1,9 +1,12 @@
 package ui;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class MainMenuJFrame extends JFrame{
+public class MainMenuJFrame extends JFrame {
+
     public MainMenuJFrame() {
         JFrame frame = new JFrame("KU ALCHEMIST");
         frame.setSize(1280, 720);
@@ -21,6 +24,19 @@ public class MainMenuJFrame extends JFrame{
 
         JButton newGameButton = new JButton("NEW GAME");
         newGameButton.setBounds(550, 220, 150, 30);
+
+        // Add ActionListener to the "NEW GAME" button
+        newGameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // When the button is clicked, create an instance of LoginScreen and make it visible
+                LoginJFrame loginScreen = new LoginJFrame();
+                loginScreen.setVisible(true);
+
+                // Hide the current main menu screen if needed
+                frame.setVisible(false);
+            }
+        });
 
         JButton helpButton = new JButton("HELP");
         helpButton.setBounds(550, 260, 150, 30);

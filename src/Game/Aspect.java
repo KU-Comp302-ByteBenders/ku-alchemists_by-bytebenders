@@ -1,3 +1,5 @@
+package Game;
+
 public class Aspect {
     private String color;
     private String size;
