@@ -11,7 +11,10 @@ public class LoginJFrame extends JFrame{
     public LoginJFrame() {
         // Create text fields
         JTextField textField1 = new JTextField(20);
+        textField1.setText("Enter Player 1 name");
+
         JTextField textField2 = new JTextField(20);
+        textField2.setText("Enter Player 2 name");
 
         // Set the size of the frame
         this.setSize(1280, 720);
