@@ -6,17 +6,23 @@ import java.util.Random;
 
 import game.AlchemyMarker;
 import game.Aspect;
+import game.ArtifactCard;
 
 public class Board {
     private ArrayList<Token> tokens;
     private ArrayList<Ingredient> ingredients;
+    private ArrayList<ArtifactCard> artifactCards;
     
     public Board(String username1, String username2, String avatar1, String avatar2) {
         Token token1 = new Token(username1, avatar1, avatar1);
         Token token2 = new Token(username2, avatar2, avatar2);
         tokens.add(token1);
         tokens.add(token2);
-        creaIngredients();
+        addIngredient();
+        addArtifactCard();
+        token1.addGold(10);
+        token2.addGold(10);
+        
 
 
         // Create a new board
@@ -24,7 +30,7 @@ public class Board {
         
     }
 
-    public ArrayList<Ingredient> creaIngredients(){
+    public void creaIngredients(){
         Aspect aspect1 = new Aspect("Red", "Small", "+");
         Aspect aspect2 = new Aspect("Blue", "Small", "+");
         Aspect aspect3 = new Aspect("Yellow", "Small", "+");
@@ -74,7 +80,44 @@ public class Board {
         // Listeyi karıştır
         Collections.shuffle(ingredients, new Random());
         
-        return ingredients;
+
+    }
+
+    public void addIngredient(){
+        creaIngredients();
+        for (Token token : tokens) {
+            for (int i = 0; i < 2; i++) {
+                token.addIngredient(ingredients.get(0));
+            }
+        }
+        
+    }
+
+    public void addArtifactCard(){
+        ArtifactCard artifactCard1 = new ArtifactCard("art1");
+        ArtifactCard artifactCard2 = new ArtifactCard("art2");
+        ArtifactCard artifactCard3 = new ArtifactCard("art3");
+        ArtifactCard artifactCard4 = new ArtifactCard("art4");
+        ArtifactCard artifactCard5 = new ArtifactCard("art5");
+        ArtifactCard artifactCard6 = new ArtifactCard("art6");
+        ArtifactCard artifactCard7 = new ArtifactCard("art7");
+        ArtifactCard artifactCard8 = new ArtifactCard("art8");
+        ArtifactCard artifactCard9 = new ArtifactCard("art9");
+        ArtifactCard artifactCard10 = new ArtifactCard("art10");
+
+        artifactCards.add(artifactCard1);
+        artifactCards.add(artifactCard2);
+        artifactCards.add(artifactCard3);
+        artifactCards.add(artifactCard4);
+        artifactCards.add(artifactCard5);
+        artifactCards.add(artifactCard6);
+        artifactCards.add(artifactCard7);
+        artifactCards.add(artifactCard8);
+        artifactCards.add(artifactCard9);
+        artifactCards.add(artifactCard10);
+
+        Collections.shuffle(artifactCards, new Random());
+
 
     }
 }

@@ -1,6 +1,6 @@
 package game;
 
-public abstract class ArtifactCard {
+public class ArtifactCard {
     private String name;
     private Token owner = null; // ArtifactCard has no owner by default
 
@@ -8,7 +8,4 @@ public abstract class ArtifactCard {
         this.name = name;
     }
 
-    // Our design had this as an Abstract method
-    // But every ArtifactCard will be implemented as a separate interface.
-    public abstract void useEffect();
 }

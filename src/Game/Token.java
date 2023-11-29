@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Token {
     // TODO: Change the types and implements the functions
 
-    private ArrayList<String> ingredients;
+    private ArrayList<Ingredient> ingredients;
     private ArrayList<String> potions;
     private ArrayList<String> artifactCards;
     private ArrayList<String> artifactEffects;
@@ -22,7 +22,9 @@ public class Token {
 
     public void decreaseGold(int amount){}
 
-    public void addIngredient(String ingredient){}
+    public void addIngredient(Ingredient ingredient){
+        ingredients.add(ingredient);
+    }
 
     public void makeExperiment(String ingredient1, String ingredient2, Boolean testOnSelf ){}
 
