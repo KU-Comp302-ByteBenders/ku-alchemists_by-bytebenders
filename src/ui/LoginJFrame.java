@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.Color;
 import javax.swing.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,15 +10,21 @@ import game.Game;
 
 public class LoginJFrame extends JFrame{
     public LoginJFrame() {
+        // Set the layout manager to null for absolute positioning
+        this.setLayout(null);
+
+        // Set the size of the frame
+        this.setSize(1280, 720);
+
+        this.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         // Create text fields
         JTextField textField1 = new JTextField(20);
         textField1.setText("Enter Player 1 name");
 
         JTextField textField2 = new JTextField(20);
         textField2.setText("Enter Player 2 name");
-
-        // Set the size of the frame
-        this.setSize(1280, 720);
 
         // Create a drop-down menu
         String[] options1 = {"Avatar 1", "Avatar 2", "Avatar 3", "Avatar 4"};
@@ -29,7 +36,40 @@ public class LoginJFrame extends JFrame{
         // Create a "Start the Game" button
         JButton startButton = new JButton("Start the Game");
 
+        // Create an "Avatar Menu" button
+        JButton avatarButton = new JButton("Avatar Menu");
 
+        // Create ImageIcons
+        ImageIcon icon1 = new ImageIcon("utils/avatar_1.jpg");
+        ImageIcon icon2 = new ImageIcon("utils/avatar_2.jpg");
+        ImageIcon icon3 = new ImageIcon("utils/avatar_3.jpg");
+        ImageIcon icon4 = new ImageIcon("utils/avatar_4.jpg");
+
+        // Create labels with ImageIcons
+        JLabel label1 = new JLabel(icon1);
+        JLabel label2 = new JLabel(icon2);
+        JLabel label3 = new JLabel(icon3);
+        JLabel label4 = new JLabel(icon4);
+
+        // Create a panel and add the labels to it
+        JPanel panel = new JPanel();
+        panel.add(label1);
+        panel.add(label2);
+        panel.add(label3);
+        panel.add(label4);
+
+        // Create a dialog and add the panel to it
+        JDialog dialog = new JDialog();
+        dialog.add(panel);
+        dialog.pack();
+
+        // Add an action listener to the button to show the dialog
+        avatarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dialog.setVisible(true);
+            }
+        }); 
         
         // Add an action listener to the button
         startButton.addActionListener(new ActionListener() {
@@ -38,7 +78,7 @@ public class LoginJFrame extends JFrame{
                 // Return the game instance
                 System.out.println("Start the game");
                 LoginJFrame.this.setVisible(false);
-                Game game = Game.getInstance();
+                //Game game = Game.getInstance();
                 // Do something with the game instance
             }
         });  
@@ -50,15 +90,14 @@ public class LoginJFrame extends JFrame{
         this.add(comboBox1);
         this.add(comboBox2);
         this.add(startButton);
-
-        // Set the layout manager to null for absolute positioning
-        this.setLayout(null);
+        this.add(avatarButton);
 
         // Set the position and size of the components
         textField1.setBounds(50, 50, 150, 20);
         textField2.setBounds(50, 80, 150, 20);
         comboBox1.setBounds(50, 110, 150, 20);
         comboBox2.setBounds(50, 140, 150, 20);
-        startButton.setBounds(50, 170, 150, 20); // Set the position and size of the button
+        startButton.setBounds(50, 170, 150, 20);
+        avatarButton.setBounds(50, 200, 150, 20);
     }
 }
