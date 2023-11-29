@@ -2,6 +2,10 @@ package ui;
 
 import java.awt.Color;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import game.Game;
 
 public class LoginJFrame extends JFrame{
     public LoginJFrame() {
@@ -21,6 +25,21 @@ public class LoginJFrame extends JFrame{
 
         // Create a "Start the Game" button
         JButton startButton = new JButton("Start the Game");
+
+
+        
+        // Add an action listener to the button
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Return the game instance
+                System.out.println("Start the game");
+                LoginJFrame.this.setVisible(false);
+                Game game = Game.getInstance();
+                // Do something with the game instance
+            }
+        });  
+        
 
         // Add text fields and drop-down menu to the frame
         this.add(textField1);
