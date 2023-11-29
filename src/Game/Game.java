@@ -20,7 +20,7 @@ public class Game {
         
     }
 
-    private void startGame(String username1, String username2, String avatar1, String avatar2){
+    public void startGame(String username1, String username2, String avatar1, String avatar2){
         // Start the game
         System.out.println("Start the game");
         Board board = new Board( username1,  username2,  avatar1,  avatar2);

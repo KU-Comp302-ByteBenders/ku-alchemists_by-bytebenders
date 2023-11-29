@@ -63,6 +63,7 @@ public class LoginJFrame extends JFrame{
                 System.out.println("Start the game");
                 LoginJFrame.this.setVisible(false);
                 Game game = Game.getInstance();
+                game.startGame(textField1.getText(), textField2.getText(), comboBox1.getSelectedItem().toString(), comboBox2.getSelectedItem().toString());
                 // Do something with the game instance
             }
         });  

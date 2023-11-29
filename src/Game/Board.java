@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-import Game.AlchemyMarker;
-import Game.Aspect;
+import game.AlchemyMarker;
+import game.Aspect;
 
 public class Board {
     private ArrayList<Token> tokens;
@@ -16,6 +16,7 @@ public class Board {
         Token token2 = new Token(username2, avatar2, avatar2);
         tokens.add(token1);
         tokens.add(token2);
+        creaIngredients();
 
 
         // Create a new board
@@ -73,5 +74,7 @@ public class Board {
         // Listeyi karıştır
         Collections.shuffle(ingredients, new Random());
         
+        return ingredients;
+
     }
 }
