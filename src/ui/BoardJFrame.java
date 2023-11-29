@@ -4,8 +4,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-import org.w3c.dom.events.MouseEvent;
-
 import game.*;
 
 import java.awt.*;
@@ -31,7 +29,7 @@ public class BoardJFrame extends JFrame {
 
 
         JPanel westPanel = new JPanel(new FlowLayout());  // Ingredients and Artifacts Of Board
-        JPanel eastPanel = new JPanel(new FlowLayout());  // Theories and Potions
+        JPanel eastPanel = new JPanel(new BorderLayout());  // Theories and Potions
         JPanel southPanel = new JPanel(new BorderLayout());
         JPanel northPanel = new JPanel(new BorderLayout());
         JPanel centerPanel = new JPanel(new FlowLayout()); // Deduction Board
@@ -49,6 +47,7 @@ public class BoardJFrame extends JFrame {
         JPanel opponentsAvatarArea = new JPanel(new FlowLayout()); // Opponents Avatar Area
         JPanel opponentsIngredientCardsArea = new JPanel(new FlowLayout()); // Opponents Ingredient Cards Area
         JPanel controlArea = new JPanel(new FlowLayout()); // Control Area
+        JPanel opponentsSegmentedAvatarArea = new JPanel(new BorderLayout());
 
 
         northPanel.setPreferredSize(new Dimension(1600, 220));
@@ -114,7 +113,7 @@ public class BoardJFrame extends JFrame {
         effects.setForeground(Color.BLACK);
 
         JLabel goldLabel = new JLabel();
-        goldLabel.setText("GOLD: 0");
+        goldLabel.setText("GOLD:" + token1.getGoldBalance());
         goldLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
         JLabel potionLabel = new JLabel();
@@ -122,7 +121,7 @@ public class BoardJFrame extends JFrame {
         potionLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
         JLabel reputationLabel = new JLabel();
-        reputationLabel.setText("REPUTATION: 0");
+        reputationLabel.setText("REPUTATION:" + token1.getReputation());
         reputationLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
         JLabel opponentsPotionLabel = new JLabel();
@@ -130,26 +129,58 @@ public class BoardJFrame extends JFrame {
         opponentsPotionLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
         JLabel opponentsReputationLabel = new JLabel();
-        opponentsReputationLabel.setText("REPUTATION: 0");
+        opponentsReputationLabel.setText("REPUTATION:" + token2.getReputation());
         opponentsReputationLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
         JLabel opponentsGoldLabel = new JLabel();
-        opponentsGoldLabel.setText("GOLD: 0");
+        opponentsGoldLabel.setText("GOLD:" + token2.getGoldBalance());
         opponentsGoldLabel.setFont(new Font("Arial", Font.BOLD, 20));
-
 
         ImageIcon pauseIcon = new ImageIcon("src/ui/utils/pause.png");
         JLabel pauseLabel = new JLabel(pauseIcon);
 
+        ImageIcon avatarIcon = new ImageIcon("src/ui/utils/"+token1.getAvatarImage()+".png");
+        JLabel avatarLabel = new JLabel(avatarIcon);
+
+        ImageIcon opponentsAvatarIcon = new ImageIcon("src/ui/utils/"+token2.getAvatarImage()+".png");
+        JLabel opponentsAvatarLabel = new JLabel(opponentsAvatarIcon);
+
+        JLabel username1 = new JLabel(token1.getUsername());
+        username1.setFont(new Font("Arial", Font.BOLD, 20));
+
+        JLabel username2 = new JLabel(token2.getUsername());
+        username2.setFont(new Font("Arial", Font.BOLD, 20));
+
+        ImageIcon potionBrewingIcon = new ImageIcon("src/ui/utils/potion-brewing.png");
+        JLabel potionBrewingLabel = new JLabel(potionBrewingIcon);
+
+        ImageIcon publicationAreaIcon = new ImageIcon("src/ui/utils/publication-brewing.png");
+        JLabel publicationAreaLabel = new JLabel(publicationAreaIcon);
+
+        JLabel artifactCardsLabel = new JLabel();
+        artifactCardsLabel.setText("ARTIFACT CARDS:");
+        artifactCardsLabel.setFont(new Font("Arial", Font.BOLD, 20));
+
+
+        opponentsSegmentedAvatarArea.add(opponentsGoldLabel, BorderLayout.NORTH);
+        opponentsSegmentedAvatarArea.add(opponentsReputationLabel, BorderLayout.CENTER);
+        opponentsSegmentedAvatarArea.add(username2, BorderLayout.SOUTH);
+
         controlArea.add(pauseLabel);
         effectArea.add(effects);
-        eastPanel.add(theories);
+        eastPanel.add(potionBrewingLabel, BorderLayout.NORTH);
+        eastPanel.add(publicationAreaLabel, BorderLayout.SOUTH);
         potionArea.add(potionLabel);
         avatarArea.add(goldLabel);
         avatarArea.add(reputationLabel);
+        avatarArea.add(avatarLabel);
+        avatarArea.add(username1);
         opponentsPotionArea.add(opponentsPotionLabel);
-        opponentsAvatarArea.add(opponentsGoldLabel);
-        opponentsAvatarArea.add(opponentsReputationLabel);
+        opponentsAvatarArea.add(opponentsSegmentedAvatarArea);
+        opponentsAvatarArea.add(opponentsAvatarLabel);
+
+        
+        artifactCardsArea.add(artifactCardsLabel);
 
         this.add(westPanel, BorderLayout.WEST);
         this.add(eastPanel, BorderLayout.EAST);

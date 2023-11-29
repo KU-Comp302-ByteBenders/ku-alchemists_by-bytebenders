@@ -6,24 +6,62 @@ public class Token {
     // TODO: Change the types and implements the functions
 
     private ArrayList<Ingredient> ingredients;
-    private ArrayList<String> potions;
-    private ArrayList<String> artifactCards;
-    private ArrayList<String> artifactEffects;
+    private ArrayList<Potion> potions;
+    private ArrayList<ArtifactCard> artifactCards;
+    private ArrayList<Effect> artifactEffects;
     private ArrayList<String> resultTriangle;
 
     private int goldBalance;
     private int sicknessLevel;
+    private String avatarImage;
+    private String tokenImage;
+    private String username;
+    private int reputation;
 
-    public Token(String name, String avatarImage, String tokenImage ){}
+    public Token(String username, String avatarImage, String tokenImage ){
+        ingredients = new ArrayList<Ingredient>();
+        potions = new ArrayList<Potion>();
+        artifactCards = new ArrayList<ArtifactCard>();
+        artifactEffects = new ArrayList<Effect>();
+        resultTriangle = new ArrayList<String>();
+        goldBalance = 0;
+        sicknessLevel = 0;
+        reputation = 0;
+        this.avatarImage = avatarImage;
+        this.tokenImage = tokenImage;
+        this.username = username;
+    }
 
     public void forageForIngredient(){}
 
-    public void addGold(int amount){}
+    public void addGold(int amount){
+        goldBalance += amount;
+    }
 
     public void decreaseGold(int amount){}
 
     public void addIngredient(Ingredient ingredient){
         ingredients.add(ingredient);
+    }
+
+    public ArrayList<Ingredient> getIngredients(){
+        return ingredients;
+    }
+
+    public String getAvatarImage() {
+        return avatarImage;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public int getGoldBalance() {
+        return goldBalance;
+    }
+
+    public int getReputation() {
+        return reputation;
     }
 
     public void makeExperiment(String ingredient1, String ingredient2, Boolean testOnSelf ){}

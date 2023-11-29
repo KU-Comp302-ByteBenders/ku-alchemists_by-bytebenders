@@ -27,10 +27,10 @@ public class LoginJFrame extends JFrame{
         textField2.setText("Enter Player 2 name");
 
         // Create a drop-down menu
-        String[] options1 = {"Avatar 1", "Avatar 2", "Avatar 3", "Avatar 4"};
+        String[] options1 = {"avatar_1", "avatar_2", "avatar_3", "avatar_4"};
         JComboBox<String> comboBox1 = new JComboBox<>(options1);
 
-        String[] options2 = {"Avatar 1", "Avatar 2", "Avatar 3", "Avatar 4"};
+        String[] options2 = {"avatar_1", "avatar_2", "avatar_3", "avatar_4"};
         JComboBox<String> comboBox2 = new JComboBox<>(options2);
 
         // Create a "Start the Game" button

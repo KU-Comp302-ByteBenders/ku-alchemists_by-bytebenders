@@ -6,31 +6,40 @@ import java.util.Random;
 
 import game.AlchemyMarker;
 import game.Aspect;
+import ui.BoardJFrame;
 import game.ArtifactCard;
 
 public class Board {
     private ArrayList<Token> tokens;
     private ArrayList<Ingredient> ingredients;
     private ArrayList<ArtifactCard> artifactCards;
+    private ArrayList<Theory> theories;
     
     public Board(String username1, String username2, String avatar1, String avatar2) {
+
+        tokens = new ArrayList<Token>();
+        ingredients = new ArrayList<Ingredient>();
+        artifactCards = new ArrayList<ArtifactCard>();
+        theories = new ArrayList<Theory>();
+
         Token token1 = new Token(username1, avatar1, avatar1);
         Token token2 = new Token(username2, avatar2, avatar2);
         tokens.add(token1);
         tokens.add(token2);
-        addIngredient();
-        addArtifactCard();
+        this.addIngredient();
+        this.addArtifactCard();
         token1.addGold(10);
         token2.addGold(10);
-        
+        theories = new ArrayList<Theory>();
 
+        BoardJFrame boardJFrame = new BoardJFrame(token1, token2, ingredients, artifactCards, theories);
 
         // Create a new board
         System.out.println("Create a new board");
         
     }
 
-    public void creaIngredients(){
+    public void createIngredients(){
         Aspect aspect1 = new Aspect("Red", "Small", "+");
         Aspect aspect2 = new Aspect("Blue", "Small", "+");
         Aspect aspect3 = new Aspect("Yellow", "Small", "+");
@@ -62,29 +71,25 @@ public class Board {
         Ingredient ingredient7 = new Ingredient("ing7", 7, alchemyMarker7);
         Ingredient ingredient8 = new Ingredient("ing8", 8, alchemyMarker8);
         
-        ingredients.add(ingredient1);
-        ingredients.add(ingredient2);
-        ingredients.add(ingredient3);
-        ingredients.add(ingredient4);
-        ingredients.add(ingredient5);
-        ingredients.add(ingredient6);
-        ingredients.add(ingredient7);
-        ingredients.add(ingredient8);
 
-        for (Ingredient ingredient : ingredients) {
-            for (int i = 0; i < 3; i++) {
-                ingredients.add(ingredient);
-            }
+        for (int i = 0; i < 4; i++) {
+            ingredients.add(ingredient1);
+            ingredients.add(ingredient2);
+            ingredients.add(ingredient3);
+            ingredients.add(ingredient4);
+            ingredients.add(ingredient5);
+            ingredients.add(ingredient6);
+            ingredients.add(ingredient7);
+            ingredients.add(ingredient8);
         }
 
-        // Listeyi karıştır
         Collections.shuffle(ingredients, new Random());
         
 
     }
 
     public void addIngredient(){
-        creaIngredients();
+        createIngredients();
         for (Token token : tokens) {
             for (int i = 0; i < 2; i++) {
                 token.addIngredient(ingredients.get(0));
