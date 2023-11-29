@@ -4,7 +4,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-import game.ArtifactCard;
+import org.w3c.dom.events.MouseEvent;
+
 import game.*;
 
 import java.awt.*;
@@ -137,6 +138,10 @@ public class BoardJFrame extends JFrame {
         opponentsGoldLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
 
+        ImageIcon pauseIcon = new ImageIcon("src/ui/utils/pause.png");
+        JLabel pauseLabel = new JLabel(pauseIcon);
+
+        controlArea.add(pauseLabel);
         effectArea.add(effects);
         eastPanel.add(theories);
         potionArea.add(potionLabel);
@@ -151,7 +156,6 @@ public class BoardJFrame extends JFrame {
         this.add(southPanel, BorderLayout.SOUTH);
         this.add(northPanel, BorderLayout.NORTH);
         this.add(centerPanel, BorderLayout.CENTER);
-
 
         setVisible(true);
 
