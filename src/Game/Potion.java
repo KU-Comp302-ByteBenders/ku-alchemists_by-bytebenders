@@ -1,3 +1,5 @@
+package game;
+
 public class Potion {
     
   private int pointVal;
