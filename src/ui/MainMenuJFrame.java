@@ -3,7 +3,7 @@ package ui;
 import java.awt.Color;
 import javax.swing.*;
 
-public class MainMenuJFrame {
+public class MainMenuJFrame extends JFrame{
     public MainMenuJFrame() {
         JFrame frame = new JFrame("KU ALCHEMIST");
         frame.setSize(1280, 720);

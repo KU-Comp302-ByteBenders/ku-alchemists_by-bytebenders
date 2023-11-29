@@ -1,3 +1,5 @@
+package Game;
+
 public class AlchemyMarker {
 
     private Aspect aspect1;
@@ -12,9 +14,7 @@ public class AlchemyMarker {
     }
 
     public boolean isOnIngredient(Ingredient ingredient) {
-        // Implement the logic to check if the AlchemyMarker is on the provided Ingredient
-        // For example, you might compare aspects or perform other checks
-        // Return true if the marker is on the ingredient, otherwise false
+
         return false;
     }
     
