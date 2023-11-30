@@ -62,14 +62,14 @@ public class Board {
         AlchemyMarker alchemyMarker7 = new AlchemyMarker(aspect3, aspect7, aspect5);
         AlchemyMarker alchemyMarker8 = new AlchemyMarker(aspect6, aspect7, aspect10);
 
-        Ingredient ingredient1 = new Ingredient("ing1", 1, alchemyMarker1);
-        Ingredient ingredient2 = new Ingredient("ing2", 2, alchemyMarker2);
-        Ingredient ingredient3 = new Ingredient("ing3", 3, alchemyMarker3);
-        Ingredient ingredient4 = new Ingredient("ing4", 4, alchemyMarker4);
-        Ingredient ingredient5 = new Ingredient("ing5", 5, alchemyMarker5);
-        Ingredient ingredient6 = new Ingredient("ing6", 6, alchemyMarker6);
-        Ingredient ingredient7 = new Ingredient("ing7", 7, alchemyMarker7);
-        Ingredient ingredient8 = new Ingredient("ing8", 8, alchemyMarker8);
+        Ingredient ingredient1 = new Ingredient("dragon fruit", 1, alchemyMarker1);
+        Ingredient ingredient2 = new Ingredient("emerald", 2, alchemyMarker2);
+        Ingredient ingredient3 = new Ingredient("feather", 3, alchemyMarker3);
+        Ingredient ingredient4 = new Ingredient("ginger", 4, alchemyMarker4);
+        Ingredient ingredient5 = new Ingredient("moondust", 5, alchemyMarker5);
+        Ingredient ingredient6 = new Ingredient("obsidian", 6, alchemyMarker6);
+        Ingredient ingredient7 = new Ingredient("redstone", 7, alchemyMarker7);
+        Ingredient ingredient8 = new Ingredient("saffron", 8, alchemyMarker8);
         
 
         for (int i = 0; i < 4; i++) {

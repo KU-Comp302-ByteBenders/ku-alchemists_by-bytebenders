@@ -28,27 +28,25 @@ public class BoardJFrame extends JFrame {
         Border lineBorder = new LineBorder(Color.BLACK, 2);
 
 
-        JPanel westPanel = new JPanel(new FlowLayout());  // Ingredients and Artifacts Of Board
+        JPanel westPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,100,20));  // Ingredients and Artifacts Of Board
         JPanel eastPanel = new JPanel(new BorderLayout());  // Theories and Potions
         JPanel southPanel = new JPanel(new BorderLayout());
         JPanel northPanel = new JPanel(new BorderLayout());
-        JPanel centerPanel = new JPanel(new FlowLayout()); // Deduction Board
+        JPanel centerPanel = new JPanel(new BorderLayout()); // Deduction Board
 
         JPanel westOfSouthPanel = new JPanel(new BorderLayout());
         JPanel eastOfSouthPanel = new JPanel(new BorderLayout());
 
-
-        JPanel ingredientCardsArea = new JPanel(new FlowLayout());  // Ingredient Cards Area
+        JPanel ingredientCardsArea = new JPanel(new FlowLayout(FlowLayout.CENTER));  // Ingredient Cards Area
         JPanel artifactCardsArea = new JPanel(new FlowLayout());  // Artifact Cards Area
         JPanel effectArea = new JPanel(new FlowLayout());  // Effect Area
         JPanel potionArea = new JPanel(new FlowLayout()); // Hand Potion Area
         JPanel avatarArea = new JPanel(new FlowLayout()); // Avatar Area
         JPanel opponentsPotionArea = new JPanel(new FlowLayout()); // Opponents Potion Area
         JPanel opponentsAvatarArea = new JPanel(new FlowLayout()); // Opponents Avatar Area
-        JPanel opponentsIngredientCardsArea = new JPanel(new FlowLayout()); // Opponents Ingredient Cards Area
+        JPanel opponentsIngredientCardsArea = new JPanel(new FlowLayout(FlowLayout.CENTER)); // Opponents Ingredient Cards Area
         JPanel controlArea = new JPanel(new FlowLayout()); // Control Area
         JPanel opponentsSegmentedAvatarArea = new JPanel(new BorderLayout());
-
 
         northPanel.setPreferredSize(new Dimension(1600, 220));
         westPanel.setPreferredSize(new Dimension(450, 460));
@@ -104,6 +102,79 @@ public class BoardJFrame extends JFrame {
         opponentsIngredientCardsArea.setBorder(lineBorder);
         controlArea.setBorder(lineBorder);
 
+        ImageIcon obsidianIcon = new ImageIcon("src/ui/utils/obsidian.jpg"); 
+        ImageIcon saffronIcon = new ImageIcon("src/ui/utils/saffron.jpg"); 
+        ImageIcon featherIcon = new ImageIcon("src/ui/utils/feather.png"); 
+        ImageIcon emeraldIcon = new ImageIcon("src/ui/utils/emerald.jpg"); 
+        ImageIcon redstoneIcon = new ImageIcon("src/ui/utils/redstone.jpg");
+        ImageIcon moondustIcon = new ImageIcon("src/ui/utils/moondust.jpg");
+        ImageIcon gingerIcon = new ImageIcon("src/ui/utils/ginger.png");
+        ImageIcon dragonIcon = new ImageIcon("src/ui/utils/dragon fru.jpg");
+
+       
+       
+        ImageIcon  bigArtifactBackIcon = new ImageIcon("src/ui/utils/artifact card image.png"); 
+        ImageIcon bigIngredientBackIcon = new ImageIcon("src/ui/utils/ingredient image.png");
+        ImageIcon centerIcon = new ImageIcon("src/ui/utils/pubboard.png");
+        
+        JLabel bigIngBackLabel = new JLabel(bigIngredientBackIcon);
+        JLabel bigArtifactBackLabel = new JLabel(bigArtifactBackIcon);
+        JLabel  centerLabel= new JLabel(centerIcon);
+
+        westPanel.add(bigIngBackLabel);
+        westPanel.add(bigArtifactBackLabel);
+        centerPanel.add(centerLabel);
+
+        ImageIcon smallIngredientBackIcon = new ImageIcon("src/ui/utils/small-ingredient-image.png");
+
+        int token2IngNum;
+        int token1IngNum=token1.getIngredients().size();
+
+        for (token2IngNum=token2.getIngredients().size(); token2IngNum>0;token2IngNum--){
+            JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
+            opponentsIngredientCardsArea.add(opponentIngLabel);
+        }
+        
+        for (int i=0; i<token1IngNum;i++){
+            Ingredient token1Ingredient = token1.getIngredients().get(i);
+            int ingID = token1Ingredient.getID();
+            switch(ingID){
+                case 1:
+                    JLabel case1Label = new JLabel(dragonIcon);    
+                    ingredientCardsArea.add(case1Label);
+                    break;
+                case 2:
+                    JLabel case2Label = new JLabel(emeraldIcon);
+                    ingredientCardsArea.add(case2Label);
+                    break;
+                case 3:
+                    JLabel case3Label = new JLabel(featherIcon);
+                    ingredientCardsArea.add(case3Label);
+                    break;
+                case 4:
+                     JLabel case4Label = new JLabel(gingerIcon);
+                    ingredientCardsArea.add(case4Label);
+                case 5:
+                    JLabel case5Label = new JLabel(moondustIcon);
+                    ingredientCardsArea.add(case5Label);
+                    break;
+                case 6:
+                    JLabel case6Label = new JLabel(obsidianIcon);
+                    ingredientCardsArea.add(case6Label);
+                    break;
+                case 7:
+                    JLabel case7Label = new JLabel(redstoneIcon);
+                    ingredientCardsArea.add(case7Label);
+                    break;
+                case 8:        
+                    JLabel case8Label = new JLabel(saffronIcon);
+                    ingredientCardsArea.add(case8Label);
+                    break;
+            }
+        }
+
+ 
+        
         JLabel theories = new JLabel("THEORIES:");
         theories.setFont(new Font("Arial", Font.BOLD, 20));
         theories.setForeground(Color.BLACK);
@@ -189,6 +260,5 @@ public class BoardJFrame extends JFrame {
         this.add(centerPanel, BorderLayout.CENTER);
 
         setVisible(true);
-
     }
 }

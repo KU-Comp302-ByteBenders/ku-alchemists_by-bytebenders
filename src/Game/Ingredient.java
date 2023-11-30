@@ -12,5 +12,14 @@ public class Ingredient {
     this.alchemyMarker = alchemyMarker;
   }
 
+  public String getName(){
+    return name;
+  }
+  public int getID(){
+    return id;
+  }
+  public AlchemyMarker alchemyMarker(){
+    return alchemyMarker;
+  }
   
 }
