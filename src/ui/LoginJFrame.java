@@ -1,6 +1,9 @@
 package ui;
 
 import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
 import javax.swing.*;
 
 import java.awt.event.ActionEvent;
@@ -48,12 +51,47 @@ public class LoginJFrame extends JFrame{
         JButton button3 = new JButton(icon3);
         JButton button4 = new JButton(icon4);
 
-        // Create a panel and add the buttons to it
+        // Create avatar labels
+        JLabel label1 = new JLabel("avatar_1");
+        JLabel label2 = new JLabel("avatar_2");
+        JLabel label3 = new JLabel("avatar_3");
+        JLabel label4 = new JLabel("avatar_4");       
+        
+        // Create a GridBagLayout and GridBagConstraints
+        GridBagLayout layout = new GridBagLayout();
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        // Create a panel and add the avatar labels and buttons to it
         JPanel panel = new JPanel();
-        panel.add(button1);
-        panel.add(button2);
-        panel.add(button3);
-        panel.add(button4);
+        panel.setLayout(layout);
+
+        // Add label1 and button1 to the panel
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        panel.add(label1, gbc);
+        gbc.gridy = 1;
+        panel.add(button1, gbc);
+
+        // Add label2 and button2 to the panel
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        panel.add(label2, gbc);
+        gbc.gridy = 1;
+        panel.add(button2, gbc);
+
+        // Add label3 and button3 to the panel
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        panel.add(label3, gbc);
+        gbc.gridy = 1;
+        panel.add(button3, gbc);
+
+        // Add label4 and button4 to the panel
+        gbc.gridx = 3;
+        gbc.gridy = 0;
+        panel.add(label4, gbc);
+        gbc.gridy = 1;
+        panel.add(button4, gbc);
         
         // Add an action listener to the button
         startButton.addActionListener(new ActionListener() {
@@ -68,7 +106,7 @@ public class LoginJFrame extends JFrame{
             }
         });  
 
-        // Add action listeners to the buttons
+        // Add action listeners to the avatar buttons
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -94,7 +132,7 @@ public class LoginJFrame extends JFrame{
             }
         });
 
-        // Add text fields and drop-down menu to the frame
+        // Add text fields and drop-down menu, and the avatar panel to the frame
         this.add(textField1);
         this.add(textField2);
         this.add(panel);
@@ -108,6 +146,6 @@ public class LoginJFrame extends JFrame{
         comboBox1.setBounds(50, 110, 150, 20);
         comboBox2.setBounds(50, 140, 150, 20);
         startButton.setBounds(50, 170, 150, 20);
-        panel.setBounds(250, 50, 750, 150);
+        panel.setBounds(250, 50, 750, 175);
     }
 }
