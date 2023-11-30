@@ -136,8 +136,28 @@ public class BoardJFrame extends JFrame {
         opponentsGoldLabel.setText("GOLD:" + token2.getGoldBalance());
         opponentsGoldLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
+        JPanel controlbackgroundPanelToken1 = new JPanel();
+        controlbackgroundPanelToken1.setBackground(Color.LIGHT_GRAY);
+
+        JLabel scoreLabel1 = new JLabel();
+        scoreLabel1.setText("Token1 Score=" + token1.getScore());
+        scoreLabel1.setFont(new Font("Arial", Font.BOLD, 20));
+
+        JPanel controlbackgroundPanelToken2 = new JPanel();
+        controlbackgroundPanelToken2.setBackground(Color.LIGHT_GRAY);
+
+        JLabel scoreLabel2 = new JLabel();
+        scoreLabel2.setText("Token2 Score=" + token2.getScore());
+        scoreLabel2.setFont(new Font("Arial", Font.BOLD, 20));
+
         ImageIcon pauseIcon = new ImageIcon("src/ui/utils/pause.png");
         JLabel pauseLabel = new JLabel(pauseIcon);
+
+        ImageIcon exitIcon = new ImageIcon("src/ui/utils/exit.png");
+        JLabel exitLabel = new JLabel(exitIcon);
+
+        ImageIcon menuIcon = new ImageIcon("src/ui/utils/menu.png");
+        JLabel menuLabel = new JLabel(menuIcon);
 
         ImageIcon avatarIcon = new ImageIcon("src/ui/utils/"+token1.getAvatarImage()+".png");
         JLabel avatarLabel = new JLabel(avatarIcon);
@@ -166,7 +186,13 @@ public class BoardJFrame extends JFrame {
         opponentsSegmentedAvatarArea.add(opponentsReputationLabel, BorderLayout.CENTER);
         opponentsSegmentedAvatarArea.add(username2, BorderLayout.SOUTH);
 
+        controlbackgroundPanelToken1.add(scoreLabel1);
+        controlbackgroundPanelToken2.add(scoreLabel2);
+        controlArea.add(controlbackgroundPanelToken1);
+        controlArea.add(controlbackgroundPanelToken2);
         controlArea.add(pauseLabel);
+        controlArea.add(menuLabel);
+        controlArea.add(exitLabel);
         effectArea.add(effects);
         eastPanel.add(potionBrewingLabel, BorderLayout.NORTH);
         eastPanel.add(publicationAreaLabel, BorderLayout.SOUTH);

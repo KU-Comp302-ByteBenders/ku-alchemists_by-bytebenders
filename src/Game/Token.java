@@ -64,6 +64,10 @@ public class Token {
         return reputation;
     }
 
+    public int getScore(){
+        return 0;
+    }
+
     public void makeExperiment(String ingredient1, String ingredient2, Boolean testOnSelf ){}
 
     public void addPotion(String potion){}
