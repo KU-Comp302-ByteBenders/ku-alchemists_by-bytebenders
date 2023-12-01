@@ -15,6 +15,7 @@ public class Log {
 
     // no constructor as this is class is a Singleton
 
+    /*
     private void updateText(String newText) {}
 
     private void displayText() {}
@@ -35,5 +36,5 @@ public class Log {
 
     private String logPublishTheory(Ingredient ingredient, AlchemyMarker alchemyMarker) {}
 
-    private String logDebunkTheory(Ingredient ingredient, AlchemyMarker alchemyMarker, Token publisher, boolean success) {}
+    private String logDebunkTheory(Ingredient ingredient, AlchemyMarker alchemyMarker, Token publisher, boolean success) {} */
 }

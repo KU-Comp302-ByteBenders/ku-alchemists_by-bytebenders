@@ -1,9 +1,9 @@
 package ui;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
+import game.*;
 
 public class MainMenuJFrame extends JFrame {
 
@@ -28,12 +28,8 @@ public class MainMenuJFrame extends JFrame {
         newGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // When the button is clicked, create an instance of LoginScreen and make it visible
-                LoginJFrame loginScreen = new LoginJFrame();
-                loginScreen.setVisible(true);
-
-                // Hide the current main menu screen if needed
-                MainMenuJFrame.this.setVisible(false);
+                Game game = Game.getInstance();
+                game.openLogin(MainMenuJFrame.this);
             }
         });
 
@@ -48,5 +44,15 @@ public class MainMenuJFrame extends JFrame {
         this.add(newGameButton);
         this.add(helpButton);
         this.add(exitButton);
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (screenSize.width - this.getWidth()) / 2;
+        int y = (screenSize.height - this.getHeight()) / 2;
+
+        // Set the frame location
+        this.setLocation(x, y);
+
+        // Make the frame visible
+        this.setVisible(true);
     }
 }
