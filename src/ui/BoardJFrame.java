@@ -25,7 +25,7 @@ public class BoardJFrame extends JFrame {
     Border lineBorder = new LineBorder(Color.BLACK, 2);
 
     JPanel westPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 20)); // Ingredients and Artifacts Of Board
-    JPanel eastPanel = new JPanel(new BorderLayout()); // Theories and Potions
+    JPanel eastPanel = new JPanel(new FlowLayout()); // Theories and Potions
     JPanel southPanel = new JPanel(new BorderLayout());
     JPanel northPanel = new JPanel(new BorderLayout());
     JPanel centerPanel = new JPanel(new BorderLayout()); // Deduction Board
@@ -255,8 +255,6 @@ public class BoardJFrame extends JFrame {
     controlArea.add(menuLabel);
     controlArea.add(exitLabel);
     effectArea.add(effects);
-    eastPanel.add(potionBrewingLabel, BorderLayout.NORTH);
-    eastPanel.add(publicationAreaLabel, BorderLayout.SOUTH);
     potionArea.add(potionLabel);
     avatarArea.add(goldLabel);
     avatarArea.add(reputationLabel);
