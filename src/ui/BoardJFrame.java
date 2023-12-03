@@ -65,7 +65,7 @@ public class BoardJFrame extends JFrame {
 
     // CREATE THE JPANELS AND JLABELS
 
-    lineBorder = new LineBorder(Color.BLACK, 2);
+    lineBorder = new LineBorder(new Color(229, 113, 133), 1);
 
     westPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 20)); // Ingredients and Artifacts Of Board
     eastPanel = new JPanel(new FlowLayout()); // Theories and Potions
