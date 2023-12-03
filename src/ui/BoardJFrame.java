@@ -293,11 +293,6 @@ public class BoardJFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
           Ingredient ingredient = token1.forageForIngredient(board);
-          try {
-            Thread.sleep(2000);
-          } catch (Exception exception) {
-            System.out.println(exception);
-          }
           addIngredient(ingredient);
         }
       }
@@ -307,9 +302,16 @@ public class BoardJFrame extends JFrame {
 
   public void addIngredient(Ingredient ingredient) {
     int ingID = ingredient.getID();
+    System.out.println("IIIIIIIIIIIIIII");
+    for (Ingredient ing : token1.getIngredients()) {
+      System.out.println("ing.getID() = " + ing.getID());
+    }
+    System.out.println("IIIIIIIIIIIIIII");
 
     ImageIcon ingredientIcon = new ImageIcon("src/ui/utils/ingredient_" + ingID + ".jpg");
     JLabel ingredientLabel = new JLabel(ingredientIcon);
     ingredientCardsArea.add(ingredientLabel);
+    this.setVisible(false);
+    this.setVisible(true);
   }
 }
