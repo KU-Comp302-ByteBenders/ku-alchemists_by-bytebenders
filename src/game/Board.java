@@ -1,8 +1,5 @@
 package game;
 
-import game.AlchemyMarker;
-import game.ArtifactCard;
-import game.Aspect;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;

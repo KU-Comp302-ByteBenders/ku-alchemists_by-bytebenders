@@ -73,6 +73,10 @@ public class Token {
     return 0;
   }
 
+  public ArrayList<ArtifactCard> getArtifactCards() {
+    return artifactCards;
+  }
+
   public void makeExperiment(String ingredient1, String ingredient2, Boolean testOnSelf) {}
 
   public void addPotion(String potion) {}
