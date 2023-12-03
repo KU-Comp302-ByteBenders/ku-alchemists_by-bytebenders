@@ -3,92 +3,95 @@ package game;
 import java.util.ArrayList;
 
 public class Token {
-    // TODO: Change the types and implements the functions
 
-    private ArrayList<Ingredient> ingredients;
-    private ArrayList<Potion> potions;
-    private ArrayList<ArtifactCard> artifactCards;
-    private ArrayList<Effect> artifactEffects;
-    private ArrayList<String> resultTriangle;
+  // TODO: Change the types and implements the functions
 
-    private int goldBalance;
-    private int sicknessLevel;
-    private String avatarImage;
-    private String tokenImage;
-    private String username;
-    private int reputation;
+  private ArrayList<Ingredient> ingredients;
+  private ArrayList<Potion> potions;
+  private ArrayList<ArtifactCard> artifactCards;
+  private ArrayList<Effect> artifactEffects;
+  private ArrayList<String> resultTriangle;
 
-    public Token(String username, String avatarImage, String tokenImage ){
-        ingredients = new ArrayList<Ingredient>();
-        potions = new ArrayList<Potion>();
-        artifactCards = new ArrayList<ArtifactCard>();
-        artifactEffects = new ArrayList<Effect>();
-        resultTriangle = new ArrayList<String>();
-        goldBalance = 0;
-        sicknessLevel = 0;
-        reputation = 0;
-        this.avatarImage = avatarImage;
-        this.tokenImage = tokenImage;
-        this.username = username;
-    }
+  private int goldBalance;
+  private int sicknessLevel;
+  private String avatarImage;
+  private String tokenImage;
+  private String username;
+  private int reputation;
 
-    public void forageForIngredient(){}
+  public Token(String username, String avatarImage, String tokenImage) {
+    ingredients = new ArrayList<Ingredient>();
+    potions = new ArrayList<Potion>();
+    artifactCards = new ArrayList<ArtifactCard>();
+    artifactEffects = new ArrayList<Effect>();
+    resultTriangle = new ArrayList<String>();
+    goldBalance = 0;
+    sicknessLevel = 0;
+    reputation = 0;
+    this.avatarImage = avatarImage;
+    this.tokenImage = tokenImage;
+    this.username = username;
+  }
 
-    public void addGold(int amount){
-        goldBalance += amount;
-    }
+  public Ingredient forageForIngredient(Board board) {
+    Ingredient ingredient = board.getIngredientFromDeck();
+    ingredients.add(ingredient);
+    return ingredient;
+  }
 
-    public void decreaseGold(int amount){}
+  public void addGold(int amount) {
+    goldBalance += amount;
+  }
 
-    public void addIngredient(Ingredient ingredient){
-        ingredients.add(ingredient);
-    }
+  public void decreaseGold(int amount) {}
 
-    public ArrayList<Ingredient> getIngredients(){
-        return ingredients;
-    }
+  public void addIngredient(Ingredient ingredient) {
+    ingredients.add(ingredient);
+  }
 
-    public String getAvatarImage() {
-        return avatarImage;
-    }
+  public ArrayList<Ingredient> getIngredients() {
+    return ingredients;
+  }
 
-    public String getUsername() {
-        return username;
-    }
+  public String getAvatarImage() {
+    return avatarImage;
+  }
 
-    public int getGoldBalance() {
-        return goldBalance;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public int getReputation() {
-        return reputation;
-    }
+  public int getGoldBalance() {
+    return goldBalance;
+  }
 
-    public int getScore(){
-        return 0;
-    }
+  public int getReputation() {
+    return reputation;
+  }
 
-    public void makeExperiment(String ingredient1, String ingredient2, Boolean testOnSelf ){}
+  public int getScore() {
+    return 0;
+  }
 
-    public void addPotion(String potion){}
+  public void makeExperiment(String ingredient1, String ingredient2, Boolean testOnSelf) {}
 
-    public void removeIngredient(String ingredient){}
+  public void addPotion(String potion) {}
 
-    public void sellPotion(String potion){}
+  public void removeIngredient(String ingredient) {}
 
-    public void removePotion(String potion){}
+  public void sellPotion(String potion) {}
 
-    public void publishTheory(String ingredient, String alchemyMarker){}
+  public void removePotion(String potion) {}
 
-    public void addReputation(int amount){}
+  public void publishTheory(String ingredient, String alchemyMarker) {}
 
-    public void decreaseReputation(int amount){}
+  public void addReputation(int amount) {}
 
-    public void buyArtifactCard(String artifactCard){}
+  public void decreaseReputation(int amount) {}
 
-    public void useArtifactCard(String artifactCard){}
+  public void buyArtifactCard(String artifactCard) {}
 
-    public void transmuteIngredient(String ingredient){}
+  public void useArtifactCard(String artifactCard) {}
 
-
+  public void transmuteIngredient(String ingredient) {}
 }

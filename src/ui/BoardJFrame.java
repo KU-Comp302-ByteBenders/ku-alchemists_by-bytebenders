@@ -2,47 +2,96 @@ package ui;
 
 import game.*;
 import java.awt.*;
-import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 public class BoardJFrame extends JFrame {
 
-  public BoardJFrame(
-    Token token1,
-    Token token2,
-    ArrayList<Ingredient> ingredientList,
-    ArrayList<ArtifactCard> artifactCardsList,
-    ArrayList<Theory> theoryList
-  ) {
+  Token token1;
+  Token token2;
+  Border lineBorder;
+  Board board;
+
+  JPanel westPanel;
+  JPanel eastPanel;
+  JPanel southPanel;
+  JPanel northPanel;
+  JPanel centerPanel;
+
+  JPanel westOfSouthPanel;
+  JPanel eastOfSouthPanel;
+
+  JLabel bigIngBackLabel;
+  JLabel bigArtifactBackLabel;
+  JLabel centerLabel;
+
+  JPanel ingredientCardsArea;
+  JPanel artifactCardsArea;
+  JPanel effectArea;
+  JPanel potionArea;
+  JPanel avatarArea;
+  JPanel opponentsPotionArea;
+  JPanel opponentsAvatarArea;
+  JPanel opponentsIngredientCardsArea;
+  JPanel controlArea;
+  JPanel opponentsSegmentedAvatarArea;
+
+  ImageIcon obsidianIcon = new ImageIcon("src/ui/utils/obsidian.jpg");
+  ImageIcon saffronIcon = new ImageIcon("src/ui/utils/saffron.jpg");
+  ImageIcon featherIcon = new ImageIcon("src/ui/utils/feather.png");
+  ImageIcon emeraldIcon = new ImageIcon("src/ui/utils/emerald.jpg");
+  ImageIcon redstoneIcon = new ImageIcon("src/ui/utils/redstone.jpg");
+  ImageIcon moondustIcon = new ImageIcon("src/ui/utils/moondust.jpg");
+  ImageIcon gingerIcon = new ImageIcon("src/ui/utils/ginger.png");
+  ImageIcon dragonIcon = new ImageIcon("src/ui/utils/dragon fru.jpg");
+  ImageIcon bigArtifactBackIcon = new ImageIcon("src/ui/utils/artifact card image.png");
+  ImageIcon bigIngredientBackIcon = new ImageIcon("src/ui/utils/ingredient image.png");
+  ImageIcon centerIcon = new ImageIcon("src/ui/utils/pubboard.png");
+  ImageIcon smallIngredientBackIcon = new ImageIcon("src/ui/utils/small-ingredient-image.png");
+
+  public BoardJFrame(Board board) {
     super("KUALCH");
+    this.board = board;
+    token1 = board.getTokens().get(0);
+    token2 = board.getTokens().get(1);
+
     setSize(1600, 900);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setResizable(false);
     setLayout(new BorderLayout());
 
-    Border lineBorder = new LineBorder(Color.BLACK, 2);
+    // CREATE THE JPANELS AND JLABELS
 
-    JPanel westPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 20)); // Ingredients and Artifacts Of Board
-    JPanel eastPanel = new JPanel(new FlowLayout()); // Theories and Potions
-    JPanel southPanel = new JPanel(new BorderLayout());
-    JPanel northPanel = new JPanel(new BorderLayout());
-    JPanel centerPanel = new JPanel(new BorderLayout()); // Deduction Board
+    lineBorder = new LineBorder(Color.BLACK, 2);
 
-    JPanel westOfSouthPanel = new JPanel(new BorderLayout());
-    JPanel eastOfSouthPanel = new JPanel(new BorderLayout());
+    westPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 20)); // Ingredients and Artifacts Of Board
+    eastPanel = new JPanel(new FlowLayout()); // Theories and Potions
+    southPanel = new JPanel(new BorderLayout());
+    northPanel = new JPanel(new BorderLayout());
+    centerPanel = new JPanel(new BorderLayout()); // Deduction Board
 
-    JPanel ingredientCardsArea = new JPanel(new FlowLayout(FlowLayout.CENTER)); // Ingredient Cards Area
-    JPanel artifactCardsArea = new JPanel(new FlowLayout()); // Artifact Cards Area
-    JPanel effectArea = new JPanel(new FlowLayout()); // Effect Area
-    JPanel potionArea = new JPanel(new FlowLayout()); // Hand Potion Area
-    JPanel avatarArea = new JPanel(new FlowLayout()); // Avatar Area
-    JPanel opponentsPotionArea = new JPanel(new FlowLayout()); // Opponents Potion Area
-    JPanel opponentsAvatarArea = new JPanel(new FlowLayout()); // Opponents Avatar Area
-    JPanel opponentsIngredientCardsArea = new JPanel(new FlowLayout(FlowLayout.CENTER)); // Opponents Ingredient Cards Area
-    JPanel controlArea = new JPanel(new FlowLayout()); // Control Area
-    JPanel opponentsSegmentedAvatarArea = new JPanel(new BorderLayout());
+    westOfSouthPanel = new JPanel(new BorderLayout());
+    eastOfSouthPanel = new JPanel(new BorderLayout());
+
+    ingredientCardsArea = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    artifactCardsArea = new JPanel(new FlowLayout());
+    effectArea = new JPanel(new FlowLayout());
+    potionArea = new JPanel(new FlowLayout());
+    avatarArea = new JPanel(new FlowLayout());
+    opponentsPotionArea = new JPanel(new FlowLayout());
+    opponentsAvatarArea = new JPanel(new FlowLayout());
+    opponentsIngredientCardsArea = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    controlArea = new JPanel(new FlowLayout());
+    opponentsSegmentedAvatarArea = new JPanel(new BorderLayout());
+
+    bigIngBackLabel = new JLabel(bigIngredientBackIcon);
+    bigArtifactBackLabel = new JLabel(bigArtifactBackIcon);
+    centerLabel = new JLabel(centerIcon);
+
+    // SET THE DIMENSIONS OF THE JPANELS AND JLABELS
 
     northPanel.setPreferredSize(new Dimension(1600, 220));
     westPanel.setPreferredSize(new Dimension(450, 460));
@@ -65,20 +114,7 @@ public class BoardJFrame extends JFrame {
     opponentsIngredientCardsArea.setPreferredSize(new Dimension(700, 170));
     controlArea.setPreferredSize(new Dimension(700, 50));
 
-    southPanel.add(westOfSouthPanel, BorderLayout.WEST);
-    southPanel.add(eastOfSouthPanel, BorderLayout.EAST);
-    southPanel.add(ingredientCardsArea, BorderLayout.CENTER);
-
-    westOfSouthPanel.add(artifactCardsArea, BorderLayout.WEST);
-    westOfSouthPanel.add(effectArea, BorderLayout.EAST);
-
-    eastOfSouthPanel.add(potionArea, BorderLayout.WEST);
-    eastOfSouthPanel.add(avatarArea, BorderLayout.EAST);
-
-    northPanel.add(opponentsPotionArea, BorderLayout.WEST);
-    northPanel.add(opponentsAvatarArea, BorderLayout.EAST);
-    northPanel.add(opponentsIngredientCardsArea, BorderLayout.CENTER);
-    northPanel.add(controlArea, BorderLayout.NORTH);
+    // SET BORDERS
 
     northPanel.setBorder(lineBorder);
     westPanel.setBorder(lineBorder);
@@ -97,74 +133,27 @@ public class BoardJFrame extends JFrame {
     opponentsIngredientCardsArea.setBorder(lineBorder);
     controlArea.setBorder(lineBorder);
 
-    ImageIcon obsidianIcon = new ImageIcon("src/ui/utils/obsidian.jpg");
-    ImageIcon saffronIcon = new ImageIcon("src/ui/utils/saffron.jpg");
-    ImageIcon featherIcon = new ImageIcon("src/ui/utils/feather.png");
-    ImageIcon emeraldIcon = new ImageIcon("src/ui/utils/emerald.jpg");
-    ImageIcon redstoneIcon = new ImageIcon("src/ui/utils/redstone.jpg");
-    ImageIcon moondustIcon = new ImageIcon("src/ui/utils/moondust.jpg");
-    ImageIcon gingerIcon = new ImageIcon("src/ui/utils/ginger.png");
-    ImageIcon dragonIcon = new ImageIcon("src/ui/utils/dragon fru.jpg");
+    // ADD INGREDIENTS TO THE BOARD
 
-    ImageIcon bigArtifactBackIcon = new ImageIcon("src/ui/utils/artifact card image.png");
-    ImageIcon bigIngredientBackIcon = new ImageIcon("src/ui/utils/ingredient image.png");
-    ImageIcon centerIcon = new ImageIcon("src/ui/utils/pubboard.png");
+    int token2IngredientsNumber = token2.getIngredients().size();
+    int token1IngredientsNumber = token1.getIngredients().size();
 
-    JLabel bigIngBackLabel = new JLabel(bigIngredientBackIcon);
-    JLabel bigArtifactBackLabel = new JLabel(bigArtifactBackIcon);
-    JLabel centerLabel = new JLabel(centerIcon);
-
-    westPanel.add(bigIngBackLabel);
-    westPanel.add(bigArtifactBackLabel);
-    centerPanel.add(centerLabel);
-
-    ImageIcon smallIngredientBackIcon = new ImageIcon("src/ui/utils/small-ingredient-image.png");
-
-    int token2IngNum;
-    int token1IngNum = token1.getIngredients().size();
-
-    for (token2IngNum = token2.getIngredients().size(); token2IngNum > 0; token2IngNum--) {
+    for (int i = 0; i < token2IngredientsNumber; i++) {
       JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
       opponentsIngredientCardsArea.add(opponentIngLabel);
     }
 
-    for (int i = 0; i < token1IngNum; i++) {
+    System.out.println("token1.getIngredients().size() = " + token1.getIngredients().size());
+
+    for (int i = 0; i < token1IngredientsNumber; i++) {
       Ingredient token1Ingredient = token1.getIngredients().get(i);
       int ingID = token1Ingredient.getID();
-      switch (ingID) {
-        case 1:
-          JLabel case1Label = new JLabel(dragonIcon);
-          ingredientCardsArea.add(case1Label);
-          break;
-        case 2:
-          JLabel case2Label = new JLabel(emeraldIcon);
-          ingredientCardsArea.add(case2Label);
-          break;
-        case 3:
-          JLabel case3Label = new JLabel(featherIcon);
-          ingredientCardsArea.add(case3Label);
-          break;
-        case 4:
-          JLabel case4Label = new JLabel(gingerIcon);
-          ingredientCardsArea.add(case4Label);
-        case 5:
-          JLabel case5Label = new JLabel(moondustIcon);
-          ingredientCardsArea.add(case5Label);
-          break;
-        case 6:
-          JLabel case6Label = new JLabel(obsidianIcon);
-          ingredientCardsArea.add(case6Label);
-          break;
-        case 7:
-          JLabel case7Label = new JLabel(redstoneIcon);
-          ingredientCardsArea.add(case7Label);
-          break;
-        case 8:
-          JLabel case8Label = new JLabel(saffronIcon);
-          ingredientCardsArea.add(case8Label);
-          break;
-      }
+      ImageIcon ingredientIcon = new ImageIcon("src/ui/utils/ingredient_" + ingID + ".jpg");
+      JLabel ingredientLabel = new JLabel(ingredientIcon);
+      ingredientCardsArea.add(ingredientLabel);
     }
+
+    // CREATE THE JLABELS THAT CONTAIN WORDS.
 
     JLabel theories = new JLabel("THEORIES:");
     theories.setFont(new Font("Arial", Font.BOLD, 20));
@@ -233,15 +222,30 @@ public class BoardJFrame extends JFrame {
     JLabel username2 = new JLabel(token2.getUsername());
     username2.setFont(new Font("Arial", Font.BOLD, 20));
 
-    ImageIcon potionBrewingIcon = new ImageIcon("src/ui/utils/potion-brewing.png");
-    JLabel potionBrewingLabel = new JLabel(potionBrewingIcon);
-
-    ImageIcon publicationAreaIcon = new ImageIcon("src/ui/utils/publication-brewing.png");
-    JLabel publicationAreaLabel = new JLabel(publicationAreaIcon);
-
     JLabel artifactCardsLabel = new JLabel();
     artifactCardsLabel.setText("ARTIFACT CARDS:");
     artifactCardsLabel.setFont(new Font("Arial", Font.BOLD, 20));
+
+    // ADD THE JPANELS AND JLABELS TO THE JPANELS
+
+    southPanel.add(westOfSouthPanel, BorderLayout.WEST);
+    southPanel.add(eastOfSouthPanel, BorderLayout.EAST);
+    southPanel.add(ingredientCardsArea, BorderLayout.CENTER);
+
+    westOfSouthPanel.add(artifactCardsArea, BorderLayout.WEST);
+    westOfSouthPanel.add(effectArea, BorderLayout.EAST);
+
+    eastOfSouthPanel.add(potionArea, BorderLayout.WEST);
+    eastOfSouthPanel.add(avatarArea, BorderLayout.EAST);
+
+    northPanel.add(opponentsPotionArea, BorderLayout.WEST);
+    northPanel.add(opponentsAvatarArea, BorderLayout.EAST);
+    northPanel.add(opponentsIngredientCardsArea, BorderLayout.CENTER);
+    northPanel.add(controlArea, BorderLayout.NORTH);
+
+    westPanel.add(bigIngBackLabel);
+    westPanel.add(bigArtifactBackLabel);
+    centerPanel.add(centerLabel);
 
     opponentsSegmentedAvatarArea.add(opponentsGoldLabel, BorderLayout.NORTH);
     opponentsSegmentedAvatarArea.add(opponentsReputationLabel, BorderLayout.CENTER);
@@ -263,8 +267,8 @@ public class BoardJFrame extends JFrame {
     opponentsPotionArea.add(opponentsPotionLabel);
     opponentsAvatarArea.add(opponentsSegmentedAvatarArea);
     opponentsAvatarArea.add(opponentsAvatarLabel);
-
     artifactCardsArea.add(artifactCardsLabel);
+    eastPanel.add(createForageButton());
 
     this.add(westPanel, BorderLayout.WEST);
     this.add(eastPanel, BorderLayout.EAST);
@@ -280,5 +284,32 @@ public class BoardJFrame extends JFrame {
     this.setLocation(x, y);
 
     this.setVisible(true);
+  }
+
+  public JButton createForageButton() {
+    JButton forageButton = new JButton("Forage For Ingredients");
+    forageButton.addActionListener(
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          Ingredient ingredient = token1.forageForIngredient(board);
+          try {
+            Thread.sleep(2000);
+          } catch (Exception exception) {
+            System.out.println(exception);
+          }
+          addIngredient(ingredient);
+        }
+      }
+    );
+    return forageButton;
+  }
+
+  public void addIngredient(Ingredient ingredient) {
+    int ingID = ingredient.getID();
+
+    ImageIcon ingredientIcon = new ImageIcon("src/ui/utils/ingredient_" + ingID + ".jpg");
+    JLabel ingredientLabel = new JLabel(ingredientIcon);
+    ingredientCardsArea.add(ingredientLabel);
   }
 }
