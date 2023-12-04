@@ -28,7 +28,7 @@ public class Theory {
         return this.getTheoryOwner().equals(token);
     }
 
-    // Returns true if the true Alchemy Marker is the function parameter
+    // Returns true if alchemyMarker matches the Ingredient of the Theory's alchemyMarker
     public boolean debunkSuccess(AlchemyMarker alchemyMarker) {
         return this.getTheoryIngredient().alchemyMarker().equals(alchemyMarker);
     }
