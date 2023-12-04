@@ -40,11 +40,20 @@ public class Game {
     loginScreen.setVisible(false);
   }
 
-  public void openPauseMenu() {}
-
-  public void closePauseMenu() {}
-
-  public void inactivateBoard() {
-    activateBoard = false;
+  public static void openPauseMenu(JFrame board) {
+    PauseMenuJframe pauseMenuJframe = new PauseMenuJframe(board);
   }
+
+  public static void closePauseMenu(JFrame pauseMenu) {
+    pauseMenu.dispose();
+  }
+
+  public static void inactivateBoard(JFrame board) {
+    board.setVisible(false);
+  }
+
+  public static void activateBoard(JFrame board) {
+    board.setVisible(true);
+  }
+
 }
