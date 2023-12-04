@@ -87,7 +87,9 @@ public class Token {
 
   public void removePotion(String potion) {}
 
-  public void publishTheory(String ingredient, String alchemyMarker) {}
+  public void publishTheory(Board board, Ingredient ingredient, AlchemyMarker alchemyMarker) {
+    board.publishTheory(ingredient, alchemyMarker, this);
+  }
 
   public void addReputation(int amount) {}
 
