@@ -201,14 +201,8 @@ public class BoardJFrame extends JFrame {
     scoreLabel2.setText("Token2 Score=" + token2.getScore());
     scoreLabel2.setFont(new Font("Arial", Font.BOLD, 20));
 
-    ImageIcon pauseIcon = new ImageIcon("src/ui/utils/pause.png");
-    JLabel pauseLabel = new JLabel(pauseIcon);
-
     ImageIcon exitIcon = new ImageIcon("src/ui/utils/exit.png");
     JLabel exitLabel = new JLabel(exitIcon);
-
-    ImageIcon menuIcon = new ImageIcon("src/ui/utils/menu.png");
-    JLabel menuLabel = new JLabel(menuIcon);
 
     ImageIcon avatarIcon = new ImageIcon("src/ui/utils/" + token1.getAvatarImage() + ".png");
     JLabel avatarLabel = new JLabel(avatarIcon);
@@ -255,8 +249,7 @@ public class BoardJFrame extends JFrame {
     controlbackgroundPanelToken2.add(scoreLabel2);
     controlArea.add(controlbackgroundPanelToken1);
     controlArea.add(controlbackgroundPanelToken2);
-    controlArea.add(pauseLabel);
-    controlArea.add(menuLabel);
+    controlArea.add(pauseButton());
     controlArea.add(exitLabel);
     effectArea.add(effects);
     potionArea.add(potionLabel);
@@ -313,5 +306,25 @@ public class BoardJFrame extends JFrame {
     ingredientCardsArea.add(ingredientLabel);
     this.setVisible(false);
     this.setVisible(true);
+  }
+
+  public JButton pauseButton() {
+    ImageIcon pauseIcon = new ImageIcon("src/ui/utils/pause.png");
+    JButton pauseButton = new JButton(pauseIcon);
+
+    pauseButton.addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                openingPauseMenu();
+              }
+            }
+    );
+    return pauseButton;
+  }
+
+  public void openingPauseMenu(){
+    Game.openPauseMenu(this);
+    Game.inactivateBoard(this);
   }
 }
