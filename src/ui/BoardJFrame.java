@@ -269,6 +269,7 @@ public class BoardJFrame extends JFrame {
     opponentsAvatarArea.add(opponentsAvatarLabel);
     artifactCardsArea.add(artifactCardsLabel);
     eastPanel.add(createForageButton());
+    eastPanel.add(publishTheoryButton());
 
     this.add(westPanel, BorderLayout.WEST);
     this.add(eastPanel, BorderLayout.EAST);
@@ -313,5 +314,24 @@ public class BoardJFrame extends JFrame {
     ingredientCardsArea.add(ingredientLabel);
     this.setVisible(false);
     this.setVisible(true);
+  }
+
+  public JButton publishTheoryButton() {
+    JButton pauseButton = new JButton("Publish Theory");
+
+    pauseButton.addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                openPublishMenu();
+              }
+            }
+    );
+    return pauseButton;
+  }
+
+  public void openPublishMenu(){
+    Game.openPublishMenu(this);
+    Game.inactivateBoard(this);
   }
 }
