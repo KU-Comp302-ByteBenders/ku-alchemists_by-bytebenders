@@ -91,6 +91,10 @@ public class Token {
     board.publishTheory(ingredient, alchemyMarker, this);
   }
 
+  public void debunkTheory(Board board, Theory theory, AlchemyMarker alchemyMarker) {
+    board.debunkTheory(theory, alchemyMarker, this);
+  }
+
   public void addReputation(int amount) {}
 
   public void decreaseReputation(int amount) {}

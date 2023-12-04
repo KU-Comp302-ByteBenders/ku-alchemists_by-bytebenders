@@ -164,4 +164,23 @@ public class Board {
     token.addReputation(1);
     token.decreaseGold(1); 
   }
+
+  public void debunkTheory(Theory theory, AlchemyMarker alchemyMarker, Token token) {
+    try {
+      if (theory.belongsToToken(token)) {
+        throw new Exception("You can't debunk your own theory!");
+      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+
+    // TODO: Display the Ingredient's true alchemy marker
+
+    if (theory.debunkSuccess(alchemyMarker)) {
+      token.addReputation(2); // Increase reputation of the debunker
+      theory.getTheoryOwner().decreaseReputation(1); // Decrease reputation of the publisher
+    } else { // Debunk failed
+      token.decreaseReputation(1); // Decrease reputation of the publisher
+    }
+  }
 }

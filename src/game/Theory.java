@@ -23,6 +23,16 @@ public class Theory {
         return this.getAlchemyMarker().equals(alchemyMarker);
     }
 
+    // Returns true if the theory belongs to the token (Player).
+    public boolean belongsToToken(Token token) {
+        return this.getTheoryOwner().equals(token);
+    }
+
+    // Returns true if the true Alchemy Marker is the function parameter
+    public boolean debunkSuccess(AlchemyMarker alchemyMarker) {
+        return this.getTheoryIngredient().alchemyMarker().equals(alchemyMarker);
+    }
+
     public Token getTheoryOwner() {
         return theoryOwner;
     }
