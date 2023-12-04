@@ -133,4 +133,54 @@ public class Board {
   public ArrayList<Token> getTokens() {
     return tokens;
   }
+
+  public void publishTheory(Ingredient ingredient, AlchemyMarker alchemyMarker, Token token) {
+    try {
+      // Check if player has enough gold
+      if (token.getGoldBalance() < 1) {
+        throw new Exception("Not enough gold!");
+      }
+
+      // Check in the theories list if there is already a theory about the ingredient
+      // Or if there is the same Alchemy Marker on another theory
+      for (Theory theory : theories) {
+        if (theory.isAboutIngredient(ingredient)) {
+          throw new Exception("A theory on this ingredient already exists!");
+        }
+        if (theory.hasAlchemyMarker(alchemyMarker)) {
+          throw new Exception("Your Alchemy Marker is already on another theory!");
+        }
+      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+
+    // TODO: Add to publication track
+
+    // Create theory and add to the theories list
+    Theory theory = new Theory(ingredient, alchemyMarker, token);
+    theories.add(theory);
+
+    token.addReputation(1);
+    token.decreaseGold(1); 
+  }
+
+  public void debunkTheory(Theory theory, AlchemyMarker alchemyMarker, Token token) {
+    try {
+      if (theory.belongsToToken(token)) {
+        throw new Exception("You can't debunk your own theory!");
+      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+
+    // TODO: Display the Ingredient's true alchemy marker
+
+    if (theory.debunkSuccess(alchemyMarker)) {
+      token.addReputation(2); // Increase reputation of the debunker
+      theory.getTheoryOwner().decreaseReputation(1); // Decrease reputation of the publisher
+    } else { // Debunk failed
+      token.decreaseReputation(1); // Decrease reputation of the publisher
+    }
+  }
 }

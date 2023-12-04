@@ -7,10 +7,46 @@ public class Theory {
     private String theoryName;
     private Ingredient[] theoryIngredients;
 
-    public Theory(Ingredient ingredient, AlchemyMarker alchemyMarker) {
-        this.theoryName = "DefaultTheoryName";
-        this.theoryIngredients = new Ingredient[0];
+    public Theory(Ingredient ingredient, AlchemyMarker alchemyMarker, Token token) {
+        this.theoryIngredient = ingredient;
+        this.alchemyMarker = alchemyMarker;
+        this.theoryOwner = token;
+        this.theoryName = String.format("Theory on %s", ingredient.getName());
+    }
 
-}
+    // Returns true if the theory is about the given ingredient
+    public boolean isAboutIngredient(Ingredient ingredient) {
+        return this.getTheoryIngredient().equals(ingredient);
+    }
 
+    // Returns true if the theory is marked with that Alchemical Marker
+    public boolean hasAlchemyMarker(AlchemyMarker alchemyMarker) {
+        return this.getAlchemyMarker().equals(alchemyMarker);
+    }
+
+    // Returns true if the theory belongs to the token (Player).
+    public boolean belongsToToken(Token token) {
+        return this.getTheoryOwner().equals(token);
+    }
+
+    // Returns true if the true Alchemy Marker is the function parameter
+    public boolean debunkSuccess(AlchemyMarker alchemyMarker) {
+        return this.getTheoryIngredient().alchemyMarker().equals(alchemyMarker);
+    }
+
+    public Token getTheoryOwner() {
+        return theoryOwner;
+    }
+
+    public String getTheoryName() {
+        return theoryName;
+    }
+
+    public Ingredient getTheoryIngredient() {
+        return theoryIngredient;
+    }
+
+    public AlchemyMarker getAlchemyMarker() {
+        return alchemyMarker;
+    }
 }
