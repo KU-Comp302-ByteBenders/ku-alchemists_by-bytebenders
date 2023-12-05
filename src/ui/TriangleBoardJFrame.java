@@ -92,6 +92,7 @@ public class TriangleBoardJFrame extends JFrame {
 
                 if(option1.isSelected()){
                     pressedbutton.setText("∅");
+                    pressedbutton.setBackground(null);
                     closeTheFrame();
                 } else if (!option1.isSelected() && !option2.isSelected() && !option3.isSelected()) {
                     JOptionPane.showMessageDialog(panel, "You didn't select a sign");

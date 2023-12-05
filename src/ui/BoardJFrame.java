@@ -1,6 +1,8 @@
 package ui;
 
 import game.*;
+import ui.uihelpers.RoundedButton;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -333,11 +335,11 @@ public class BoardJFrame extends JFrame {
       roundedButtons[i] = new RoundedButton("∅");
       roundedButtons[i].setBorder(BorderFactory.createEmptyBorder(11, 11, 11, 11));
 
-      int finali = i;
+      int finals = i;
       roundedButtons[i].addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            Game.openTriangleBoard(roundedButtons[finali]);
+            Game.openTriangleBoard(roundedButtons[finals]);
         }
         });
     }
