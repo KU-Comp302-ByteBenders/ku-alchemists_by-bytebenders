@@ -12,6 +12,11 @@ public class Board {
   private ArrayList<ArtifactCard> artifactCards;
   private ArrayList<Theory> theories;
 
+  // These two will be used in publishTheory and debunkTheory.
+  // The order of static ingredients will remain the same.
+  private ArrayList<Ingredient> staticIngredients = new ArrayList<Ingredient>(); 
+  private ArrayList<AlchemyMarker> staticAlchemyMarkers = new ArrayList<AlchemyMarker>();
+
   public Board(String username1, String username2, String avatar1, String avatar2) {
     tokens = new ArrayList<Token>();
     ingredients = new ArrayList<Ingredient>();
@@ -54,14 +59,23 @@ public class Board {
     AlchemyMarker alchemyMarker7 = new AlchemyMarker(aspect3, aspect7, aspect5);
     AlchemyMarker alchemyMarker8 = new AlchemyMarker(aspect6, aspect7, aspect10);
 
-    Ingredient ingredient1 = new Ingredient("dragon fruit", 1, alchemyMarker1);
-    Ingredient ingredient2 = new Ingredient("emerald", 2, alchemyMarker2);
-    Ingredient ingredient3 = new Ingredient("feather", 3, alchemyMarker3);
-    Ingredient ingredient4 = new Ingredient("ginger", 4, alchemyMarker4);
-    Ingredient ingredient5 = new Ingredient("moondust", 5, alchemyMarker5);
-    Ingredient ingredient6 = new Ingredient("obsidian", 6, alchemyMarker6);
-    Ingredient ingredient7 = new Ingredient("redstone", 7, alchemyMarker7);
-    Ingredient ingredient8 = new Ingredient("saffron", 8, alchemyMarker8);
+    staticAlchemyMarkers.add(alchemyMarker1);
+    staticAlchemyMarkers.add(alchemyMarker2);
+    staticAlchemyMarkers.add(alchemyMarker3);
+    staticAlchemyMarkers.add(alchemyMarker4);
+    staticAlchemyMarkers.add(alchemyMarker5);
+    staticAlchemyMarkers.add(alchemyMarker6);
+    staticAlchemyMarkers.add(alchemyMarker7);
+    staticAlchemyMarkers.add(alchemyMarker8);
+
+    Ingredient ingredient1 = new Ingredient("dragon fruit", 1, alchemyMarker1, "src/ui/utils/ingredient_1.jpg");
+    Ingredient ingredient2 = new Ingredient("emerald", 2, alchemyMarker2, "src/ui/utils/ingredient_2.jpg");
+    Ingredient ingredient3 = new Ingredient("feather", 3, alchemyMarker3, "src/ui/utils/ingredient_3.jpg");
+    Ingredient ingredient4 = new Ingredient("ginger", 4, alchemyMarker4, "src/ui/utils/ingredient_4.jpg");
+    Ingredient ingredient5 = new Ingredient("moondust", 5, alchemyMarker5, "src/ui/utils/ingredient_5.jpg");
+    Ingredient ingredient6 = new Ingredient("obsidian", 6, alchemyMarker6, "src/ui/utils/ingredient_6.jpg");
+    Ingredient ingredient7 = new Ingredient("redstone", 7, alchemyMarker7, "src/ui/utils/ingredient_7.jpg");
+    Ingredient ingredient8 = new Ingredient("saffron", 8, alchemyMarker8, "src/ui/utils/ingredient_8.jpg");
 
     for (int i = 0; i < 4; i++) {
       ingredients.add(ingredient1);
@@ -74,6 +88,7 @@ public class Board {
       ingredients.add(ingredient8);
     }
 
+    staticIngredients.addAll(ingredients); // Copy the newly made deck to staticIngredients
     Collections.shuffle(ingredients);
   }
 
@@ -132,6 +147,14 @@ public class Board {
 
   public ArrayList<Token> getTokens() {
     return tokens;
+  }  
+
+  public ArrayList<Ingredient> getStaticIngredients() {
+    return staticIngredients;
+  }
+
+  public ArrayList<AlchemyMarker> getStaticAlchemyMarkers() {
+    return staticAlchemyMarkers;
   }
 
   public void publishTheory(Ingredient ingredient, AlchemyMarker alchemyMarker, Token token) {
