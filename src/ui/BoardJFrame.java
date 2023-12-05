@@ -331,7 +331,7 @@ public class BoardJFrame extends JFrame {
   }
 
   public void openPublishMenu(){
-    Game.openPublishMenu(this);
+    Game.openPublishMenu(this, board);
     // this.setFocusable(false);
   }
 }
