@@ -49,7 +49,6 @@ public class BoardJFrame extends JFrame {
   ImageIcon dragonIcon = new ImageIcon("src/ui/utils/dragon fru.jpg");
   ImageIcon bigArtifactBackIcon = new ImageIcon("src/ui/utils/artifact card image.png");
   ImageIcon bigIngredientBackIcon = new ImageIcon("src/ui/utils/ingredient image.png");
-  ImageIcon centerIcon = new ImageIcon("src/ui/utils/pubboard.png");
   ImageIcon smallIngredientBackIcon = new ImageIcon("src/ui/utils/small-ingredient-image.png");
 
   public BoardJFrame(Board board) {
@@ -89,14 +88,12 @@ public class BoardJFrame extends JFrame {
 
     bigIngBackLabel = new JLabel(bigIngredientBackIcon);
     bigArtifactBackLabel = new JLabel(bigArtifactBackIcon);
-    centerLabel = new JLabel(centerIcon);
 
     // SET THE DIMENSIONS OF THE JPANELS AND JLABELS
 
     northPanel.setPreferredSize(new Dimension(1600, 220));
     westPanel.setPreferredSize(new Dimension(450, 460));
     eastPanel.setPreferredSize(new Dimension(450, 460));
-    centerPanel.setPreferredSize(new Dimension(700, 460));
     southPanel.setPreferredSize(new Dimension(1600, 220));
 
     westOfSouthPanel.setPreferredSize(new Dimension(550, 220));
@@ -119,7 +116,6 @@ public class BoardJFrame extends JFrame {
     northPanel.setBorder(lineBorder);
     westPanel.setBorder(lineBorder);
     eastPanel.setBorder(lineBorder);
-    centerPanel.setBorder(lineBorder);
     southPanel.setBorder(lineBorder);
     westOfSouthPanel.setBorder(lineBorder);
     eastOfSouthPanel.setBorder(lineBorder);
@@ -239,7 +235,6 @@ public class BoardJFrame extends JFrame {
 
     westPanel.add(bigIngBackLabel);
     westPanel.add(bigArtifactBackLabel);
-    centerPanel.add(centerLabel);
 
     opponentsSegmentedAvatarArea.add(opponentsGoldLabel, BorderLayout.NORTH);
     opponentsSegmentedAvatarArea.add(opponentsReputationLabel, BorderLayout.CENTER);
@@ -267,7 +262,7 @@ public class BoardJFrame extends JFrame {
     this.add(eastPanel, BorderLayout.EAST);
     this.add(southPanel, BorderLayout.SOUTH);
     this.add(northPanel, BorderLayout.NORTH);
-    this.add(centerPanel, BorderLayout.CENTER);
+    this.add(arrangeBoardTriangle(), BorderLayout.CENTER);
 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int x = (screenSize.width - this.getWidth()) / 2;
@@ -326,5 +321,52 @@ public class BoardJFrame extends JFrame {
   public void openingPauseMenu(){
     Game.openPauseMenu(this);
     Game.inactivateBoard(this);
+  }
+
+  public static JPanel arrangeBoardTriangle() {
+    JPanel mainPanel = new JPanel(new GridBagLayout());
+
+    ImageIcon centerIcon = new ImageIcon("src/ui/utils/pubboard.png");
+    JLabel centerLabel = new JLabel(centerIcon);
+    RoundedButton[] roundedButtons = new RoundedButton[36];
+    for (int i = 0; i < roundedButtons.length; i++) {
+      roundedButtons[i] = new RoundedButton("∅");
+      roundedButtons[i].setBorder(BorderFactory.createEmptyBorder(11, 11, 11, 11));
+
+      int finali = i;
+      roundedButtons[i].addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Game.openTriangleBoard(roundedButtons[finali]);
+        }
+        });
+    }
+
+    GridBagConstraints gbcCenterLabel = new GridBagConstraints();
+    gbcCenterLabel.gridx = 0;
+    gbcCenterLabel.gridy = 0;
+    gbcCenterLabel.insets = new Insets(0, 0, 0, 0);
+    mainPanel.add(centerLabel, gbcCenterLabel);
+
+    int startery = 283;
+    int starterx = 0;
+    int nodeNumber = 0;
+    for (int k = 1; k < 9; k++) {
+      for (int i = 0; i < k; i++) {
+        GridBagConstraints gbcButton = new GridBagConstraints();
+        gbcButton.gridx = 0;
+        gbcButton.gridy = 0;
+        gbcButton.insets = new Insets(0, 0, startery, starterx-(126*i));
+        mainPanel.add(roundedButtons[nodeNumber], gbcButton);
+        mainPanel.setComponentZOrder(roundedButtons[nodeNumber], 0);
+
+        nodeNumber++;
+      }
+      startery= startery-64;
+      starterx = starterx+63;
+    }
+
+    return mainPanel;
+
   }
 }
