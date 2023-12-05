@@ -3,13 +3,24 @@ package game;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+
+import game.ArtifactCards.ArtifactCard;
 import ui.BoardJFrame;
+
+
+import game.AlchemyMarker;
+import game.Aspect;
+import game.ArtifactCards.ArtifactCard;
+import game.ArtifactCards.GoldArtifactCard;
+import game.ArtifactCards.HealingArtifactCard;
+import game.ArtifactCards.ReputationArtifactCard;
+
 
 public class Board {
 
   private ArrayList<Token> tokens;
   private ArrayList<Ingredient> ingredients;
-  private ArrayList<ArtifactCard> artifactCards;
+  private static ArrayList<ArtifactCard> artifactCards;
   private ArrayList<Theory> theories;
 
   public Board(String username1, String username2, String avatar1, String avatar2) {

@@ -2,6 +2,8 @@ package game;
 
 import java.util.ArrayList;
 
+import game.ArtifactCards.ArtifactCard;
+
 public class Token {
 
   // TODO: Change the types and implements the functions
@@ -89,13 +91,30 @@ public class Token {
 
   public void publishTheory(String ingredient, String alchemyMarker) {}
 
-  public void addReputation(int amount) {}
+  public void addReputation(int amount){
+    reputation += amount;
+}
 
-  public void decreaseReputation(int amount) {}
+public void decreaseReputation(int amount){
+  reputation -= amount;
+}
 
-  public void buyArtifactCard(String artifactCard) {}
+public void buyArtifactCard(ArtifactCard artifactCard){
+  Board.giveArtifactCardtoToken(this);
+}
+  //Burada niye direkt artifactCard.applyEffect yapamıyom anlamadım. SIKINTI ÇIKARABİLİR 
+  public void useArtifactCard(ArtifactCard artifactCard){
+    Effect effect = (Effect) artifactCard;
+    effect.applyEffect(this);
+  }
 
-  public void useArtifactCard(String artifactCard) {}
-
+  public void addArtifactCard(ArtifactCard artifactCard){
+    artifactCards.add(artifactCard);
+}
   public void transmuteIngredient(String ingredient) {}
+
+  public void decreaseSickness(int amount){
+    sicknessLevel -= amount;
+}
+
 }
