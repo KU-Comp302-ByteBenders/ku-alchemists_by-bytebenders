@@ -1,6 +1,8 @@
 package ui;
 
 import game.*;
+import game.ArtifactCards.ArtifactCard;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,6 +53,12 @@ public class BoardJFrame extends JFrame {
   ImageIcon bigIngredientBackIcon = new ImageIcon("src/ui/utils/ingredient image.png");
   ImageIcon centerIcon = new ImageIcon("src/ui/utils/pubboard.png");
   ImageIcon smallIngredientBackIcon = new ImageIcon("src/ui/utils/small-ingredient-image.png");
+  ImageIcon artifact1Icon = new ImageIcon("src/ui/utils/artifactImage1jpg");
+  ImageIcon artifact2Icon = new ImageIcon("src/ui/utils/artifactImage2.jpg");
+  ImageIcon artifact3Icon = new ImageIcon("src/ui/utils/artifactImage3.jpg");
+  ImageIcon artifact4Icon = new ImageIcon("src/ui/utils/artifactImage4.jpg");
+  ImageIcon artifact5Icon = new ImageIcon("src/ui/utils/artifactImage5.jpg");
+
 
   public BoardJFrame(Board board) {
     super("KUALCH");
@@ -142,6 +150,60 @@ public class BoardJFrame extends JFrame {
       JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
       opponentsIngredientCardsArea.add(opponentIngLabel);
     }
+
+
+    // ADD ARTIFACTS OF PLAYERS TO THE BOARD
+    for (int i = 0; i < token1.getArtifactList().size(); i++) {
+      ArtifactCard token1Artifact = token1.getArtifactList().get(i);
+
+      switch (token1Artifact.getName()) {
+          case "Small Fortune Pouch":
+              JLabel case1Label = new JLabel(artifact1Icon);
+              artifactCardsArea.add(case1Label);
+              break;
+
+          case "Treasure Trove":
+              JLabel case2Label = new JLabel(artifact1Icon);
+              artifactCardsArea.add(case2Label);
+              break;
+
+          case "King's Bounty":
+              JLabel case3Label = new JLabel(artifact1Icon);
+              artifactCardsArea.add(case3Label);
+              break;
+
+          case "Healing Draught":
+              JLabel case4Label = new JLabel(artifact2Icon);
+              artifactCardsArea.add(case4Label);
+              break;
+
+          case "Elixir of Vitality":
+              JLabel case5Label = new JLabel(artifact2Icon);
+              artifactCardsArea.add(case5Label);
+              break;
+
+          case "Celestial Mend":
+              JLabel case6Label = new JLabel(artifact2Icon);
+              artifactCardsArea.add(case6Label);
+          break;
+
+          case "Kindly Gesture":
+              JLabel case7Label = new JLabel(artifact3Icon);
+              artifactCardsArea.add(case7Label);
+          break;
+
+          case "Respected Deed":
+              JLabel case8Label = new JLabel(artifact3Icon);
+              artifactCardsArea.add(case8Label);
+          break;
+
+          case "Virtue Badge":
+              JLabel case9Label = new JLabel(artifact3Icon);
+              artifactCardsArea.add(case9Label);
+          break;
+      }
+    }
+
 
     System.out.println("token1.getIngredients().size() = " + token1.getIngredients().size());
 

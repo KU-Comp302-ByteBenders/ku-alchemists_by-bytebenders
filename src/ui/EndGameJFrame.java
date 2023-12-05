@@ -118,7 +118,7 @@ public class EndGameJFrame extends JFrame {
 
     token2Label.setText("Records of " + token2.getUsername());
     token2GoldLabel.setText("Gold: " + token2.getGoldBalance());
-    token2ArtifactLabel.setText("Artifact Cards: " + token2.getArtifactCards().size());
+    token2ArtifactLabel.setText("Artifact Cards: " + token2.getArtifactList().size());
     token2ReputationLabel.setText("Reputation: " + token2.getReputation());
     token2ScoreLabel.setText("Score: " + endGamer.getToken2Score());
 

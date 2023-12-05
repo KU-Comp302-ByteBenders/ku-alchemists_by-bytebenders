@@ -42,8 +42,8 @@ public class EndGamer {
     int token1Reputation = token1.getReputation();
     int token2Reputation = token2.getReputation();
 
-    int token1ArtifactCardNumber = token1.getArtifactCards().size();
-    int token2ArtifactCardNumber = token2.getArtifactCards().size();
+    int token1ArtifactCardNumber = token1.getArtifactList().size();
+    int token2ArtifactCardNumber = token2.getArtifactList().size();
 
     int token1GoldAmount = token1.getGoldBalance();
     int token2GoldAmount = token2.getGoldBalance();

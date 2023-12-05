@@ -5,11 +5,19 @@ import java.util.Collections;
 import java.util.Random;
 import ui.BoardJFrame;
 
+import game.AlchemyMarker;
+import game.Aspect;
+import game.ArtifactCards.ArtifactCard;
+import game.ArtifactCards.GoldArtifactCard;
+import game.ArtifactCards.HealingArtifactCard;
+import game.ArtifactCards.ReputationArtifactCard;
+
+
 public class Board {
 
   private ArrayList<Token> tokens;
   private ArrayList<Ingredient> ingredients;
-  private ArrayList<ArtifactCard> artifactCards;
+  private static ArrayList<ArtifactCard> artifactCards;
   private ArrayList<Theory> theories;
 
   public Board(String username1, String username2, String avatar1, String avatar2) {
@@ -87,17 +95,25 @@ public class Board {
     }
   }
 
-  public void addArtifactCard() {
-    ArtifactCard artifactCard1 = new ArtifactCard("art1");
-    ArtifactCard artifactCard2 = new ArtifactCard("art2");
-    ArtifactCard artifactCard3 = new ArtifactCard("art3");
-    ArtifactCard artifactCard4 = new ArtifactCard("art4");
-    ArtifactCard artifactCard5 = new ArtifactCard("art5");
-    ArtifactCard artifactCard6 = new ArtifactCard("art6");
-    ArtifactCard artifactCard7 = new ArtifactCard("art7");
-    ArtifactCard artifactCard8 = new ArtifactCard("art8");
-    ArtifactCard artifactCard9 = new ArtifactCard("art9");
-    ArtifactCard artifactCard10 = new ArtifactCard("art10");
+  public void addArtifactCard(){
+    ArtifactCard artifactCard1 = new GoldArtifactCard("Small Fortune Pouch",1);
+    ArtifactCard artifactCard2 = new GoldArtifactCard("Small Fortune Pouch",1);
+    ArtifactCard artifactCard3 = new GoldArtifactCard("Small Fortune Pouch",1);
+    ArtifactCard artifactCard4 = new GoldArtifactCard("Treasure Trove",2);
+    ArtifactCard artifactCard5 = new GoldArtifactCard("Treasure Trove",2);
+    ArtifactCard artifactCard6 = new GoldArtifactCard("King's Bounty",3);
+    ArtifactCard artifactCard7 = new HealingArtifactCard("Healing Draught",1);
+    ArtifactCard artifactCard8 = new HealingArtifactCard("Healing Draught",1);
+    ArtifactCard artifactCard9 = new HealingArtifactCard("Healing Draught",1);
+    ArtifactCard artifactCard10 = new HealingArtifactCard("Elixir of Vitality",2);
+    ArtifactCard artifactCard11 = new HealingArtifactCard("Elixir of Vitality",2);
+    ArtifactCard artifactCard12 = new HealingArtifactCard("Celestial Mend",3);
+    ArtifactCard artifactCard13 = new ReputationArtifactCard("Kindly Gesture",1);
+    ArtifactCard artifactCard14 = new ReputationArtifactCard("Kindly Gesture",1);
+    ArtifactCard artifactCard15 = new ReputationArtifactCard("Kindly Gesture",1);
+    ArtifactCard artifactCard16 = new ReputationArtifactCard("Respected Deed",2);
+    ArtifactCard artifactCard17 = new ReputationArtifactCard("Respected Deed",2);
+    ArtifactCard artifactCard18 = new ReputationArtifactCard("Virtue Badge",3);
 
     artifactCards.add(artifactCard1);
     artifactCards.add(artifactCard2);
@@ -109,9 +125,34 @@ public class Board {
     artifactCards.add(artifactCard8);
     artifactCards.add(artifactCard9);
     artifactCards.add(artifactCard10);
+    artifactCards.add(artifactCard11);
+    artifactCards.add(artifactCard12);
+    artifactCards.add(artifactCard13);
+    artifactCards.add(artifactCard14);
+    artifactCards.add(artifactCard15);
+    artifactCards.add(artifactCard16);
+    artifactCards.add(artifactCard17);
+    artifactCards.add(artifactCard18);
 
-    Collections.shuffle(artifactCards);
-  }
+    Collections.shuffle(artifactCards, new Random());
+
+}
+    //Named buyArtifactCard in the design
+    public static void giveArtifactCardtoToken(Token token){
+        Random random = new Random();
+        int randomNumber = random.nextInt();
+
+        if (token.getGoldBalance() >= 1) {
+            token.decreaseGold(1);
+            token.addArtifactCard(artifactCards.get(randomNumber));
+            artifactCards.remove(randomNumber);}
+
+        else{
+            System.err.println("The player does not have enough gold to buy an artifact card");
+        }
+
+    }
+
 
   public Ingredient getIngredientFromDeck() {
     int maxNumber = ingredients.size();
