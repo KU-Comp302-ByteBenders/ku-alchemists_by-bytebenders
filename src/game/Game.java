@@ -3,6 +3,10 @@ package game;
 import javax.swing.*;
 import ui.*;
 
+/*
+ * This class is the Controller class.
+ * Also a Singleton class.
+ */
 public class Game {
 
   public int round;
@@ -44,11 +48,39 @@ public class Game {
 
   public void closePauseMenu() {}
 
-  public void inactivateBoard() {
-    activateBoard = false;
+  public static void openPublishMenu(JFrame boardJFrame, Board board) {
+    // Open the publish theory action menu
+    PublishTheoryJFrame publishTheoryJFrame = new PublishTheoryJFrame(board);
+  }
+
+  public static void openPublicationTrack(JFrame boardJFrame, Board board) {
+    // Open the publish theory action menu
+    PublicationTrackJFrame publicationTrackJFrame = new PublicationTrackJFrame(board);
+  }
+
+  public static void openPauseMenu(JFrame board) {
+    PauseMenuJframe pauseMenuJframe = new PauseMenuJframe(board);
+  }
+
+  public static void closePauseMenu(JFrame pauseMenu) {
+    pauseMenu.dispose();
+  }
+
+  public static void inactivateBoard(JFrame board) {
+    board.setVisible(false);
+  }
+
+  public static void activateBoard(JFrame board) {
+    board.setVisible(true);
+  }
+
+  public static void openTriangleBoard(JButton button){
+    TriangleBoardJFrame triangleBoardJFrame =
+            new TriangleBoardJFrame(button);
   }
 
   public static void openHelpScreen() {
     HelpJFrame helpJFrame = new HelpJFrame();
   }
+
 }

@@ -1,53 +1,101 @@
 package ui;
 
 import game.*;
+import ui.uihelpers.RoundedButton;
+
 import java.awt.*;
-import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 public class BoardJFrame extends JFrame {
 
-  public BoardJFrame(
-    Token token1,
-    Token token2,
-    ArrayList<Ingredient> ingredientList,
-    ArrayList<ArtifactCard> artifactCardsList,
-    ArrayList<Theory> theoryList
-  ) {
+  Token token1;
+  Token token2;
+  Border lineBorder;
+  Board board;
+
+  JPanel westPanel;
+  JPanel eastPanel;
+  JPanel southPanel;
+  JPanel northPanel;
+  JPanel centerPanel;
+
+  JPanel westOfSouthPanel;
+  JPanel eastOfSouthPanel;
+
+  JLabel bigIngBackLabel;
+  JLabel bigArtifactBackLabel;
+  JLabel centerLabel;
+
+  JPanel ingredientCardsArea;
+  JPanel artifactCardsArea;
+  JPanel effectArea;
+  JPanel potionArea;
+  JPanel avatarArea;
+  JPanel opponentsPotionArea;
+  JPanel opponentsAvatarArea;
+  JPanel opponentsIngredientCardsArea;
+  JPanel controlArea;
+  JPanel opponentsSegmentedAvatarArea;
+
+  ImageIcon obsidianIcon = new ImageIcon("src/ui/utils/obsidian.jpg");
+  ImageIcon saffronIcon = new ImageIcon("src/ui/utils/saffron.jpg");
+  ImageIcon featherIcon = new ImageIcon("src/ui/utils/feather.png");
+  ImageIcon emeraldIcon = new ImageIcon("src/ui/utils/emerald.jpg");
+  ImageIcon redstoneIcon = new ImageIcon("src/ui/utils/redstone.jpg");
+  ImageIcon moondustIcon = new ImageIcon("src/ui/utils/moondust.jpg");
+  ImageIcon gingerIcon = new ImageIcon("src/ui/utils/ginger.png");
+  ImageIcon dragonIcon = new ImageIcon("src/ui/utils/dragon fru.jpg");
+  ImageIcon bigArtifactBackIcon = new ImageIcon("src/ui/utils/artifact card image.png");
+  ImageIcon bigIngredientBackIcon = new ImageIcon("src/ui/utils/ingredient image.png");
+  ImageIcon smallIngredientBackIcon = new ImageIcon("src/ui/utils/small-ingredient-image.png");
+
+  public BoardJFrame(Board board) {
     super("KUALCH");
+    this.board = board;
+    token1 = board.getTokens().get(0);
+    token2 = board.getTokens().get(1);
+
     setSize(1600, 900);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setResizable(false);
     setLayout(new BorderLayout());
 
-    Border lineBorder = new LineBorder(Color.BLACK, 2);
+    // CREATE THE JPANELS AND JLABELS
 
-    JPanel westPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 20)); // Ingredients and Artifacts Of Board
-    JPanel eastPanel = new JPanel(new FlowLayout()); // Theories and Potions
-    JPanel southPanel = new JPanel(new BorderLayout());
-    JPanel northPanel = new JPanel(new BorderLayout());
-    JPanel centerPanel = new JPanel(new BorderLayout()); // Deduction Board
+    lineBorder = new LineBorder(new Color(229, 113, 133), 1);
 
-    JPanel westOfSouthPanel = new JPanel(new BorderLayout());
-    JPanel eastOfSouthPanel = new JPanel(new BorderLayout());
+    westPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 20)); // Ingredients and Artifacts Of Board
+    eastPanel = new JPanel(new FlowLayout()); // Theories and Potions
+    southPanel = new JPanel(new BorderLayout());
+    northPanel = new JPanel(new BorderLayout());
+    centerPanel = new JPanel(new BorderLayout()); // Deduction Board
 
-    JPanel ingredientCardsArea = new JPanel(new FlowLayout(FlowLayout.CENTER)); // Ingredient Cards Area
-    JPanel artifactCardsArea = new JPanel(new FlowLayout()); // Artifact Cards Area
-    JPanel effectArea = new JPanel(new FlowLayout()); // Effect Area
-    JPanel potionArea = new JPanel(new FlowLayout()); // Hand Potion Area
-    JPanel avatarArea = new JPanel(new FlowLayout()); // Avatar Area
-    JPanel opponentsPotionArea = new JPanel(new FlowLayout()); // Opponents Potion Area
-    JPanel opponentsAvatarArea = new JPanel(new FlowLayout()); // Opponents Avatar Area
-    JPanel opponentsIngredientCardsArea = new JPanel(new FlowLayout(FlowLayout.CENTER)); // Opponents Ingredient Cards Area
-    JPanel controlArea = new JPanel(new FlowLayout()); // Control Area
-    JPanel opponentsSegmentedAvatarArea = new JPanel(new BorderLayout());
+    westOfSouthPanel = new JPanel(new BorderLayout());
+    eastOfSouthPanel = new JPanel(new BorderLayout());
+
+    ingredientCardsArea = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    artifactCardsArea = new JPanel(new FlowLayout());
+    effectArea = new JPanel(new FlowLayout());
+    potionArea = new JPanel(new FlowLayout());
+    avatarArea = new JPanel(new FlowLayout());
+    opponentsPotionArea = new JPanel(new FlowLayout());
+    opponentsAvatarArea = new JPanel(new FlowLayout());
+    opponentsIngredientCardsArea = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    controlArea = new JPanel(new FlowLayout());
+    opponentsSegmentedAvatarArea = new JPanel(new BorderLayout());
+
+    bigIngBackLabel = new JLabel(bigIngredientBackIcon);
+    bigArtifactBackLabel = new JLabel(bigArtifactBackIcon);
+
+    // SET THE DIMENSIONS OF THE JPANELS AND JLABELS
 
     northPanel.setPreferredSize(new Dimension(1600, 220));
     westPanel.setPreferredSize(new Dimension(450, 460));
     eastPanel.setPreferredSize(new Dimension(450, 460));
-    centerPanel.setPreferredSize(new Dimension(700, 460));
     southPanel.setPreferredSize(new Dimension(1600, 220));
 
     westOfSouthPanel.setPreferredSize(new Dimension(550, 220));
@@ -65,25 +113,11 @@ public class BoardJFrame extends JFrame {
     opponentsIngredientCardsArea.setPreferredSize(new Dimension(700, 170));
     controlArea.setPreferredSize(new Dimension(700, 50));
 
-    southPanel.add(westOfSouthPanel, BorderLayout.WEST);
-    southPanel.add(eastOfSouthPanel, BorderLayout.EAST);
-    southPanel.add(ingredientCardsArea, BorderLayout.CENTER);
-
-    westOfSouthPanel.add(artifactCardsArea, BorderLayout.WEST);
-    westOfSouthPanel.add(effectArea, BorderLayout.EAST);
-
-    eastOfSouthPanel.add(potionArea, BorderLayout.WEST);
-    eastOfSouthPanel.add(avatarArea, BorderLayout.EAST);
-
-    northPanel.add(opponentsPotionArea, BorderLayout.WEST);
-    northPanel.add(opponentsAvatarArea, BorderLayout.EAST);
-    northPanel.add(opponentsIngredientCardsArea, BorderLayout.CENTER);
-    northPanel.add(controlArea, BorderLayout.NORTH);
+    // SET BORDERS
 
     northPanel.setBorder(lineBorder);
     westPanel.setBorder(lineBorder);
     eastPanel.setBorder(lineBorder);
-    centerPanel.setBorder(lineBorder);
     southPanel.setBorder(lineBorder);
     westOfSouthPanel.setBorder(lineBorder);
     eastOfSouthPanel.setBorder(lineBorder);
@@ -97,74 +131,27 @@ public class BoardJFrame extends JFrame {
     opponentsIngredientCardsArea.setBorder(lineBorder);
     controlArea.setBorder(lineBorder);
 
-    ImageIcon obsidianIcon = new ImageIcon("src/ui/utils/obsidian.jpg");
-    ImageIcon saffronIcon = new ImageIcon("src/ui/utils/saffron.jpg");
-    ImageIcon featherIcon = new ImageIcon("src/ui/utils/feather.png");
-    ImageIcon emeraldIcon = new ImageIcon("src/ui/utils/emerald.jpg");
-    ImageIcon redstoneIcon = new ImageIcon("src/ui/utils/redstone.jpg");
-    ImageIcon moondustIcon = new ImageIcon("src/ui/utils/moondust.jpg");
-    ImageIcon gingerIcon = new ImageIcon("src/ui/utils/ginger.png");
-    ImageIcon dragonIcon = new ImageIcon("src/ui/utils/dragon fru.jpg");
+    // ADD INGREDIENTS TO THE BOARD
 
-    ImageIcon bigArtifactBackIcon = new ImageIcon("src/ui/utils/artifact card image.png");
-    ImageIcon bigIngredientBackIcon = new ImageIcon("src/ui/utils/ingredient image.png");
-    ImageIcon centerIcon = new ImageIcon("src/ui/utils/pubboard.png");
+    int token2IngredientsNumber = token2.getIngredients().size();
+    int token1IngredientsNumber = token1.getIngredients().size();
 
-    JLabel bigIngBackLabel = new JLabel(bigIngredientBackIcon);
-    JLabel bigArtifactBackLabel = new JLabel(bigArtifactBackIcon);
-    JLabel centerLabel = new JLabel(centerIcon);
-
-    westPanel.add(bigIngBackLabel);
-    westPanel.add(bigArtifactBackLabel);
-    centerPanel.add(centerLabel);
-
-    ImageIcon smallIngredientBackIcon = new ImageIcon("src/ui/utils/small-ingredient-image.png");
-
-    int token2IngNum;
-    int token1IngNum = token1.getIngredients().size();
-
-    for (token2IngNum = token2.getIngredients().size(); token2IngNum > 0; token2IngNum--) {
+    for (int i = 0; i < token2IngredientsNumber; i++) {
       JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
       opponentsIngredientCardsArea.add(opponentIngLabel);
     }
 
-    for (int i = 0; i < token1IngNum; i++) {
+    System.out.println("token1.getIngredients().size() = " + token1.getIngredients().size());
+
+    for (int i = 0; i < token1IngredientsNumber; i++) {
       Ingredient token1Ingredient = token1.getIngredients().get(i);
       int ingID = token1Ingredient.getID();
-      switch (ingID) {
-        case 1:
-          JLabel case1Label = new JLabel(dragonIcon);
-          ingredientCardsArea.add(case1Label);
-          break;
-        case 2:
-          JLabel case2Label = new JLabel(emeraldIcon);
-          ingredientCardsArea.add(case2Label);
-          break;
-        case 3:
-          JLabel case3Label = new JLabel(featherIcon);
-          ingredientCardsArea.add(case3Label);
-          break;
-        case 4:
-          JLabel case4Label = new JLabel(gingerIcon);
-          ingredientCardsArea.add(case4Label);
-        case 5:
-          JLabel case5Label = new JLabel(moondustIcon);
-          ingredientCardsArea.add(case5Label);
-          break;
-        case 6:
-          JLabel case6Label = new JLabel(obsidianIcon);
-          ingredientCardsArea.add(case6Label);
-          break;
-        case 7:
-          JLabel case7Label = new JLabel(redstoneIcon);
-          ingredientCardsArea.add(case7Label);
-          break;
-        case 8:
-          JLabel case8Label = new JLabel(saffronIcon);
-          ingredientCardsArea.add(case8Label);
-          break;
-      }
+      ImageIcon ingredientIcon = new ImageIcon("src/ui/utils/ingredient_" + ingID + ".jpg");
+      JLabel ingredientLabel = new JLabel(ingredientIcon);
+      ingredientCardsArea.add(ingredientLabel);
     }
+
+    // CREATE THE JLABELS THAT CONTAIN WORDS.
 
     JLabel theories = new JLabel("THEORIES:");
     theories.setFont(new Font("Arial", Font.BOLD, 20));
@@ -212,14 +199,8 @@ public class BoardJFrame extends JFrame {
     scoreLabel2.setText("Token2 Score=" + token2.getScore());
     scoreLabel2.setFont(new Font("Arial", Font.BOLD, 20));
 
-    ImageIcon pauseIcon = new ImageIcon("src/ui/utils/pause.png");
-    JLabel pauseLabel = new JLabel(pauseIcon);
-
     ImageIcon exitIcon = new ImageIcon("src/ui/utils/exit.png");
     JLabel exitLabel = new JLabel(exitIcon);
-
-    ImageIcon menuIcon = new ImageIcon("src/ui/utils/menu.png");
-    JLabel menuLabel = new JLabel(menuIcon);
 
     ImageIcon avatarIcon = new ImageIcon("src/ui/utils/" + token1.getAvatarImage() + ".png");
     JLabel avatarLabel = new JLabel(avatarIcon);
@@ -233,15 +214,29 @@ public class BoardJFrame extends JFrame {
     JLabel username2 = new JLabel(token2.getUsername());
     username2.setFont(new Font("Arial", Font.BOLD, 20));
 
-    ImageIcon potionBrewingIcon = new ImageIcon("src/ui/utils/potion-brewing.png");
-    JLabel potionBrewingLabel = new JLabel(potionBrewingIcon);
-
-    ImageIcon publicationAreaIcon = new ImageIcon("src/ui/utils/publication-brewing.png");
-    JLabel publicationAreaLabel = new JLabel(publicationAreaIcon);
-
     JLabel artifactCardsLabel = new JLabel();
     artifactCardsLabel.setText("ARTIFACT CARDS:");
     artifactCardsLabel.setFont(new Font("Arial", Font.BOLD, 20));
+
+    // ADD THE JPANELS AND JLABELS TO THE JPANELS
+
+    southPanel.add(westOfSouthPanel, BorderLayout.WEST);
+    southPanel.add(eastOfSouthPanel, BorderLayout.EAST);
+    southPanel.add(ingredientCardsArea, BorderLayout.CENTER);
+
+    westOfSouthPanel.add(artifactCardsArea, BorderLayout.WEST);
+    westOfSouthPanel.add(effectArea, BorderLayout.EAST);
+
+    eastOfSouthPanel.add(potionArea, BorderLayout.WEST);
+    eastOfSouthPanel.add(avatarArea, BorderLayout.EAST);
+
+    northPanel.add(opponentsPotionArea, BorderLayout.WEST);
+    northPanel.add(opponentsAvatarArea, BorderLayout.EAST);
+    northPanel.add(opponentsIngredientCardsArea, BorderLayout.CENTER);
+    northPanel.add(controlArea, BorderLayout.NORTH);
+
+    westPanel.add(bigIngBackLabel);
+    westPanel.add(bigArtifactBackLabel);
 
     opponentsSegmentedAvatarArea.add(opponentsGoldLabel, BorderLayout.NORTH);
     opponentsSegmentedAvatarArea.add(opponentsReputationLabel, BorderLayout.CENTER);
@@ -251,8 +246,7 @@ public class BoardJFrame extends JFrame {
     controlbackgroundPanelToken2.add(scoreLabel2);
     controlArea.add(controlbackgroundPanelToken1);
     controlArea.add(controlbackgroundPanelToken2);
-    controlArea.add(pauseLabel);
-    controlArea.add(menuLabel);
+    controlArea.add(pauseButton());
     controlArea.add(exitLabel);
     effectArea.add(effects);
     potionArea.add(potionLabel);
@@ -263,14 +257,16 @@ public class BoardJFrame extends JFrame {
     opponentsPotionArea.add(opponentsPotionLabel);
     opponentsAvatarArea.add(opponentsSegmentedAvatarArea);
     opponentsAvatarArea.add(opponentsAvatarLabel);
-
     artifactCardsArea.add(artifactCardsLabel);
+    eastPanel.add(createForageButton());
+    eastPanel.add(publishTheoryButton());
+    eastPanel.add(publicationTrackButton());
 
     this.add(westPanel, BorderLayout.WEST);
     this.add(eastPanel, BorderLayout.EAST);
     this.add(southPanel, BorderLayout.SOUTH);
     this.add(northPanel, BorderLayout.NORTH);
-    this.add(centerPanel, BorderLayout.CENTER);
+    this.add(arrangeBoardTriangle(), BorderLayout.CENTER);
 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int x = (screenSize.width - this.getWidth()) / 2;
@@ -280,5 +276,140 @@ public class BoardJFrame extends JFrame {
     this.setLocation(x, y);
 
     this.setVisible(true);
+  }
+
+  public JButton createForageButton() {
+    JButton forageButton = new JButton("Forage For Ingredients");
+    forageButton.addActionListener(
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          Ingredient ingredient = token1.forageForIngredient(board);
+          addIngredient(ingredient);
+        }
+      }
+    );
+    return forageButton;
+  }
+
+  public void addIngredient(Ingredient ingredient) {
+    int ingID = ingredient.getID();
+    System.out.println("IIIIIIIIIIIIIII");
+    for (Ingredient ing : token1.getIngredients()) {
+      System.out.println("ing.getID() = " + ing.getID());
+    }
+    System.out.println("IIIIIIIIIIIIIII");
+
+    ImageIcon ingredientIcon = new ImageIcon("src/ui/utils/ingredient_" + ingID + ".jpg");
+    JLabel ingredientLabel = new JLabel(ingredientIcon);
+    ingredientCardsArea.add(ingredientLabel);
+    this.setVisible(false);
+    this.setVisible(true);
+  }
+
+  public JButton pauseButton() {
+    ImageIcon pauseIcon = new ImageIcon("src/ui/utils/pause.png");
+    JButton pauseButton = new JButton(pauseIcon);
+
+    pauseButton.addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                openingPauseMenu();
+              }
+            }
+    );
+    return pauseButton;
+  }
+
+  public void openingPauseMenu(){
+    Game.openPauseMenu(this);
+    Game.inactivateBoard(this);
+  }
+
+  public static JPanel arrangeBoardTriangle() {
+    // this method's purpose is adding buttons to deduction image. There are 36 different buttons and we arrange they in the for loop.
+    JPanel mainPanel = new JPanel(new GridBagLayout());
+
+    ImageIcon centerIcon = new ImageIcon("src/ui/utils/pubboard.png");
+    JLabel centerLabel = new JLabel(centerIcon);
+    RoundedButton[] roundedButtons = new RoundedButton[36];
+    for (int i = 0; i < roundedButtons.length; i++) { // creating 36 buttons.
+      roundedButtons[i] = new RoundedButton("∅");
+      roundedButtons[i].setBorder(BorderFactory.createEmptyBorder(11, 11, 11, 11));
+
+      int finals = i;
+      roundedButtons[i].addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Game.openTriangleBoard(roundedButtons[finals]);
+        } // This action for the changing of button shape, color and features. We send call to game due to game is our controller.
+        });
+    }
+
+    GridBagConstraints gbcCenterLabel = new GridBagConstraints();
+    gbcCenterLabel.gridx = 0;
+    gbcCenterLabel.gridy = 0;
+    gbcCenterLabel.insets = new Insets(0, 0, 0, 0);
+    mainPanel.add(centerLabel, gbcCenterLabel);
+
+    int startery = 283;
+    int starterx = 0;
+    int nodeNumber = 0;
+    for (int k = 1; k < 9; k++) { // we used 2 different for loop. They used for rows and number of buttons.
+      for (int i = 0; i < k; i++) {
+        GridBagConstraints gbcButton = new GridBagConstraints();
+        gbcButton.gridx = 0;
+        gbcButton.gridy = 0;
+        gbcButton.insets = new Insets(0, 0, startery, starterx-(126*i));
+        mainPanel.add(roundedButtons[nodeNumber], gbcButton);
+        mainPanel.setComponentZOrder(roundedButtons[nodeNumber], 0);
+
+        nodeNumber++;
+      }
+      startery= startery-64;
+      starterx = starterx+63;
+    }
+
+    return mainPanel;
+
+  }
+
+  public JButton publishTheoryButton() {
+    JButton publishButton = new JButton("Publish Theory");
+
+    publishButton.addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                openPublishMenu();
+              }
+            }
+    );
+    return publishButton;
+  }
+
+    public JButton publicationTrackButton() {
+    JButton publicationTrackButton = new JButton("Publication Track");
+
+    publicationTrackButton.addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                openPublicationTrack();
+              }
+            }
+    );
+    return publicationTrackButton;
+  }
+
+  public void openPublishMenu(){
+    Game.openPublishMenu(this, board);
+    // this.setFocusable(false);
+  }
+
+  public void openPublicationTrack(){
+    Game.openPublicationTrack(this, board);
+    // this.setFocusable(false);
   }
 }
