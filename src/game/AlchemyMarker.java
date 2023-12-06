@@ -36,4 +36,8 @@ public class AlchemyMarker {
     public Aspect getAspect3() {
         return aspect3;
     }
+
+    public String getImagePath() {
+        return imagePath;
+    }
 }
