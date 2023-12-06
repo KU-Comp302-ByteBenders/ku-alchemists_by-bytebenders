@@ -74,4 +74,9 @@ public class Game {
     board.setVisible(true);
   }
 
+  public static void openTriangleBoard(JButton button){
+    TriangleBoardJFrame triangleBoardJFrame =
+            new TriangleBoardJFrame(button);
+  }
+
 }

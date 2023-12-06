@@ -196,8 +196,6 @@ public class Board {
       System.out.println(e.getMessage());
     }
 
-    // TODO: Display the Ingredient's true alchemy marker
-
     if (theory.debunkSuccess(alchemyMarker)) {
       token.addReputation(2); // Increase reputation of the debunker
       theory.getTheoryOwner().decreaseReputation(1); // Decrease reputation of the publisher
