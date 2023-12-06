@@ -43,9 +43,10 @@ public class PublishTheoryJFrame extends JFrame {
         ButtonGroup alchemyGroup = new ButtonGroup();
 
         for (int i = 0; i < 8; i++) {
-            String imagePath = board.getStaticIngredients().get(i).getImagePath();
+            // Get the path of the ingredient image and add it to the button
+            String ingredientImagePath = board.getStaticIngredients().get(i).getImagePath();
             ingredientButtons[i] = new JToggleButton();
-            ingredientButtons[i].setIcon(new ImageIcon(imagePath));
+            ingredientButtons[i].setIcon(new ImageIcon(ingredientImagePath));
             ingredientGroup.add(ingredientButtons[i]);
             ingredientPanel.add(ingredientButtons[i]);
 
@@ -60,8 +61,10 @@ public class PublishTheoryJFrame extends JFrame {
                 }
             });
 
-            alchemyButtons[i] = new JToggleButton("Alchemy Marker" + (i + 1));
-            //alchemyButtons[i].setIcon(new ImageIcon("path_to_alchemy_image_" + (i + 1)));
+            // Get the path of the alchemy marker image and add it to the button
+            String alchemyMarkerImagePath = board.getStaticAlchemyMarkers().get(i).getImagePath();
+            alchemyButtons[i] = new JToggleButton();
+            alchemyButtons[i].setIcon(new ImageIcon(alchemyMarkerImagePath));
             alchemyButtons[i].addItemListener(new ItemListener() {
                 public void itemStateChanged(ItemEvent e) {
                     if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -79,18 +82,17 @@ public class PublishTheoryJFrame extends JFrame {
         confirmPanel.add(confirmButton);
         confirmButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Handle confirmation here
-                if (selectedIngredient != null && selectedAlchemyMarker != null) {
-                    // Publish the theory
+                // Publish the theory
 
-                    // TODO: Add turn logic here
+                // TODO: Add turn logic here
+                try {
                     board.publishTheory(selectedIngredient, selectedAlchemyMarker, board.getTokens().get(0));
-                    // Close the window
-                    dispose();
-                } else {
-                    // Display error message
-                    JOptionPane.showMessageDialog(null, "Please select an ingredient and an alchemy marker!");
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(null, exception.getMessage());
+                    return;
                 }
+                // Close the window
+                dispose();
             }
         });
 
