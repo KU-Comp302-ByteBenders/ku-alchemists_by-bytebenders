@@ -7,7 +7,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TriangleBoardJFrame extends JFrame {
+public class TriangleBoardJFrame extends JFrame { // this class for selecting and arranging out deduction board. When tokens click the button on the deduction board,
+    // we open this. Our tokens can select the different options like colors, sign.
 
 
     public TriangleBoardJFrame(JButton pressedbutton) {

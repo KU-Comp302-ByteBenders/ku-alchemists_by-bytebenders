@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class RoundedButton extends JButton {
+    // This class extended from JButton, and purpose of this class is making the buttons on the deduction board circular shape.
     public RoundedButton(String text) {
         super(text);
         setContentAreaFilled(false);
@@ -31,6 +32,7 @@ public class RoundedButton extends JButton {
     }
 
     @Override
+    // This method arrange the text inside of the buttons.
     public void setFont(Font font) {
         super.setFont(new Font(font.getName(), Font.PLAIN, font.getSize() + 8));
     }

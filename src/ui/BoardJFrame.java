@@ -326,12 +326,13 @@ public class BoardJFrame extends JFrame {
   }
 
   public static JPanel arrangeBoardTriangle() {
+    // this method's purpose is adding buttons to deduction image. There are 36 different buttons and we arrange they in the for loop.
     JPanel mainPanel = new JPanel(new GridBagLayout());
 
     ImageIcon centerIcon = new ImageIcon("src/ui/utils/pubboard.png");
     JLabel centerLabel = new JLabel(centerIcon);
     RoundedButton[] roundedButtons = new RoundedButton[36];
-    for (int i = 0; i < roundedButtons.length; i++) {
+    for (int i = 0; i < roundedButtons.length; i++) { // creating 36 buttons.
       roundedButtons[i] = new RoundedButton("∅");
       roundedButtons[i].setBorder(BorderFactory.createEmptyBorder(11, 11, 11, 11));
 
@@ -340,7 +341,7 @@ public class BoardJFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             Game.openTriangleBoard(roundedButtons[finals]);
-        }
+        } // This action for the changing of button shape, color and features. We send call to game due to game is our controller.
         });
     }
 
@@ -353,7 +354,7 @@ public class BoardJFrame extends JFrame {
     int startery = 283;
     int starterx = 0;
     int nodeNumber = 0;
-    for (int k = 1; k < 9; k++) {
+    for (int k = 1; k < 9; k++) { // we used 2 different for loop. They used for rows and number of buttons.
       for (int i = 0; i < k; i++) {
         GridBagConstraints gbcButton = new GridBagConstraints();
         gbcButton.gridx = 0;
