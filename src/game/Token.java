@@ -94,7 +94,13 @@ public class Token {
 
   public void removePotion(String potion) {}
 
-  public void publishTheory(String ingredient, String alchemyMarker) {}
+  public void publishTheory(Board board, Ingredient ingredient, AlchemyMarker alchemyMarker) throws Exception {
+    board.publishTheory(ingredient, alchemyMarker, this);
+  }
+
+  public void debunkTheory(Board board, Theory theory, AlchemyMarker alchemyMarker) {
+    board.debunkTheory(theory, alchemyMarker, this);
+  }
 
   public void addReputation(int amount) {}
 

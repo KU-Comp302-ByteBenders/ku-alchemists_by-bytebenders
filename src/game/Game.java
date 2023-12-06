@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import javax.swing.*;
 import ui.*;
 
+/*
+ * This class is the Controller class.
+ * Also a Singleton class.
+ */
 public class Game {
 
   public int round;
@@ -42,6 +46,20 @@ public class Game {
     loginScreen.setVisible(false);
   }
 
+  public void openPauseMenu() {}
+
+  public void closePauseMenu() {}
+
+  public static void openPublishMenu(JFrame boardJFrame, Board board) {
+    // Open the publish theory action menu
+    PublishTheoryJFrame publishTheoryJFrame = new PublishTheoryJFrame(board);
+  }
+
+  public static void openPublicationTrack(JFrame boardJFrame, Board board) {
+    // Open the publish theory action menu
+    PublicationTrackJFrame publicationTrackJFrame = new PublicationTrackJFrame(board);
+  }
+
   public static void openPauseMenu(JFrame board) {
     PauseMenuJframe pauseMenuJframe = new PauseMenuJframe(board);
   }
@@ -60,6 +78,15 @@ public class Game {
 
   public static void activateTransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard, BoardJFrame boardFrame) {
     TransmuteIngredientFrame transmuteJFrame = new TransmuteIngredientFrame(displayedIngredients, mainBoard, boardFrame);
+  }
+
+  public static void openTriangleBoard(JButton button){
+    TriangleBoardJFrame triangleBoardJFrame =
+            new TriangleBoardJFrame(button);
+  }
+
+  public static void openHelpScreen() {
+    HelpJFrame helpJFrame = new HelpJFrame();
   }
 
 }

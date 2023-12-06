@@ -36,6 +36,14 @@ public class MainMenuJFrame extends JFrame {
         JButton helpButton = new JButton("HELP");
         helpButton.setBounds(550, 260, 150, 30);
 
+        // Add ActionListener to the "HELP" button
+        helpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Game.openHelpScreen();
+            }
+        });
+
         JButton exitButton = new JButton("EXIT");
         exitButton.setBounds(550, 300, 150, 30);
 
