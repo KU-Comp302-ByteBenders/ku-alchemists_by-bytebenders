@@ -87,7 +87,7 @@ public class Token {
 
   public void removePotion(String potion) {}
 
-  public void publishTheory(Board board, Ingredient ingredient, AlchemyMarker alchemyMarker) {
+  public void publishTheory(Board board, Ingredient ingredient, AlchemyMarker alchemyMarker) throws Exception {
     board.publishTheory(ingredient, alchemyMarker, this);
   }
 
