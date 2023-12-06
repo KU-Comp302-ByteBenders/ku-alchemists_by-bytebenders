@@ -53,6 +53,11 @@ public class Game {
     PublishTheoryJFrame publishTheoryJFrame = new PublishTheoryJFrame(board);
   }
 
+  public static void openPublicationTrack(JFrame boardJFrame, Board board) {
+    // Open the publish theory action menu
+    PublicationTrackJFrame publicationTrackJFrame = new PublicationTrackJFrame(board);
+  }
+
   public static void inactivateBoard(JFrame board) {
     board.setVisible(false);
   }
