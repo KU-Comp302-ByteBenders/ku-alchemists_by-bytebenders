@@ -157,25 +157,24 @@ public class Board {
     return staticAlchemyMarkers;
   }
 
-  public void publishTheory(Ingredient ingredient, AlchemyMarker alchemyMarker, Token token) {
-    try {
-      // Check if player has enough gold
-      if (token.getGoldBalance() < 1) {
-        throw new Exception("Not enough gold!");
-      }
+  public void publishTheory(Ingredient ingredient, AlchemyMarker alchemyMarker, Token token) throws Exception {
+    // Check if player has enough gold
+    if (ingredient == null || alchemyMarker == null) {
+      throw new Exception("Please select an ingredient and an alchemy marker!");
+    }
+    
+    if (token.getGoldBalance() < 1) {
+      throw new Exception("Not enough gold!");
+    }
 
-      for (Theory theory : theories) {
-        if (theory.isAboutIngredient(ingredient)) { // There is already a theory about the ingredient
-          throw new Exception("A theory on this ingredient already exists!");
-        }
-        if (theory.hasAlchemyMarker(alchemyMarker)) { // There is the same Alchemy Marker on another theory
-          throw new Exception("Your Alchemy Marker is already on another theory!");
-        }
+    for (Theory theory : theories) {
+      if (theory.isAboutIngredient(ingredient)) { // There is already a theory about the ingredient
+        throw new Exception("A theory on this ingredient already exists!");
+
       }
-    } catch (Exception e) {
-      // Show 
-      System.out.println(e.getMessage());
-      return;
+      if (theory.hasAlchemyMarker(alchemyMarker)) { // There is the same Alchemy Marker on another theory
+        throw new Exception("Your Alchemy Marker is already on another theory!");
+      }
     }
 
     // Create theory and add to the theories list
