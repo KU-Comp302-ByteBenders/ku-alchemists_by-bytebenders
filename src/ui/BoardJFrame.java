@@ -1,11 +1,14 @@
 package ui;
 
 import game.*;
+import ui.uihelpers.RoundedButton;
+
 import game.ArtifactCards.ArtifactCard;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,9 +35,9 @@ public class BoardJFrame extends JFrame {
   JLabel bigIngBackLabel;
   JLabel bigArtifactBackLabel;
   JLabel centerLabel;
+  JLabel goldLabel;
   //JLabel goldLabel;
   private JLabel opponentsGoldLabel;
-  private JLabel goldLabel;
   private JLabel reputationLabel;
   private JLabel opponentsReputationLabel;
 
@@ -60,9 +63,8 @@ public class BoardJFrame extends JFrame {
   ImageIcon dragonIcon = new ImageIcon("src/ui/utils/dragon fru.jpg");
   ImageIcon bigArtifactBackIcon = new ImageIcon("src/ui/utils/artifact card image.png");
   ImageIcon bigIngredientBackIcon = new ImageIcon("src/ui/utils/ingredient image.png");
-  ImageIcon centerIcon = new ImageIcon("src/ui/utils/pubboard.png");
   ImageIcon smallIngredientBackIcon = new ImageIcon("src/ui/utils/small-ingredient-image.png");
-  
+
   ImageIcon artifact1Icon = new ImageIcon("src/ui/utils/artifact1jpg");
   ImageIcon artifact2Icon = new ImageIcon("src/ui/utils/artifact2.jpg");
   ImageIcon artifact3Icon = new ImageIcon("src/ui/utils/artifact3.jpg");
@@ -125,14 +127,12 @@ public class BoardJFrame extends JFrame {
 
     bigIngBackLabel = new JLabel(bigIngredientBackIcon);
     bigArtifactBackLabel = new JLabel(bigArtifactBackIcon);
-    centerLabel = new JLabel(centerIcon);
 
     // SET THE DIMENSIONS OF THE JPANELS AND JLABELS
 
     northPanel.setPreferredSize(new Dimension(1600, 220));
     westPanel.setPreferredSize(new Dimension(450, 460));
     eastPanel.setPreferredSize(new Dimension(450, 460));
-    centerPanel.setPreferredSize(new Dimension(700, 460));
     southPanel.setPreferredSize(new Dimension(1600, 220));
 
     westOfSouthPanel.setPreferredSize(new Dimension(550, 220));
@@ -155,7 +155,6 @@ public class BoardJFrame extends JFrame {
     northPanel.setBorder(lineBorder);
     westPanel.setBorder(lineBorder);
     eastPanel.setBorder(lineBorder);
-    centerPanel.setBorder(lineBorder);
     southPanel.setBorder(lineBorder);
     westOfSouthPanel.setBorder(lineBorder);
     eastOfSouthPanel.setBorder(lineBorder);
@@ -198,7 +197,7 @@ public class BoardJFrame extends JFrame {
     for (int i = 0; i < token2ArtifactsNumber; i++) {
       ArtifactCard myArtifactCard = token2.getArtifactCards().get(i);
       createArtifactUseButton(myArtifactCard, token2);
-      
+
     }
 
     // CREATE THE JLABELS THAT CONTAIN WORDS.
@@ -226,7 +225,7 @@ public class BoardJFrame extends JFrame {
 
   //JLabel goldLabel = createTokensGoldLabel();
   //JLabel opponentsGoldLabel = createOpponentsGoldLabel();
-   
+
 
     JLabel potionLabel = new JLabel();
     potionLabel.setText("POTIONS:");
@@ -297,7 +296,6 @@ public class BoardJFrame extends JFrame {
 
     westPanel.add(bigIngBackLabel);
     westPanel.add(bigArtifactBackLabel);
-    centerPanel.add(centerLabel);
 
     //opponentsSegmentedAvatarArea.add(opponentsGoldLabel, BorderLayout.NORTH);
     opponentsSegmentedAvatarArea.add(opponentsReputationLabel, BorderLayout.CENTER);
@@ -320,13 +318,16 @@ public class BoardJFrame extends JFrame {
     opponentsAvatarArea.add(opponentsAvatarLabel);
     artifactCardsArea.add(artifactCardsLabel);
     eastPanel.add(createForageButton());
+    eastPanel.add(createTransmuteButton(getName()));
+    eastPanel.add(publishTheoryButton());
+    eastPanel.add(publicationTrackButton());
     eastPanel.add(createArtifactBuyerButton());
 
     this.add(westPanel, BorderLayout.WEST);
     this.add(eastPanel, BorderLayout.EAST);
     this.add(southPanel, BorderLayout.SOUTH);
     this.add(northPanel, BorderLayout.NORTH);
-    this.add(centerPanel, BorderLayout.CENTER);
+    this.add(arrangeBoardTriangle(), BorderLayout.CENTER);
 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int x = (screenSize.width - this.getWidth()) / 2;
@@ -338,7 +339,7 @@ public class BoardJFrame extends JFrame {
     this.setVisible(true);
   }
 
-  
+
 
   public JButton createForageButton() {
     JButton forageButton = new JButton("Forage For Ingredients");
@@ -348,7 +349,7 @@ public class BoardJFrame extends JFrame {
         public void actionPerformed(ActionEvent e) {
           Ingredient ingredient = token1.forageForIngredient(board);
           addIngredient(ingredient);
-          
+
         }
       }
     );
@@ -395,7 +396,7 @@ public class BoardJFrame extends JFrame {
     artifactCardsArea.add(artifactUseButton);
     this.setVisible(false);
     this.setVisible(true);
-    
+
   }
 
   //public void refreshArtifactCardsArea(ArtifactCard artifactCard) {
@@ -407,6 +408,21 @@ public class BoardJFrame extends JFrame {
 
 
 
+
+  public JButton createTransmuteButton(String ingredientName) {
+    JButton transmuteButton = new JButton("Transmute For Ingredients");
+    transmuteButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (BoardJFrame.this != null) {
+                //TransmuteIngredientFrame tif = new TransmuteIngredientFrame(new ArrayList<>(token1.getIngredients()), board, BoardJFrame.this);
+                //tif.setVisible(true);
+                Game.activateTransmuteIngredientFrame(new ArrayList<>(token1.getIngredients()), board, BoardJFrame.this);
+            }
+        }
+    });
+    return transmuteButton;
+}
 
   public void addIngredient(Ingredient ingredient) {
     int ingID = ingredient.getID();
@@ -423,8 +439,37 @@ public class BoardJFrame extends JFrame {
     this.setVisible(true);
   }
 
+  public void removeIngredientFromBoardByName(String ingredientName) {
+    String path="";
+    for (Ingredient ingredient : token1.getIngredients()) {
+        if (ingredient.getName().equals(ingredientName)) {
+          path=ingredient.getImagePath();
+          token1.removeIngredient(ingredientName);
+          token1.addGold(1);
+          updateTokensGoldLabel();
+          break;
+        }
+    }
+    for (Component component : ingredientCardsArea.getComponents()) {
+      if (component instanceof JLabel) {
+          JLabel label = (JLabel) component;
+          ImageIcon labelIcon = (ImageIcon) label.getIcon();
+          ImageIcon targetIcon = new ImageIcon(path);
+          Image labelImage = labelIcon.getImage();
+          Image targetImage = targetIcon.getImage();
 
-  
+          if (labelImage.equals(targetImage)) {
+              label.setVisible(false);
+              break;
+          }
+      }
+  }
+    this.setVisible(false);
+    this.setVisible(true);
+}
+
+
+
 
   public JButton pauseButton() {
     ImageIcon pauseIcon = new ImageIcon("src/ui/utils/pause.png");
@@ -475,4 +520,90 @@ public class BoardJFrame extends JFrame {
     this.setVisible(true);
     return opponentsGoldLabel;
   } */
+
+  public static JPanel arrangeBoardTriangle() {
+    // this method's purpose is adding buttons to deduction image. There are 36 different buttons and we arrange they in the for loop.
+    JPanel mainPanel = new JPanel(new GridBagLayout());
+
+    ImageIcon centerIcon = new ImageIcon("src/ui/utils/pubboard.png");
+    JLabel centerLabel = new JLabel(centerIcon);
+    RoundedButton[] roundedButtons = new RoundedButton[36];
+    for (int i = 0; i < roundedButtons.length; i++) { // creating 36 buttons.
+      roundedButtons[i] = new RoundedButton("∅");
+      roundedButtons[i].setBorder(BorderFactory.createEmptyBorder(11, 11, 11, 11));
+
+      int finals = i;
+      roundedButtons[i].addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Game.openTriangleBoard(roundedButtons[finals]);
+        } // This action for the changing of button shape, color and features. We send call to game due to game is our controller.
+        });
+    }
+
+    GridBagConstraints gbcCenterLabel = new GridBagConstraints();
+    gbcCenterLabel.gridx = 0;
+    gbcCenterLabel.gridy = 0;
+    gbcCenterLabel.insets = new Insets(0, 0, 0, 0);
+    mainPanel.add(centerLabel, gbcCenterLabel);
+
+    int startery = 283;
+    int starterx = 0;
+    int nodeNumber = 0;
+    for (int k = 1; k < 9; k++) { // we used 2 different for loop. They used for rows and number of buttons.
+      for (int i = 0; i < k; i++) {
+        GridBagConstraints gbcButton = new GridBagConstraints();
+        gbcButton.gridx = 0;
+        gbcButton.gridy = 0;
+        gbcButton.insets = new Insets(0, 0, startery, starterx-(126*i));
+        mainPanel.add(roundedButtons[nodeNumber], gbcButton);
+        mainPanel.setComponentZOrder(roundedButtons[nodeNumber], 0);
+
+        nodeNumber++;
+      }
+      startery= startery-64;
+      starterx = starterx+63;
+    }
+
+    return mainPanel;
+
+  }
+
+  public JButton publishTheoryButton() {
+    JButton publishButton = new JButton("Publish Theory");
+
+    publishButton.addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                openPublishMenu();
+              }
+            }
+    );
+    return publishButton;
+  }
+
+    public JButton publicationTrackButton() {
+    JButton publicationTrackButton = new JButton("Publication Track");
+
+    publicationTrackButton.addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                openPublicationTrack();
+              }
+            }
+    );
+    return publicationTrackButton;
+  }
+
+  public void openPublishMenu(){
+    Game.openPublishMenu(this, board);
+    // this.setFocusable(false);
+  }
+
+  public void openPublicationTrack(){
+    Game.openPublicationTrack(this, board);
+    // this.setFocusable(false);
+  }
 }

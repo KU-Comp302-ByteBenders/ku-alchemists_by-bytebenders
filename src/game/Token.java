@@ -85,13 +85,26 @@ public class Token {
 
   public void addPotion(String potion) {}
 
-  public void removeIngredient(String ingredient) {}
+  public void removeIngredient(String ingredient) {
+    for( Ingredient ing : ingredients){
+      if(ing.getName().equals(ingredient)){
+        ingredients.remove(ing);
+        break;
+      }
+    }
+  }
 
   public void sellPotion(String potion) {}
 
   public void removePotion(String potion) {}
 
-  public void publishTheory(String ingredient, String alchemyMarker) {}
+  public void publishTheory(Board board, Ingredient ingredient, AlchemyMarker alchemyMarker) throws Exception {
+    board.publishTheory(ingredient, alchemyMarker, this);
+  }
+
+  public void debunkTheory(Board board, Theory theory, AlchemyMarker alchemyMarker) {
+    board.debunkTheory(theory, alchemyMarker, this);
+  }
 
   public void addReputation(int amount){
     reputation += amount;
@@ -104,7 +117,7 @@ public void decreaseReputation(int amount){
 public void buyArtifactCard(ArtifactCard artifactCard){
   Board.giveArtifactCardtoToken(this,artifactCard);
 }
-  //Burada niye direkt artifactCard.applyEffect yapamıyom anlamadım. SIKINTI ÇIKARABİLİR 
+  //Burada niye direkt artifactCard.applyEffect yapamıyom anlamadım. SIKINTI ÇIKARABİLİR
   public void useArtifactCard(ArtifactCard artifactCard){
     Effect effect = (Effect) artifactCard;
     effect.applyEffect(this);
@@ -114,10 +127,16 @@ public void buyArtifactCard(ArtifactCard artifactCard){
     artifactCards.add(artifactCard);
 }
 
+  public void transmuteIngredient(String ingredientName) {
+    for (Ingredient ingredient : ingredients) {
+      if (ingredient.getName().equals(ingredientName)) {
+          ingredients.remove(ingredient);
+      }
+    }
+  }
   public void removeArtifactCard(ArtifactCard artifactCard){
     artifactCards.remove(artifactCard);
   }
-  public void transmuteIngredient(String ingredient) {}
 
   public void decreaseSickness(int amount){
     sicknessLevel -= amount;
