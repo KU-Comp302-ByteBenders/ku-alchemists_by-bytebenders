@@ -81,7 +81,14 @@ public class Token {
 
   public void addPotion(String potion) {}
 
-  public void removeIngredient(String ingredient) {}
+  public void removeIngredient(String ingredient) {
+    for( Ingredient ing : ingredients){
+      if(ing.getName().equals(ingredient)){
+        ingredients.remove(ing);
+        break;
+      }
+    } 
+  }
 
   public void sellPotion(String potion) {}
 
@@ -97,5 +104,13 @@ public class Token {
 
   public void useArtifactCard(String artifactCard) {}
 
-  public void transmuteIngredient(String ingredient) {}
+  public void transmuteIngredient(String ingredientName) {
+    for (Ingredient ingredient : ingredients) {
+      if (ingredient.getName().equals(ingredientName)) {
+          ingredients.remove(ingredient);
+      }
+    }
+  }
 }
+
+  

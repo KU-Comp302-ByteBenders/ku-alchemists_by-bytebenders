@@ -1,5 +1,7 @@
 package game;
 
+import java.util.ArrayList;
+
 import javax.swing.*;
 import ui.*;
 
@@ -54,6 +56,10 @@ public class Game {
 
   public static void activateBoard(JFrame board) {
     board.setVisible(true);
+  }
+
+  public static void activateTransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard, BoardJFrame boardFrame) {
+    TransmuteIngredientFrame transmuteJFrame = new TransmuteIngredientFrame(displayedIngredients, mainBoard, boardFrame);
   }
 
 }

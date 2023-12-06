@@ -54,14 +54,14 @@ public class Board {
     AlchemyMarker alchemyMarker7 = new AlchemyMarker(aspect3, aspect7, aspect5);
     AlchemyMarker alchemyMarker8 = new AlchemyMarker(aspect6, aspect7, aspect10);
 
-    Ingredient ingredient1 = new Ingredient("dragon fruit", 1, alchemyMarker1);
-    Ingredient ingredient2 = new Ingredient("emerald", 2, alchemyMarker2);
-    Ingredient ingredient3 = new Ingredient("feather", 3, alchemyMarker3);
-    Ingredient ingredient4 = new Ingredient("ginger", 4, alchemyMarker4);
-    Ingredient ingredient5 = new Ingredient("moondust", 5, alchemyMarker5);
-    Ingredient ingredient6 = new Ingredient("obsidian", 6, alchemyMarker6);
-    Ingredient ingredient7 = new Ingredient("redstone", 7, alchemyMarker7);
-    Ingredient ingredient8 = new Ingredient("saffron", 8, alchemyMarker8);
+    Ingredient ingredient1 = new Ingredient("dragon fruit", 1, alchemyMarker1, "src/ui/utils/ingredient_1.jpg");
+    Ingredient ingredient2 = new Ingredient("emerald", 2, alchemyMarker2, "src/ui/utils/ingredient_2.jpg");
+    Ingredient ingredient3 = new Ingredient("feather", 3, alchemyMarker3, "src/ui/utils/ingredient_3.jpg");
+    Ingredient ingredient4 = new Ingredient("ginger", 4, alchemyMarker4, "src/ui/utils/ingredient_4.jpg");
+    Ingredient ingredient5 = new Ingredient("moondust", 5, alchemyMarker5, "src/ui/utils/ingredient_5.jpg");
+    Ingredient ingredient6 = new Ingredient("obsidian", 6, alchemyMarker6, "src/ui/utils/ingredient_6.jpg");
+    Ingredient ingredient7 = new Ingredient("redstone", 7, alchemyMarker7, "src/ui/utils/ingredient_7.jpg");
+    Ingredient ingredient8 = new Ingredient("saffron", 8, alchemyMarker8, "src/ui/utils/ingredient_8.jpg");
 
     for (int i = 0; i < 4; i++) {
       ingredients.add(ingredient1);
