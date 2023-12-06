@@ -7,13 +7,19 @@ import game.Token;
 public class ArtifactCard {
     private String name;
     private Token owner = null; // ArtifactCard has no owner by default
+    private int goldPrice;
 
-    public ArtifactCard(String name) {
+    public ArtifactCard(String name, int goldPrice) {
         this.name = name;
+        this.goldPrice = goldPrice;
     }
 
     public String getName() {
         return name;
+    }
+
+    public int getGoldPrice() {
+        return goldPrice;
     }
 }
 

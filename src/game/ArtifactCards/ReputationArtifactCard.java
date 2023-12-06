@@ -7,13 +7,15 @@ import game.Token;
 public class ReputationArtifactCard extends ArtifactCard implements Effect {
   private int points;
 
-  public ReputationArtifactCard(String name, int points) {
-      super(name);
+  public ReputationArtifactCard(String name, int points, int goldPrice) {
+      super(name, goldPrice);
       this.points = points;
   }
 
   @Override
   public void applyEffect(Token token) {
       token.addReputation(points);
+      System.out.println("applyEffect for reputationArtifactCards work correctly");
+      System.out.println(token.getReputation()); 
   }
 }

@@ -45,7 +45,9 @@ public class Token {
     goldBalance += amount;
   }
 
-  public void decreaseGold(int amount) {}
+  public void decreaseGold(int amount) {
+    goldBalance -= amount;
+  }
 
   public void addIngredient(Ingredient ingredient) {
     ingredients.add(ingredient);
@@ -100,7 +102,7 @@ public void decreaseReputation(int amount){
 }
 
 public void buyArtifactCard(ArtifactCard artifactCard){
-  Board.giveArtifactCardtoToken(this);
+  Board.giveArtifactCardtoToken(this,artifactCard);
 }
   //Burada niye direkt artifactCard.applyEffect yapamıyom anlamadım. SIKINTI ÇIKARABİLİR 
   public void useArtifactCard(ArtifactCard artifactCard){
@@ -111,10 +113,17 @@ public void buyArtifactCard(ArtifactCard artifactCard){
   public void addArtifactCard(ArtifactCard artifactCard){
     artifactCards.add(artifactCard);
 }
+
+  public void removeArtifactCard(ArtifactCard artifactCard){
+    artifactCards.remove(artifactCard);
+  }
   public void transmuteIngredient(String ingredient) {}
 
   public void decreaseSickness(int amount){
     sicknessLevel -= amount;
 }
+  public int getSicknessLevel(){
+      return sicknessLevel;
+  }
 
 }
