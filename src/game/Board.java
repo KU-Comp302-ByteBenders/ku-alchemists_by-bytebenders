@@ -164,21 +164,19 @@ public class Board {
         throw new Exception("Not enough gold!");
       }
 
-      // Check in the theories list if there is already a theory about the ingredient
-      // Or if there is the same Alchemy Marker on another theory
       for (Theory theory : theories) {
-        if (theory.isAboutIngredient(ingredient)) {
+        if (theory.isAboutIngredient(ingredient)) { // There is already a theory about the ingredient
           throw new Exception("A theory on this ingredient already exists!");
         }
-        if (theory.hasAlchemyMarker(alchemyMarker)) {
+        if (theory.hasAlchemyMarker(alchemyMarker)) { // There is the same Alchemy Marker on another theory
           throw new Exception("Your Alchemy Marker is already on another theory!");
         }
       }
     } catch (Exception e) {
+      // Show 
       System.out.println(e.getMessage());
+      return;
     }
-
-    // TODO: Add to publication track
 
     // Create theory and add to the theories list
     Theory theory = new Theory(ingredient, alchemyMarker, token);
@@ -186,6 +184,8 @@ public class Board {
 
     token.addReputation(1);
     token.decreaseGold(1); 
+    
+    System.out.println("Theory published!");
   }
 
   public void debunkTheory(Theory theory, AlchemyMarker alchemyMarker, Token token) {
