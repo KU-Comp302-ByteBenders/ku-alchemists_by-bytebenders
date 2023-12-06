@@ -259,6 +259,8 @@ public class BoardJFrame extends JFrame {
     opponentsAvatarArea.add(opponentsAvatarLabel);
     artifactCardsArea.add(artifactCardsLabel);
     eastPanel.add(createForageButton());
+    eastPanel.add(publishTheoryButton());
+    eastPanel.add(publicationTrackButton());
 
     this.add(westPanel, BorderLayout.WEST);
     this.add(eastPanel, BorderLayout.EAST);
@@ -371,5 +373,43 @@ public class BoardJFrame extends JFrame {
 
     return mainPanel;
 
+  }
+
+  public JButton publishTheoryButton() {
+    JButton publishButton = new JButton("Publish Theory");
+
+    publishButton.addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                openPublishMenu();
+              }
+            }
+    );
+    return publishButton;
+  }
+
+    public JButton publicationTrackButton() {
+    JButton publicationTrackButton = new JButton("Publication Track");
+
+    publicationTrackButton.addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                openPublicationTrack();
+              }
+            }
+    );
+    return publicationTrackButton;
+  }
+
+  public void openPublishMenu(){
+    Game.openPublishMenu(this, board);
+    // this.setFocusable(false);
+  }
+
+  public void openPublicationTrack(){
+    Game.openPublicationTrack(this, board);
+    // this.setFocusable(false);
   }
 }

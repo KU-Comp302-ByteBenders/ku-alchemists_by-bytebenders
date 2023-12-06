@@ -19,7 +19,6 @@ public class TriangleBoardJFrame extends JFrame { // this class for selecting an
         this.setSize(400, 400);
 
         this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Create text fields
         JLabel label = new JLabel("Choose a sign");
