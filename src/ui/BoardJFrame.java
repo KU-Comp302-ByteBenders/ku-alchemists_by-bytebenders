@@ -30,6 +30,7 @@ public class BoardJFrame extends JFrame {
   JLabel bigIngBackLabel;
   JLabel bigArtifactBackLabel;
   JLabel centerLabel;
+  JLabel goldLabel;
 
   JPanel ingredientCardsArea;
   JPanel artifactCardsArea;
@@ -162,7 +163,7 @@ public class BoardJFrame extends JFrame {
     effects.setFont(new Font("Arial", Font.BOLD, 20));
     effects.setForeground(Color.BLACK);
 
-    JLabel goldLabel = new JLabel();
+    goldLabel = new JLabel();
     goldLabel.setText("GOLD:" + token1.getGoldBalance());
     goldLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
@@ -330,6 +331,8 @@ public class BoardJFrame extends JFrame {
         if (ingredient.getName().equals(ingredientName)) {
           path=ingredient.getImagePath();
           token1.removeIngredient(ingredientName);
+          token1.addGold(1);
+          updateTokensGoldLabel();
           break;
         }
     }
@@ -456,4 +459,8 @@ public class BoardJFrame extends JFrame {
     Game.openPublicationTrack(this, board);
     // this.setFocusable(false);
   }
+
+  public void updateTokensGoldLabel() {
+    goldLabel.setText("Gold: " + token1.getGoldBalance());
+}
 }

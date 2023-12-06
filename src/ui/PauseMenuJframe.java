@@ -28,6 +28,15 @@ public class PauseMenuJframe extends JFrame {
         JButton helpButton = new JButton("HELP");
         helpButton.setBounds(350, 250, 150, 150);
 
+        helpButton.addActionListener(
+            new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                   Game.openHelpScreen();
+                }
+            }
+        );
+
         JButton closePauseMenu = new JButton("Return the Game");
         closePauseMenu.setBounds(750, 250, 150, 150);
 
