@@ -6,6 +6,7 @@ import ui.uihelpers.RoundedButton;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -259,6 +260,7 @@ public class BoardJFrame extends JFrame {
     opponentsAvatarArea.add(opponentsAvatarLabel);
     artifactCardsArea.add(artifactCardsLabel);
     eastPanel.add(createForageButton());
+    eastPanel.add(createTransmuteButton(getName()));
     eastPanel.add(publishTheoryButton());
     eastPanel.add(publicationTrackButton());
 
@@ -292,6 +294,21 @@ public class BoardJFrame extends JFrame {
     return forageButton;
   }
 
+  public JButton createTransmuteButton(String ingredientName) {
+    JButton transmuteButton = new JButton("Transmute For Ingredients");
+    transmuteButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (BoardJFrame.this != null) {
+                //TransmuteIngredientFrame tif = new TransmuteIngredientFrame(new ArrayList<>(token1.getIngredients()), board, BoardJFrame.this);
+                //tif.setVisible(true);
+                Game.activateTransmuteIngredientFrame(new ArrayList<>(token1.getIngredients()), board, BoardJFrame.this);
+            }
+        }
+    });
+    return transmuteButton;
+}
+
   public void addIngredient(Ingredient ingredient) {
     int ingID = ingredient.getID();
     System.out.println("IIIIIIIIIIIIIII");
@@ -306,6 +323,33 @@ public class BoardJFrame extends JFrame {
     this.setVisible(false);
     this.setVisible(true);
   }
+
+  public void removeIngredientFromBoardByName(String ingredientName) {
+    String path="";
+    for (Ingredient ingredient : token1.getIngredients()) {
+        if (ingredient.getName().equals(ingredientName)) {
+          path=ingredient.getImagePath();
+          token1.removeIngredient(ingredientName);
+          break;
+        }
+    }
+    for (Component component : ingredientCardsArea.getComponents()) {
+      if (component instanceof JLabel) {
+          JLabel label = (JLabel) component;
+          ImageIcon labelIcon = (ImageIcon) label.getIcon();
+          ImageIcon targetIcon = new ImageIcon(path);
+          Image labelImage = labelIcon.getImage();
+          Image targetImage = targetIcon.getImage();
+          
+          if (labelImage.equals(targetImage)) {
+              label.setVisible(false);
+              break;
+          }
+      }
+  }
+    this.setVisible(false);
+    this.setVisible(true);
+}
 
   public JButton pauseButton() {
     ImageIcon pauseIcon = new ImageIcon("src/ui/utils/pause.png");
