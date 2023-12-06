@@ -79,4 +79,8 @@ public class Game {
             new TriangleBoardJFrame(button);
   }
 
+  public static void openHelpScreen() {
+    HelpJFrame helpJFrame = new HelpJFrame();
+  }
+
 }
