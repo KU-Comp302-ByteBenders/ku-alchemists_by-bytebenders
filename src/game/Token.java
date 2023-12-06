@@ -43,7 +43,15 @@ public class Token {
     goldBalance += amount;
   }
 
-  public void decreaseGold(int amount) {}
+  public void decreaseGold(int amount) {
+    if(goldBalance > amount){
+      goldBalance -= amount;
+    }
+    else{
+      goldBalance =0;
+    }
+
+  }
 
   public void addIngredient(Ingredient ingredient) {
     ingredients.add(ingredient);
@@ -77,7 +85,60 @@ public class Token {
     return artifactCards;
   }
 
-  public void makeExperiment(String ingredient1, String ingredient2, Boolean testOnSelf) {}
+  //tabloda ilk ne varsa default seçiyor bunu düzeltmen gerekecek!
+  public String makeExperiment(String ingredient1, String ingredient2, Boolean testOnSelf) { //if player test on student false, //otherwise true;
+    Ingredient ing1 = findIngredientByName(ingredient1);
+    Ingredient ing2 = findIngredientByName(ingredient2);
+    boolean controller =false;
+
+    for(int i=0; i<3;i++){
+      for(int j =0; j< 3;j++){
+        if(ing1.getAlchemyMarker().getAspectList().get(i).getSign().equals(ing2.getAlchemyMarker().getAspectList().get(j).getSign())){
+          if(ing1.getAlchemyMarker().getAspectList().get(i).getColor().equals(ing2.getAlchemyMarker().getAspectList().get(j).getColor())){
+            if(!ing1.getAlchemyMarker().getAspectList().get(i).getSize().equals(ing2.getAlchemyMarker().getAspectList().get(j).getSize())){
+              Potion newPotion = new Potion(0, ing1, ing2,ing1.getAlchemyMarker().getAspectList().get(i).getSign());
+              controller = true;
+              potions.add(newPotion);
+              testPotion(newPotion, testOnSelf);
+              return ing1.getAlchemyMarker().getAspectList().get(i).getSign();
+            }
+          }
+        }
+      }
+    }
+    if(!controller){
+    Potion neutralPotion = new Potion(0, ing1, ing2, "0");
+    potions.add(neutralPotion);
+      return "0";
+    }
+    return null;
+  }
+  
+  public void testPotion(Potion potion, Boolean testOnSelf){
+    if(testOnSelf){
+      if(potion.getName().equals("-")){
+        sicknessLevel +=1;
+        if(sicknessLevel ==3){
+          goldBalance =0;
+        }
+      }
+      else{
+        if(potion.getName().equals("-")){
+          goldBalance-=1;
+        }
+      }
+    }
+  }
+
+private Ingredient findIngredientByName(String name) {
+  for (Ingredient ingredient : ingredients) {
+      if (ingredient.getName().equals(name)) {
+          return ingredient;
+      }
+  }
+  return null;
+}
+
 
   public void addPotion(String potion) {}
 

@@ -44,7 +44,7 @@ public class Board {
     Aspect aspect10 = new Aspect("Red", "Big", "-");
     Aspect aspect11 = new Aspect("Blue", "Big", "-");
     Aspect aspect12 = new Aspect("Yellow", "Big", "-");
-
+    
     AlchemyMarker alchemyMarker1 = new AlchemyMarker(aspect7, aspect8, aspect9);
     AlchemyMarker alchemyMarker2 = new AlchemyMarker(aspect10, aspect11, aspect12);
     AlchemyMarker alchemyMarker3 = new AlchemyMarker(aspect1, aspect12, aspect5);
@@ -52,7 +52,7 @@ public class Board {
     AlchemyMarker alchemyMarker5 = new AlchemyMarker(aspect1, aspect6, aspect8);
     AlchemyMarker alchemyMarker6 = new AlchemyMarker(aspect3, aspect11, aspect4);
     AlchemyMarker alchemyMarker7 = new AlchemyMarker(aspect3, aspect7, aspect5);
-    AlchemyMarker alchemyMarker8 = new AlchemyMarker(aspect6, aspect7, aspect10);
+    AlchemyMarker alchemyMarker8 = new AlchemyMarker(aspect6, aspect7, aspect10); 
 
     Ingredient ingredient1 = new Ingredient("dragon fruit", 1, alchemyMarker1);
     Ingredient ingredient2 = new Ingredient("emerald", 2, alchemyMarker2);
@@ -112,7 +112,7 @@ public class Board {
 
     Collections.shuffle(artifactCards);
   }
-
+  
   public Ingredient getIngredientFromDeck() {
     int maxNumber = ingredients.size();
     Random random = new Random();

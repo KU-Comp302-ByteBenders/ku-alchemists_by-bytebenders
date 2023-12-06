@@ -262,6 +262,7 @@ public class BoardJFrame extends JFrame {
     opponentsAvatarArea.add(opponentsAvatarLabel);
     artifactCardsArea.add(artifactCardsLabel);
     eastPanel.add(createForageButton());
+    eastPanel.add(createExperimentButton(board));
 
     this.add(westPanel, BorderLayout.WEST);
     this.add(eastPanel, BorderLayout.EAST);
@@ -326,5 +327,19 @@ public class BoardJFrame extends JFrame {
   public void openingPauseMenu(){
     Game.openPauseMenu(this);
     Game.inactivateBoard(this);
+  }
+  
+  //make experiment button
+  public JButton createExperimentButton(Board board){
+    JButton experimentButton = new JButton("Make Experiment");
+    experimentButton.addActionListener(
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e){
+          Game.openExperimentFrame(board);
+        }
+      }
+    );
+    return experimentButton;
   }
 }

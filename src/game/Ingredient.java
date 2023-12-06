@@ -18,7 +18,7 @@ public class Ingredient {
   public int getID(){
     return id;
   }
-  public AlchemyMarker alchemyMarker(){
+  public AlchemyMarker getAlchemyMarker(){
     return alchemyMarker;
   }
   

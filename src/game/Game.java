@@ -56,4 +56,13 @@ public class Game {
     board.setVisible(true);
   }
 
+  public static void openExperimentFrame(Board board){
+    MakeExperimentJFrame makeExperimentJFrame = new MakeExperimentJFrame(board);
+    
+  }
+
+  
+
+  
+
 }
