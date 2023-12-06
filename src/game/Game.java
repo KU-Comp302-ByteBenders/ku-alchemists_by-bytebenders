@@ -44,6 +44,20 @@ public class Game {
     loginScreen.setVisible(false);
   }
 
+  public void openPauseMenu() {}
+
+  public void closePauseMenu() {}
+
+  public static void openPublishMenu(JFrame boardJFrame, Board board) {
+    // Open the publish theory action menu
+    PublishTheoryJFrame publishTheoryJFrame = new PublishTheoryJFrame(board);
+  }
+
+  public static void openPublicationTrack(JFrame boardJFrame, Board board) {
+    // Open the publish theory action menu
+    PublicationTrackJFrame publicationTrackJFrame = new PublicationTrackJFrame(board);
+  }
+
   public static void openPauseMenu(JFrame board) {
     PauseMenuJframe pauseMenuJframe = new PauseMenuJframe(board);
   }
@@ -52,8 +66,12 @@ public class Game {
     pauseMenu.dispose();
   }
 
-  public void inactivateBoard() {
-    activateBoard = false;
+  public static void inactivateBoard(JFrame board) {
+    board.setVisible(false);
+  }
+
+  public static void activateBoard(JFrame board) {
+    board.setVisible(true);
   }
 
 }

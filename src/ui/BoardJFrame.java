@@ -328,6 +328,8 @@ public class BoardJFrame extends JFrame {
   public void openingPauseMenu(){
     Game.openPauseMenu(this);
     Game.inactivateBoard(this);
+  }
+  
   public JButton publishTheoryButton() {
     JButton publishButton = new JButton("Publish Theory");
 
