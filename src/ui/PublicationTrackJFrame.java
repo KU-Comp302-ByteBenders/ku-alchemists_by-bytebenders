@@ -24,22 +24,28 @@ public class PublicationTrackJFrame extends JFrame{
 
             Ingredient ingredient = board.getStaticIngredients().get(i);
             String imagePath = ingredient.getImagePath();
-            String theoryOwner = "No one";
-            String theoryMarkerImage = "None";
+            String theoryOwner = "No theory";
+            String theoryMarkerImage = null;
             
             for (Theory theory : board.getTheories()) {
                 if (theory.isAboutIngredient(ingredient)) {
                     theoryOwner = theory.getTheoryOwner().getUsername();
-                    //theoryMarkerImage = theory.getAlchemyMarker().getPath();
+                    theoryMarkerImage = theory.getAlchemyMarker().getPath();
                 }
             }
 
-            ImageIcon imageIcon = new ImageIcon(imagePath);
-            JLabel imageLabel = new JLabel(imageIcon);
-            cellPanel.add(imageLabel, BorderLayout.CENTER);
+            JLabel textLabel = new JLabel(theoryOwner);
+            cellPanel.add(textLabel, BorderLayout.NORTH);
 
-            JLabel textLabel = new JLabel("Text " + (i + 1));
-            cellPanel.add(textLabel, BorderLayout.SOUTH);
+            ImageIcon ingredientIcon = new ImageIcon(imagePath);
+            JLabel ingredientLabel = new JLabel(ingredientIcon);
+            cellPanel.add(ingredientLabel, BorderLayout.CENTER);
+
+            if (theoryMarkerImage != null) {
+                ImageIcon markerIcon = new ImageIcon(theoryMarkerImage);
+                JLabel markerLabel = new JLabel(markerIcon);
+                cellPanel.add(markerLabel, BorderLayout.SOUTH);
+            }
 
             gridPanel.add(cellPanel);
         }
