@@ -50,14 +50,14 @@ public class Board {
     Aspect aspect11 = new Aspect("Blue", "Big", "-");
     Aspect aspect12 = new Aspect("Yellow", "Big", "-");
 
-    AlchemyMarker alchemyMarker1 = new AlchemyMarker(aspect7, aspect8, aspect9);
-    AlchemyMarker alchemyMarker2 = new AlchemyMarker(aspect10, aspect11, aspect12);
-    AlchemyMarker alchemyMarker3 = new AlchemyMarker(aspect1, aspect12, aspect5);
-    AlchemyMarker alchemyMarker4 = new AlchemyMarker(aspect9, aspect4, aspect2);
-    AlchemyMarker alchemyMarker5 = new AlchemyMarker(aspect1, aspect6, aspect8);
-    AlchemyMarker alchemyMarker6 = new AlchemyMarker(aspect3, aspect11, aspect4);
-    AlchemyMarker alchemyMarker7 = new AlchemyMarker(aspect3, aspect7, aspect5);
-    AlchemyMarker alchemyMarker8 = new AlchemyMarker(aspect6, aspect7, aspect10);
+    AlchemyMarker alchemyMarker1 = new AlchemyMarker(aspect7, aspect8, aspect9, "src/ui/utils/markers/alchemy_marker1.png");
+    AlchemyMarker alchemyMarker2 = new AlchemyMarker(aspect10, aspect11, aspect12, "src/ui/utils/markers/alchemy_marker2.png");
+    AlchemyMarker alchemyMarker3 = new AlchemyMarker(aspect1, aspect12, aspect5, "src/ui/utils/markers/alchemy_marker3.png");
+    AlchemyMarker alchemyMarker4 = new AlchemyMarker(aspect9, aspect4, aspect2, "src/ui/utils/markers/alchemy_marker4.png");
+    AlchemyMarker alchemyMarker5 = new AlchemyMarker(aspect1, aspect6, aspect8, "src/ui/utils/markers/alchemy_marker5.png");
+    AlchemyMarker alchemyMarker6 = new AlchemyMarker(aspect3, aspect11, aspect4, "src/ui/utils/markers/alchemy_marker6.png");
+    AlchemyMarker alchemyMarker7 = new AlchemyMarker(aspect3, aspect7, aspect5, "src/ui/utils/markers/alchemy_marker7.png");
+    AlchemyMarker alchemyMarker8 = new AlchemyMarker(aspect6, aspect7, aspect5, "src/ui/utils/markers/alchemy_marker8.png");
 
     staticAlchemyMarkers.add(alchemyMarker1);
     staticAlchemyMarkers.add(alchemyMarker2);
