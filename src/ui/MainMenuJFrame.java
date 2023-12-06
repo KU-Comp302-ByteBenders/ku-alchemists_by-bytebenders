@@ -40,7 +40,7 @@ public class MainMenuJFrame extends JFrame {
         helpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new HelpJFrame();
+                Game.openHelpScreen();
             }
         });
 

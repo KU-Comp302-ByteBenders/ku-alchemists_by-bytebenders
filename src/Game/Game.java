@@ -47,4 +47,8 @@ public class Game {
   public void inactivateBoard() {
     activateBoard = false;
   }
+
+  public static void openHelpScreen() {
+    HelpJFrame helpJFrame = new HelpJFrame();
+  }
 }
