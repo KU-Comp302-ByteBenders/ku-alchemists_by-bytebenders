@@ -80,6 +80,17 @@ public class PublishTheoryJFrame extends JFrame {
         confirmButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Handle confirmation here
+                if (selectedIngredient != null && selectedAlchemyMarker != null) {
+                    // Publish the theory
+
+                    // TODO: Add turn logic here
+                    board.publishTheory(selectedIngredient, selectedAlchemyMarker, board.getTokens().get(0));
+                    // Close the window
+                    dispose();
+                } else {
+                    // Display error message
+                    JOptionPane.showMessageDialog(null, "Please select an ingredient and an alchemy marker!");
+                }
             }
         });
 
