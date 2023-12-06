@@ -1,9 +1,12 @@
 package ui;
 
 import game.*;
+import ui.uihelpers.RoundedButton;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -49,7 +52,6 @@ public class BoardJFrame extends JFrame {
   ImageIcon dragonIcon = new ImageIcon("src/ui/utils/dragon fru.jpg");
   ImageIcon bigArtifactBackIcon = new ImageIcon("src/ui/utils/artifact card image.png");
   ImageIcon bigIngredientBackIcon = new ImageIcon("src/ui/utils/ingredient image.png");
-  ImageIcon centerIcon = new ImageIcon("src/ui/utils/pubboard.png");
   ImageIcon smallIngredientBackIcon = new ImageIcon("src/ui/utils/small-ingredient-image.png");
 
   public BoardJFrame(Board board) {
@@ -89,14 +91,12 @@ public class BoardJFrame extends JFrame {
 
     bigIngBackLabel = new JLabel(bigIngredientBackIcon);
     bigArtifactBackLabel = new JLabel(bigArtifactBackIcon);
-    centerLabel = new JLabel(centerIcon);
 
     // SET THE DIMENSIONS OF THE JPANELS AND JLABELS
 
     northPanel.setPreferredSize(new Dimension(1600, 220));
     westPanel.setPreferredSize(new Dimension(450, 460));
     eastPanel.setPreferredSize(new Dimension(450, 460));
-    centerPanel.setPreferredSize(new Dimension(700, 460));
     southPanel.setPreferredSize(new Dimension(1600, 220));
 
     westOfSouthPanel.setPreferredSize(new Dimension(550, 220));
@@ -119,7 +119,6 @@ public class BoardJFrame extends JFrame {
     northPanel.setBorder(lineBorder);
     westPanel.setBorder(lineBorder);
     eastPanel.setBorder(lineBorder);
-    centerPanel.setBorder(lineBorder);
     southPanel.setBorder(lineBorder);
     westOfSouthPanel.setBorder(lineBorder);
     eastOfSouthPanel.setBorder(lineBorder);
@@ -239,7 +238,6 @@ public class BoardJFrame extends JFrame {
 
     westPanel.add(bigIngBackLabel);
     westPanel.add(bigArtifactBackLabel);
-    centerPanel.add(centerLabel);
 
     opponentsSegmentedAvatarArea.add(opponentsGoldLabel, BorderLayout.NORTH);
     opponentsSegmentedAvatarArea.add(opponentsReputationLabel, BorderLayout.CENTER);
@@ -262,13 +260,16 @@ public class BoardJFrame extends JFrame {
     opponentsAvatarArea.add(opponentsAvatarLabel);
     artifactCardsArea.add(artifactCardsLabel);
     eastPanel.add(createForageButton());
+    eastPanel.add(createTransmuteButton(getName()));
+    eastPanel.add(publishTheoryButton());
+    eastPanel.add(publicationTrackButton());
     eastPanel.add(createExperimentButton(board));
 
     this.add(westPanel, BorderLayout.WEST);
     this.add(eastPanel, BorderLayout.EAST);
     this.add(southPanel, BorderLayout.SOUTH);
     this.add(northPanel, BorderLayout.NORTH);
-    this.add(centerPanel, BorderLayout.CENTER);
+    this.add(arrangeBoardTriangle(), BorderLayout.CENTER);
 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int x = (screenSize.width - this.getWidth()) / 2;
@@ -294,6 +295,21 @@ public class BoardJFrame extends JFrame {
     return forageButton;
   }
 
+  public JButton createTransmuteButton(String ingredientName) {
+    JButton transmuteButton = new JButton("Transmute For Ingredients");
+    transmuteButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (BoardJFrame.this != null) {
+                //TransmuteIngredientFrame tif = new TransmuteIngredientFrame(new ArrayList<>(token1.getIngredients()), board, BoardJFrame.this);
+                //tif.setVisible(true);
+                Game.activateTransmuteIngredientFrame(new ArrayList<>(token1.getIngredients()), board, BoardJFrame.this);
+            }
+        }
+    });
+    return transmuteButton;
+}
+
   public void addIngredient(Ingredient ingredient) {
     int ingID = ingredient.getID();
     System.out.println("IIIIIIIIIIIIIII");
@@ -308,6 +324,33 @@ public class BoardJFrame extends JFrame {
     this.setVisible(false);
     this.setVisible(true);
   }
+
+  public void removeIngredientFromBoardByName(String ingredientName) {
+    String path="";
+    for (Ingredient ingredient : token1.getIngredients()) {
+        if (ingredient.getName().equals(ingredientName)) {
+          path=ingredient.getImagePath();
+          token1.removeIngredient(ingredientName);
+          break;
+        }
+    }
+    for (Component component : ingredientCardsArea.getComponents()) {
+      if (component instanceof JLabel) {
+          JLabel label = (JLabel) component;
+          ImageIcon labelIcon = (ImageIcon) label.getIcon();
+          ImageIcon targetIcon = new ImageIcon(path);
+          Image labelImage = labelIcon.getImage();
+          Image targetImage = targetIcon.getImage();
+          
+          if (labelImage.equals(targetImage)) {
+              label.setVisible(false);
+              break;
+          }
+      }
+  }
+    this.setVisible(false);
+    this.setVisible(true);
+}
 
   public JButton pauseButton() {
     ImageIcon pauseIcon = new ImageIcon("src/ui/utils/pause.png");
@@ -327,19 +370,5 @@ public class BoardJFrame extends JFrame {
   public void openingPauseMenu(){
     Game.openPauseMenu(this);
     Game.inactivateBoard(this);
-  }
-  
-  //make experiment button
-  public JButton createExperimentButton(Board board){
-    JButton experimentButton = new JButton("Make Experiment");
-    experimentButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e){
-          Game.openExperimentFrame(board);
-        }
-      }
-    );
-    return experimentButton;
   }
 }

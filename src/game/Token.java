@@ -142,13 +142,26 @@ private Ingredient findIngredientByName(String name) {
 
   public void addPotion(String potion) {}
 
-  public void removeIngredient(String ingredient) {}
+  public void removeIngredient(String ingredient) {
+    for( Ingredient ing : ingredients){
+      if(ing.getName().equals(ingredient)){
+        ingredients.remove(ing);
+        break;
+      }
+    } 
+  }
 
   public void sellPotion(String potion) {}
 
   public void removePotion(String potion) {}
 
-  public void publishTheory(String ingredient, String alchemyMarker) {}
+  public void publishTheory(Board board, Ingredient ingredient, AlchemyMarker alchemyMarker) throws Exception {
+    board.publishTheory(ingredient, alchemyMarker, this);
+  }
+
+  public void debunkTheory(Board board, Theory theory, AlchemyMarker alchemyMarker) {
+    board.debunkTheory(theory, alchemyMarker, this);
+  }
 
   public void addReputation(int amount) {}
 
@@ -158,5 +171,13 @@ private Ingredient findIngredientByName(String name) {
 
   public void useArtifactCard(String artifactCard) {}
 
-  public void transmuteIngredient(String ingredient) {}
+  public void transmuteIngredient(String ingredientName) {
+    for (Ingredient ingredient : ingredients) {
+      if (ingredient.getName().equals(ingredientName)) {
+          ingredients.remove(ingredient);
+      }
+    }
+  }
 }
+
+  
