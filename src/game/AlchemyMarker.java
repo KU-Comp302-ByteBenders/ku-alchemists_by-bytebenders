@@ -1,5 +1,4 @@
 package game;
-
 import java.util.ArrayList;
 
 public class AlchemyMarker {
@@ -7,9 +6,9 @@ public class AlchemyMarker {
     private Aspect aspect1;
     private Aspect aspect2;
     private Aspect aspect3;
-    private ArrayList<Aspect> aspectList = new ArrayList<Aspect>();
 
     private String imagePath;
+    private ArrayList<Aspect> aspectList = new ArrayList<Aspect>();
 
     public AlchemyMarker(Aspect aspect1, Aspect aspect2, Aspect aspect3, String imagePath) {
         this.aspect1 = aspect1;
@@ -26,6 +25,26 @@ public class AlchemyMarker {
 
         return false;
     }
-    
-}
 
+    public Aspect getAspect1(){
+        return aspect1;
+    }
+    public Aspect getAspect2(){
+        return aspect2;
+    }
+    public Aspect getAspect3(){
+        return aspect3;
+    }
+
+    public ArrayList<Aspect> getAspectList() {
+        return aspectList;
+    }
+
+    public String getPath() {
+        return imagePath;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+}

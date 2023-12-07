@@ -15,7 +15,6 @@ public class Potion {
     this.ing2 = ing2;
     this.name = name;
   }
-
   public String getEffect() {
     return effect;
   }
@@ -23,7 +22,7 @@ public class Potion {
   public String getPotionColor() {
     return potionColor;
   }
-  
+
 
   public int getPointVal() {
     return pointVal;
@@ -44,4 +43,6 @@ public class Potion {
   public void setEffect(String effect) {
     this.effect = effect;
   }
+
+  
 }

@@ -20,11 +20,15 @@ public class Ingredient {
   public int getID(){
     return id;
   }
-  public AlchemyMarker getAlchemyMarker(){
+  public AlchemyMarker alchemyMarker(){
     return alchemyMarker;
   }
 
   public String getImagePath() {
     return imagePath;
+  }
+
+  public AlchemyMarker getAlchemyMarker(){
+    return alchemyMarker;
   }
 }

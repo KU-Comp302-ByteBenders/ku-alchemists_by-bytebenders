@@ -127,7 +127,7 @@ public class Board {
 
     Collections.shuffle(artifactCards);
   }
-  
+
   public Ingredient getIngredientFromDeck() {
     int maxNumber = ingredients.size();
     Random random = new Random();

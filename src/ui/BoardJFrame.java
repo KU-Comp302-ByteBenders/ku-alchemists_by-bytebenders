@@ -351,6 +351,18 @@ public class BoardJFrame extends JFrame {
     this.setVisible(false);
     this.setVisible(true);
 }
+  public JButton createExperimentButton(Board board){
+    JButton experimentButton = new JButton("Make Experiment");
+    experimentButton.addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e){
+                Game.openExperimentFrame(board);
+              }
+            }
+    );
+    return experimentButton;
+  }
 
   public JButton pauseButton() {
     ImageIcon pauseIcon = new ImageIcon("src/ui/utils/pause.png");
@@ -370,5 +382,91 @@ public class BoardJFrame extends JFrame {
   public void openingPauseMenu(){
     Game.openPauseMenu(this);
     Game.inactivateBoard(this);
+  }
+
+  public static JPanel arrangeBoardTriangle() {
+    // this method's purpose is adding buttons to deduction image. There are 36 different buttons and we arrange they in the for loop.
+    JPanel mainPanel = new JPanel(new GridBagLayout());
+
+    ImageIcon centerIcon = new ImageIcon("src/ui/utils/pubboard.png");
+    JLabel centerLabel = new JLabel(centerIcon);
+    RoundedButton[] roundedButtons = new RoundedButton[36];
+    for (int i = 0; i < roundedButtons.length; i++) { // creating 36 buttons.
+      roundedButtons[i] = new RoundedButton("∅");
+      roundedButtons[i].setBorder(BorderFactory.createEmptyBorder(11, 11, 11, 11));
+
+      int finals = i;
+      roundedButtons[i].addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Game.openTriangleBoard(roundedButtons[finals]);
+        } // This action for the changing of button shape, color and features. We send call to game due to game is our controller.
+        });
+    }
+
+    GridBagConstraints gbcCenterLabel = new GridBagConstraints();
+    gbcCenterLabel.gridx = 0;
+    gbcCenterLabel.gridy = 0;
+    gbcCenterLabel.insets = new Insets(0, 0, 0, 0);
+    mainPanel.add(centerLabel, gbcCenterLabel);
+
+    int startery = 283;
+    int starterx = 0;
+    int nodeNumber = 0;
+    for (int k = 1; k < 9; k++) { // we used 2 different for loop. They used for rows and number of buttons.
+      for (int i = 0; i < k; i++) {
+        GridBagConstraints gbcButton = new GridBagConstraints();
+        gbcButton.gridx = 0;
+        gbcButton.gridy = 0;
+        gbcButton.insets = new Insets(0, 0, startery, starterx-(126*i));
+        mainPanel.add(roundedButtons[nodeNumber], gbcButton);
+        mainPanel.setComponentZOrder(roundedButtons[nodeNumber], 0);
+
+        nodeNumber++;
+      }
+      startery= startery-64;
+      starterx = starterx+63;
+    }
+
+    return mainPanel;
+
+  }
+
+  public JButton publishTheoryButton() {
+    JButton publishButton = new JButton("Publish Theory");
+
+    publishButton.addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                openPublishMenu();
+              }
+            }
+    );
+    return publishButton;
+  }
+
+    public JButton publicationTrackButton() {
+    JButton publicationTrackButton = new JButton("Publication Track");
+
+    publicationTrackButton.addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                openPublicationTrack();
+              }
+            }
+    );
+    return publicationTrackButton;
+  }
+
+  public void openPublishMenu(){
+    Game.openPublishMenu(this, board);
+    // this.setFocusable(false);
+  }
+
+  public void openPublicationTrack(){
+    Game.openPublicationTrack(this, board);
+    // this.setFocusable(false);
   }
 }

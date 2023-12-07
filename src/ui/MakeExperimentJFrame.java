@@ -35,28 +35,28 @@ public class MakeExperimentJFrame extends JFrame {
     private JComboBox<String> testComboBox;
     private JButton selectIngredientsButton;
     private JButton selectPersonButton;
-    
-    
+
+
     public MakeExperimentJFrame(Board board) {
         this.board= board;
         token1 = board.getTokens().get(0);
-        
+
         ingredientModel1 = new DefaultComboBoxModel<>();
         ingredientModel2 = new DefaultComboBoxModel<>();
-        
+
 
         lineBorder = new LineBorder(new Color(223, 100, 133), 1);
 
         ingredientComboBox1 = new JComboBox<>(ingredientModel1);
         ingredientComboBox2 = new JComboBox<>(ingredientModel2);
-        
-        
+
+
         this.setSize(1280, 720);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         this.setResizable(false);
 
-        westPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 20)); // 
+        westPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 20)); //
         eastPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 100,75)); // tests
         southPanel = new JPanel(new FlowLayout());
         northPanel = new JPanel(new BorderLayout());
@@ -85,8 +85,8 @@ public class MakeExperimentJFrame extends JFrame {
         centerPanel.setBorder(lineBorder);
         southPanel.setBorder(lineBorder);
 
-        
-        
+
+
         JLabel versionLabel = new JLabel("MAKE EXPERIMENT");
         versionLabel.setForeground(Color.BLUE);
         versionLabel.setFont(new Font("Arial", Font.BOLD, 20));
@@ -100,22 +100,22 @@ public class MakeExperimentJFrame extends JFrame {
         //getting ingredients that token has
         JPanel ingredPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         ingredPanel.setBorder(lineBorder);
-        
+
         int token1IngredientsNumber = token1.getIngredients().size();
 
         for (int i = 0; i < token1IngredientsNumber; i++) {
-        Ingredient token1Ingredient = token1.getIngredients().get(i);
-        int ingID = token1Ingredient.getID();
-        ImageIcon ingredientIcon = new ImageIcon("src/ui/utils/ingredient_" + ingID + ".jpg");
-        JLabel ingredientLabel = new JLabel(ingredientIcon);
+            Ingredient token1Ingredient = token1.getIngredients().get(i);
+            int ingID = token1Ingredient.getID();
+            ImageIcon ingredientIcon = new ImageIcon("src/ui/utils/ingredient_" + ingID + ".jpg");
+            JLabel ingredientLabel = new JLabel(ingredientIcon);
 
-        ingredientModel1.addElement(token1Ingredient.getName());
-        ingredientModel2.addElement(token1Ingredient.getName());    //Buradan ilk eklenen element çıkarılmalı
+            ingredientModel1.addElement(token1Ingredient.getName());
+            ingredientModel2.addElement(token1Ingredient.getName());    //Buradan ilk eklenen element çıkarılmalı
 
-        ingredPanel.add(ingredientLabel);
+            ingredPanel.add(ingredientLabel);
         }
         ingredPanel.add(panelLabel);
-        
+
         JButton mixButton = new JButton("Mix");
 
         JButton closeExperimentFrame = new JButton("Return the Game");
@@ -124,27 +124,27 @@ public class MakeExperimentJFrame extends JFrame {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                       closingMenu(MakeExperimentJFrame.this);
+                        closingMenu(MakeExperimentJFrame.this);
                     }
                 }
         );
-        
-        
+
+
         mixButton.addActionListener(
-            new ActionListener() {
+                new ActionListener() {
                     String newString ="";
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         newString = token1.makeExperiment(ingredientComboBox1.getSelectedItem().toString(),
-                        ingredientComboBox2.getSelectedItem().toString(), 
-                        testResult(testComboBox.getSelectedItem().toString()));
+                                ingredientComboBox2.getSelectedItem().toString(),
+                                testResult(testComboBox.getSelectedItem().toString()));
                         showResult(newString);
                     }
-                    
+
                 }
-                
+
         );
-       
+
         selectIngredientsButton = new JButton("Select Ingredients");
         selectIngredientsButton.addActionListener(new ActionListener() {
             @Override
@@ -165,7 +165,7 @@ public class MakeExperimentJFrame extends JFrame {
                 );
             }
         });
-        
+
         String[] testON = { "Test On Student", "Test On Yourself"};
         testComboBox = new JComboBox<>(testON);
 
@@ -195,30 +195,30 @@ public class MakeExperimentJFrame extends JFrame {
                 updateSelectButtonState();
             }
         });
-    
+
 
         this.add(westPanel, BorderLayout.WEST);
         this.add(eastPanel, BorderLayout.EAST);
         this.add(southPanel, BorderLayout.SOUTH);
         this.add(northPanel, BorderLayout.NORTH);
         this.add(centerPanel, BorderLayout.CENTER);
-           
-        
+
+
         westPanel.add(comboPanel,BorderLayout.CENTER);
         centerPanel.add(ingredPanel,BorderLayout.CENTER);
 
         centerPanel.add(panelLabel, BorderLayout.NORTH);
         resultPanel.add(resultLabel, BorderLayout.CENTER);
-        
+
         makeJPanel.add(versionLabel, BorderLayout.CENTER);
         returnGamePanel.add(closeExperimentFrame);
 
         eastPanel.add(mixButton, BorderLayout.CENTER);
-        
+
         northPanel.add(returnGamePanel, BorderLayout.EAST);
         northPanel.add(makeJPanel, BorderLayout.CENTER);
         southPanel.add(resultPanel, BorderLayout.CENTER);
-          
+
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (screenSize.width - this.getWidth()) / 2;
@@ -230,7 +230,7 @@ public class MakeExperimentJFrame extends JFrame {
         // Make the frame visible
         this.setVisible(true);
     }
-    
+
     public void closingMenu(JFrame experimentFrame){
         experimentFrame.dispose();
     }
@@ -240,7 +240,7 @@ public class MakeExperimentJFrame extends JFrame {
         // Enable the button only if both ComboBoxes have selections
         selectIngredientsButton.setEnabled(
                 ingredientComboBox1.getSelectedItem() != null &&
-                ingredientComboBox2.getSelectedItem() != null
+                        ingredientComboBox2.getSelectedItem() != null
         );
     }
 
@@ -260,20 +260,20 @@ public class MakeExperimentJFrame extends JFrame {
         return true;
     }
 
-     public void showResult(String newString){
-         if(newString.equals("-")){
+    public void showResult(String newString){
+        if(newString.equals("-")){
             resJLabel = new JLabel("It is a negative potion");
             southPanel.add(resJLabel, BorderLayout.SOUTH);
             this.setVisible(false);
             this.setVisible(true);
-         }
-         else{
+        }
+        else{
             resJLabel = new JLabel("It is a non-negative potion");
             southPanel.add(resJLabel, BorderLayout.SOUTH);
             this.setVisible(false);
             this.setVisible(true);
-         }
-         Timer timer = new Timer(10000, new ActionListener() {
+        }
+        Timer timer = new Timer(10000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Close the JFrame
@@ -282,8 +282,8 @@ public class MakeExperimentJFrame extends JFrame {
         });
         timer.setRepeats(false); // Set to false to run the ActionListener only once
         timer.start();
-         
-        }
+
+    }
     public void closeFrame(){
         this.setVisible(false);
     }

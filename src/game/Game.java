@@ -91,11 +91,7 @@ public class Game {
 
   public static void openExperimentFrame(Board board){
     MakeExperimentJFrame makeExperimentJFrame = new MakeExperimentJFrame(board);
-    
+
   }
-
-  
-
-  
 
 }

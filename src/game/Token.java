@@ -107,13 +107,13 @@ public class Token {
       }
     }
     if(!controller){
-    Potion neutralPotion = new Potion(0, ing1, ing2, "0");
-    potions.add(neutralPotion);
+      Potion neutralPotion = new Potion(0, ing1, ing2, "0");
+      potions.add(neutralPotion);
       return "0";
     }
     return null;
   }
-  
+
   public void testPotion(Potion potion, Boolean testOnSelf){
     if(testOnSelf){
       if(potion.getName().equals("-")){
@@ -130,15 +130,14 @@ public class Token {
     }
   }
 
-private Ingredient findIngredientByName(String name) {
-  for (Ingredient ingredient : ingredients) {
+  private Ingredient findIngredientByName(String name) {
+    for (Ingredient ingredient : ingredients) {
       if (ingredient.getName().equals(name)) {
-          return ingredient;
+        return ingredient;
       }
+    }
+    return null;
   }
-  return null;
-}
-
 
   public void addPotion(String potion) {}
 
