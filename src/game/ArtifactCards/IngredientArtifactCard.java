@@ -21,4 +21,8 @@ public class IngredientArtifactCard extends ArtifactCard implements Effect {
       board.addXamountIngredientToToken(token,ingredientAmount);
       System.out.println("applyEffect for goldArtifactCards work correctly");
   }
+
+  public int getIngredientAmount(){
+    return ingredientAmount;
+  }
 }
