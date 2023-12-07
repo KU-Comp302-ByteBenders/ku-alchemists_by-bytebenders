@@ -25,10 +25,9 @@ public class BuyArtifactFrame extends JFrame {
         JButton kindlyGestureButton = new JButton("Kindly Gesture");
         JButton respectedDeedButton = new JButton("Respected Deed");
         JButton virtueBadgeButton = new JButton("Virtue Badge");
-
-        JButton healingButton = new JButton("Healing Card");
-        JButton goldButton = new JButton("Gold Card");
-        JButton reputationButton = new JButton("Reputation Card");
+        JButton healingButton = new JButton("Small Fortune Pouch");
+        JButton goldButton = new JButton("Treasure Trove");
+        JButton reputationButton = new JButton("King's Bounty");
 
 
         // Add action listeners to handle button clicks

@@ -2,7 +2,7 @@ package ui;
 
 import game.*;
 import game.ArtifactCards.ArtifactCard;
-
+import game.ArtifactCards.IngredientArtifactCard;
 import ui.uihelpers.RoundedButton;
 
 import java.awt.*;
@@ -405,6 +405,14 @@ public class BoardJFrame extends JFrame {
           artifactUseButton.setVisible(false);
           token.removeArtifactCard(artifactCard);
           updateTokensReputationLabel();
+          if (artifactCard.getName() == "Small Fortune Pouch" || 
+              artifactCard.getName() == "Treasure Trove" ||
+              artifactCard.getName() == "King's Bounty"  ) {
+                for (int i = 0; i < ((IngredientArtifactCard) artifactCard).getIngredientAmount(); i++) { 
+                Ingredient ingredient = token1.forageForIngredient(board);
+                addIngredient(ingredient);
+              }
+            }
       }
     }
     );
