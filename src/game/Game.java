@@ -76,6 +76,15 @@ public class Game {
     board.setVisible(true);
   }
 
+  public static void openArtifactBuyScreen(BoardJFrame boardJFrame, Board board,Token token1, Token token2) {
+      BuyArtifactFrame buyArtifactFrame = new BuyArtifactFrame(boardJFrame, board, token1, token2);
+      buyArtifactFrame.setVisible(true);
+  }
+
+  public static void closeArtifactBuyScreen(JFrame pauseMenu) {
+    pauseMenu.dispose();
+  }
+
   public static void activateTransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard, BoardJFrame boardFrame) {
     TransmuteIngredientFrame transmuteJFrame = new TransmuteIngredientFrame(displayedIngredients, mainBoard, boardFrame);
   }

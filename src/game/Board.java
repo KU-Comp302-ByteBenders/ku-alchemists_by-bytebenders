@@ -3,13 +3,24 @@ package game;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+
+import game.ArtifactCards.ArtifactCard;
 import ui.BoardJFrame;
+
+
+import game.AlchemyMarker;
+import game.Aspect;
+import game.ArtifactCards.ArtifactCard;
+import game.ArtifactCards.HealingArtifactCard;
+import game.ArtifactCards.IngredientArtifactCard;
+import game.ArtifactCards.ReputationArtifactCard;
+
 
 public class Board {
 
   private ArrayList<Token> tokens;
   private ArrayList<Ingredient> ingredients;
-  private ArrayList<ArtifactCard> artifactCards;
+  private static ArrayList<ArtifactCard> artifactCards;
   private ArrayList<Theory> theories;
 
   // These two will be used in publishTheory and debunkTheory.
@@ -28,9 +39,15 @@ public class Board {
     tokens.add(token1);
     tokens.add(token2);
     this.addIngredient();
-    this.addArtifactCard();
+    this.createArtifactCards();
     token1.addGold(10);
     token2.addGold(10);
+
+    //DENEME İÇİN SONRA SİLLL
+    addArtifactCardToToken(token1, artifactCards.get(0));
+    addArtifactCardToToken(token2, artifactCards.get(2));
+    //DENEME İÇİN SONRA SİLLL
+
     theories = new ArrayList<Theory>();
 
     BoardJFrame boardJFrame = new BoardJFrame(this);
@@ -102,18 +119,26 @@ public class Board {
     }
   }
 
-  public void addArtifactCard() {
-    ArtifactCard artifactCard1 = new ArtifactCard("art1");
-    ArtifactCard artifactCard2 = new ArtifactCard("art2");
-    ArtifactCard artifactCard3 = new ArtifactCard("art3");
-    ArtifactCard artifactCard4 = new ArtifactCard("art4");
-    ArtifactCard artifactCard5 = new ArtifactCard("art5");
-    ArtifactCard artifactCard6 = new ArtifactCard("art6");
-    ArtifactCard artifactCard7 = new ArtifactCard("art7");
-    ArtifactCard artifactCard8 = new ArtifactCard("art8");
-    ArtifactCard artifactCard9 = new ArtifactCard("art9");
-    ArtifactCard artifactCard10 = new ArtifactCard("art10");
+  public void addXamountIngredientToToken(Token token, int xAmount){
+    for (int i = 0; i < xAmount; i++) {
+      token.addIngredient(ingredients.get(xAmount));
+      ingredients.remove(xAmount);
+      
+    }
+  }
 
+  public void createArtifactCards(){
+    ArtifactCard artifactCard0 = new IngredientArtifactCard(this,"Small Fortune Pouch",2,1);
+    ArtifactCard artifactCard1 = new IngredientArtifactCard(this,"Treasure Trove",3,2);
+    ArtifactCard artifactCard2 = new IngredientArtifactCard(this,"King's Bounty",4,3);
+    ArtifactCard artifactCard3 = new HealingArtifactCard("Healing Draught",1,1);
+    ArtifactCard artifactCard4 = new HealingArtifactCard("Elixir of Vitality",2,2);
+    ArtifactCard artifactCard5 = new HealingArtifactCard("Celestial Mend",3,3);
+    ArtifactCard artifactCard6 = new ReputationArtifactCard("Kindly Gesture",1,1);
+    ArtifactCard artifactCard7 = new ReputationArtifactCard("Respected Deed",2,2);
+    ArtifactCard artifactCard8 = new ReputationArtifactCard("Virtue Badge",3,3);
+
+    artifactCards.add(artifactCard0);
     artifactCards.add(artifactCard1);
     artifactCards.add(artifactCard2);
     artifactCards.add(artifactCard3);
@@ -122,11 +147,9 @@ public class Board {
     artifactCards.add(artifactCard6);
     artifactCards.add(artifactCard7);
     artifactCards.add(artifactCard8);
-    artifactCards.add(artifactCard9);
-    artifactCards.add(artifactCard10);
 
-    Collections.shuffle(artifactCards);
-  }
+}
+
 
   public Ingredient getIngredientFromDeck() {
     int maxNumber = ingredients.size();
@@ -143,6 +166,10 @@ public class Board {
 
   public ArrayList<Theory> getTheories() {
     return theories;
+  }
+
+  public ArrayList<ArtifactCard> getArtifactCards() {
+    return artifactCards;
   }
 
   public ArrayList<Token> getTokens() {
@@ -203,4 +230,26 @@ public class Board {
       token.decreaseReputation(1); // Decrease reputation of the publisher
     }
   }
+
+  public void addArtifactCardToToken(Token token, ArtifactCard artifactCard) {
+    token.addArtifactCard(artifactCard);
+  }
+
+      //This method was named buyArtifactCard in the design
+      public static void giveArtifactCardtoToken(Token token,ArtifactCard artifactCard){
+
+        if (token.getGoldBalance() >= artifactCard.getGoldPrice()) {
+            token.decreaseGold(artifactCard.getGoldPrice());
+            token.addArtifactCard(artifactCard);
+            //System.out.println(token.getArtifactCards());
+            System.out.println("artifactCard succesfully added to token");
+          }
+
+        else{
+            System.err.println("The player does not have enough gold to buy an artifact card");
+          }
+  
+      }
+  
+
 }

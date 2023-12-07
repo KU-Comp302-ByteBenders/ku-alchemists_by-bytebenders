@@ -2,6 +2,8 @@ package game;
 
 import java.util.ArrayList;
 
+import game.ArtifactCards.ArtifactCard;
+
 public class Token {
 
   // TODO: Change the types and implements the functions
@@ -52,6 +54,7 @@ public class Token {
     }
 
   }
+
 
   public void addIngredient(Ingredient ingredient) {
     ingredients.add(ingredient);
@@ -147,7 +150,7 @@ public class Token {
         ingredients.remove(ing);
         break;
       }
-    } 
+    }
   }
 
   public void sellPotion(String potion) {}
@@ -162,13 +165,26 @@ public class Token {
     board.debunkTheory(theory, alchemyMarker, this);
   }
 
-  public void addReputation(int amount) {}
+  public void addReputation(int amount){
+    reputation += amount;
+}
 
-  public void decreaseReputation(int amount) {}
+public void decreaseReputation(int amount){
+  reputation -= amount;
+}
 
-  public void buyArtifactCard(String artifactCard) {}
+public void buyArtifactCard(ArtifactCard artifactCard){
+  Board.giveArtifactCardtoToken(this,artifactCard);
+}
+  //Burada niye direkt artifactCard.applyEffect yapamıyom anlamadım. SIKINTI ÇIKARABİLİR
+  public void useArtifactCard(ArtifactCard artifactCard){
+    Effect effect = (Effect) artifactCard;
+    effect.applyEffect(this);
+  }
 
-  public void useArtifactCard(String artifactCard) {}
+  public void addArtifactCard(ArtifactCard artifactCard){
+    artifactCards.add(artifactCard);
+}
 
   public void transmuteIngredient(String ingredientName) {
     for (Ingredient ingredient : ingredients) {
@@ -177,6 +193,17 @@ public class Token {
       }
     }
   }
+  public void removeArtifactCard(ArtifactCard artifactCard){
+    artifactCards.remove(artifactCard);
+  }
+
+  public void decreaseSickness(int amount){
+    sicknessLevel -= amount;
+}
+  public int getSicknessLevel(){
+      return sicknessLevel;
+  }
+
 }
 
-  
+
