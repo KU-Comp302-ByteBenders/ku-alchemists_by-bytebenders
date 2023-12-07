@@ -10,6 +10,16 @@ public class Aspect {
         this.size = size;
         this.sign = sign;
     }
+
+    public String getColor(){
+        return color;
+    }
+    public String getSize(){
+        return size;
+    }
+    public String getSign(){
+        return sign;
+    }
     
 
 }

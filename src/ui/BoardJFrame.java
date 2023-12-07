@@ -264,6 +264,7 @@ public class BoardJFrame extends JFrame {
     eastPanel.add(createTransmuteButton(getName()));
     eastPanel.add(publishTheoryButton());
     eastPanel.add(publicationTrackButton());
+    eastPanel.add(createExperimentButton(board));
 
     this.add(westPanel, BorderLayout.WEST);
     this.add(eastPanel, BorderLayout.EAST);
@@ -353,6 +354,18 @@ public class BoardJFrame extends JFrame {
     this.setVisible(false);
     this.setVisible(true);
 }
+  public JButton createExperimentButton(Board board){
+    JButton experimentButton = new JButton("Make Experiment");
+    experimentButton.addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e){
+                Game.openExperimentFrame(board);
+              }
+            }
+    );
+    return experimentButton;
+  }
 
   public JButton pauseButton() {
     ImageIcon pauseIcon = new ImageIcon("src/ui/utils/pause.png");

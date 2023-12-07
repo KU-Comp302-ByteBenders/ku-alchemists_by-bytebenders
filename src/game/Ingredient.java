@@ -27,4 +27,8 @@ public class Ingredient {
   public String getImagePath() {
     return imagePath;
   }
+
+  public AlchemyMarker getAlchemyMarker(){
+    return alchemyMarker;
+  }
 }
