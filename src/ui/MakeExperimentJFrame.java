@@ -81,7 +81,7 @@ public class MakeExperimentJFrame extends JFrame {
     centerPanel.setBorder(lineBorder);
     southPanel.setBorder(lineBorder);
 
-    JLabel versionLabel = new JLabel("MAKE EXPERIMENT");
+    JLabel versionLabel = new JLabel("POTION BREWING AREA");
     versionLabel.setForeground(Color.BLUE);
     versionLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
