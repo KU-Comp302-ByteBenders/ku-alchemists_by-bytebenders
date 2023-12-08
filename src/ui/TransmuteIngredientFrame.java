@@ -50,6 +50,14 @@ public class TransmuteIngredientFrame extends JFrame {
     add(ingredientsPanel, BorderLayout.CENTER);
     add(transformButton, BorderLayout.SOUTH);
 
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    int x = (screenSize.width - this.getWidth()) / 2;
+    int y = (screenSize.height - this.getHeight()) / 2;
+
+    // Set the frame location
+    this.setLocation(x, y);
+
+    // Make the frame visible
     setVisible(true);
   }
 

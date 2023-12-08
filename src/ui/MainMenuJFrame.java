@@ -51,6 +51,15 @@ public class MainMenuJFrame extends JFrame {
     JButton exitButton = new JButton("EXIT");
     exitButton.setBounds(550, 300, 150, 30);
 
+    exitButton.addActionListener(
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          System.exit(0);
+        }
+      }
+    );
+
     this.add(titleLabel);
     this.add(versionLabel);
     this.add(newGameButton);

@@ -4,7 +4,9 @@ import game.Board;
 import game.Ingredient;
 import game.Theory;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -51,6 +53,15 @@ public class PublicationTrackJFrame extends JFrame {
 
     this.add(gridPanel);
     this.pack();
+
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    int x = (screenSize.width - this.getWidth()) / 2;
+    int y = (screenSize.height - this.getHeight()) / 2;
+
+    // Set the frame location
+    this.setLocation(x, y);
+
+    // Make the frame visible
     this.setVisible(true);
   }
 }

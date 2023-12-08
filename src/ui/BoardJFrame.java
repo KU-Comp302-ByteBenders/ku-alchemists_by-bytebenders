@@ -261,9 +261,6 @@ public class BoardJFrame extends JFrame {
     scoreLabel2.setText("Token2 Score=" + token2.getScore());
     scoreLabel2.setFont(new Font("Arial", Font.BOLD, 20));
 
-    ImageIcon exitIcon = new ImageIcon("src/ui/utils/exit.png");
-    JLabel exitLabel = new JLabel(exitIcon);
-
     ImageIcon avatarIcon = new ImageIcon("src/ui/utils/" + token1.getAvatarImage() + ".png");
     JLabel avatarLabel = new JLabel(avatarIcon);
 
@@ -309,7 +306,7 @@ public class BoardJFrame extends JFrame {
     controlArea.add(controlbackgroundPanelToken1);
     controlArea.add(controlbackgroundPanelToken2);
     controlArea.add(pauseButton());
-    controlArea.add(exitLabel);
+    controlArea.add(exitButton());
     effectArea.add(effects);
     potionArea.add(potionLabel);
     //avatarArea.add(goldLabel);
@@ -477,6 +474,21 @@ public class BoardJFrame extends JFrame {
       }
     );
     return experimentButton;
+  }
+
+  public JButton exitButton() {
+    ImageIcon exitIcon = new ImageIcon("src/ui/utils/exit.png");
+    JButton exitButton = new JButton(exitIcon);
+
+    exitButton.addActionListener(
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          System.exit(0);
+        }
+      }
+    );
+    return exitButton;
   }
 
   public JButton pauseButton() {

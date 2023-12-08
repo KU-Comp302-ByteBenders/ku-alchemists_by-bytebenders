@@ -202,6 +202,16 @@ public class BuyArtifactFrame extends JFrame {
     // Set the layout of the main frame
     setLayout(new BorderLayout());
     add(buttonPanel, BorderLayout.CENTER);
+
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    int x = (screenSize.width - this.getWidth()) / 2;
+    int y = (screenSize.height - this.getHeight()) / 2;
+
+    // Set the frame location
+    this.setLocation(x, y);
+
+    // Make the frame visible
+    this.setVisible(true);
   }
 
   public void closeArtifactBuyScreen() {
