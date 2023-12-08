@@ -1,12 +1,12 @@
 package game;
 
 public class Ingredient {
-  
+
   private String name;
   private int id;
   private AlchemyMarker alchemyMarker;
   private String imagePath;
-  
+
   public Ingredient(String name, int id, AlchemyMarker alchemyMarker, String imagePath) {
     this.name = name;
     this.id = id;
@@ -14,13 +14,15 @@ public class Ingredient {
     this.imagePath = imagePath;
   }
 
-  public String getName(){
+  public String getName() {
     return name;
   }
-  public int getID(){
+
+  public int getID() {
     return id;
   }
-  public AlchemyMarker alchemyMarker(){
+
+  public AlchemyMarker alchemyMarker() {
     return alchemyMarker;
   }
 
@@ -28,7 +30,7 @@ public class Ingredient {
     return imagePath;
   }
 
-  public AlchemyMarker getAlchemyMarker(){
+  public AlchemyMarker getAlchemyMarker() {
     return alchemyMarker;
   }
 }

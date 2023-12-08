@@ -1,21 +1,21 @@
 package game;
 
 public class Log {
-    private Token[] tokens;
-    private String[] texts;
 
-    private static Log instance = null;
+  private Token[] tokens;
+  private String[] texts;
 
-    public static Log getInstance() {
-		if (instance == null) {
-			instance = new Log();
-		}
-		return instance;
-	}
+  private static Log instance = null;
 
-    // no constructor as this is class is a Singleton
+  public static Log getInstance() {
+    if (instance == null) {
+      instance = new Log();
+    }
+    return instance;
+  }
+  // no constructor as this is class is a Singleton
 
-    /*
+  /*
     private void updateText(String newText) {}
 
     private void displayText() {}

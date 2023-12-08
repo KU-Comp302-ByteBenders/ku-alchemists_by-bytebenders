@@ -1,8 +1,7 @@
 package game;
 
-import java.util.ArrayList;
-
 import game.ArtifactCards.ArtifactCard;
+import java.util.ArrayList;
 
 public class Token {
 
@@ -46,15 +45,12 @@ public class Token {
   }
 
   public void decreaseGold(int amount) {
-    if(goldBalance > amount){
+    if (goldBalance > amount) {
       goldBalance -= amount;
+    } else {
+      goldBalance = 0;
     }
-    else{
-      goldBalance =0;
-    }
-
   }
-
 
   public void addIngredient(Ingredient ingredient) {
     ingredients.add(ingredient);
@@ -92,14 +88,35 @@ public class Token {
   public String makeExperiment(String ingredient1, String ingredient2, Boolean testOnSelf) { //if player test on student false, //otherwise true;
     Ingredient ing1 = findIngredientByName(ingredient1);
     Ingredient ing2 = findIngredientByName(ingredient2);
-    boolean controller =false;
+    boolean controller = false;
 
-    for(int i=0; i<3;i++){
-      for(int j =0; j< 3;j++){
-        if(ing1.getAlchemyMarker().getAspectList().get(i).getSign().equals(ing2.getAlchemyMarker().getAspectList().get(j).getSign())){
-          if(ing1.getAlchemyMarker().getAspectList().get(i).getColor().equals(ing2.getAlchemyMarker().getAspectList().get(j).getColor())){
-            if(!ing1.getAlchemyMarker().getAspectList().get(i).getSize().equals(ing2.getAlchemyMarker().getAspectList().get(j).getSize())){
-              Potion newPotion = new Potion(0, ing1, ing2,ing1.getAlchemyMarker().getAspectList().get(i).getSign());
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        if (
+          ing1
+            .getAlchemyMarker()
+            .getAspectList()
+            .get(i)
+            .getSign()
+            .equals(ing2.getAlchemyMarker().getAspectList().get(j).getSign())
+        ) {
+          if (
+            ing1
+              .getAlchemyMarker()
+              .getAspectList()
+              .get(i)
+              .getColor()
+              .equals(ing2.getAlchemyMarker().getAspectList().get(j).getColor())
+          ) {
+            if (
+              !ing1
+                .getAlchemyMarker()
+                .getAspectList()
+                .get(i)
+                .getSize()
+                .equals(ing2.getAlchemyMarker().getAspectList().get(j).getSize())
+            ) {
+              Potion newPotion = new Potion(0, ing1, ing2, ing1.getAlchemyMarker().getAspectList().get(i).getSign());
               controller = true;
               potions.add(newPotion);
               testPotion(newPotion, testOnSelf);
@@ -109,7 +126,7 @@ public class Token {
         }
       }
     }
-    if(!controller){
+    if (!controller) {
       Potion neutralPotion = new Potion(0, ing1, ing2, "0");
       potions.add(neutralPotion);
       return "0";
@@ -117,17 +134,16 @@ public class Token {
     return null;
   }
 
-  public void testPotion(Potion potion, Boolean testOnSelf){
-    if(testOnSelf){
-      if(potion.getName().equals("-")){
-        sicknessLevel +=1;
-        if(sicknessLevel ==3){
-          goldBalance =0;
+  public void testPotion(Potion potion, Boolean testOnSelf) {
+    if (testOnSelf) {
+      if (potion.getName().equals("-")) {
+        sicknessLevel += 1;
+        if (sicknessLevel == 3) {
+          goldBalance = 0;
         }
-      }
-      else{
-        if(potion.getName().equals("-")){
-          goldBalance-=1;
+      } else {
+        if (potion.getName().equals("-")) {
+          goldBalance -= 1;
         }
       }
     }
@@ -145,8 +161,8 @@ public class Token {
   public void addPotion(String potion) {}
 
   public void removeIngredient(String ingredient) {
-    for( Ingredient ing : ingredients){
-      if(ing.getName().equals(ingredient)){
+    for (Ingredient ing : ingredients) {
+      if (ing.getName().equals(ingredient)) {
         ingredients.remove(ing);
         break;
       }
@@ -165,45 +181,45 @@ public class Token {
     board.debunkTheory(theory, alchemyMarker, this);
   }
 
-  public void addReputation(int amount){
+  public void addReputation(int amount) {
     reputation += amount;
-}
+  }
 
-public void decreaseReputation(int amount){
-  reputation -= amount;
-}
+  public void decreaseReputation(int amount) {
+    reputation -= amount;
+  }
 
-public void buyArtifactCard(ArtifactCard artifactCard){
-  Board.giveArtifactCardtoToken(this,artifactCard);
-}
+  public void buyArtifactCard(ArtifactCard artifactCard) {
+    Board.giveArtifactCardtoToken(this, artifactCard);
+  }
+
   //Burada niye direkt artifactCard.applyEffect yapamıyom anlamadım. SIKINTI ÇIKARABİLİR
-  public void useArtifactCard(ArtifactCard artifactCard){
+  public void useArtifactCard(ArtifactCard artifactCard) {
     Effect effect = (Effect) artifactCard;
     effect.applyEffect(this);
   }
 
-  public void addArtifactCard(ArtifactCard artifactCard){
+  public void addArtifactCard(ArtifactCard artifactCard) {
     artifactCards.add(artifactCard);
-}
+  }
 
   public void transmuteIngredient(String ingredientName) {
     for (Ingredient ingredient : ingredients) {
       if (ingredient.getName().equals(ingredientName)) {
-          ingredients.remove(ingredient);
+        ingredients.remove(ingredient);
       }
     }
   }
-  public void removeArtifactCard(ArtifactCard artifactCard){
+
+  public void removeArtifactCard(ArtifactCard artifactCard) {
     artifactCards.remove(artifactCard);
   }
 
-  public void decreaseSickness(int amount){
+  public void decreaseSickness(int amount) {
     sicknessLevel -= amount;
-}
-  public int getSicknessLevel(){
-      return sicknessLevel;
   }
 
+  public int getSicknessLevel() {
+    return sicknessLevel;
+  }
 }
-
-

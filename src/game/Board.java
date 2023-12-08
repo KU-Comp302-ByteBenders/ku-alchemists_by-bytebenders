@@ -1,20 +1,16 @@
 package game;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
-
-import game.ArtifactCards.ArtifactCard;
-import ui.BoardJFrame;
-
-
 import game.AlchemyMarker;
-import game.Aspect;
+import game.ArtifactCards.ArtifactCard;
 import game.ArtifactCards.ArtifactCard;
 import game.ArtifactCards.HealingArtifactCard;
 import game.ArtifactCards.IngredientArtifactCard;
 import game.ArtifactCards.ReputationArtifactCard;
-
+import game.Aspect;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
+import ui.BoardJFrame;
 
 public class Board {
 
@@ -25,7 +21,7 @@ public class Board {
 
   // These two will be used in publishTheory and debunkTheory.
   // The order of static ingredients will remain the same.
-  private ArrayList<Ingredient> staticIngredients = new ArrayList<Ingredient>(); 
+  private ArrayList<Ingredient> staticIngredients = new ArrayList<Ingredient>();
   private ArrayList<AlchemyMarker> staticAlchemyMarkers = new ArrayList<AlchemyMarker>();
 
   public Board(String username1, String username2, String avatar1, String avatar2) {
@@ -67,14 +63,54 @@ public class Board {
     Aspect aspect11 = new Aspect("Blue", "Big", "-");
     Aspect aspect12 = new Aspect("Yellow", "Big", "-");
 
-    AlchemyMarker alchemyMarker1 = new AlchemyMarker(aspect7, aspect8, aspect9, "src/ui/utils/markers/alchemy_marker1.png");
-    AlchemyMarker alchemyMarker2 = new AlchemyMarker(aspect10, aspect11, aspect12, "src/ui/utils/markers/alchemy_marker2.png");
-    AlchemyMarker alchemyMarker3 = new AlchemyMarker(aspect1, aspect12, aspect5, "src/ui/utils/markers/alchemy_marker3.png");
-    AlchemyMarker alchemyMarker4 = new AlchemyMarker(aspect9, aspect4, aspect2, "src/ui/utils/markers/alchemy_marker4.png");
-    AlchemyMarker alchemyMarker5 = new AlchemyMarker(aspect1, aspect6, aspect8, "src/ui/utils/markers/alchemy_marker5.png");
-    AlchemyMarker alchemyMarker6 = new AlchemyMarker(aspect3, aspect11, aspect4, "src/ui/utils/markers/alchemy_marker6.png");
-    AlchemyMarker alchemyMarker7 = new AlchemyMarker(aspect3, aspect7, aspect5, "src/ui/utils/markers/alchemy_marker7.png");
-    AlchemyMarker alchemyMarker8 = new AlchemyMarker(aspect6, aspect7, aspect5, "src/ui/utils/markers/alchemy_marker8.png");
+    AlchemyMarker alchemyMarker1 = new AlchemyMarker(
+      aspect7,
+      aspect8,
+      aspect9,
+      "src/ui/utils/markers/alchemy_marker1.png"
+    );
+    AlchemyMarker alchemyMarker2 = new AlchemyMarker(
+      aspect10,
+      aspect11,
+      aspect12,
+      "src/ui/utils/markers/alchemy_marker2.png"
+    );
+    AlchemyMarker alchemyMarker3 = new AlchemyMarker(
+      aspect1,
+      aspect12,
+      aspect5,
+      "src/ui/utils/markers/alchemy_marker3.png"
+    );
+    AlchemyMarker alchemyMarker4 = new AlchemyMarker(
+      aspect9,
+      aspect4,
+      aspect2,
+      "src/ui/utils/markers/alchemy_marker4.png"
+    );
+    AlchemyMarker alchemyMarker5 = new AlchemyMarker(
+      aspect1,
+      aspect6,
+      aspect8,
+      "src/ui/utils/markers/alchemy_marker5.png"
+    );
+    AlchemyMarker alchemyMarker6 = new AlchemyMarker(
+      aspect3,
+      aspect11,
+      aspect4,
+      "src/ui/utils/markers/alchemy_marker6.png"
+    );
+    AlchemyMarker alchemyMarker7 = new AlchemyMarker(
+      aspect3,
+      aspect7,
+      aspect5,
+      "src/ui/utils/markers/alchemy_marker7.png"
+    );
+    AlchemyMarker alchemyMarker8 = new AlchemyMarker(
+      aspect6,
+      aspect7,
+      aspect5,
+      "src/ui/utils/markers/alchemy_marker8.png"
+    );
 
     staticAlchemyMarkers.add(alchemyMarker1);
     staticAlchemyMarkers.add(alchemyMarker2);
@@ -119,24 +155,23 @@ public class Board {
     }
   }
 
-  public void addXamountIngredientToToken(Token token, int xAmount){
+  public void addXamountIngredientToToken(Token token, int xAmount) {
     for (int i = 0; i < xAmount; i++) {
       token.addIngredient(ingredients.get(xAmount));
       ingredients.remove(xAmount);
-      
     }
   }
 
-  public void createArtifactCards(){
-    ArtifactCard artifactCard0 = new IngredientArtifactCard(this,"Small Fortune Pouch",2,1);
-    ArtifactCard artifactCard1 = new IngredientArtifactCard(this,"Treasure Trove",3,2);
-    ArtifactCard artifactCard2 = new IngredientArtifactCard(this,"King's Bounty",4,3);
-    ArtifactCard artifactCard3 = new HealingArtifactCard("Healing Draught",1,1);
-    ArtifactCard artifactCard4 = new HealingArtifactCard("Elixir of Vitality",2,2);
-    ArtifactCard artifactCard5 = new HealingArtifactCard("Celestial Mend",3,3);
-    ArtifactCard artifactCard6 = new ReputationArtifactCard("Kindly Gesture",1,1);
-    ArtifactCard artifactCard7 = new ReputationArtifactCard("Respected Deed",2,2);
-    ArtifactCard artifactCard8 = new ReputationArtifactCard("Virtue Badge",3,3);
+  public void createArtifactCards() {
+    ArtifactCard artifactCard0 = new IngredientArtifactCard(this, "Small Fortune Pouch", 2, 1);
+    ArtifactCard artifactCard1 = new IngredientArtifactCard(this, "Treasure Trove", 3, 2);
+    ArtifactCard artifactCard2 = new IngredientArtifactCard(this, "King's Bounty", 4, 3);
+    ArtifactCard artifactCard3 = new HealingArtifactCard("Healing Draught", 1, 1);
+    ArtifactCard artifactCard4 = new HealingArtifactCard("Elixir of Vitality", 2, 2);
+    ArtifactCard artifactCard5 = new HealingArtifactCard("Celestial Mend", 3, 3);
+    ArtifactCard artifactCard6 = new ReputationArtifactCard("Kindly Gesture", 1, 1);
+    ArtifactCard artifactCard7 = new ReputationArtifactCard("Respected Deed", 2, 2);
+    ArtifactCard artifactCard8 = new ReputationArtifactCard("Virtue Badge", 3, 3);
 
     artifactCards.add(artifactCard0);
     artifactCards.add(artifactCard1);
@@ -147,9 +182,7 @@ public class Board {
     artifactCards.add(artifactCard6);
     artifactCards.add(artifactCard7);
     artifactCards.add(artifactCard8);
-
-}
-
+  }
 
   public Ingredient getIngredientFromDeck() {
     int maxNumber = ingredients.size();
@@ -174,7 +207,7 @@ public class Board {
 
   public ArrayList<Token> getTokens() {
     return tokens;
-  }  
+  }
 
   public ArrayList<Ingredient> getStaticIngredients() {
     return staticIngredients;
@@ -189,7 +222,7 @@ public class Board {
     if (ingredient == null || alchemyMarker == null) {
       throw new Exception("Please select an ingredient and an alchemy marker!");
     }
-    
+
     if (token.getGoldBalance() < 1) {
       throw new Exception("Not enough gold!");
     }
@@ -197,7 +230,6 @@ public class Board {
     for (Theory theory : theories) {
       if (theory.isAboutIngredient(ingredient)) { // There is already a theory about the ingredient
         throw new Exception("A theory on this ingredient already exists!");
-
       }
       if (theory.hasAlchemyMarker(alchemyMarker)) { // There is the same Alchemy Marker on another theory
         throw new Exception("Your Alchemy Marker is already on another theory!");
@@ -209,8 +241,8 @@ public class Board {
     theories.add(theory);
 
     token.addReputation(1);
-    token.decreaseGold(1); 
-    
+    token.decreaseGold(1);
+
     System.out.println("Theory published!");
   }
 
@@ -235,21 +267,15 @@ public class Board {
     token.addArtifactCard(artifactCard);
   }
 
-      //This method was named buyArtifactCard in the design
-      public static void giveArtifactCardtoToken(Token token,ArtifactCard artifactCard){
-
-        if (token.getGoldBalance() >= artifactCard.getGoldPrice()) {
-            token.decreaseGold(artifactCard.getGoldPrice());
-            token.addArtifactCard(artifactCard);
-            //System.out.println(token.getArtifactCards());
-            System.out.println("artifactCard succesfully added to token");
-          }
-
-        else{
-            System.err.println("The player does not have enough gold to buy an artifact card");
-          }
-  
-      }
-  
-
+  //This method was named buyArtifactCard in the design
+  public static void giveArtifactCardtoToken(Token token, ArtifactCard artifactCard) {
+    if (token.getGoldBalance() >= artifactCard.getGoldPrice()) {
+      token.decreaseGold(artifactCard.getGoldPrice());
+      token.addArtifactCard(artifactCard);
+      //System.out.println(token.getArtifactCards());
+      System.out.println("artifactCard succesfully added to token");
+    } else {
+      System.err.println("The player does not have enough gold to buy an artifact card");
+    }
+  }
 }

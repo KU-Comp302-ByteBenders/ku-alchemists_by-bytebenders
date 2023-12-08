@@ -3,18 +3,15 @@ package ui;
 import game.*;
 import game.ArtifactCards.ArtifactCard;
 import game.ArtifactCards.IngredientArtifactCard;
-import ui.uihelpers.RoundedButton;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
-
 import java.util.ArrayList;
+import java.util.Map;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import ui.uihelpers.RoundedButton;
 
 public class BoardJFrame extends JFrame {
 
@@ -40,7 +37,6 @@ public class BoardJFrame extends JFrame {
   private JLabel opponentsGoldLabel;
   private JLabel reputationLabel;
   private JLabel opponentsReputationLabel;
-
 
   JPanel ingredientCardsArea;
   JPanel artifactCardsArea;
@@ -78,7 +74,6 @@ public class BoardJFrame extends JFrame {
 
   Map<ArtifactCard, ImageIcon> artifactImageMap;
 
-
   public BoardJFrame(Board board) {
     super("KUALCH");
     this.board = board;
@@ -90,16 +85,27 @@ public class BoardJFrame extends JFrame {
     setResizable(false);
     setLayout(new BorderLayout());
 
-    this.artifactImageMap = Map.of(
-      board.getArtifactCards().get(0), artifact1Icon,
-      board.getArtifactCards().get(1), artifact2Icon,
-      board.getArtifactCards().get(2), artifact3Icon,
-      board.getArtifactCards().get(3), artifact4Icon,
-      board.getArtifactCards().get(4), artifact5Icon,
-      board.getArtifactCards().get(5), artifact6Icon,
-      board.getArtifactCards().get(6), artifact7Icon,
-      board.getArtifactCards().get(7), artifact8Icon,
-      board.getArtifactCards().get(8), artifact9Icon);
+    this.artifactImageMap =
+      Map.of(
+        board.getArtifactCards().get(0),
+        artifact1Icon,
+        board.getArtifactCards().get(1),
+        artifact2Icon,
+        board.getArtifactCards().get(2),
+        artifact3Icon,
+        board.getArtifactCards().get(3),
+        artifact4Icon,
+        board.getArtifactCards().get(4),
+        artifact5Icon,
+        board.getArtifactCards().get(5),
+        artifact6Icon,
+        board.getArtifactCards().get(6),
+        artifact7Icon,
+        board.getArtifactCards().get(7),
+        artifact8Icon,
+        board.getArtifactCards().get(8),
+        artifact9Icon
+      );
 
     // CREATE THE JPANELS AND JLABELS
 
@@ -197,7 +203,6 @@ public class BoardJFrame extends JFrame {
     for (int i = 0; i < token2ArtifactsNumber; i++) {
       ArtifactCard myArtifactCard = token2.getArtifactCards().get(i);
       createArtifactUseButton(myArtifactCard, token2);
-
     }
 
     // CREATE THE JLABELS THAT CONTAIN WORDS.
@@ -220,12 +225,11 @@ public class BoardJFrame extends JFrame {
     opponentsGoldLabel.setFont(new Font("Arial", Font.BOLD, 20));
     opponentsSegmentedAvatarArea.add(opponentsGoldLabel, BorderLayout.NORTH);
 
-  //JLabel goldLabel;
-  //JLabel opponentsGoldLabel;
+    //JLabel goldLabel;
+    //JLabel opponentsGoldLabel;
 
-  //JLabel goldLabel = createTokensGoldLabel();
-  //JLabel opponentsGoldLabel = createOpponentsGoldLabel();
-
+    //JLabel goldLabel = createTokensGoldLabel();
+    //JLabel opponentsGoldLabel = createOpponentsGoldLabel();
 
     JLabel potionLabel = new JLabel();
     potionLabel.setText("POTIONS:");
@@ -242,7 +246,6 @@ public class BoardJFrame extends JFrame {
     opponentsReputationLabel = new JLabel();
     opponentsReputationLabel.setText("REPUTATION:" + token2.getReputation());
     opponentsReputationLabel.setFont(new Font("Arial", Font.BOLD, 20));
-
 
     JPanel controlbackgroundPanelToken1 = new JPanel();
     controlbackgroundPanelToken1.setBackground(Color.LIGHT_GRAY);
@@ -340,8 +343,6 @@ public class BoardJFrame extends JFrame {
     this.setVisible(true);
   }
 
-
-
   public JButton createForageButton() {
     JButton forageButton = new JButton("Forage For Ingredients");
     forageButton.addActionListener(
@@ -350,7 +351,6 @@ public class BoardJFrame extends JFrame {
         public void actionPerformed(ActionEvent e) {
           Ingredient ingredient = token1.forageForIngredient(board);
           addIngredient(ingredient);
-
         }
       }
     );
@@ -359,18 +359,20 @@ public class BoardJFrame extends JFrame {
 
   public JButton createTransmuteButton(String ingredientName) {
     JButton transmuteButton = new JButton("Transmute For Ingredients");
-    transmuteButton.addActionListener(new ActionListener() {
+    transmuteButton.addActionListener(
+      new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (BoardJFrame.this != null) {
-                //TransmuteIngredientFrame tif = new TransmuteIngredientFrame(new ArrayList<>(token1.getIngredients()), board, BoardJFrame.this);
-                //tif.setVisible(true);
-                Game.activateTransmuteIngredientFrame(new ArrayList<>(token1.getIngredients()), board, BoardJFrame.this);
-            }
+          if (BoardJFrame.this != null) {
+            //TransmuteIngredientFrame tif = new TransmuteIngredientFrame(new ArrayList<>(token1.getIngredients()), board, BoardJFrame.this);
+            //tif.setVisible(true);
+            Game.activateTransmuteIngredientFrame(new ArrayList<>(token1.getIngredients()), board, BoardJFrame.this);
+          }
         }
-    });
+      }
+    );
     return transmuteButton;
-}
+  }
 
   // ACTION SELECTON BUTTON FOR BUYING ARTIFACT CARDS
   public JButton createArtifactBuyerButton() {
@@ -379,12 +381,12 @@ public class BoardJFrame extends JFrame {
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            // Open the BuyArtifactFrame when the button is clicked
-            //BuyArtifactFrame buyArtifactFrame = new BuyArtifactFrame(board, token1, token2);
-            //buyArtifactFrame.setVisible(true);
+          // Open the BuyArtifactFrame when the button is clicked
+          //BuyArtifactFrame buyArtifactFrame = new BuyArtifactFrame(board, token1, token2);
+          //buyArtifactFrame.setVisible(true);
 
-            // Controller version
-            Game.openArtifactBuyScreen(thisBoardJFrame,board,token1,token2);
+          // Controller version
+          Game.openArtifactBuyScreen(thisBoardJFrame, board, token1, token2);
         }
       }
     );
@@ -398,48 +400,35 @@ public class BoardJFrame extends JFrame {
     artifactUseButton.setPreferredSize(new Dimension(60, 60));
 
     //BURADA APPLY EFFECT IMPLEMENTE ETMELİSİN BAKBAKBAKBKKBAKBAKABKBKBAK
-    artifactUseButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
+    artifactUseButton.addActionListener(
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
           token.useArtifactCard(artifactCard);
           artifactUseButton.setVisible(false);
           token.removeArtifactCard(artifactCard);
           updateTokensReputationLabel();
-          if (artifactCard.getName() == "Small Fortune Pouch" || 
-              artifactCard.getName() == "Treasure Trove" ||
-              artifactCard.getName() == "King's Bounty"  ) {
-                for (int i = 0; i < ((IngredientArtifactCard) artifactCard).getIngredientAmount(); i++) { 
-                Ingredient ingredient = token1.forageForIngredient(board);
-                addIngredient(ingredient);
-              }
+          if (
+            artifactCard.getName() == "Small Fortune Pouch" ||
+            artifactCard.getName() == "Treasure Trove" ||
+            artifactCard.getName() == "King's Bounty"
+          ) {
+            for (int i = 0; i < ((IngredientArtifactCard) artifactCard).getIngredientAmount(); i++) {
+              Ingredient ingredient = token1.forageForIngredient(board);
+              addIngredient(ingredient);
             }
+          }
+        }
       }
-    }
     );
 
     artifactCardsArea.add(artifactUseButton);
     this.setVisible(false);
     this.setVisible(true);
-
   }
-
-  //public void refreshArtifactCardsArea(ArtifactCard artifactCard) {
-  //  JButton artifactButton = new JButton(artifactImageMap.get(artifactCard));
-  //  artifactCardsArea.add(artifactButton);
-  //  this.setVisible(false);
-  //  this.setVisible(true);
-  //}
-
-
-
 
   public void addIngredient(Ingredient ingredient) {
     int ingID = ingredient.getID();
-    System.out.println("IIIIIIIIIIIIIII");
-    for (Ingredient ing : token1.getIngredients()) {
-      System.out.println("ing.getID() = " + ing.getID());
-    }
-    System.out.println("IIIIIIIIIIIIIII");
 
     ImageIcon ingredientIcon = new ImageIcon("src/ui/utils/ingredient_" + ingID + ".jpg");
     JLabel ingredientLabel = new JLabel(ingredientIcon);
@@ -449,70 +438,68 @@ public class BoardJFrame extends JFrame {
   }
 
   public void removeIngredientFromBoardByName(String ingredientName) {
-    String path="";
+    String path = "";
     for (Ingredient ingredient : token1.getIngredients()) {
-        if (ingredient.getName().equals(ingredientName)) {
-          path=ingredient.getImagePath();
-          token1.removeIngredient(ingredientName);
-          token1.addGold(1);
-          updateTokensGoldLabel();
-          break;
-        }
+      if (ingredient.getName().equals(ingredientName)) {
+        path = ingredient.getImagePath();
+        token1.removeIngredient(ingredientName);
+        token1.addGold(1);
+        updateTokensGoldLabel();
+        break;
+      }
     }
     for (Component component : ingredientCardsArea.getComponents()) {
       if (component instanceof JLabel) {
-          JLabel label = (JLabel) component;
-          ImageIcon labelIcon = (ImageIcon) label.getIcon();
-          ImageIcon targetIcon = new ImageIcon(path);
-          Image labelImage = labelIcon.getImage();
-          Image targetImage = targetIcon.getImage();
+        JLabel label = (JLabel) component;
+        ImageIcon labelIcon = (ImageIcon) label.getIcon();
+        ImageIcon targetIcon = new ImageIcon(path);
+        Image labelImage = labelIcon.getImage();
+        Image targetImage = targetIcon.getImage();
 
-          if (labelImage.equals(targetImage)) {
-              label.setVisible(false);
-              break;
-          }
+        if (labelImage.equals(targetImage)) {
+          label.setVisible(false);
+          break;
+        }
       }
-  }
+    }
     this.setVisible(false);
     this.setVisible(true);
-}
-  public JButton createExperimentButton(Board board){
+  }
+
+  public JButton createExperimentButton(Board board) {
     JButton experimentButton = new JButton("Make Experiment");
     experimentButton.addActionListener(
-            new ActionListener() {
-              @Override
-              public void actionPerformed(ActionEvent e){
-                Game.openExperimentFrame(board);
-              }
-            }
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          Game.openExperimentFrame(board);
+        }
+      }
     );
     return experimentButton;
   }
-
-
-
 
   public JButton pauseButton() {
     ImageIcon pauseIcon = new ImageIcon("src/ui/utils/pause.png");
     JButton pauseButton = new JButton(pauseIcon);
 
     pauseButton.addActionListener(
-            new ActionListener() {
-              @Override
-              public void actionPerformed(ActionEvent e) {
-                openingPauseMenu();
-              }
-            }
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          openingPauseMenu();
+        }
+      }
     );
     return pauseButton;
   }
 
-  public void openingPauseMenu(){
+  public void openingPauseMenu() {
     Game.openPauseMenu(this);
     Game.inactivateBoard(this);
   }
 
-/*   public JLabel createTokensGoldLabel(){
+  /*   public JLabel createTokensGoldLabel(){
     JLabel goldLabel = new JLabel();
     goldLabel.setText("GOLD:" + token1.getGoldBalance());
     goldLabel.setFont(new Font("Arial", Font.BOLD, 20));
@@ -525,13 +512,13 @@ public class BoardJFrame extends JFrame {
 
   public void updateTokensGoldLabel() {
     goldLabel.setText("Gold: " + token1.getGoldBalance());
-}
+  }
 
   public void updateTokensReputationLabel() {
     reputationLabel.setText("Reputation: " + token1.getReputation());
   }
 
-/*   public JLabel createOpponentsGoldLabel(){
+  /*   public JLabel createOpponentsGoldLabel(){
     JLabel opponentsGoldLabel = new JLabel();
     opponentsGoldLabel.setText("GOLD:" + token2.getGoldBalance());
     opponentsGoldLabel.setFont(new Font("Arial", Font.BOLD, 20));
@@ -542,91 +529,90 @@ public class BoardJFrame extends JFrame {
     return opponentsGoldLabel;
   } */
 
-    public static JPanel arrangeBoardTriangle() {
-        // this method's purpose is adding buttons to deduction image. There are 36 different buttons and we arrange they in the for loop.
-        JPanel mainPanel = new JPanel(new GridBagLayout());
+  public static JPanel arrangeBoardTriangle() {
+    // this method's purpose is adding buttons to deduction image. There are 36 different buttons and we arrange they in the for loop.
+    JPanel mainPanel = new JPanel(new GridBagLayout());
 
-        ImageIcon centerIcon = new ImageIcon("src/ui/utils/pubboard.png");
-        JLabel centerLabel = new JLabel(centerIcon);
-        RoundedButton[] roundedButtons = new RoundedButton[36];
-        for (int i = 0; i < roundedButtons.length; i++) { // creating 36 buttons.
-            roundedButtons[i] = new RoundedButton("∅");
-            roundedButtons[i].setBorder(BorderFactory.createEmptyBorder(11, 11, 11, 11));
+    ImageIcon centerIcon = new ImageIcon("src/ui/utils/pubboard.png");
+    JLabel centerLabel = new JLabel(centerIcon);
+    RoundedButton[] roundedButtons = new RoundedButton[36];
+    for (int i = 0; i < roundedButtons.length; i++) { // creating 36 buttons.
+      roundedButtons[i] = new RoundedButton("∅");
+      roundedButtons[i].setBorder(BorderFactory.createEmptyBorder(11, 11, 11, 11));
 
-            int finals = i;
-            roundedButtons[i].addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    Game.openTriangleBoard(roundedButtons[finals]);
-                } // This action for the changing of button shape, color and features. We send call to game due to game is our controller.
-            });
-        }
-
-        GridBagConstraints gbcCenterLabel = new GridBagConstraints();
-        gbcCenterLabel.gridx = 0;
-        gbcCenterLabel.gridy = 0;
-        gbcCenterLabel.insets = new Insets(0, 0, 0, 0);
-        mainPanel.add(centerLabel, gbcCenterLabel);
-
-        int startery = 283;
-        int starterx = 0;
-        int nodeNumber = 0;
-        for (int k = 1; k < 9; k++) { // we used 2 different for loop. They used for rows and number of buttons.
-            for (int i = 0; i < k; i++) {
-                GridBagConstraints gbcButton = new GridBagConstraints();
-                gbcButton.gridx = 0;
-                gbcButton.gridy = 0;
-                gbcButton.insets = new Insets(0, 0, startery, starterx-(126*i));
-                mainPanel.add(roundedButtons[nodeNumber], gbcButton);
-                mainPanel.setComponentZOrder(roundedButtons[nodeNumber], 0);
-
-                nodeNumber++;
-            }
-            startery= startery-64;
-            starterx = starterx+63;
-        }
-
-        return mainPanel;
-
-    }
-
-    public JButton publishTheoryButton() {
-        JButton publishButton = new JButton("Publish Theory");
-
-        publishButton.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        openPublishMenu();
-                    }
-                }
+      int finals = i;
+      roundedButtons[i].addActionListener(
+          new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              Game.openTriangleBoard(roundedButtons[finals]);
+            } // This action for the changing of button shape, color and features. We send call to game due to game is our controller.
+          }
         );
-        return publishButton;
     }
 
-    public JButton publicationTrackButton() {
-        JButton publicationTrackButton = new JButton("Publication Track");
+    GridBagConstraints gbcCenterLabel = new GridBagConstraints();
+    gbcCenterLabel.gridx = 0;
+    gbcCenterLabel.gridy = 0;
+    gbcCenterLabel.insets = new Insets(0, 0, 0, 0);
+    mainPanel.add(centerLabel, gbcCenterLabel);
 
-        publicationTrackButton.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        openPublicationTrack();
-                    }
-                }
-        );
-        return publicationTrackButton;
+    int startery = 283;
+    int starterx = 0;
+    int nodeNumber = 0;
+    for (int k = 1; k < 9; k++) { // we used 2 different for loop. They used for rows and number of buttons.
+      for (int i = 0; i < k; i++) {
+        GridBagConstraints gbcButton = new GridBagConstraints();
+        gbcButton.gridx = 0;
+        gbcButton.gridy = 0;
+        gbcButton.insets = new Insets(0, 0, startery, starterx - (126 * i));
+        mainPanel.add(roundedButtons[nodeNumber], gbcButton);
+        mainPanel.setComponentZOrder(roundedButtons[nodeNumber], 0);
+
+        nodeNumber++;
+      }
+      startery = startery - 64;
+      starterx = starterx + 63;
     }
 
-    public void openPublishMenu(){
-        Game.openPublishMenu(this, board);
-        // this.setFocusable(false);
-    }
+    return mainPanel;
+  }
 
-    public void openPublicationTrack(){
-        Game.openPublicationTrack(this, board);
-        // this.setFocusable(false);
-    }
+  public JButton publishTheoryButton() {
+    JButton publishButton = new JButton("Publish Theory");
 
+    publishButton.addActionListener(
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          openPublishMenu();
+        }
+      }
+    );
+    return publishButton;
+  }
+
+  public JButton publicationTrackButton() {
+    JButton publicationTrackButton = new JButton("Publication Track");
+
+    publicationTrackButton.addActionListener(
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          openPublicationTrack();
+        }
+      }
+    );
+    return publicationTrackButton;
+  }
+
+  public void openPublishMenu() {
+    Game.openPublishMenu(this, board);
+    // this.setFocusable(false);
+  }
+
+  public void openPublicationTrack() {
+    Game.openPublicationTrack(this, board);
+    // this.setFocusable(false);
+  }
 }
-

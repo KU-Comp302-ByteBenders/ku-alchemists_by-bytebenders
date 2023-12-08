@@ -1,5 +1,5 @@
 package game;
 
 public interface Effect {
-    void applyEffect(Token token);
+  void applyEffect(Token token);
 }

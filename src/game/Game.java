@@ -1,7 +1,6 @@
 package game;
 
 import java.util.ArrayList;
-
 import javax.swing.*;
 import ui.*;
 
@@ -76,31 +75,36 @@ public class Game {
     board.setVisible(true);
   }
 
-  public static void openArtifactBuyScreen(BoardJFrame boardJFrame, Board board,Token token1, Token token2) {
-      BuyArtifactFrame buyArtifactFrame = new BuyArtifactFrame(boardJFrame, board, token1, token2);
-      buyArtifactFrame.setVisible(true);
+  public static void openArtifactBuyScreen(BoardJFrame boardJFrame, Board board, Token token1, Token token2) {
+    BuyArtifactFrame buyArtifactFrame = new BuyArtifactFrame(boardJFrame, board, token1, token2);
+    buyArtifactFrame.setVisible(true);
   }
 
   public static void closeArtifactBuyScreen(JFrame pauseMenu) {
     pauseMenu.dispose();
   }
 
-  public static void activateTransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard, BoardJFrame boardFrame) {
-    TransmuteIngredientFrame transmuteJFrame = new TransmuteIngredientFrame(displayedIngredients, mainBoard, boardFrame);
+  public static void activateTransmuteIngredientFrame(
+    ArrayList<Ingredient> displayedIngredients,
+    Board mainBoard,
+    BoardJFrame boardFrame
+  ) {
+    TransmuteIngredientFrame transmuteJFrame = new TransmuteIngredientFrame(
+      displayedIngredients,
+      mainBoard,
+      boardFrame
+    );
   }
 
-  public static void openTriangleBoard(JButton button){
-    TriangleBoardJFrame triangleBoardJFrame =
-            new TriangleBoardJFrame(button);
+  public static void openTriangleBoard(JButton button) {
+    TriangleBoardJFrame triangleBoardJFrame = new TriangleBoardJFrame(button);
   }
 
   public static void openHelpScreen() {
     HelpJFrame helpJFrame = new HelpJFrame();
   }
 
-  public static void openExperimentFrame(Board board){
+  public static void openExperimentFrame(Board board) {
     MakeExperimentJFrame makeExperimentJFrame = new MakeExperimentJFrame(board);
-
   }
-
 }
