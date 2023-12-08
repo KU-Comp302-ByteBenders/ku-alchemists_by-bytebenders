@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -436,32 +437,43 @@ public class BoardJFrame extends JFrame {
 
   public void removeIngredientFromBoardByName(String ingredientName) {
     String path = "";
-    for (Ingredient ingredient : token1.getIngredients()) {
-      if (ingredient.getName().equals(ingredientName)) {
-        path = ingredient.getImagePath();
-        token1.removeIngredient(ingredientName);
-        token1.addGold(1);
-        updateTokensGoldLabel();
-        break;
-      }
-    }
+    // Iterate over the components of ingredientCardsArea
     for (Component component : ingredientCardsArea.getComponents()) {
-      if (component instanceof JLabel) {
-        JLabel label = (JLabel) component;
-        ImageIcon labelIcon = (ImageIcon) label.getIcon();
-        ImageIcon targetIcon = new ImageIcon(path);
-        Image labelImage = labelIcon.getImage();
-        Image targetImage = targetIcon.getImage();
+        if (component instanceof JLabel) {
+            JLabel label = (JLabel) component;
+            ImageIcon labelIcon = (ImageIcon) label.getIcon();
+            Ingredient ingredient = findIngredientByImagePath(labelIcon.getDescription());
 
-        if (labelImage.equals(targetImage)) {
-          label.setVisible(false);
-          break;
+            if (ingredient != null && ingredient.getName().equals(ingredientName)) {
+                path = labelIcon.getDescription();
+                ingredientCardsArea.remove(label);
+                token1.addGold(1);
+                updateTokensGoldLabel();
+                break;
+            }
         }
-      }
+    }
+
+    Iterator<Ingredient> iterator = token1.getIngredients().iterator();
+    while (iterator.hasNext()) {
+        Ingredient ingredient = iterator.next();
+        if (ingredient.getName().equals(ingredientName)) {
+            iterator.remove();
+            break;
+        }
     }
     this.setVisible(false);
     this.setVisible(true);
+}
+
+public Ingredient findIngredientByImagePath(String imagePath) {
+  for (Ingredient ingredient : token1.getIngredients()) {
+      if (ingredient.getImagePath().equals(imagePath)) {
+          return ingredient;
+      }
   }
+  return null;
+}
 
   public JButton createExperimentButton(Board board) {
     JButton experimentButton = new JButton("Make Experiment");
