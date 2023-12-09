@@ -10,6 +10,9 @@ import game.Aspect;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+
+import javax.swing.JOptionPane;
+
 import ui.BoardJFrame;
 
 public class Board {
@@ -18,6 +21,7 @@ public class Board {
   private ArrayList<Ingredient> ingredients;
   private static ArrayList<ArtifactCard> artifactCards;
   private ArrayList<Theory> theories;
+  private State state;
 
   // These two will be used in publishTheory and debunkTheory.
   // The order of static ingredients will remain the same.
@@ -38,6 +42,9 @@ public class Board {
     this.createArtifactCards();
     token1.addGold(10);
     token2.addGold(10);
+
+    // init state object
+    State state = new State(tokens);
 
     //DENEME İÇİN SONRA SİLLL
     addArtifactCardToToken(token1, artifactCards.get(0));
@@ -217,6 +224,10 @@ public class Board {
     return staticAlchemyMarkers;
   }
 
+  public State getState() {
+    return state;
+  }
+
   public void publishTheory(Ingredient ingredient, AlchemyMarker alchemyMarker, Token token) throws Exception {
     // Check if player has enough gold
     if (ingredient == null || alchemyMarker == null) {
@@ -236,6 +247,7 @@ public class Board {
       }
     }
 
+    // Exception checks passed
     // Create theory and add to the theories list
     Theory theory = new Theory(ingredient, alchemyMarker, token);
     theories.add(theory);
@@ -244,6 +256,9 @@ public class Board {
     token.decreaseGold(1);
 
     System.out.println("Theory published!");
+
+    // Update game state
+    // state.updateState();
   }
 
   public void debunkTheory(Theory theory, AlchemyMarker alchemyMarker, Token token) {
