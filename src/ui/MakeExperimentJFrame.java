@@ -72,6 +72,7 @@ public class MakeExperimentJFrame extends JFrame {
     this.setLayout(new BorderLayout());
     this.setResizable(false);
 
+    // Create panels
     westPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 20)); //
     eastPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 75)); // tests
     southPanel = new JPanel(new FlowLayout());
@@ -100,14 +101,15 @@ public class MakeExperimentJFrame extends JFrame {
     centerPanel.setBorder(lineBorder);
     southPanel.setBorder(lineBorder);
 
+    // Create labels
     JLabel versionLabel = new JLabel("POTION BREWING AREA");
     versionLabel.setForeground(Color.decode("#A020F0"));
     versionLabel.setFont(new Font("Arial", Font.BOLD, 35));
     versionLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-
     JLabel panelLabel = new JLabel("INGREDIENTS");
     panelLabel.setForeground(Color.decode("#A020F0"));
+    panelLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
     JLabel resultLabel = new JLabel("RESULT");
     resultLabel.setForeground(Color.decode("#A020F0"));
@@ -131,10 +133,8 @@ public class MakeExperimentJFrame extends JFrame {
     }
     ingredPanel.add(panelLabel);
 
-    JButton mixButton = new JButton("Mix");
-
+    //to return to the board
     JButton closeExperimentFrame = new JButton("Return the Game");
-
     closeExperimentFrame.addActionListener(
       new ActionListener() {
         @Override
@@ -143,11 +143,15 @@ public class MakeExperimentJFrame extends JFrame {
         }
       }
     );
+    
+    //Create a button to mix ingredients
+    JButton mixButton = new JButton("Mix");
 
+    mixButton.setEnabled(false);
     mixButton.addActionListener(
       new ActionListener() {
         String newString = "";
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
           newString =
@@ -157,18 +161,33 @@ public class MakeExperimentJFrame extends JFrame {
               testResult(testComboBox.getSelectedItem().toString())
             );
           showResult(newString);
-        }
+          
+        }   
       }
     );
+    
+    // Create a button to select ingredients
 
     selectIngredientsButton = new JButton("Select Ingredients");
     selectIngredientsButton.addActionListener(
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
+          if(ingredientComboBox1.getSelectedItem().toString()
+          .equals(ingredientComboBox2.getSelectedItem().toString())){
+
+            JOptionPane.showMessageDialog(
+              MakeExperimentJFrame.this,
+              "You cannot choose same ingredient!",
+              "Error",
+              JOptionPane.ERROR_MESSAGE
+            );
+            return;
+          }
+          mixButton.setEnabled(true);
           handleIngredientSelection(
             ingredientComboBox1.getSelectedItem().toString(),
-            ingredientComboBox2.getSelectedItem().toString() //you cannot choose same ingredient!!!
+            ingredientComboBox2.getSelectedItem().toString() 
           );
         }
       }
@@ -195,11 +214,6 @@ public class MakeExperimentJFrame extends JFrame {
     JPanel bottomComboBoxPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 150, 20));
     bottomComboBoxPanel.add(testComboBox);
 
-    westPanel.add(topComboBoxPanel, BorderLayout.NORTH);
-    westPanel.add(selectIngredientsButton, BorderLayout.SOUTH);
-    westPanel.add(bottomComboBoxPanel, BorderLayout.SOUTH);
-    westPanel.add(selectPersonButton, BorderLayout.SOUTH);
-
     ingredientComboBox1.addActionListener(
       new ActionListener() {
         @Override
@@ -217,7 +231,8 @@ public class MakeExperimentJFrame extends JFrame {
         }
       }
     );
-
+    
+    //when the frame is closed, the potion is added to the board
     MakeExperimentJFrame.this.addWindowListener((WindowListener) new WindowAdapter() {
       @Override
       public void windowClosed(WindowEvent e) {
@@ -233,13 +248,17 @@ public class MakeExperimentJFrame extends JFrame {
                   || potionsForFrame.get(0).getName().equals("0"))
             {boardFrame.potionArea.add(potionPlusLabel);
           }}
-          
-  
+        
           // Repaint the potionArea JPanel to show the new images
           boardFrame.setVisible(false);
           boardFrame.setVisible(true);
       }
-  });
+    });
+
+    westPanel.add(topComboBoxPanel, BorderLayout.NORTH);
+    westPanel.add(selectIngredientsButton, BorderLayout.SOUTH);
+    westPanel.add(bottomComboBoxPanel, BorderLayout.SOUTH);
+    westPanel.add(selectPersonButton, BorderLayout.SOUTH);
 
     this.add(westPanel, BorderLayout.WEST);
     this.add(eastPanel, BorderLayout.EAST);
@@ -266,19 +285,17 @@ public class MakeExperimentJFrame extends JFrame {
     int x = (screenSize.width - this.getWidth()) / 2;
     int y = (screenSize.height - this.getHeight()) / 2;
 
-    // Set the frame location
     this.setLocation(x, y);
-
-    // Make the frame visible
     this.setVisible(true);
   }
 
+  //close the frame
   public void closingMenu(JFrame experimentFrame) {
     experimentFrame.dispose();
   }
 
+   // Enable the button only if both ComboBoxes have selections
   private void updateSelectButtonState() {
-    // Enable the button only if both ComboBoxes have selections
     selectIngredientsButton.setEnabled(
       ingredientComboBox1.getSelectedItem() != null && ingredientComboBox2.getSelectedItem() != null
     );
@@ -300,7 +317,7 @@ public class MakeExperimentJFrame extends JFrame {
     }
     return true;
   }
-
+  //this method is used to show the result of the experiment and close the frame after 7 seconds
   public void showResult(String newString) {
     if (newString.equals("-")) {
       resJLabel = new JLabel("It is a negative potion", SwingConstants.CENTER);
@@ -318,7 +335,7 @@ public class MakeExperimentJFrame extends JFrame {
       this.setVisible(true);
     }
     Timer timer = new Timer(
-      3000,
+      7000,
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -330,7 +347,7 @@ public class MakeExperimentJFrame extends JFrame {
     timer.setRepeats(false); // Set to false to run the ActionListener only once
     timer.start();
   }
-
+  //this method is used to close the frame
   public void closeFrame() {
     this.dispose();
   }
