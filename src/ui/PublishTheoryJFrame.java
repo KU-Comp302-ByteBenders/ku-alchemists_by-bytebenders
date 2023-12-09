@@ -18,7 +18,7 @@ public class PublishTheoryJFrame extends JFrame {
   private Ingredient selectedIngredient = null;
   private AlchemyMarker selectedAlchemyMarker = null;
 
-  public PublishTheoryJFrame(Board board) {
+  public PublishTheoryJFrame(BoardJFrame boardJFrame, Board board) {
     this.setSize(1280, 720);
     this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
     this.setResizable(false);
@@ -91,6 +91,8 @@ public class PublishTheoryJFrame extends JFrame {
           try {
             Token token = board.getState().getCurrentToken();
             token.publishTheory(board, selectedIngredient, selectedAlchemyMarker);
+            boardJFrame.updateTokensGoldLabel();
+            boardJFrame.updateTokensReputationLabel();
           } catch (Exception exception) {
             JOptionPane.showMessageDialog(null, exception.getMessage());
             return;
