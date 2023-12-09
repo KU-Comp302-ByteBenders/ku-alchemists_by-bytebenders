@@ -54,6 +54,11 @@ public class Game {
     PublishTheoryJFrame publishTheoryJFrame = new PublishTheoryJFrame(boardJFrame, board);
   }
 
+  public static void openDebunkMenu(BoardJFrame boardJFrame, Board board) {
+    // Open the debunk theory action menu
+    DebunkTheoryJFrame debunkTheoryJFrame = new DebunkTheoryJFrame(boardJFrame, board);
+  }
+
   public static void openPublicationTrack(JFrame boardJFrame, Board board) {
     // Open the publish theory action menu
     PublicationTrackJFrame publicationTrackJFrame = new PublicationTrackJFrame(board);
