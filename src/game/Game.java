@@ -49,9 +49,9 @@ public class Game {
 
   public void closePauseMenu() {}
 
-  public static void openPublishMenu(JFrame boardJFrame, Board board) {
+  public static void openPublishMenu(BoardJFrame boardJFrame, Board board) {
     // Open the publish theory action menu
-    PublishTheoryJFrame publishTheoryJFrame = new PublishTheoryJFrame(board);
+    PublishTheoryJFrame publishTheoryJFrame = new PublishTheoryJFrame(boardJFrame, board);
   }
 
   public static void openPublicationTrack(JFrame boardJFrame, Board board) {
