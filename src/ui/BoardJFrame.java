@@ -65,6 +65,10 @@ public class BoardJFrame extends JFrame {
   ImageIcon bigIngredientBackIcon = new ImageIcon("src/ui/utils/ingredient image.png");
   ImageIcon smallIngredientBackIcon = new ImageIcon("src/ui/utils/small-ingredient-image.png");
 
+  ImageIcon smallPotion1Icon = new ImageIcon("src/ui/utils/potion-.jpg");
+  ImageIcon smallPotion2Icon = new ImageIcon("src/ui/utils/potion+.jpg");
+  ImageIcon smallPotion3Icon = new ImageIcon("src/ui/utils/potion3.jpg");
+
   ImageIcon artifact1Icon = new ImageIcon("src/ui/utils/artifact1jpg");
   ImageIcon artifact2Icon = new ImageIcon("src/ui/utils/artifact2.jpg");
   ImageIcon artifact3Icon = new ImageIcon("src/ui/utils/artifact3.jpg");
@@ -202,7 +206,6 @@ public class BoardJFrame extends JFrame {
       ingredientCardsArea.add(ingredientLabel);
     }
     
-    
     // ADD THE TOKENS ARTIFACT CARDS TO THE BOARD
 
     int token2ArtifactsNumber = token2.getArtifactCards().size();
@@ -252,6 +255,7 @@ public class BoardJFrame extends JFrame {
     opponentsPotionLabel.setText("POTIONS:");
     opponentsPotionLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
+
     opponentsReputationLabel = new JLabel();
     opponentsReputationLabel.setText("REPUTATION:" + token2.getReputation());
     opponentsReputationLabel.setFont(new Font("Arial", Font.BOLD, 20));
@@ -285,7 +289,7 @@ public class BoardJFrame extends JFrame {
     JLabel artifactCardsLabel = new JLabel();
     artifactCardsLabel.setText("ARTIFACT CARDS:");
     artifactCardsLabel.setFont(new Font("Arial", Font.BOLD, 20));
-
+    
     // ADD THE JPANELS AND JLABELS TO THE JPANELS
 
     southPanel.add(westOfSouthPanel, BorderLayout.WEST);
@@ -491,7 +495,7 @@ public Ingredient findIngredientByImagePath(String imagePath) {
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          Game.openExperimentFrame(board);
+          Game.openExperimentFrame(board, BoardJFrame.this);
         }
       }
     );
@@ -676,4 +680,5 @@ public Ingredient findIngredientByImagePath(String imagePath) {
         }
     });
 }
+  
 }
