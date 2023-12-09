@@ -1,6 +1,9 @@
 package game;
 
 import game.ArtifactCards.ArtifactCard;
+import ui.BoardJFrame;
+import ui.MakeExperimentJFrame;
+
 import java.util.ArrayList;
 
 public class Token {
@@ -83,11 +86,18 @@ public class Token {
   public ArrayList<ArtifactCard> getArtifactCards() {
     return artifactCards;
   }
+  public ArrayList<Potion> getPotions() {
+    return potions;
+  }
 
   //tabloda ilk ne varsa default seçiyor bunu düzeltmen gerekecek!
   public String makeExperiment(String ingredient1, String ingredient2, Boolean testOnSelf) { //if player test on student false, //otherwise true;
     Ingredient ing1 = findIngredientByName(ingredient1);
     Ingredient ing2 = findIngredientByName(ingredient2);
+    
+    ingredients.remove(ing1);
+    ingredients.remove(ing2);
+    
     boolean controller = false;
 
     for (int i = 0; i < 3; i++) {
@@ -119,6 +129,7 @@ public class Token {
               Potion newPotion = new Potion(0, ing1, ing2, ing1.getAlchemyMarker().getAspectList().get(i).getSign());
               controller = true;
               potions.add(newPotion);
+              MakeExperimentJFrame.potionsForFrame.add(newPotion);
               testPotion(newPotion, testOnSelf);
               return ing1.getAlchemyMarker().getAspectList().get(i).getSign();
             }
@@ -129,6 +140,7 @@ public class Token {
     if (!controller) {
       Potion neutralPotion = new Potion(0, ing1, ing2, "0");
       potions.add(neutralPotion);
+      MakeExperimentJFrame.potionsForFrame.add(neutralPotion);
       return "0";
     }
     return null;
