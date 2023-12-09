@@ -2,10 +2,16 @@ package ui;
 
 import game.Board;
 import game.Ingredient;
+import game.Potion;
 import game.Token;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.util.ArrayList;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -35,15 +41,28 @@ public class MakeExperimentJFrame extends JFrame {
   private JComboBox<String> testComboBox;
   private JButton selectIngredientsButton;
   private JButton selectPersonButton;
+  BoardJFrame boardFrame;
+  public static ArrayList<Potion> potionsForFrame;
 
-  public MakeExperimentJFrame(Board board) {
+
+  ImageIcon potionMinusIcon = new ImageIcon("src/ui/utils/potion-.jpg");
+  ImageIcon potionPlusIcon = new ImageIcon("src/ui/utils/potion+.jpg");
+  
+  ImageIcon potionIcon1; 
+  ImageIcon potionIcon2; 
+
+  public MakeExperimentJFrame(Board board, BoardJFrame boardFrame) {
     this.board = board;
+    this.boardFrame = boardFrame;
+
     token1 = board.getTokens().get(0);
+
+    potionsForFrame = new ArrayList<Potion>();
 
     ingredientModel1 = new DefaultComboBoxModel<>();
     ingredientModel2 = new DefaultComboBoxModel<>();
 
-    lineBorder = new LineBorder(new Color(223, 100, 133), 1);
+    lineBorder = new LineBorder(new Color(25, 25, 112), 1);
 
     ingredientComboBox1 = new JComboBox<>(ingredientModel1);
     ingredientComboBox2 = new JComboBox<>(ingredientModel2);
@@ -82,14 +101,16 @@ public class MakeExperimentJFrame extends JFrame {
     southPanel.setBorder(lineBorder);
 
     JLabel versionLabel = new JLabel("POTION BREWING AREA");
-    versionLabel.setForeground(Color.BLUE);
-    versionLabel.setFont(new Font("Arial", Font.BOLD, 20));
+    versionLabel.setForeground(Color.decode("#A020F0"));
+    versionLabel.setFont(new Font("Arial", Font.BOLD, 35));
+    versionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
 
     JLabel panelLabel = new JLabel("INGREDIENTS");
-    panelLabel.setForeground(Color.BLUE);
+    panelLabel.setForeground(Color.decode("#A020F0"));
 
     JLabel resultLabel = new JLabel("RESULT");
-    resultLabel.setForeground(Color.BLUE);
+    resultLabel.setForeground(Color.decode("#A020F0"));
 
     //getting ingredients that token has
     JPanel ingredPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -118,7 +139,7 @@ public class MakeExperimentJFrame extends JFrame {
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          closingMenu(MakeExperimentJFrame.this);
+        closingMenu(MakeExperimentJFrame.this);  
         }
       }
     );
@@ -197,6 +218,29 @@ public class MakeExperimentJFrame extends JFrame {
       }
     );
 
+    MakeExperimentJFrame.this.addWindowListener((WindowListener) new WindowAdapter() {
+      @Override
+      public void windowClosed(WindowEvent e) {
+          // Add the ImageIcon objects to potionArea
+          JLabel potionMinusLabel = new JLabel(potionMinusIcon);
+          JLabel potionPlusLabel = new JLabel(potionPlusIcon);
+
+          if(potionsForFrame.size()!=0){
+            if(potionsForFrame.get(0).getName().equals("-")){
+              boardFrame.potionArea.add(potionMinusLabel);
+            }
+            else if(potionsForFrame.get(0).getName().equals("+")
+                  || potionsForFrame.get(0).getName().equals("0"))
+            {boardFrame.potionArea.add(potionPlusLabel);
+          }}
+          
+  
+          // Repaint the potionArea JPanel to show the new images
+          boardFrame.setVisible(false);
+          boardFrame.setVisible(true);
+      }
+  });
+
     this.add(westPanel, BorderLayout.WEST);
     this.add(eastPanel, BorderLayout.EAST);
     this.add(southPanel, BorderLayout.SOUTH);
@@ -259,18 +303,22 @@ public class MakeExperimentJFrame extends JFrame {
 
   public void showResult(String newString) {
     if (newString.equals("-")) {
-      resJLabel = new JLabel("It is a negative potion");
-      southPanel.add(resJLabel, BorderLayout.SOUTH);
+      resJLabel = new JLabel("It is a negative potion", SwingConstants.CENTER);
+      potionIcon1 = new ImageIcon("src/ui/utils/potionbig2.jpg");
+      resJLabel.setIcon(potionIcon1);
+      southPanel.add(resJLabel, BorderLayout.EAST);
       this.setVisible(false);
       this.setVisible(true);
     } else {
-      resJLabel = new JLabel("It is a non-negative potion");
-      southPanel.add(resJLabel, BorderLayout.SOUTH);
+      resJLabel = new JLabel("It is a non-negative potion", SwingConstants.CENTER);
+      ImageIcon potionIcon2 = new ImageIcon("src/ui/utils/potionbig1.jpg");
+      resJLabel.setIcon(potionIcon2);
+      southPanel.add(resJLabel, BorderLayout.EAST);
       this.setVisible(false);
       this.setVisible(true);
     }
     Timer timer = new Timer(
-      10000,
+      3000,
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -284,6 +332,6 @@ public class MakeExperimentJFrame extends JFrame {
   }
 
   public void closeFrame() {
-    this.setVisible(false);
+    this.dispose();
   }
 }
