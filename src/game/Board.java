@@ -44,7 +44,7 @@ public class Board {
     token2.addGold(10);
 
     // init state object
-    State state = new State(tokens);
+    state = new State(tokens);
 
     //DENEME İÇİN SONRA SİLLL
     addArtifactCardToToken(token1, artifactCards.get(0));
