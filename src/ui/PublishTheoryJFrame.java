@@ -3,6 +3,8 @@ package ui;
 import game.AlchemyMarker;
 import game.Board;
 import game.Ingredient;
+import game.Token;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -13,7 +15,6 @@ public class PublishTheoryJFrame extends JFrame {
   private JToggleButton[] alchemyButtons = new JToggleButton[8];
   private JButton confirmButton = new JButton("Confirm");
 
-  private Board board;
   private Ingredient selectedIngredient = null;
   private AlchemyMarker selectedAlchemyMarker = null;
 
@@ -21,8 +22,6 @@ public class PublishTheoryJFrame extends JFrame {
     this.setSize(1280, 720);
     this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
     this.setResizable(false);
-
-    this.board = board;
 
     JPanel ingredientPanel = new JPanel(new GridLayout(1, 8));
     JPanel alchemyPanel = new JPanel(new GridLayout(1, 8));
@@ -89,9 +88,9 @@ public class PublishTheoryJFrame extends JFrame {
         public void actionPerformed(ActionEvent e) {
           // Publish the theory
 
-          // TODO: Add turn logic here
           try {
-            board.publishTheory(selectedIngredient, selectedAlchemyMarker, board.getTokens().get(0));
+            Token token = board.getState().getCurrentToken();
+            token.publishTheory(board, selectedIngredient, selectedAlchemyMarker);
           } catch (Exception exception) {
             JOptionPane.showMessageDialog(null, exception.getMessage());
             return;
