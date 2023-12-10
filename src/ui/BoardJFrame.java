@@ -211,7 +211,7 @@ public class BoardJFrame extends JFrame {
     int token2ArtifactsNumber = token2.getArtifactCards().size();
     int token1ArtifactsNumber = token1.getArtifactCards().size();
 
-    //bunu turn based bi şeye çevirmen gerekicek
+    //this will have to be changed into something turn based
     for (int i = 0; i < token2ArtifactsNumber; i++) {
       ArtifactCard myArtifactCard = token2.getArtifactCards().get(i);
       createArtifactUseButton(myArtifactCard, token2);
@@ -236,12 +236,6 @@ public class BoardJFrame extends JFrame {
     opponentsGoldLabel.setText("GOLD:" + token2.getGoldBalance());
     opponentsGoldLabel.setFont(new Font("Arial", Font.BOLD, 20));
     opponentsSegmentedAvatarArea.add(opponentsGoldLabel, BorderLayout.NORTH);
-
-    //JLabel goldLabel;
-    //JLabel opponentsGoldLabel;
-
-    //JLabel goldLabel = createTokensGoldLabel();
-    //JLabel opponentsGoldLabel = createOpponentsGoldLabel();
 
     JLabel potionLabel = new JLabel();
     potionLabel.setText("POTIONS:");
@@ -310,7 +304,6 @@ public class BoardJFrame extends JFrame {
     westPanel.add(bigIngBackLabel);
     westPanel.add(bigArtifactBackLabel);
 
-    //opponentsSegmentedAvatarArea.add(opponentsGoldLabel, BorderLayout.NORTH);
     opponentsSegmentedAvatarArea.add(opponentsReputationLabel, BorderLayout.CENTER);
     opponentsSegmentedAvatarArea.add(username2, BorderLayout.SOUTH);
 
@@ -322,7 +315,6 @@ public class BoardJFrame extends JFrame {
     controlArea.add(exitButton());
     effectArea.add(effects);
     potionArea.add(potionLabel);
-    //avatarArea.add(goldLabel);
     avatarArea.add(reputationLabel);
     avatarArea.add(avatarLabel);
     avatarArea.add(username1);
@@ -392,9 +384,6 @@ public class BoardJFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
           // Open the BuyArtifactFrame when the button is clicked
-          //BuyArtifactFrame buyArtifactFrame = new BuyArtifactFrame(board, token1, token2);
-          //buyArtifactFrame.setVisible(true);
-
           // Controller version
           Game.openArtifactBuyScreen(thisBoardJFrame, board, token1, token2);
         }
@@ -409,7 +398,6 @@ public class BoardJFrame extends JFrame {
     JButton artifactUseButton = new JButton(artifactImageMap.get(artifactCard));
     artifactUseButton.setPreferredSize(new Dimension(60, 60));
     addTooltipToComponent(artifactUseButton, artifactCard.getName());//added tool tips
-    //BURADA APPLY EFFECT IMPLEMENTE ETMELİSİN BAKBAKBAKBKKBAKBAKABKBKBAK
     artifactUseButton.addActionListener(
       new ActionListener() {
         @Override
@@ -536,17 +524,6 @@ public Ingredient findIngredientByImagePath(String imagePath) {
     Game.inactivateBoard(this);
   }
 
-  /*   public JLabel createTokensGoldLabel(){
-    JLabel goldLabel = new JLabel();
-    goldLabel.setText("GOLD:" + token1.getGoldBalance());
-    goldLabel.setFont(new Font("Arial", Font.BOLD, 20));
-    avatarArea.add(goldLabel);
-
-    this.setVisible(false);
-    this.setVisible(true);
-    return goldLabel;
-  } */
-
   public void updateTokensGoldLabel() {
     goldLabel.setText("Gold: " + token1.getGoldBalance());
   }
@@ -554,17 +531,6 @@ public Ingredient findIngredientByImagePath(String imagePath) {
   public void updateTokensReputationLabel() {
     reputationLabel.setText("Reputation: " + token1.getReputation());
   }
-
-  /*   public JLabel createOpponentsGoldLabel(){
-    JLabel opponentsGoldLabel = new JLabel();
-    opponentsGoldLabel.setText("GOLD:" + token2.getGoldBalance());
-    opponentsGoldLabel.setFont(new Font("Arial", Font.BOLD, 20));
-    opponentsSegmentedAvatarArea.add(opponentsGoldLabel, BorderLayout.NORTH);
-
-    this.setVisible(false);
-    this.setVisible(true);
-    return opponentsGoldLabel;
-  } */
 
   public static JPanel arrangeBoardTriangle() {
     // this method's purpose is adding buttons to deduction image. There are 36 different buttons and we arrange they in the for loop.
