@@ -1,19 +1,12 @@
 package game;
 
-import game.AlchemyMarker;
 import game.ArtifactCards.ArtifactCard;
 import game.ArtifactCards.ElixirArtifactCard;
-import game.ArtifactCards.ArtifactCard;
 import game.ArtifactCards.HealingArtifactCard;
 import game.ArtifactCards.IngredientArtifactCard;
 import game.ArtifactCards.ReputationArtifactCard;
-import game.Aspect;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
-
-import javax.swing.JOptionPane;
-
 import ui.BoardJFrame;
 
 public class Board {
@@ -168,7 +161,7 @@ public class Board {
   public void createArtifactCards() {
     ArtifactCard artifactCard0 = new IngredientArtifactCard(this, "Small Fortune Pouch", 2, 1);
     ArtifactCard artifactCard1 = new IngredientArtifactCard(this, "Treasure Trove", 3, 2);
-    ArtifactCard artifactCard2 = new ElixirArtifactCard("Elixir of Insight",2,this);
+    ArtifactCard artifactCard2 = new ElixirArtifactCard("Elixir of Insight", 2, this);
     ArtifactCard artifactCard3 = new HealingArtifactCard("Healing Draught", 1, 1);
     ArtifactCard artifactCard4 = new HealingArtifactCard("Elixir of Vitality", 2, 2);
     ArtifactCard artifactCard5 = new HealingArtifactCard("Celestial Mend", 3, 3);
@@ -188,7 +181,6 @@ public class Board {
   }
 
   public Ingredient getIngredientFromDeck() {
-    int maxNumber = ingredients.size();
     Ingredient returnValue = ingredients.get(0);
     ingredients.remove(0);
     return returnValue;
@@ -250,7 +242,6 @@ public class Board {
     token.decreaseGold(1);
 
     System.out.println("Theory published!");
-
     // Update game state
     // state.updateState();
   }

@@ -7,6 +7,7 @@ import ui.ElixirJFrame;
 
 // This is the Artifact Card type that heals the user a certain amount
 public class ElixirArtifactCard extends ArtifactCard implements Effect {
+
   Board myBoard;
 
   public ElixirArtifactCard(String name, int goldPrice, Board board) {
