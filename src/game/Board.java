@@ -2,6 +2,7 @@ package game;
 
 import game.AlchemyMarker;
 import game.ArtifactCards.ArtifactCard;
+import game.ArtifactCards.ElixirArtifactCard;
 import game.ArtifactCards.ArtifactCard;
 import game.ArtifactCards.HealingArtifactCard;
 import game.ArtifactCards.IngredientArtifactCard;
@@ -45,11 +46,6 @@ public class Board {
 
     // init state object
     state = new State(tokens);
-
-    //DENEME İÇİN SONRA SİLLL
-    addArtifactCardToToken(token1, artifactCards.get(0));
-    addArtifactCardToToken(token2, artifactCards.get(2));
-    //DENEME İÇİN SONRA SİLLL
 
     theories = new ArrayList<Theory>();
 
@@ -172,7 +168,7 @@ public class Board {
   public void createArtifactCards() {
     ArtifactCard artifactCard0 = new IngredientArtifactCard(this, "Small Fortune Pouch", 2, 1);
     ArtifactCard artifactCard1 = new IngredientArtifactCard(this, "Treasure Trove", 3, 2);
-    ArtifactCard artifactCard2 = new IngredientArtifactCard(this, "King's Bounty", 4, 3);
+    ArtifactCard artifactCard2 = new ElixirArtifactCard("Elixir of Insight",2,this);
     ArtifactCard artifactCard3 = new HealingArtifactCard("Healing Draught", 1, 1);
     ArtifactCard artifactCard4 = new HealingArtifactCard("Elixir of Vitality", 2, 2);
     ArtifactCard artifactCard5 = new HealingArtifactCard("Celestial Mend", 3, 3);
@@ -193,10 +189,8 @@ public class Board {
 
   public Ingredient getIngredientFromDeck() {
     int maxNumber = ingredients.size();
-    Random random = new Random();
-    int randomIndex = random.nextInt(maxNumber);
-    Ingredient returnValue = ingredients.get(randomIndex);
-    ingredients.remove(randomIndex);
+    Ingredient returnValue = ingredients.get(0);
+    ingredients.remove(0);
     return returnValue;
   }
 
@@ -292,5 +286,20 @@ public class Board {
     } else {
       System.err.println("The player does not have enough gold to buy an artifact card");
     }
+  }
+
+  public Ingredient getIngredientByName(String name) {
+    for (Ingredient ingredient : ingredients) {
+      if (ingredient.getName().equals(name)) {
+        return ingredient;
+      }
+    }
+    return null;
+  }
+
+  public void reorderIngredients(Ingredient firstIng, Ingredient secondIng, Ingredient thirdIng) {
+    this.ingredients.set(0, firstIng);
+    this.ingredients.set(1, secondIng);
+    this.ingredients.set(2, thirdIng);
   }
 }
