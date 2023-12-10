@@ -6,6 +6,8 @@ import game.ArtifactCards.IngredientArtifactCard;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
@@ -13,8 +15,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import ui.uihelpers.RoundedButton;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseEvent;
 
 public class BoardJFrame extends JFrame {
 
@@ -40,7 +40,6 @@ public class BoardJFrame extends JFrame {
   private JLabel opponentsGoldLabel;
   private JLabel reputationLabel;
   private JLabel opponentsReputationLabel;
-  
 
   JPanel ingredientCardsArea;
   JPanel artifactCardsArea;
@@ -142,7 +141,7 @@ public class BoardJFrame extends JFrame {
     bigIngBackLabel = new JLabel(bigIngredientBackIcon);
     addTooltipToComponent(bigIngBackLabel, "Board's Ingredients");
     bigArtifactBackLabel = new JLabel(bigArtifactBackIcon);
-    addTooltipToComponent(bigArtifactBackLabel, "Board's Artifact Cards");//added tool tips
+    addTooltipToComponent(bigArtifactBackLabel, "Board's Artifact Cards"); //added tool tips
 
     // SET THE DIMENSIONS OF THE JPANELS AND JLABELS
 
@@ -192,7 +191,7 @@ public class BoardJFrame extends JFrame {
     for (int i = 0; i < token2IngredientsNumber; i++) {
       JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
       opponentsIngredientCardsArea.add(opponentIngLabel);
-      addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient");//added tool tips
+      addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient"); //added tool tips
     }
 
     System.out.println("token1.getIngredients().size() = " + token1.getIngredients().size());
@@ -202,10 +201,10 @@ public class BoardJFrame extends JFrame {
       int ingID = token1Ingredient.getID();
       ImageIcon ingredientIcon = new ImageIcon("src/ui/utils/ingredient_" + ingID + ".jpg");
       JLabel ingredientLabel = new JLabel(ingredientIcon);
-      addTooltipToComponent(ingredientLabel, token1Ingredient.getName());//added tool tips
+      addTooltipToComponent(ingredientLabel, token1Ingredient.getName()); //added tool tips
       ingredientCardsArea.add(ingredientLabel);
     }
-    
+
     // ADD THE TOKENS ARTIFACT CARDS TO THE BOARD
 
     int token2ArtifactsNumber = token2.getArtifactCards().size();
@@ -249,7 +248,6 @@ public class BoardJFrame extends JFrame {
     opponentsPotionLabel.setText("POTIONS:");
     opponentsPotionLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
-
     opponentsReputationLabel = new JLabel();
     opponentsReputationLabel.setText("REPUTATION:" + token2.getReputation());
     opponentsReputationLabel.setFont(new Font("Arial", Font.BOLD, 20));
@@ -283,7 +281,7 @@ public class BoardJFrame extends JFrame {
     JLabel artifactCardsLabel = new JLabel();
     artifactCardsLabel.setText("ARTIFACT CARDS:");
     artifactCardsLabel.setFont(new Font("Arial", Font.BOLD, 20));
-    
+
     // ADD THE JPANELS AND JLABELS TO THE JPANELS
 
     southPanel.add(westOfSouthPanel, BorderLayout.WEST);
@@ -352,7 +350,7 @@ public class BoardJFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
           Ingredient ingredient = token1.forageForIngredient(board);
-          addIngredient(ingredient);         
+          addIngredient(ingredient);
         }
       }
     );
@@ -397,7 +395,7 @@ public class BoardJFrame extends JFrame {
   public void createArtifactUseButton(ArtifactCard artifactCard, Token token) {
     JButton artifactUseButton = new JButton(artifactImageMap.get(artifactCard));
     artifactUseButton.setPreferredSize(new Dimension(60, 60));
-    addTooltipToComponent(artifactUseButton, artifactCard.getName());//added tool tips
+    addTooltipToComponent(artifactUseButton, artifactCard.getName()); //added tool tips
     artifactUseButton.addActionListener(
       new ActionListener() {
         @Override
@@ -431,7 +429,7 @@ public class BoardJFrame extends JFrame {
     ImageIcon ingredientIcon = new ImageIcon("src/ui/utils/ingredient_" + ingID + ".jpg");
     JLabel ingredientLabel = new JLabel(ingredientIcon);
     ingredientCardsArea.add(ingredientLabel);
-    addTooltipToComponent(ingredientLabel, ingredient.getName());//added tool tips
+    addTooltipToComponent(ingredientLabel, ingredient.getName()); //added tool tips
     this.setVisible(false);
     this.setVisible(true);
   }
@@ -440,41 +438,41 @@ public class BoardJFrame extends JFrame {
     String path = "";
     // Iterate over the components of ingredientCardsArea
     for (Component component : ingredientCardsArea.getComponents()) {
-        if (component instanceof JLabel) {
-            JLabel label = (JLabel) component;
-            ImageIcon labelIcon = (ImageIcon) label.getIcon();
-            Ingredient ingredient = findIngredientByImagePath(labelIcon.getDescription());
+      if (component instanceof JLabel) {
+        JLabel label = (JLabel) component;
+        ImageIcon labelIcon = (ImageIcon) label.getIcon();
+        Ingredient ingredient = findIngredientByImagePath(labelIcon.getDescription());
 
-            if (ingredient != null && ingredient.getName().equals(ingredientName)) {
-                path = labelIcon.getDescription();
-                ingredientCardsArea.remove(label);
-                token1.addGold(1);
-                updateTokensGoldLabel();
-                break;
-            }
+        if (ingredient != null && ingredient.getName().equals(ingredientName)) {
+          path = labelIcon.getDescription();
+          ingredientCardsArea.remove(label);
+          token1.addGold(1);
+          updateTokensGoldLabel();
+          break;
         }
+      }
     }
 
     Iterator<Ingredient> iterator = token1.getIngredients().iterator();
     while (iterator.hasNext()) {
-        Ingredient ingredient = iterator.next();
-        if (ingredient.getName().equals(ingredientName)) {
-            iterator.remove();
-            break;
-        }
+      Ingredient ingredient = iterator.next();
+      if (ingredient.getName().equals(ingredientName)) {
+        iterator.remove();
+        break;
+      }
     }
     this.setVisible(false);
     this.setVisible(true);
-}
-
-public Ingredient findIngredientByImagePath(String imagePath) {
-  for (Ingredient ingredient : token1.getIngredients()) {
-      if (ingredient.getImagePath().equals(imagePath)) {
-          return ingredient;
-      }
   }
-  return null;
-}
+
+  public Ingredient findIngredientByImagePath(String imagePath) {
+    for (Ingredient ingredient : token1.getIngredients()) {
+      if (ingredient.getImagePath().equals(imagePath)) {
+        return ingredient;
+      }
+    }
+    return null;
+  }
 
   public JButton createExperimentButton(Board board) {
     JButton experimentButton = new JButton("Make Experiment");
@@ -618,15 +616,16 @@ public Ingredient findIngredientByImagePath(String imagePath) {
     Game.openPublicationTrack(this, board);
     // this.setFocusable(false);
   }
-  
+
   //adding tooltip to components for see messages when mouse is on the component
   public void addTooltipToComponent(JComponent component, String tooltipText) {
-    component.addMouseMotionListener(new MouseMotionAdapter() {
+    component.addMouseMotionListener(
+      new MouseMotionAdapter() {
         @Override
         public void mouseMoved(MouseEvent e) {
-            ((JComponent) e.getComponent()).setToolTipText(tooltipText);
+          ((JComponent) e.getComponent()).setToolTipText(tooltipText);
         }
-    });
-}
-  
+      }
+    );
+  }
 }

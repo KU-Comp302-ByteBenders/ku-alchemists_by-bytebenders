@@ -1,19 +1,16 @@
 package ui;
 
+import game.Board;
+import game.Ingredient;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
 
-import game.Ingredient;
-import game.Token;
-import game.Board;
-
 public class ElixirJFrame extends JFrame {
-  public ElixirJFrame(Board board) {
 
+  public ElixirJFrame(Board board) {
     super("Elixir of Insight");
     setLayout(new FlowLayout());
 
@@ -26,7 +23,7 @@ public class ElixirJFrame extends JFrame {
 
     // Add the label to the frame
     this.add(reorderLabel);
-    
+
     // Rest of the code...
 
     // Create combo boxes
@@ -39,9 +36,9 @@ public class ElixirJFrame extends JFrame {
     JLabel label2 = new JLabel("Second Ingredient:");
     JLabel label3 = new JLabel("Third Ingredient:");
 
-    label1.setPreferredSize(new Dimension(200,30));
-    label2.setPreferredSize(new Dimension(200,30));
-    label3.setPreferredSize(new Dimension(200,30));
+    label1.setPreferredSize(new Dimension(200, 30));
+    label2.setPreferredSize(new Dimension(200, 30));
+    label3.setPreferredSize(new Dimension(200, 30));
 
     // Set the position and size of combo boxes
     comboBox1.setBounds(50, 50, 200, 30);
@@ -49,7 +46,7 @@ public class ElixirJFrame extends JFrame {
     comboBox3.setBounds(50, 150, 200, 30);
 
     for (int i = 0; i < 3; i++) {
-      Ingredient ing  = board.getIngredients().get(i);
+      Ingredient ing = board.getIngredients().get(i);
       int ingID = ing.getID();
       ImageIcon ingredientIcon = new ImageIcon("src/ui/utils/ingredient_" + ingID + ".jpg");
       JLabel ingredientLabel = new JLabel(ingredientIcon);
@@ -71,39 +68,38 @@ public class ElixirJFrame extends JFrame {
     this.add(label3);
     this.add(comboBox3);
 
-        // Create submit button
+    // Create submit button
     JButton submitButton = new JButton("SUBMIT");
-    submitButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(java.awt.event.ActionEvent e) {
-        String firstIngredient = (String) comboBox1.getSelectedItem();
-        String secondIngredient = (String) comboBox2.getSelectedItem();
-        String thirdIngredient = (String) comboBox3.getSelectedItem();
+    submitButton.addActionListener(
+      new ActionListener() {
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent e) {
+          String firstIngredient = (String) comboBox1.getSelectedItem();
+          String secondIngredient = (String) comboBox2.getSelectedItem();
+          String thirdIngredient = (String) comboBox3.getSelectedItem();
 
-        Ingredient firstIng = board.getIngredientByName(firstIngredient);
-        Ingredient secondIng = board.getIngredientByName(secondIngredient);
-        Ingredient thirdIng = board.getIngredientByName(thirdIngredient);
+          Ingredient firstIng = board.getIngredientByName(firstIngredient);
+          Ingredient secondIng = board.getIngredientByName(secondIngredient);
+          Ingredient thirdIng = board.getIngredientByName(thirdIngredient);
 
-        board.reorderIngredients(firstIng, secondIng, thirdIng);
+          board.reorderIngredients(firstIng, secondIng, thirdIng);
 
-        ElixirJFrame.this.dispose();
+          ElixirJFrame.this.dispose();
+        }
       }
-    });
-    this.add(submitButton); 
+    );
+    this.add(submitButton);
 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int x = (screenSize.width - this.getWidth()) / 2;
     int y = (screenSize.height - this.getHeight()) / 2;
 
     // Set the frame location
-    this.setLocation(x-170, y-150);
-    
+    this.setLocation(x - 170, y - 150);
+
     // Set frame properties
     this.setSize(350, 370);
     this.setVisible(true);
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
   }
-
-
 }

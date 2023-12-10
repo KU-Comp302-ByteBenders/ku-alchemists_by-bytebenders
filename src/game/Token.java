@@ -1,10 +1,9 @@
 package game;
 
 import game.ArtifactCards.ArtifactCard;
+import java.util.ArrayList;
 import ui.BoardJFrame;
 import ui.MakeExperimentJFrame;
-
-import java.util.ArrayList;
 
 public class Token {
 
@@ -86,6 +85,7 @@ public class Token {
   public ArrayList<ArtifactCard> getArtifactCards() {
     return artifactCards;
   }
+
   public ArrayList<Potion> getPotions() {
     return potions;
   }
@@ -94,10 +94,10 @@ public class Token {
   public String makeExperiment(String ingredient1, String ingredient2, Boolean testOnSelf) { //if player test on student false, //otherwise true;
     Ingredient ing1 = findIngredientByName(ingredient1);
     Ingredient ing2 = findIngredientByName(ingredient2);
-    
+
     ingredients.remove(ing1);
     ingredients.remove(ing2);
-    
+
     boolean controller = false;
 
     for (int i = 0; i < 3; i++) {
