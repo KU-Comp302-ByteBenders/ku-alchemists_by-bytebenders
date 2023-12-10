@@ -2,7 +2,6 @@ package game.ArtifactCards;
 
 import game.Board;
 import game.Effect;
-import game.Ingredient;
 import game.Token;
 
 // This is the Artifact Card type that gives it's user certain amount of gold

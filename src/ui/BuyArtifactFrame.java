@@ -26,7 +26,7 @@ public class BuyArtifactFrame extends JFrame {
     JButton virtueBadgeButton = new JButton("Virtue Badge");
     JButton healingButton = new JButton("Small Fortune Pouch");
     JButton goldButton = new JButton("Treasure Trove");
-    JButton reputationButton = new JButton("King's Bounty");
+    JButton reputationButton = new JButton("Elixir of Insight");
 
     // Add action listeners to handle button clicks
     //BUNLARA TURN MANTIĞI EKLEMEK LAZIM. KİMİN SIRASIYSA ONUN ARTİFACT DESTESİNE EKLESİN ALDIĞI KARTI
