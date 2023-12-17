@@ -45,6 +45,7 @@ public class MakeExperimentJFrame extends JFrame {
 
   ImageIcon potionMinusIcon = new ImageIcon("src/ui/utils/potion-.jpg");
   ImageIcon potionPlusIcon = new ImageIcon("src/ui/utils/potion+.jpg");
+  ImageIcon potionNeutralIcon = new ImageIcon("src/ui/utils/potion0.jpg");
 
   ImageIcon potionIcon1;
   ImageIcon potionIcon2;
@@ -237,12 +238,15 @@ public class MakeExperimentJFrame extends JFrame {
             // Add the ImageIcon objects to potionArea
             JLabel potionMinusLabel = new JLabel(potionMinusIcon);
             JLabel potionPlusLabel = new JLabel(potionPlusIcon);
+            JLabel potionNeutralLabel = new JLabel(potionNeutralIcon);
 
             if (potionsForFrame.size() != 0) {
               if (potionsForFrame.get(0).getName().equals("-")) {
                 boardFrame.potionArea.add(potionMinusLabel);
-              } else if (potionsForFrame.get(0).getName().equals("+") || potionsForFrame.get(0).getName().equals("0")) {
+              } else if (potionsForFrame.get(0).getName().equals("+")) {
                 boardFrame.potionArea.add(potionPlusLabel);
+              }else if(potionsForFrame.get(0).getName().equals("0")){
+                boardFrame.potionArea.add(potionNeutralLabel);
               }
             }
 
@@ -325,10 +329,18 @@ public class MakeExperimentJFrame extends JFrame {
       southPanel.add(resJLabel, BorderLayout.EAST);
       this.setVisible(false);
       this.setVisible(true);
-    } else {
-      resJLabel = new JLabel("It is a non-negative potion", SwingConstants.CENTER);
+    } else if(newString.equals("0")) {
+      resJLabel = new JLabel("It is a neutral potion", SwingConstants.CENTER);
       ImageIcon potionIcon2 = new ImageIcon("src/ui/utils/potionbig1.jpg");
       resJLabel.setIcon(potionIcon2);
+      southPanel.add(resJLabel, BorderLayout.EAST);
+      this.setVisible(false);
+      this.setVisible(true);
+    }
+    else{
+      resJLabel = new JLabel("It is a positive potion", SwingConstants.CENTER);
+      ImageIcon potionIcon3 = new ImageIcon("src/ui/utils/potionbig3.jpg");
+      resJLabel.setIcon(potionIcon3);
       southPanel.add(resJLabel, BorderLayout.EAST);
       this.setVisible(false);
       this.setVisible(true);
