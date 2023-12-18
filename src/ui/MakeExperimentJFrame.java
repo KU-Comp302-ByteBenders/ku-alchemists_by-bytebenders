@@ -239,6 +239,7 @@ public class MakeExperimentJFrame extends JFrame {
             JLabel potionMinusLabel = new JLabel(potionMinusIcon);
             JLabel potionPlusLabel = new JLabel(potionPlusIcon);
             JLabel potionNeutralLabel = new JLabel(potionNeutralIcon);
+            boardFrame.updateTokensGoldLabel();
 
             if (potionsForFrame.size() != 0) {
               if (potionsForFrame.get(0).getName().equals("-")) {
@@ -293,6 +294,7 @@ public class MakeExperimentJFrame extends JFrame {
 
   //close the frame
   public void closingMenu(JFrame experimentFrame) {
+    boardFrame.updateTokensGoldLabel();
     experimentFrame.dispose();
   }
 
@@ -324,14 +326,14 @@ public class MakeExperimentJFrame extends JFrame {
   public void showResult(String newString) {
     if (newString.equals("-")) {
       resJLabel = new JLabel("It is a negative potion", SwingConstants.CENTER);
-      potionIcon1 = new ImageIcon("src/ui/utils/potionbig2.jpg");
+      potionIcon1 = new ImageIcon("src/ui/utils/potionbig-.jpg");
       resJLabel.setIcon(potionIcon1);
       southPanel.add(resJLabel, BorderLayout.EAST);
       this.setVisible(false);
       this.setVisible(true);
     } else if(newString.equals("0")) {
       resJLabel = new JLabel("It is a neutral potion", SwingConstants.CENTER);
-      ImageIcon potionIcon2 = new ImageIcon("src/ui/utils/potionbig1.jpg");
+      ImageIcon potionIcon2 = new ImageIcon("src/ui/utils/potionbig0.jpg");
       resJLabel.setIcon(potionIcon2);
       southPanel.add(resJLabel, BorderLayout.EAST);
       this.setVisible(false);
@@ -339,7 +341,7 @@ public class MakeExperimentJFrame extends JFrame {
     }
     else{
       resJLabel = new JLabel("It is a positive potion", SwingConstants.CENTER);
-      ImageIcon potionIcon3 = new ImageIcon("src/ui/utils/potionbig3.jpg");
+      ImageIcon potionIcon3 = new ImageIcon("src/ui/utils/potionbig+.jpg");
       resJLabel.setIcon(potionIcon3);
       southPanel.add(resJLabel, BorderLayout.EAST);
       this.setVisible(false);
@@ -351,16 +353,11 @@ public class MakeExperimentJFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
           // Close the JFrame
-          closeFrame();
+          closingMenu(MakeExperimentJFrame.this);
         }
       }
     );
     timer.setRepeats(false); // Set to false to run the ActionListener only once
     timer.start();
-  }
-
-  //this method is used to close the frame
-  public void closeFrame() {
-    this.dispose();
   }
 }

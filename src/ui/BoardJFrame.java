@@ -326,6 +326,7 @@ public class BoardJFrame extends JFrame {
     eastPanel.add(publicationTrackButton());
     eastPanel.add(createExperimentButton(board));
     eastPanel.add(createArtifactBuyerButton());
+    eastPanel.add(useSellPotionButton());
 
     this.add(westPanel, BorderLayout.WEST);
     this.add(eastPanel, BorderLayout.EAST);
@@ -486,6 +487,21 @@ public class BoardJFrame extends JFrame {
     );
     return experimentButton;
   }
+   
+  public JButton useSellPotionButton() {
+    JButton useSellPotionButton = new JButton("Use&Sell Potion");
+
+    useSellPotionButton.addActionListener(
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          Game.openPotionJFrame(board, BoardJFrame.this);  
+        }
+      }
+    );
+    return useSellPotionButton;
+  }
+
 
   public JButton exitButton() {
     ImageIcon exitIcon = new ImageIcon("src/ui/utils/exit.png");
@@ -606,7 +622,7 @@ public class BoardJFrame extends JFrame {
     );
     return publicationTrackButton;
   }
-
+ 
   public void openPublishMenu() {
     Game.openPublishMenu(this, board);
     // this.setFocusable(false);

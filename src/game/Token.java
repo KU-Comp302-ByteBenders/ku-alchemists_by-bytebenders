@@ -126,7 +126,7 @@ public class Token {
                 .getSize()
                 .equals(ing2.getAlchemyMarker().getAspectList().get(j).getSize())
             ) {
-              Potion newPotion = new Potion(0, ing1, ing2, ing1.getAlchemyMarker().getAspectList().get(i).getSign());
+              Potion newPotion = new Potion(ing1.getAlchemyMarker().getAspectList().get(j).getColor(), ing1, ing2, ing1.getAlchemyMarker().getAspectList().get(i).getSign());
               controller = true;
               potions.add(newPotion);
               MakeExperimentJFrame.potionsForFrame.add(newPotion);
@@ -138,7 +138,7 @@ public class Token {
       }
     }
     if (!controller) {
-      Potion neutralPotion = new Potion(0, ing1, ing2, "0");
+      Potion neutralPotion = new Potion("Yellow", ing1, ing2, "0");
       potions.add(neutralPotion);
       MakeExperimentJFrame.potionsForFrame.add(neutralPotion);
       return "0";
@@ -153,10 +153,11 @@ public class Token {
         if (sicknessLevel == 3) {
           goldBalance = 0;
         }
-      } else {
-        if (potion.getName().equals("-")) {
-          goldBalance -= 1;
-        }
+      }
+      }
+    else {
+      if (potion.getName().equals("-")) {
+        decreaseGold(1); 
       }
     }
   }
