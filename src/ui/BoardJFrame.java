@@ -323,6 +323,7 @@ public class BoardJFrame extends JFrame {
     eastPanel.add(createForageButton());
     eastPanel.add(createTransmuteButton(getName()));
     eastPanel.add(publishTheoryButton());
+    eastPanel.add(debunkTheoryButton());
     eastPanel.add(publicationTrackButton());
     eastPanel.add(createExperimentButton(board));
     eastPanel.add(createArtifactBuyerButton());
@@ -593,6 +594,20 @@ public class BoardJFrame extends JFrame {
     return publishButton;
   }
 
+  public JButton debunkTheoryButton() {
+    JButton debunkButton = new JButton("Debunk Theory");
+
+    debunkButton.addActionListener(
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          openDebunkMenu();
+        }
+      }
+    );
+    return debunkButton;
+  }
+
   public JButton publicationTrackButton() {
     JButton publicationTrackButton = new JButton("Publication Track");
 
@@ -609,7 +624,10 @@ public class BoardJFrame extends JFrame {
 
   public void openPublishMenu() {
     Game.openPublishMenu(this, board);
-    // this.setFocusable(false);
+  }
+
+  public void openDebunkMenu() {
+    Game.openDebunkMenu(this, board);
   }
 
   public void openPublicationTrack() {

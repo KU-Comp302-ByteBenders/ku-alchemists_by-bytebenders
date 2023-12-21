@@ -189,8 +189,9 @@ public class Token {
     board.publishTheory(ingredient, alchemyMarker, this);
   }
 
-  public void debunkTheory(Board board, Theory theory, AlchemyMarker alchemyMarker) {
-    board.debunkTheory(theory, alchemyMarker, this);
+  public boolean debunkTheory(Board board, Theory theory, Aspect aspect) throws Exception {
+    // if theory was successfully debunked, return true
+    return board.debunkTheory(theory, aspect, this);
   }
 
   public void addReputation(int amount) {
