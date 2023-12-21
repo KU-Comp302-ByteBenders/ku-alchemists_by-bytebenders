@@ -246,20 +246,20 @@ public class Board {
     // state.updateState();
   }
 
-  public void debunkTheory(Theory theory, AlchemyMarker alchemyMarker, Token token) {
-    try {
-      if (theory.belongsToToken(token)) {
-        throw new Exception("You can't debunk your own theory!");
-      }
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
+  public boolean debunkTheory(Theory theory, Aspect aspect, Token token) throws Exception {
+    /* 
+    if (theory.belongsToToken(token)) {
+      throw new Exception("You can't debunk your own theory!");
     }
+    */
 
-    if (theory.debunkSuccess(alchemyMarker)) {
+    if (theory.debunkSuccess(aspect)) {
       token.addReputation(2); // Increase reputation of the debunker
       theory.getTheoryOwner().decreaseReputation(1); // Decrease reputation of the publisher
+      return true;
     } else { // Debunk failed
       token.decreaseReputation(1); // Decrease reputation of the publisher
+      return false;
     }
   }
 
