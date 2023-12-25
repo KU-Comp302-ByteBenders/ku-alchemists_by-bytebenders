@@ -6,3 +6,4 @@ public class App {
         game.openMainMenu();    // Open main menu screen
     }
 }
+    

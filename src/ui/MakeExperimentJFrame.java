@@ -325,12 +325,13 @@ public class MakeExperimentJFrame extends JFrame {
   //this method is used to show the result of the experiment and close the frame after 7 seconds
   public void showResult(String newString) {
     if (newString.equals("-")) {
+   
       resJLabel = new JLabel("It is a negative potion", SwingConstants.CENTER);
-      potionIcon1 = new ImageIcon("src/ui/utils/potionbig-.jpg");
-      resJLabel.setIcon(potionIcon1);
-      southPanel.add(resJLabel, BorderLayout.EAST);
-      this.setVisible(false);
-      this.setVisible(true);
+        potionIcon1 = new ImageIcon("src/ui/utils/potionbig-.jpg");
+        resJLabel.setIcon(potionIcon1);
+        southPanel.add(resJLabel, BorderLayout.EAST);
+        this.setVisible(false);
+        this.setVisible(true);
     } else if(newString.equals("0")) {
       resJLabel = new JLabel("It is a neutral potion", SwingConstants.CENTER);
       ImageIcon potionIcon2 = new ImageIcon("src/ui/utils/potionbig0.jpg");

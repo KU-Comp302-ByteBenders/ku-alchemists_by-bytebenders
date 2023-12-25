@@ -7,12 +7,15 @@ public class Potion {
   private String name;
   private String effect;
   String potionColor;
+  String guarantee;
 
-  public Potion(String potionColor, Ingredient ing1, Ingredient ing2, String name) {
+  public Potion(String potionColor, Ingredient ing1, Ingredient ing2, String name, String guarantee) {
     this.potionColor = potionColor;
     this.ing1 = ing1;
     this.ing2 = ing2;
     this.name = name;
+    this.guarantee = guarantee; //postive, uncertain, negative
+
   }
 
   public String getEffect() {
@@ -33,5 +36,13 @@ public class Potion {
 
   public void setEffect(String effect) {
     this.effect = effect;
+  }
+
+  public String getGuarantee() {
+    return guarantee;
+  }
+
+  public void setGuarantee(String guarantee) {
+    this.guarantee = guarantee;
   }
 }

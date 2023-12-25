@@ -326,7 +326,7 @@ public class BoardJFrame extends JFrame {
     eastPanel.add(publicationTrackButton());
     eastPanel.add(createExperimentButton(board));
     eastPanel.add(createArtifactBuyerButton());
-    eastPanel.add(useSellPotionButton());
+    eastPanel.add(SellPotionButton());
 
     this.add(westPanel, BorderLayout.WEST);
     this.add(eastPanel, BorderLayout.EAST);
@@ -488,8 +488,8 @@ public class BoardJFrame extends JFrame {
     return experimentButton;
   }
    
-  public JButton useSellPotionButton() {
-    JButton useSellPotionButton = new JButton("Use&Sell Potion");
+  public JButton SellPotionButton() {
+    JButton useSellPotionButton = new JButton("Sell Potion");
 
     useSellPotionButton.addActionListener(
       new ActionListener() {
