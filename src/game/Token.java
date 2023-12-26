@@ -170,8 +170,6 @@ public class Token {
     return null;
   }
 
-  public void addPotion(String potion) {}
-
   public void removeIngredient(String ingredient) {
     for (Ingredient ing : ingredients) {
       if (ing.getName().equals(ingredient)) {
