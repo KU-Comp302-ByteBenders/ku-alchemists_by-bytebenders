@@ -32,7 +32,7 @@ public class PotionJFrame extends JFrame {
     private DefaultComboBoxModel<String> potionModel;
 
 
-  public PotionJFrame(Board board, BoardJFrame boardJFrame) {
+  public PotionJFrame(Board board, BoardJFrame boardFrame) {
     this.board = board;
     this.boardFrame = boardFrame;
     token1 = board.getTokens().get(0);
@@ -100,20 +100,27 @@ public class PotionJFrame extends JFrame {
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
+          String typeOfPotion = potionComboBox1.getSelectedItem().toString();
+          
+          token1.sellPotion(typeOfPotion);
+          JOptionPane.showMessageDialog(
+              PotionJFrame.this,
+              "Congratulations! Your gold balance increased to " + token1.getGoldBalance() + ".",
+              "Success",
+              JOptionPane.INFORMATION_MESSAGE
+            );
+          
+          closingMenu(PotionJFrame.this);
         }
       }
     );
     
-    imageButton = new JButton("Select POTION");
-    imageButton.setPreferredSize(new Dimension(150, 30));
-    imageButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          System.out.println("Potion Selected");
-        }
-      }
-    );
+    PotionJFrame.this.addWindowListener(
+        (WindowListener) new WindowAdapter() {
+          @Override
+          public void windowClosed(WindowEvent e) {
+            
+          }});
 
     JPanel potionComboBoxPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 20));
     potionComboBoxPanel.add(potionComboBox1);
@@ -143,12 +150,25 @@ public class PotionJFrame extends JFrame {
       Potion potion = token.getPotions().get(i);
       JLabel imageLabel = new JLabel();
 
-      potionIcon = new ImageIcon("src/ui/utils/potionbig" + potion.getName() + ".jpg");
-      potionModel.addElement(token.getPotions().get(i).getName() + " Potion"+ " | " + 
-                            "Guarantee level: " + token.getPotions().get(i).getGuarantee()); //giving information to combobox
+      potionIcon = new ImageIcon("src/ui/utils/potion"+ potion.getPotionColor() + potion.getName() + ".jpg");
+      potionModel.addElement(token.getPotions().get(i).getName()); //giving information to combobox
       imageLabel.setIcon(potionIcon);
       centerPanel.add(imageLabel);
       
         }
   }
+
+  public void closingMenu(JFrame potionFrame) {
+    boardFrame.updateTokensGoldLabel();
+    potionFrame.dispose();
+  }
+
+  
 }
+/*String typeOfPotion = potionComboBox1.getSelectedItem().toString();
+            for (int i = 0; i < token1.getPotions().size(); i++) {
+              if (typeOfPotion.equals(token1.getPotions().get(i).getPotionColor()+token1.getPotions().get(i).getName())) {
+                boardFrame.removeMiniPotionImage(token1.getPotions().get(i));
+      
+              }
+            }*/

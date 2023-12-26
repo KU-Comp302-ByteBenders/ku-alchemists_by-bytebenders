@@ -644,4 +644,20 @@ public class BoardJFrame extends JFrame {
       }
     );
   }
+  public void addMiniPotionImage(Potion potion) {
+    ImageIcon potionIcon = new ImageIcon("src/ui/utils/mini_potion" + potion.getPotionColor()+ potion.getName() + ".jpg");
+    JLabel potionLabel = new JLabel(potionIcon);
+    addTooltipToComponent(potionLabel, potion.getName()); //added tool tips
+    potionArea.add(potionLabel);
+    this.setVisible(false);
+    this.setVisible(true);
+  }
+  public void removeMiniPotionImage(Potion potion) {
+    ImageIcon potionIcon = new ImageIcon("src/ui/utils/mini_potion" + potion.getPotionColor()+ potion.getName() + ".jpg");
+    JLabel potionLabel = new JLabel(potionIcon);
+    addTooltipToComponent(potionLabel, potion.getName()); //added tool tips
+    potionArea.remove(potionLabel);
+    this.setVisible(false);
+    this.setVisible(true);
+  }
 }

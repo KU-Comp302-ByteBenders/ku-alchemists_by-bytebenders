@@ -14,7 +14,7 @@ public class Potion {
     this.ing1 = ing1;
     this.ing2 = ing2;
     this.name = name;
-    this.guarantee = guarantee; //postive, uncertain, negative
+    this.guarantee = guarantee; 
 
   }
 

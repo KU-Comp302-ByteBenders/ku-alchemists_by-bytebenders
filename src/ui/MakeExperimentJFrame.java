@@ -11,6 +11,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -42,13 +45,13 @@ public class MakeExperimentJFrame extends JFrame {
   private JButton selectPersonButton;
   BoardJFrame boardFrame;
   public static ArrayList<Potion> potionsForFrame;
-
-  ImageIcon potionMinusIcon = new ImageIcon("src/ui/utils/potion-.jpg");
-  ImageIcon potionPlusIcon = new ImageIcon("src/ui/utils/potion+.jpg");
-  ImageIcon potionNeutralIcon = new ImageIcon("src/ui/utils/potion0.jpg");
+  Map<String, JLabel> smallImages = new HashMap<>();
 
   ImageIcon potionIcon1;
   ImageIcon potionIcon2;
+  ImageIcon potionIcon3;  
+  Potion newPotion;
+
 
   public MakeExperimentJFrame(Board board, BoardJFrame boardFrame) {
     this.board = board;
@@ -149,17 +152,16 @@ public class MakeExperimentJFrame extends JFrame {
     mixButton.setEnabled(false);
     mixButton.addActionListener(
       new ActionListener() {
-        String newString = "";
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
-          newString =
+          newPotion =
             token1.makeExperiment(
               ingredientComboBox1.getSelectedItem().toString(),
               ingredientComboBox2.getSelectedItem().toString(),
               testResult(testComboBox.getSelectedItem().toString())
             );
-          showResult(newString);
+          showResult(newPotion.getName(), newPotion.getPotionColor());
         }
       }
     );
@@ -236,24 +238,12 @@ public class MakeExperimentJFrame extends JFrame {
           @Override
           public void windowClosed(WindowEvent e) {
             // Add the ImageIcon objects to potionArea
-            JLabel potionMinusLabel = new JLabel(potionMinusIcon);
-            JLabel potionPlusLabel = new JLabel(potionPlusIcon);
-            JLabel potionNeutralLabel = new JLabel(potionNeutralIcon);
+           
             boardFrame.updateTokensGoldLabel();
 
             if (potionsForFrame.size() != 0) {
-              if (potionsForFrame.get(0).getName().equals("-")) {
-                boardFrame.potionArea.add(potionMinusLabel);
-              } else if (potionsForFrame.get(0).getName().equals("+")) {
-                boardFrame.potionArea.add(potionPlusLabel);
-              }else if(potionsForFrame.get(0).getName().equals("0")){
-                boardFrame.potionArea.add(potionNeutralLabel);
-              }
+              boardFrame.addMiniPotionImage(newPotion); //handle small images in boardFrame
             }
-
-            // Repaint the potionArea JPanel to show the new images
-            boardFrame.setVisible(false);
-            boardFrame.setVisible(true);
           }
         }
       );
@@ -323,26 +313,46 @@ public class MakeExperimentJFrame extends JFrame {
   }
 
   //this method is used to show the result of the experiment and close the frame after 7 seconds
-  public void showResult(String newString) {
-    if (newString.equals("-")) {
-   
-      resJLabel = new JLabel("It is a negative potion", SwingConstants.CENTER);
-        potionIcon1 = new ImageIcon("src/ui/utils/potionbig-.jpg");
-        resJLabel.setIcon(potionIcon1);
-        southPanel.add(resJLabel, BorderLayout.EAST);
-        this.setVisible(false);
-        this.setVisible(true);
-    } else if(newString.equals("0")) {
+  public void showResult(String newString, String potionColor) {
+    if (newString.equals("-")) { 
+      if(potionColor.equals("Red")){
+        resJLabel = new JLabel("It is a red negative potion", SwingConstants.CENTER);
+        potionIcon1 = new ImageIcon("src/ui/utils/potionRed-.jpg");
+      }
+      else if(potionColor.equals("Yellow")){
+        resJLabel = new JLabel("It is a yellow negative potion", SwingConstants.CENTER);
+        potionIcon1 = new ImageIcon("src/ui/utils/potionYellow-.jpg");
+      }
+      else if(potionColor.equals("Blue")){
+        resJLabel = new JLabel("It is a blue negative potion", SwingConstants.CENTER);
+        potionIcon1 = new ImageIcon("src/ui/utils/potionBlue-.jpg"); 
+      }
+      resJLabel.setIcon(potionIcon1);
+      southPanel.add(resJLabel, BorderLayout.EAST);
+      this.setVisible(false);
+      this.setVisible(true);
+    } 
+  else if(newString.equals("0")) {
       resJLabel = new JLabel("It is a neutral potion", SwingConstants.CENTER);
-      ImageIcon potionIcon2 = new ImageIcon("src/ui/utils/potionbig0.jpg");
+      ImageIcon potionIcon2 = new ImageIcon("src/ui/utils/potiontransparent0.jpg");
       resJLabel.setIcon(potionIcon2);
       southPanel.add(resJLabel, BorderLayout.EAST);
       this.setVisible(false);
       this.setVisible(true);
     }
     else{
-      resJLabel = new JLabel("It is a positive potion", SwingConstants.CENTER);
-      ImageIcon potionIcon3 = new ImageIcon("src/ui/utils/potionbig+.jpg");
+      if(potionColor.equals("Red")){
+        resJLabel = new JLabel("It is a red positive potion", SwingConstants.CENTER);
+        potionIcon3 = new ImageIcon("src/ui/utils/potionRed+.jpg");
+      }
+      else if(potionColor.equals("Yellow")){
+        resJLabel = new JLabel("It is a yellow positive potion", SwingConstants.CENTER);
+       potionIcon3 = new ImageIcon("src/ui/utils/potionYellow+.jpg");
+      }
+      else if(potionColor.equals("Blue")){
+        resJLabel = new JLabel("It is a blue positive potion", SwingConstants.CENTER);
+       potionIcon3 = new ImageIcon("src/ui/utils/potionBlue+.jpg"); 
+      }
       resJLabel.setIcon(potionIcon3);
       southPanel.add(resJLabel, BorderLayout.EAST);
       this.setVisible(false);
