@@ -652,11 +652,22 @@ public class BoardJFrame extends JFrame {
     this.setVisible(false);
     this.setVisible(true);
   }
-  public void removeMiniPotionImage(Potion potion) {
-    ImageIcon potionIcon = new ImageIcon("src/ui/utils/mini_potion" + potion.getPotionColor()+ potion.getName() + ".jpg");
-    JLabel potionLabel = new JLabel(potionIcon);
-    addTooltipToComponent(potionLabel, potion.getName()); //added tool tips
-    potionArea.remove(potionLabel);
+  public void removeMiniPotionImage(String potionImagePath) {
+    for (Component component : potionArea.getComponents()) {
+      if (component instanceof JLabel) {
+        JLabel label = (JLabel) component;
+        ImageIcon labelIcon = (ImageIcon) label.getIcon();
+        if(labelIcon != null){
+          System.out.println(labelIcon.getDescription());
+          System.out.println(potionImagePath);
+          if (labelIcon.getDescription().equals(potionImagePath)) {
+
+              potionArea.remove(label);
+              break;
+            }
+        }
+      }
+    }
     this.setVisible(false);
     this.setVisible(true);
   }

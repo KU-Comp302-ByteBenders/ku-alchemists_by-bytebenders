@@ -202,14 +202,17 @@ public class Token {
   public void sellPotion(String potion) {
     if (potion.equals("+")) {
       goldBalance += 3;
+      removePotion(potion);
     }
     else if (potion.equals("-")) {
       goldBalance += 1;
+      removePotion(potion);
     }
     else {
       goldBalance += 2;
+      removePotion(potion);
     }
-    removePotion(potion);
+    
   }
 
   public void removePotion(String potion) {

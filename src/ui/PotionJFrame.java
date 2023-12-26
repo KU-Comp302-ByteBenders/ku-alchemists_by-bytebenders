@@ -82,7 +82,7 @@ public class PotionJFrame extends JFrame {
 
     // Add the north and south panels to the main container
 
-
+    //closing PotionJFrame
     closePotionButton = new JButton("Return Board");
     closePotionButton.setPreferredSize(new Dimension(150, 30));
     closePotionButton.addActionListener(
@@ -93,37 +93,48 @@ public class PotionJFrame extends JFrame {
         }
       }
     ); 
-
+    
+    //selling potion if you have any
     sellPotionButton = new JButton("SELL POTION");
+    sellPotionButton.setEnabled(false);
     sellPotionButton.setPreferredSize(new Dimension(150, 30));
     sellPotionButton.addActionListener(
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          String typeOfPotion = potionComboBox1.getSelectedItem().toString();
+
+          if(potionComboBox1.getItemCount() == 0){//checking whether you have any potion to sell
+            JOptionPane.showMessageDialog(
+              PotionJFrame.this,
+              "You don't have any potion to sell.",
+              "Error",
+              JOptionPane.ERROR_MESSAGE 
+            );PotionJFrame.this.dispose();
+            return;
+          }
+          String typeOfPotion = potionComboBox1.getSelectedItem().toString();//getting the color and name of potion
           
-          token1.sellPotion(typeOfPotion);
+          String signOfPotion = typeOfPotion.substring(typeOfPotion.length() - 1);//getting the sign of potion(name)
+          
+          token1.sellPotion(signOfPotion);
           JOptionPane.showMessageDialog(
               PotionJFrame.this,
               "Congratulations! Your gold balance increased to " + token1.getGoldBalance() + ".",
               "Success",
               JOptionPane.INFORMATION_MESSAGE
             );
-          
+          boardFrame.removeMiniPotionImage("src/ui/utils/mini_potion"+ typeOfPotion + ".jpg");//deleting from boardFrame
           closingMenu(PotionJFrame.this);
         }
       }
     );
     
-    PotionJFrame.this.addWindowListener(
-        (WindowListener) new WindowAdapter() {
-          @Override
-          public void windowClosed(WindowEvent e) {
-            
-          }});
+  
 
     JPanel potionComboBoxPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 20));
     potionComboBoxPanel.add(potionComboBox1);
+    sellPotionButton.setEnabled(true);
+    
 
     southPanel.add(eastOfSouthPanel, BorderLayout.EAST);
     southPanel.add(westOfSouthPanel, BorderLayout.WEST);
@@ -151,7 +162,7 @@ public class PotionJFrame extends JFrame {
       JLabel imageLabel = new JLabel();
 
       potionIcon = new ImageIcon("src/ui/utils/potion"+ potion.getPotionColor() + potion.getName() + ".jpg");
-      potionModel.addElement(token.getPotions().get(i).getName()); //giving information to combobox
+      potionModel.addElement(token.getPotions().get(i).getPotionColor()+token.getPotions().get(i).getName()); //giving information to combobox
       imageLabel.setIcon(potionIcon);
       centerPanel.add(imageLabel);
       
