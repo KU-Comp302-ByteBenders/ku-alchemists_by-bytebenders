@@ -697,14 +697,16 @@ public class BoardJFrame extends JFrame {
     this.setVisible(true);
   }
 
-  public void removeIngredientFromBoardByImagePath(String imagePath) {
+  public void removeIngredient(String imagePath){
     for (Component component : ingredientCardsArea.getComponents()) {
       if (component instanceof JLabel) {
         JLabel label = (JLabel) component;
         ImageIcon labelIcon = (ImageIcon) label.getIcon();
-        if (labelIcon.getDescription().equals(imagePath)) {
-          ingredientCardsArea.remove(label);
-          break;
+        if(labelIcon != null){
+          if (labelIcon.getDescription().equals(imagePath)) {
+              ingredientCardsArea.remove(label);
+              break;
+            }
         }
       }
     }

@@ -155,23 +155,21 @@ public class MakeExperimentJFrame extends JFrame {
         
         @Override
         public void actionPerformed(ActionEvent e) {
+          String ingName1 = ingredientComboBox1.getSelectedItem().toString();
+          String ingName2 = ingredientComboBox2.getSelectedItem().toString();
+          
+          String path1 = boardFrame.findImagePathByIngredient(ingName1);
+          String path2 = boardFrame.findImagePathByIngredient(ingName2);
+
+          boardFrame.removeIngredient(path1);
+          boardFrame.removeIngredient(path2);
+          
           newPotion =
             token1.makeExperiment(
-              ingredientComboBox1.getSelectedItem().toString(),
-              ingredientComboBox2.getSelectedItem().toString(),
+              ingName1,
+              ingName2,
               testResult(testComboBox.getSelectedItem().toString())
             );
-
-          String ingName1=ingredientComboBox1.getSelectedItem().toString();
-          String ingName2=ingredientComboBox2.getSelectedItem().toString();
-          System.out.println("ingName1: "+ingName1);
-          String ingredientPath1 =boardFrame.findImagePathByIngredient(ingName1);
-          String ingredientPath2 =boardFrame.findImagePathByIngredient(ingName2);
-
-          System.out.println("ingredientPath1: "+ingredientPath1);
-          boardFrame.removeIngredientFromBoardByImagePath(ingredientPath1);
-          boardFrame.removeIngredientFromBoardByImagePath(ingredientPath2);
-
           showResult(newPotion.getName(), newPotion.getPotionColor());
         }
       }
