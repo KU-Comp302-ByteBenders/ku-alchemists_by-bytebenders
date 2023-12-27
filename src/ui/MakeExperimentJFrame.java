@@ -161,6 +161,17 @@ public class MakeExperimentJFrame extends JFrame {
               ingredientComboBox2.getSelectedItem().toString(),
               testResult(testComboBox.getSelectedItem().toString())
             );
+
+          String ingName1=ingredientComboBox1.getSelectedItem().toString();
+          String ingName2=ingredientComboBox2.getSelectedItem().toString();
+          System.out.println("ingName1: "+ingName1);
+          String ingredientPath1 =boardFrame.findImagePathByIngredient(ingName1);
+          String ingredientPath2 =boardFrame.findImagePathByIngredient(ingName2);
+
+          System.out.println("ingredientPath1: "+ingredientPath1);
+          boardFrame.removeIngredientFromBoardByImagePath(ingredientPath1);
+          boardFrame.removeIngredientFromBoardByImagePath(ingredientPath2);
+
           showResult(newPotion.getName(), newPotion.getPotionColor());
         }
       }

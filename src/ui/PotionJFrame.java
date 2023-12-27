@@ -176,10 +176,3 @@ public class PotionJFrame extends JFrame {
 
   
 }
-/*String typeOfPotion = potionComboBox1.getSelectedItem().toString();
-            for (int i = 0; i < token1.getPotions().size(); i++) {
-              if (typeOfPotion.equals(token1.getPotions().get(i).getPotionColor()+token1.getPotions().get(i).getName())) {
-                boardFrame.removeMiniPotionImage(token1.getPotions().get(i));
-      
-              }
-            }*/

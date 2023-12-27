@@ -46,18 +46,18 @@ public class Board {
   }
 
   public void createIngredients() {
-    Aspect aspect1 = new Aspect("Red", "Small", "+");
-    Aspect aspect2 = new Aspect("Blue", "Small", "+");
-    Aspect aspect3 = new Aspect("Yellow", "Small", "+");
-    Aspect aspect4 = new Aspect("Red", "Small", "-");
-    Aspect aspect5 = new Aspect("Blue", "Small", "-");
-    Aspect aspect6 = new Aspect("Yellow", "Small", "-");
-    Aspect aspect7 = new Aspect("Red", "Big", "+");
-    Aspect aspect8 = new Aspect("Blue", "Big", "+");
-    Aspect aspect9 = new Aspect("Yellow", "Big", "+");
-    Aspect aspect10 = new Aspect("Red", "Big", "-");
-    Aspect aspect11 = new Aspect("Blue", "Big", "-");
-    Aspect aspect12 = new Aspect("Yellow", "Big", "-");
+    Aspect aspect1 = new Aspect("Red", "Small", "+", "src/ui/utils/aspects/aspect_1.png");
+    Aspect aspect2 = new Aspect("Blue", "Small", "+", "src/ui/utils/aspects/aspect_2.png");
+    Aspect aspect3 = new Aspect("Yellow", "Small", "+", "src/ui/utils/aspects/aspect_3.png");
+    Aspect aspect4 = new Aspect("Red", "Small", "-", "src/ui/utils/aspects/aspect_4.png");
+    Aspect aspect5 = new Aspect("Blue", "Small", "-", "src/ui/utils/aspects/aspect_5.png");
+    Aspect aspect6 = new Aspect("Yellow", "Small", "-", "src/ui/utils/aspects/aspect_6.png");
+    Aspect aspect7 = new Aspect("Red", "Big", "+", "src/ui/utils/aspects/aspect_7.png");
+    Aspect aspect8 = new Aspect("Blue", "Big", "+", "src/ui/utils/aspects/aspect_8.png");
+    Aspect aspect9 = new Aspect("Yellow", "Big", "+", "src/ui/utils/aspects/aspect_9.png");
+    Aspect aspect10 = new Aspect("Red", "Big", "-", "src/ui/utils/aspects/aspect_10.png");
+    Aspect aspect11 = new Aspect("Blue", "Big", "-", "src/ui/utils/aspects/aspect_11.png");
+    Aspect aspect12 = new Aspect("Yellow", "Big", "-", "src/ui/utils/aspects/aspect_12.png");
 
     AlchemyMarker alchemyMarker1 = new AlchemyMarker(
       aspect7,
@@ -246,20 +246,20 @@ public class Board {
     // state.updateState();
   }
 
-  public void debunkTheory(Theory theory, AlchemyMarker alchemyMarker, Token token) {
-    try {
-      if (theory.belongsToToken(token)) {
-        throw new Exception("You can't debunk your own theory!");
-      }
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
+  public boolean debunkTheory(Theory theory, Aspect aspect, Token token) throws Exception {
+    /* 
+    if (theory.belongsToToken(token)) {
+      throw new Exception("You can't debunk your own theory!");
     }
+    */
 
-    if (theory.debunkSuccess(alchemyMarker)) {
+    if (theory.debunkSuccess(aspect)) {
       token.addReputation(2); // Increase reputation of the debunker
       theory.getTheoryOwner().decreaseReputation(1); // Decrease reputation of the publisher
+      return true;
     } else { // Debunk failed
       token.decreaseReputation(1); // Decrease reputation of the publisher
+      return false;
     }
   }
 

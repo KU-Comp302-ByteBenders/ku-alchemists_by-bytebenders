@@ -30,8 +30,13 @@ public class Theory {
   }
 
   // Returns true if alchemyMarker matches the Ingredient of the Theory's alchemyMarker
-  public boolean debunkSuccess(AlchemyMarker alchemyMarker) {
-    return this.getTheoryIngredient().alchemyMarker().equals(alchemyMarker);
+  public boolean debunkSuccess(Aspect aspect) {
+    if (aspect.getColor() == "Red")
+      return this.getTheoryIngredient().getAlchemyMarker().getAspectList().get(0).equals(aspect);
+    else if (aspect.getColor() == "Blue")
+      return this.getTheoryIngredient().getAlchemyMarker().getAspectList().get(1).equals(aspect);
+    else // Yellow
+      return this.getTheoryIngredient().getAlchemyMarker().getAspectList().get(2).equals(aspect);
   }
 
   public Token getTheoryOwner() {

@@ -323,6 +323,7 @@ public class BoardJFrame extends JFrame {
     eastPanel.add(createForageButton());
     eastPanel.add(createTransmuteButton(getName()));
     eastPanel.add(publishTheoryButton());
+    eastPanel.add(debunkTheoryButton());
     eastPanel.add(publicationTrackButton());
     eastPanel.add(createExperimentButton(board));
     eastPanel.add(createArtifactBuyerButton());
@@ -474,6 +475,15 @@ public class BoardJFrame extends JFrame {
     }
     return null;
   }
+  
+  public String findImagePathByIngredient(String ing){  //finding image path of ingredient from string name
+    for (Ingredient ingred : token1.getIngredients()) {      
+      if (ingred.getName().equals(ing)) {        
+        return ingred.getImagePath();
+      }
+    }
+    return null;
+  }
 
   public JButton createExperimentButton(Board board) {
     JButton experimentButton = new JButton("Make Experiment");
@@ -609,6 +619,20 @@ public class BoardJFrame extends JFrame {
     return publishButton;
   }
 
+  public JButton debunkTheoryButton() {
+    JButton debunkButton = new JButton("Debunk Theory");
+
+    debunkButton.addActionListener(
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          openDebunkMenu();
+        }
+      }
+    );
+    return debunkButton;
+  }
+
   public JButton publicationTrackButton() {
     JButton publicationTrackButton = new JButton("Publication Track");
 
@@ -625,7 +649,10 @@ public class BoardJFrame extends JFrame {
  
   public void openPublishMenu() {
     Game.openPublishMenu(this, board);
-    // this.setFocusable(false);
+  }
+
+  public void openDebunkMenu() {
+    Game.openDebunkMenu(this, board);
   }
 
   public void openPublicationTrack() {
@@ -644,10 +671,11 @@ public class BoardJFrame extends JFrame {
       }
     );
   }
+
   public void addMiniPotionImage(Potion potion) {
     ImageIcon potionIcon = new ImageIcon("src/ui/utils/mini_potion" + potion.getPotionColor()+ potion.getName() + ".jpg");
     JLabel potionLabel = new JLabel(potionIcon);
-    addTooltipToComponent(potionLabel, potion.getName()); //added tool tips
+    addTooltipToComponent(potionLabel, potion.getPotionColor()+" "+potion.getName()); //added tool tips
     potionArea.add(potionLabel);
     this.setVisible(false);
     this.setVisible(true);
@@ -658,13 +686,25 @@ public class BoardJFrame extends JFrame {
         JLabel label = (JLabel) component;
         ImageIcon labelIcon = (ImageIcon) label.getIcon();
         if(labelIcon != null){
-          System.out.println(labelIcon.getDescription());
-          System.out.println(potionImagePath);
           if (labelIcon.getDescription().equals(potionImagePath)) {
-
               potionArea.remove(label);
               break;
             }
+        }
+      }
+    }
+    this.setVisible(false);
+    this.setVisible(true);
+  }
+
+  public void removeIngredientFromBoardByImagePath(String imagePath) {
+    for (Component component : ingredientCardsArea.getComponents()) {
+      if (component instanceof JLabel) {
+        JLabel label = (JLabel) component;
+        ImageIcon labelIcon = (ImageIcon) label.getIcon();
+        if (labelIcon.getDescription().equals(imagePath)) {
+          ingredientCardsArea.remove(label);
+          break;
         }
       }
     }
