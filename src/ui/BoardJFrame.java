@@ -474,6 +474,15 @@ public class BoardJFrame extends JFrame {
     }
     return null;
   }
+  
+  public String findImagePathByIngredient(String ing){  //finding image path of ingredient from string name
+    for (Ingredient ingred : token1.getIngredients()) {      
+      if (ingred.getName().equals(ing)) {        
+        return ingred.getImagePath();
+      }
+    }
+    return null;
+  }
 
   public JButton createExperimentButton(Board board) {
     JButton experimentButton = new JButton("Make Experiment");
@@ -646,4 +655,46 @@ public class BoardJFrame extends JFrame {
       }
     );
   }
+<<<<<<< Updated upstream
+=======
+  public void addMiniPotionImage(Potion potion) {
+    ImageIcon potionIcon = new ImageIcon("src/ui/utils/mini_potion" + potion.getPotionColor()+ potion.getName() + ".jpg");
+    JLabel potionLabel = new JLabel(potionIcon);
+    addTooltipToComponent(potionLabel, potion.getPotionColor()+" "+potion.getName()); //added tool tips
+    potionArea.add(potionLabel);
+    this.setVisible(false);
+    this.setVisible(true);
+  }
+  public void removeMiniPotionImage(String potionImagePath) {
+    for (Component component : potionArea.getComponents()) {
+      if (component instanceof JLabel) {
+        JLabel label = (JLabel) component;
+        ImageIcon labelIcon = (ImageIcon) label.getIcon();
+        if(labelIcon != null){
+          if (labelIcon.getDescription().equals(potionImagePath)) {
+              potionArea.remove(label);
+              break;
+            }
+        }
+      }
+    }
+    this.setVisible(false);
+    this.setVisible(true);
+  }
+  public void removeIngredientFromBoardByImagePath(String imagePath) {
+    for (Component component : ingredientCardsArea.getComponents()) {
+      if (component instanceof JLabel) {
+        JLabel label = (JLabel) component;
+        ImageIcon labelIcon = (ImageIcon) label.getIcon();
+        if (labelIcon.getDescription().equals(imagePath)) {
+          ingredientCardsArea.remove(label);
+          break;
+        }
+      }
+    }
+    this.setVisible(false);
+    this.setVisible(true);
+  }
+
+>>>>>>> Stashed changes
 }
