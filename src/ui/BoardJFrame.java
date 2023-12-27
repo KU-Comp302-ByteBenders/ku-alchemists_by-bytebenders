@@ -327,6 +327,7 @@ public class BoardJFrame extends JFrame {
     eastPanel.add(publicationTrackButton());
     eastPanel.add(createExperimentButton(board));
     eastPanel.add(createArtifactBuyerButton());
+    eastPanel.add(SellPotionButton());
 
     this.add(westPanel, BorderLayout.WEST);
     this.add(eastPanel, BorderLayout.EAST);
@@ -496,6 +497,21 @@ public class BoardJFrame extends JFrame {
     );
     return experimentButton;
   }
+   
+  public JButton SellPotionButton() {
+    JButton useSellPotionButton = new JButton("Sell Potion");
+
+    useSellPotionButton.addActionListener(
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          Game.openPotionJFrame(board, BoardJFrame.this);  
+        }
+      }
+    );
+    return useSellPotionButton;
+  }
+
 
   public JButton exitButton() {
     ImageIcon exitIcon = new ImageIcon("src/ui/utils/exit.png");
@@ -630,7 +646,7 @@ public class BoardJFrame extends JFrame {
     );
     return publicationTrackButton;
   }
-
+ 
   public void openPublishMenu() {
     Game.openPublishMenu(this, board);
   }
@@ -655,8 +671,7 @@ public class BoardJFrame extends JFrame {
       }
     );
   }
-<<<<<<< Updated upstream
-=======
+
   public void addMiniPotionImage(Potion potion) {
     ImageIcon potionIcon = new ImageIcon("src/ui/utils/mini_potion" + potion.getPotionColor()+ potion.getName() + ".jpg");
     JLabel potionLabel = new JLabel(potionIcon);
@@ -681,6 +696,7 @@ public class BoardJFrame extends JFrame {
     this.setVisible(false);
     this.setVisible(true);
   }
+
   public void removeIngredientFromBoardByImagePath(String imagePath) {
     for (Component component : ingredientCardsArea.getComponents()) {
       if (component instanceof JLabel) {
@@ -695,6 +711,4 @@ public class BoardJFrame extends JFrame {
     this.setVisible(false);
     this.setVisible(true);
   }
-
->>>>>>> Stashed changes
 }

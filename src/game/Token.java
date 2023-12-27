@@ -91,12 +91,9 @@ public class Token {
   }
 
   //tabloda ilk ne varsa default seçiyor bunu düzeltmen gerekecek!
-  public String makeExperiment(String ingredient1, String ingredient2, Boolean testOnSelf) { //if player test on student false, //otherwise true;
+  public Potion makeExperiment(String ingredient1, String ingredient2, Boolean testOnSelf) { //if player test on student false, //otherwise true;
     Ingredient ing1 = findIngredientByName(ingredient1);
     Ingredient ing2 = findIngredientByName(ingredient2);
-
-    ingredients.remove(ing1);
-    ingredients.remove(ing2);
 
     boolean controller = false;
 
@@ -126,37 +123,58 @@ public class Token {
                 .getSize()
                 .equals(ing2.getAlchemyMarker().getAspectList().get(j).getSize())
             ) {
-              Potion newPotion = new Potion(0, ing1, ing2, ing1.getAlchemyMarker().getAspectList().get(i).getSign());
+              Potion newPotion = new Potion(ing1.getAlchemyMarker().getAspectList().get(j).getColor(), 
+                                            ing1, ing2, ing1.getAlchemyMarker().getAspectList().get(i).getSign(),
+                                            "not negative potion");
               controller = true;
               potions.add(newPotion);
               MakeExperimentJFrame.potionsForFrame.add(newPotion);
               testPotion(newPotion, testOnSelf);
-              return ing1.getAlchemyMarker().getAspectList().get(i).getSign();
+              ingredients.remove(ing1);
+              ingredients.remove(ing2);
+              return newPotion;
             }
           }
         }
       }
     }
     if (!controller) {
-      Potion neutralPotion = new Potion(0, ing1, ing2, "0");
+      Potion neutralPotion = new Potion("transparent", ing1, ing2, "0","not negative potion");
       potions.add(neutralPotion);
       MakeExperimentJFrame.potionsForFrame.add(neutralPotion);
-      return "0";
+      ingredients.remove(ing1);
+      ingredients.remove(ing2);
+      return neutralPotion;
     }
+    ingredients.remove(ing1);
+    ingredients.remove(ing2);
     return null;
   }
 
   public void testPotion(Potion potion, Boolean testOnSelf) {
     if (testOnSelf) {
       if (potion.getName().equals("-")) {
-        sicknessLevel += 1;
+        increaseSickness(1);
+        potion.setGuarantee("negative potion");
+        
         if (sicknessLevel == 3) {
           goldBalance = 0;
         }
-      } else {
-        if (potion.getName().equals("-")) {
-          goldBalance -= 1;
+      }
+      else if (potion.getName().equals("+")) { //if sickness level is more than 0, positive potion decrease it by 1
+        if(getSicknessLevel() > 0){
+          decreaseSickness(1);
+          potion.setGuarantee("guaranteed");
         }
+        else{
+          sicknessLevel = 0;
+        }
+      }
+      }
+    else {
+      if (potion.getName().equals("-")) {
+        decreaseGold(1); 
+        potion.setGuarantee("negative potion");
       }
     }
   }
@@ -179,9 +197,30 @@ public class Token {
     }
   }
 
-  public void sellPotion(String potion) {}
+  public void sellPotion(String potion) {
+    if (potion.equals("+")) {
+      goldBalance += 3;
+      removePotion(potion);
+    }
+    else if (potion.equals("-")) {
+      goldBalance += 1;
+      removePotion(potion);
+    }
+    else {
+      goldBalance += 2;
+      removePotion(potion);
+    }
+    
+  }
 
-  public void removePotion(String potion) {}
+  public void removePotion(String potion) {
+    for (Potion pot : potions) {
+      if (pot.getName().equals(potion)) {
+        potions.remove(pot);
+        break;
+      }
+    }
+  }
 
   public void publishTheory(Board board, Ingredient ingredient, AlchemyMarker alchemyMarker) throws Exception {
     board.publishTheory(ingredient, alchemyMarker, this);
@@ -228,6 +267,9 @@ public class Token {
 
   public void decreaseSickness(int amount) {
     sicknessLevel -= amount;
+  }
+  public void increaseSickness(int amount) {
+    sicknessLevel += amount;
   }
 
   public int getSicknessLevel() {

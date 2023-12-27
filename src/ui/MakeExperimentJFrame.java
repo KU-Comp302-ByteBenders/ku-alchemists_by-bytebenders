@@ -161,6 +161,7 @@ public class MakeExperimentJFrame extends JFrame {
               ingredientComboBox2.getSelectedItem().toString(),
               testResult(testComboBox.getSelectedItem().toString())
             );
+
           String ingName1=ingredientComboBox1.getSelectedItem().toString();
           String ingName2=ingredientComboBox2.getSelectedItem().toString();
           System.out.println("ingName1: "+ingName1);

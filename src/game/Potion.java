@@ -2,18 +2,20 @@ package game;
 
 public class Potion {
 
-  private int pointVal;
   private Ingredient ing1;
   private Ingredient ing2;
   private String name;
   private String effect;
   String potionColor;
+  String guarantee;
 
-  public Potion(Integer pointVal, Ingredient ing1, Ingredient ing2, String name) {
-    this.pointVal = pointVal;
+  public Potion(String potionColor, Ingredient ing1, Ingredient ing2, String name, String guarantee) {
+    this.potionColor = potionColor;
     this.ing1 = ing1;
     this.ing2 = ing2;
     this.name = name;
+    this.guarantee = guarantee; 
+
   }
 
   public String getEffect() {
@@ -22,14 +24,6 @@ public class Potion {
 
   public String getPotionColor() {
     return potionColor;
-  }
-
-  public int getPointVal() {
-    return pointVal;
-  }
-
-  public void setPointVal(int pointVal) {
-    this.pointVal = pointVal;
   }
 
   public String getName() {
@@ -42,5 +36,13 @@ public class Potion {
 
   public void setEffect(String effect) {
     this.effect = effect;
+  }
+
+  public String getGuarantee() {
+    return guarantee;
+  }
+
+  public void setGuarantee(String guarantee) {
+    this.guarantee = guarantee;
   }
 }

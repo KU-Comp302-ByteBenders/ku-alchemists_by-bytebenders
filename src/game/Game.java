@@ -112,4 +112,7 @@ public class Game {
   public static void openExperimentFrame(Board board, BoardJFrame boardJFrame) {
     MakeExperimentJFrame makeExperimentJFrame = new MakeExperimentJFrame(board, boardJFrame);
   }
+  public static void openPotionJFrame(Board board, BoardJFrame boardJFrame) {
+    PotionJFrame potionJFrame = new PotionJFrame(board, boardJFrame);
+  }
 }
