@@ -21,6 +21,7 @@ public class Token {
   private String tokenImage;
   private String username;
   private int reputation;
+  public static ArrayList<Potion> potionsForFrame;
 
   public Token(String username, String avatarImage, String tokenImage) {
     ingredients = new ArrayList<Ingredient>();
@@ -34,6 +35,7 @@ public class Token {
     this.avatarImage = avatarImage;
     this.tokenImage = tokenImage;
     this.username = username;
+    potionsForFrame = new ArrayList<Potion>();
   }
 
   public Ingredient forageForIngredient(Board board) {
@@ -90,8 +92,7 @@ public class Token {
     return potions;
   }
 
-  //tabloda ilk ne varsa default seçiyor bunu düzeltmen gerekecek!!
-  public Potion makeExperiment(String ingredient1, String ingredient2, Boolean testOnSelf) { //if player test on student false, //otherwise true;
+  public Potion makeExperiment(String ingredient1, String ingredient2, Boolean testOnSelf) { //if player test on student false, otherwise true;
     Ingredient ing1 = findIngredientByName(ingredient1);
     Ingredient ing2 = findIngredientByName(ingredient2);
 
@@ -128,7 +129,7 @@ public class Token {
                                             "not negative potion");
               controller = true;
               potions.add(newPotion);
-              MakeExperimentJFrame.potionsForFrame.add(newPotion);
+              potionsForFrame.add(newPotion);
               testPotion(newPotion, testOnSelf);
               ingredients.remove(ing1);
               ingredients.remove(ing2);
@@ -141,7 +142,7 @@ public class Token {
     if (!controller) {
       Potion neutralPotion = new Potion("transparent", ing1, ing2, "0","not negative potion");
       potions.add(neutralPotion);
-      MakeExperimentJFrame.potionsForFrame.add(neutralPotion);
+      potionsForFrame.add(neutralPotion);
       ingredients.remove(ing1);
       ingredients.remove(ing2);
       return neutralPotion;
