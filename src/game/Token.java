@@ -90,7 +90,7 @@ public class Token {
     return potions;
   }
 
-  //tabloda ilk ne varsa default seçiyor bunu düzeltmen gerekecek!
+  //tabloda ilk ne varsa default seçiyor bunu düzeltmen gerekecek!!
   public Potion makeExperiment(String ingredient1, String ingredient2, Boolean testOnSelf) { //if player test on student false, //otherwise true;
     Ingredient ing1 = findIngredientByName(ingredient1);
     Ingredient ing2 = findIngredientByName(ingredient2);
