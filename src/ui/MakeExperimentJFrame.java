@@ -44,7 +44,6 @@ public class MakeExperimentJFrame extends JFrame {
   private JButton selectIngredientsButton;
   private JButton selectPersonButton;
   BoardJFrame boardFrame;
-  public static ArrayList<Potion> potionsForFrame;
   Map<String, JLabel> smallImages = new HashMap<>();
 
   ImageIcon potionIcon1;
@@ -59,7 +58,6 @@ public class MakeExperimentJFrame extends JFrame {
 
     token1 = board.getTokens().get(0);
 
-    potionsForFrame = new ArrayList<Potion>();
 
     ingredientModel1 = new DefaultComboBoxModel<>();
     ingredientModel2 = new DefaultComboBoxModel<>();
@@ -170,6 +168,7 @@ public class MakeExperimentJFrame extends JFrame {
               ingName2,
               testResult(testComboBox.getSelectedItem().toString())
             );
+            boardFrame.addMiniPotionImage(newPotion);
           showResult(newPotion.getName(), newPotion.getPotionColor());
         }
       }
@@ -241,21 +240,7 @@ public class MakeExperimentJFrame extends JFrame {
       }
     );
 
-    //when the frame is closed, the potion is added to the board
-    MakeExperimentJFrame.this.addWindowListener(
-        (WindowListener) new WindowAdapter() {
-          @Override
-          public void windowClosed(WindowEvent e) {
-            // Add the ImageIcon objects to potionArea
-           
-            boardFrame.updateTokensGoldLabel();
-
-            if (potionsForFrame.size() != 0) {
-              boardFrame.addMiniPotionImage(newPotion); //handle small images in boardFrame
-            }
-          }
-        }
-      );
+    
 
     westPanel.add(topComboBoxPanel, BorderLayout.NORTH);
     westPanel.add(selectIngredientsButton, BorderLayout.SOUTH);
