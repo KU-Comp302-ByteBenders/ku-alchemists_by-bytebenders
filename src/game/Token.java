@@ -1,6 +1,8 @@
 package game;
 
 import game.ArtifactCards.ArtifactCard;
+import game.ArtifactCards.EffectStrategy;
+
 import java.util.ArrayList;
 import ui.BoardJFrame;
 import ui.MakeExperimentJFrame;
@@ -12,7 +14,7 @@ public class Token {
   private ArrayList<Ingredient> ingredients;
   private ArrayList<Potion> potions;
   private ArrayList<ArtifactCard> artifactCards;
-  private ArrayList<Effect> artifactEffects;
+  private ArrayList<EffectStrategy> artifactEffects;
   private ArrayList<String> resultTriangle;
 
   private int goldBalance;
@@ -27,7 +29,7 @@ public class Token {
     ingredients = new ArrayList<Ingredient>();
     potions = new ArrayList<Potion>();
     artifactCards = new ArrayList<ArtifactCard>();
-    artifactEffects = new ArrayList<Effect>();
+    artifactEffects = new ArrayList<EffectStrategy>();
     resultTriangle = new ArrayList<String>();
     goldBalance = 0;
     sicknessLevel = 0;
@@ -245,9 +247,8 @@ public class Token {
   }
 
   //Burada niye direkt artifactCard.applyEffect yapamıyom anlamadım. SIKINTI ÇIKARABİLİR
-  public void useArtifactCard(ArtifactCard artifactCard) {
-    Effect effect = (Effect) artifactCard;
-    effect.applyEffect(this);
+  public void useArtifactCard(ArtifactCard artifactCard, Board board) {
+    artifactCard.applyEffect(this, board);
   }
 
   public void addArtifactCard(ArtifactCard artifactCard) {

@@ -1,10 +1,11 @@
 package game;
 
 import game.ArtifactCards.ArtifactCard;
-import game.ArtifactCards.ElixirArtifactCard;
-import game.ArtifactCards.HealingArtifactCard;
-import game.ArtifactCards.IngredientArtifactCard;
-import game.ArtifactCards.ReputationArtifactCard;
+import game.ArtifactCards.ElixirOfInsightEffect;
+import game.ArtifactCards.MagicMortarEffect;
+import game.ArtifactCards.PrintingPressEffect;
+import game.ArtifactCards.WisdomIdolEffect;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import ui.BoardJFrame;
@@ -159,25 +160,16 @@ public class Board {
   }
 
   public void createArtifactCards() {
-    ArtifactCard artifactCard0 = new IngredientArtifactCard(this, "Small Fortune Pouch", 2, 1);
-    ArtifactCard artifactCard1 = new IngredientArtifactCard(this, "Treasure Trove", 3, 2);
-    ArtifactCard artifactCard2 = new ElixirArtifactCard("Elixir of Insight", 2, this);
-    ArtifactCard artifactCard3 = new HealingArtifactCard("Healing Draught", 1, 1);
-    ArtifactCard artifactCard4 = new HealingArtifactCard("Elixir of Vitality", 2, 2);
-    ArtifactCard artifactCard5 = new HealingArtifactCard("Celestial Mend", 3, 3);
-    ArtifactCard artifactCard6 = new ReputationArtifactCard("Kindly Gesture", 1, 1);
-    ArtifactCard artifactCard7 = new ReputationArtifactCard("Respected Deed", 2, 2);
-    ArtifactCard artifactCard8 = new ReputationArtifactCard("Virtue Badge", 3, 3);
+    ArtifactCard artifactCard1 = new ArtifactCard("Elixir of Insight", 2, new ElixirOfInsightEffect());
+    ArtifactCard artifactCard2 = new ArtifactCard("Magic Mortar", 1, new MagicMortarEffect());
+    ArtifactCard artifactCard3 = new ArtifactCard("Printing Press", 2, new PrintingPressEffect());
+    ArtifactCard artifactCard4 = new ArtifactCard("Wisdom idol", 3,  new WisdomIdolEffect());
 
-    artifactCards.add(artifactCard0);
     artifactCards.add(artifactCard1);
     artifactCards.add(artifactCard2);
     artifactCards.add(artifactCard3);
     artifactCards.add(artifactCard4);
-    artifactCards.add(artifactCard5);
-    artifactCards.add(artifactCard6);
-    artifactCards.add(artifactCard7);
-    artifactCards.add(artifactCard8);
+
   }
 
   public Ingredient getIngredientFromDeck() {
