@@ -124,9 +124,13 @@ public class Token {
                 .getSize()
                 .equals(ing2.getAlchemyMarker().getAspectList().get(j).getSize())
             ) {
-              Potion newPotion = new Potion(ing1.getAlchemyMarker().getAspectList().get(j).getColor(), 
-                                            ing1, ing2, ing1.getAlchemyMarker().getAspectList().get(i).getSign(),
-                                            "not negative potion");
+              Potion newPotion = new Potion(
+                ing1.getAlchemyMarker().getAspectList().get(j).getColor(),
+                ing1,
+                ing2,
+                ing1.getAlchemyMarker().getAspectList().get(i).getSign(),
+                "not negative potion"
+              );
               controller = true;
               potions.add(newPotion);
               potionsForFrame.add(newPotion);
@@ -140,7 +144,7 @@ public class Token {
       }
     }
     if (!controller) {
-      Potion neutralPotion = new Potion("transparent", ing1, ing2, "0","not negative potion");
+      Potion neutralPotion = new Potion("transparent", ing1, ing2, "0", "not negative potion");
       potions.add(neutralPotion);
       potionsForFrame.add(neutralPotion);
       ingredients.remove(ing1);
@@ -157,24 +161,21 @@ public class Token {
       if (potion.getName().equals("-")) {
         increaseSickness(1);
         potion.setGuarantee("negative potion");
-        
+
         if (sicknessLevel == 3) {
           goldBalance = 0;
         }
-      }
-      else if (potion.getName().equals("+")) { //if sickness level is more than 0, positive potion decrease it by 1
-        if(getSicknessLevel() > 0){
+      } else if (potion.getName().equals("+")) { //if sickness level is more than 0, positive potion decrease it by 1
+        if (getSicknessLevel() > 0) {
           decreaseSickness(1);
           potion.setGuarantee("guaranteed");
-        }
-        else{
+        } else {
           sicknessLevel = 0;
         }
       }
-      }
-    else {
+    } else {
       if (potion.getName().equals("-")) {
-        decreaseGold(1); 
+        decreaseGold(1);
         potion.setGuarantee("negative potion");
       }
     }
@@ -202,16 +203,13 @@ public class Token {
     if (potion.equals("+")) {
       goldBalance += 3;
       removePotion(potion);
-    }
-    else if (potion.equals("-")) {
+    } else if (potion.equals("-")) {
       goldBalance += 1;
       removePotion(potion);
-    }
-    else {
+    } else {
       goldBalance += 2;
       removePotion(potion);
     }
-    
   }
 
   public void removePotion(String potion) {
@@ -233,11 +231,11 @@ public class Token {
   }
 
   public void addReputation(int amount) {
-    reputation += amount;
+    this.reputation += amount;
   }
 
   public void decreaseReputation(int amount) {
-    reputation -= amount;
+    this.reputation -= amount;
   }
 
   public void buyArtifactCard(ArtifactCard artifactCard) {
@@ -269,6 +267,7 @@ public class Token {
   public void decreaseSickness(int amount) {
     sicknessLevel -= amount;
   }
+
   public void increaseSickness(int amount) {
     sicknessLevel += amount;
   }
