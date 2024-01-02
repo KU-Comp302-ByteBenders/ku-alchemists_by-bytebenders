@@ -18,20 +18,15 @@ public class BuyArtifactFrame extends JFrame {
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     // Add buttons for each type of artifact card
-    JButton healingDraughtButton = new JButton("Healing Draught");
-    JButton elixirOfVitalityButton = new JButton("Elixir of Vitality");
-    JButton celestialMendButton = new JButton("Celestial Mend");
-    JButton kindlyGestureButton = new JButton("Kindly Gesture");
-    JButton respectedDeedButton = new JButton("Respected Deed");
-    JButton virtueBadgeButton = new JButton("Virtue Badge");
-    JButton healingButton = new JButton("Small Fortune Pouch");
-    JButton goldButton = new JButton("Treasure Trove");
-    JButton reputationButton = new JButton("Elixir of Insight");
+    JButton MagicMortarButton = new JButton("Magic Mortar");
+    JButton elixirOfInsightButton = new JButton("Elixir of Insight");
+    JButton PrintingPressButton = new JButton("Printing Press");
+    JButton WisdomIdolButton = new JButton("Wisdom Idol");
 
     // Add action listeners to handle button clicks
-    //BUNLARA TURN MANTIĞI EKLEMEK LAZIM. KİMİN SIRASIYSA ONUN ARTİFACT DESTESİNE EKLESİN ALDIĞI KARTI
+    //BUNLARA TURN MANTIĞI EKLEMEK LAZIM. KİMİN SIRASIYSA ONUN ARTİFACT DESTESİNE EKLESİN ALDIĞI KART
 
-    healingButton.addActionListener(
+        elixirOfInsightButton.addActionListener(
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -40,75 +35,6 @@ public class BuyArtifactFrame extends JFrame {
           } else {
             Board.giveArtifactCardtoToken(token1, board.getArtifactCards().get(0));
             boardJFrame.createArtifactUseButton(board.getArtifactCards().get(0), token1);
-            //boardJFrame.refreshArtifactCardsArea(board.getArtifactCards().get(6));
-            closeArtifactBuyScreen();
-            boardJFrame.updateTokensGoldLabel();
-          }
-        }
-      }
-    );
-
-    goldButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          if (token1.getGoldBalance() < board.getArtifactCards().get(1).getGoldPrice()) {
-            System.err.println("You do not have enough gold to buy the artifact card!");
-          } else {
-            Board.giveArtifactCardtoToken(token1, board.getArtifactCards().get(1));
-            boardJFrame.createArtifactUseButton(board.getArtifactCards().get(1), token1);
-            //boardJFrame.refreshArtifactCardsArea(board.getArtifactCards().get(7));
-            closeArtifactBuyScreen();
-            boardJFrame.updateTokensGoldLabel();
-          }
-        }
-      }
-    );
-
-    reputationButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          if (token1.getGoldBalance() < board.getArtifactCards().get(2).getGoldPrice()) {
-            System.err.println("You do not have enough gold to buy the artifact card!");
-          } else {
-            Board.giveArtifactCardtoToken(token1, board.getArtifactCards().get(2));
-            boardJFrame.createArtifactUseButton(board.getArtifactCards().get(2), token1);
-            //boardJFrame.refreshArtifactCardsArea(board.getArtifactCards().get(8));
-            closeArtifactBuyScreen();
-            boardJFrame.updateTokensGoldLabel();
-          }
-        }
-      }
-    );
-
-    healingDraughtButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          if (token1.getGoldBalance() < board.getArtifactCards().get(3).getGoldPrice()) {
-            System.err.println("You do not have enough gold to buy the artifact card!");
-          } else {
-            Board.giveArtifactCardtoToken(token1, board.getArtifactCards().get(3));
-            boardJFrame.createArtifactUseButton(board.getArtifactCards().get(3), token1);
-
-            //boardJFrame.refreshArtifactCardsArea(board.getArtifactCards().get(0));
-            closeArtifactBuyScreen();
-            boardJFrame.updateTokensGoldLabel();
-          }
-        }
-      }
-    );
-
-    elixirOfVitalityButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          if (token1.getGoldBalance() < board.getArtifactCards().get(4).getGoldPrice()) {
-            System.err.println("You do not have enough gold to buy the artifact card!");
-          } else {
-            Board.giveArtifactCardtoToken(token1, board.getArtifactCards().get(4));
-            boardJFrame.createArtifactUseButton(board.getArtifactCards().get(4), token1);
 
             //boardJFrame.refreshArtifactCardsArea(board.getArtifactCards().get(1));
             closeArtifactBuyScreen();
@@ -118,15 +44,33 @@ public class BuyArtifactFrame extends JFrame {
       }
     );
 
-    celestialMendButton.addActionListener(
+    MagicMortarButton.addActionListener(
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          if (token1.getGoldBalance() < board.getArtifactCards().get(5).getGoldPrice()) {
+          if (token1.getGoldBalance() < board.getArtifactCards().get(1).getGoldPrice()) {
             System.err.println("You do not have enough gold to buy the artifact card!");
           } else {
-            Board.giveArtifactCardtoToken(token1, board.getArtifactCards().get(5));
-            boardJFrame.createArtifactUseButton(board.getArtifactCards().get(5), token1);
+            Board.giveArtifactCardtoToken(token1, board.getArtifactCards().get(1));
+            boardJFrame.createArtifactUseButton(board.getArtifactCards().get(1), token1);
+
+            //boardJFrame.refreshArtifactCardsArea(board.getArtifactCards().get(0));
+            closeArtifactBuyScreen();
+            boardJFrame.updateTokensGoldLabel();
+          }
+        }
+      }
+    );
+
+    PrintingPressButton.addActionListener(
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          if (token1.getGoldBalance() < board.getArtifactCards().get(2).getGoldPrice()) {
+            System.err.println("You do not have enough gold to buy the artifact card!");
+          } else {
+            Board.giveArtifactCardtoToken(token1, board.getArtifactCards().get(2));
+            boardJFrame.createArtifactUseButton(board.getArtifactCards().get(2), token1);
             //boardJFrame.refreshArtifactCardsArea(board.getArtifactCards().get(2));
 
             closeArtifactBuyScreen();
@@ -136,15 +80,15 @@ public class BuyArtifactFrame extends JFrame {
       }
     );
 
-    kindlyGestureButton.addActionListener(
+    WisdomIdolButton.addActionListener(
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          if (token1.getGoldBalance() < board.getArtifactCards().get(6).getGoldPrice()) {
+          if (token1.getGoldBalance() < board.getArtifactCards().get(3).getGoldPrice()) {
             System.err.println("You do not have enough gold to buy the artifact card!");
           } else {
-            Board.giveArtifactCardtoToken(token1, board.getArtifactCards().get(6));
-            boardJFrame.createArtifactUseButton(board.getArtifactCards().get(6), token1);
+            Board.giveArtifactCardtoToken(token1, board.getArtifactCards().get(3));
+            boardJFrame.createArtifactUseButton(board.getArtifactCards().get(3), token1);
             //boardJFrame.refreshArtifactCardsArea(board.getArtifactCards().get(3));
             closeArtifactBuyScreen();
             boardJFrame.updateTokensGoldLabel();
@@ -153,51 +97,12 @@ public class BuyArtifactFrame extends JFrame {
       }
     );
 
-    respectedDeedButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          if (token1.getGoldBalance() < board.getArtifactCards().get(7).getGoldPrice()) {
-            System.err.println("You do not have enough gold to buy the artifact card!");
-          } else {
-            Board.giveArtifactCardtoToken(token1, board.getArtifactCards().get(7));
-            boardJFrame.createArtifactUseButton(board.getArtifactCards().get(7), token1);
-            //boardJFrame.refreshArtifactCardsArea(board.getArtifactCards().get(4));
-            closeArtifactBuyScreen();
-            boardJFrame.updateTokensGoldLabel();
-          }
-        }
-      }
-    );
-
-    virtueBadgeButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          if (token1.getGoldBalance() < board.getArtifactCards().get(8).getGoldPrice()) {
-            System.err.println("You do not have enough gold to buy the artifact card!");
-          } else {
-            Board.giveArtifactCardtoToken(token1, board.getArtifactCards().get(8));
-            boardJFrame.createArtifactUseButton(board.getArtifactCards().get(8), token1);
-            //boardJFrame.refreshArtifactCardsArea(board.getArtifactCards().get(5));
-            closeArtifactBuyScreen();
-            boardJFrame.updateTokensGoldLabel();
-          }
-        }
-      }
-    );
-
     // Create a layout (e.g., GridLayout) and add buttons to it
-    JPanel buttonPanel = new JPanel(new GridLayout(3, 1));
-    buttonPanel.add(healingButton);
-    buttonPanel.add(goldButton);
-    buttonPanel.add(reputationButton);
-    buttonPanel.add(healingDraughtButton);
-    buttonPanel.add(elixirOfVitalityButton);
-    buttonPanel.add(celestialMendButton);
-    buttonPanel.add(kindlyGestureButton);
-    buttonPanel.add(respectedDeedButton);
-    buttonPanel.add(virtueBadgeButton);
+    JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
+    buttonPanel.add(elixirOfInsightButton);
+    buttonPanel.add(MagicMortarButton);
+    buttonPanel.add(PrintingPressButton);
+    buttonPanel.add(WisdomIdolButton);
 
     // Set the layout of the main frame
     setLayout(new BorderLayout());

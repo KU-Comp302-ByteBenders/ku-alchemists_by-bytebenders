@@ -2,7 +2,6 @@ package ui;
 
 import game.*;
 import game.ArtifactCards.ArtifactCard;
-import game.ArtifactCards.IngredientArtifactCard;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -101,17 +100,7 @@ public class BoardJFrame extends JFrame {
         board.getArtifactCards().get(2),
         artifact3Icon,
         board.getArtifactCards().get(3),
-        artifact4Icon,
-        board.getArtifactCards().get(4),
-        artifact5Icon,
-        board.getArtifactCards().get(5),
-        artifact6Icon,
-        board.getArtifactCards().get(6),
-        artifact7Icon,
-        board.getArtifactCards().get(7),
-        artifact8Icon,
-        board.getArtifactCards().get(8),
-        artifact9Icon
+        artifact4Icon
       );
 
     // CREATE THE JPANELS AND JLABELS
@@ -402,20 +391,10 @@ public class BoardJFrame extends JFrame {
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          token.useArtifactCard(artifactCard);
+          token.useArtifactCard(artifactCard, board);
           artifactUseButton.setVisible(false);
           token.removeArtifactCard(artifactCard);
           updateTokensReputationLabel();
-          if (
-            artifactCard.getName() == "Small Fortune Pouch" ||
-            artifactCard.getName() == "Treasure Trove" ||
-            artifactCard.getName() == "King's Bounty"
-          ) {
-            for (int i = 0; i < ((IngredientArtifactCard) artifactCard).getIngredientAmount(); i++) {
-              Ingredient ingredient = token1.forageForIngredient(board);
-              addIngredient(ingredient);
-            }
-          }
         }
       }
     );
