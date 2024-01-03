@@ -387,7 +387,10 @@ public class BoardJFrame extends JFrame {
     JButton artifactUseButton = new JButton(artifactImageMap.get(artifactCard));
     artifactUseButton.setPreferredSize(new Dimension(60, 60));
     addTooltipToComponent(artifactUseButton, artifactCard.getName()); //added tool tips
-    artifactUseButton.addActionListener(
+    
+    //If it is printing press, it will not be clickable/actionable.
+    if ("Printing Press" != artifactCard.getName()) {
+      artifactUseButton.addActionListener(
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -398,6 +401,7 @@ public class BoardJFrame extends JFrame {
         }
       }
     );
+    }
 
     artifactCardsArea.add(artifactUseButton);
     this.setVisible(false);
