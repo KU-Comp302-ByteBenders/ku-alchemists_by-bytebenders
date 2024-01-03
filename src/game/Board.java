@@ -212,7 +212,7 @@ public class Board {
       throw new Exception("Please select an ingredient and an alchemy marker!");
     }
 
-    if (token.getGoldBalance() < 1) {
+    if (token.getGoldBalance() < 1 && !token.checkPrintingPress()) {
       throw new Exception("Not enough gold!");
     }
 
@@ -232,6 +232,11 @@ public class Board {
 
     token.addReputation(1);
     token.decreaseGold(1);
+
+    //If the player has artifact card printing press, give him 1 gold
+    if (token.checkPrintingPress() && token.getGoldBalance() >= 1) {
+      token.getArtifactCardByName("Printing Press").applyEffect(token, this);
+    }
 
     System.out.println("Theory published!");
     // Update game state

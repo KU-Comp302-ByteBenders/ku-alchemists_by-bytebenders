@@ -276,4 +276,22 @@ public class Token {
   public int getSicknessLevel() {
     return sicknessLevel;
   }
+
+  public boolean checkPrintingPress() {
+    for (ArtifactCard artifactCard : artifactCards) {
+      if (artifactCard.getName().equals("Printing Press")) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public ArtifactCard getArtifactCardByName(String name) {
+    for (ArtifactCard artifactCard : artifactCards) {
+      if (artifactCard.getName().equals(name)) {
+        return artifactCard;
+      }
+    }
+    return null;
+  }
 }

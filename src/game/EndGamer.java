@@ -51,6 +51,14 @@ public class EndGamer {
     int token1ArtifactCardNumber = token1.getArtifactCards().size();
     int token2ArtifactCardNumber = token2.getArtifactCards().size();
 
+    if (token1.getArtifactCardByName("Wisdom Idol") != null) {
+      token1Reputation += 1;
+    }
+
+    if (token2.getArtifactCardByName("Wisdom Idol") != null) {
+      token2Reputation += 1;
+    }
+
     int token1GoldAmount = token1.getGoldBalance();
     int token2GoldAmount = token2.getGoldBalance();
 
