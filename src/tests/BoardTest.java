@@ -128,6 +128,7 @@ class BoardTest {
         // create a board with the parameters
         Board board = new Board(username1, username2, avatar1, avatar2);
         Token token = board.getTokens().get(0);
+        token.decreaseGold(10); // decrease the gold balance to 0
         AlchemyMarker alchemyMarker = board.getStaticAlchemyMarkers().get(0);
         Ingredient ingredient = board.getStaticIngredients().get(0);
 
