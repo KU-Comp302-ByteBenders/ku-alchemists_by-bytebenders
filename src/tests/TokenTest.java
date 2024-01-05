@@ -9,10 +9,13 @@ import game.Token;
 import game.Board;
 import game.Potion;
 
+/*  (For the group) Choose one non-trivial class to test. Write overview, abstract function, 
+representation invariant, repOk method, and write at least 5 tests to check the class (abstract data type)) */
 
-public class MakeExperimentTest {
+public class TokenTest {
     Token token = new Token("User1", "Avatar1", "Token1");
     Board board = new Board("User1", "User2", "Avatar1", "Avatar2");
+    Token testToken;
     
     //creating ingredients for the token
     @Before
@@ -21,7 +24,7 @@ public class MakeExperimentTest {
         token.addIngredient(board.getIngredientByName("feather"));
         token.addIngredient(board.getIngredientByName("dragon fruit"));
         token.addIngredient(board.getIngredientByName("ginger"));
-        token.addIngredient(board.getIngredientByName("obsidian"));    
+        token.addIngredient(board.getIngredientByName("obsidian"));      
     }
 
     //controlling the make experiment result with the expected result
@@ -79,4 +82,40 @@ public class MakeExperimentTest {
         
         assertTrue(potion1.getPotionColor().equals(potion2.getPotionColor()));
     }
+
+    @Test
+    public void testWithCombinations(){
+        testToken = new Token(null, "Avatar1", "Token1");
+        assertFalse(testToken.repOK());
+        
+        testToken = new Token("User1", "Avatar1", "Token1");
+        assertTrue(testToken.repOK());
+        
+        testToken.addGold(1);
+        assertTrue(testToken.repOK());
+        
+        testToken.decreaseGold(1);
+        assertTrue(testToken.repOK());
+        
+        testToken.addReputation(-1);
+        assertFalse(testToken.repOK());
+        
+        testToken.decreaseSickness(1);
+        assertFalse(testToken.repOK());
+        
+    }
+    @Test
+    public void testPotionTest(){
+        int firstSickness = token.getSicknessLevel();
+        assertEquals(firstSickness, 0);
+        Potion potion1 = token.makeExperiment("feather", "obsidian", true);        
+        
+        int lastSickness = token.getSicknessLevel();
+
+        token.testPotion(potion1, false);
+        
+
+    }
+
 }
+
