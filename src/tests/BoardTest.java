@@ -180,4 +180,19 @@ class BoardTest {
             board.publishTheory(ingredient, alchemyMarker, token);
         });
     }
+
+    @Test
+    void testInitialGameState() {
+        // parameters for testing
+        String username1 = "User1";
+        String username2 = "User2";
+        String avatar1 = "Avatar1";
+        String avatar2 = "Avatar2";
+
+        // Create a board with the parameters
+        Board board = new Board(username1, username2, avatar1, avatar2);
+
+        // Check if the state object is not null
+        assertNotNull(board.getState());
+    }
 }
