@@ -2,7 +2,6 @@ package tests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,8 +9,6 @@ import game.Token;
 import game.Board;
 import game.Potion;
 
-/*  (For the group) Choose one non-trivial class to test. Write overview, abstract function, 
-representation invariant, repOk method, and write at least 5 tests to check the class (abstract data type)) */
 
 public class TokenTest {
     Token token = new Token("User1", "Avatar1", "Token1");
@@ -87,6 +84,7 @@ public class TokenTest {
 
     @Test
     public void testWithCombinations(){
+        //repOK test
         testToken = new Token(null, "Avatar1", "Token1");
         assertFalse(testToken.repOK());
         
@@ -111,6 +109,7 @@ public class TokenTest {
     }
     @Test
     public void testPotionTest(){
+        // Test testPotion method control sickness level
         int firstSickness = token.getSicknessLevel();
         assertEquals(firstSickness, 0);
         Potion potion1 = token.makeExperiment("feather", "obsidian", true);        
@@ -124,7 +123,7 @@ public class TokenTest {
 
     @Test
     public void sellPotionTest(){     
-        // Test sellPotion method  
+        // Test sellPotion method control gold balance
         token.sellPotion("+");
         int lastGold = token.getGoldBalance();
         assertEquals(3, lastGold);
@@ -148,7 +147,7 @@ public class TokenTest {
 
     @Test
     public void removeIngredientTest(){
-        // Test removeIngredient method
+        // Test removeIngredient method 
         int firstIngredientSize = token.getIngredients().size();
         token.removeIngredient(("feather"));
         assertEquals(firstIngredientSize - 1, token.getIngredients().size());
@@ -156,6 +155,7 @@ public class TokenTest {
 
     @Test
     public void transmuteIngredientTest(){
+        // Test transmuteIngredient method control whether its storage is shrinked or not
         int firstIngredientSize = token.getIngredients().size();
         token.transmuteIngredient("ginger");
         assertEquals(firstIngredientSize - 1, token.getIngredients().size());
