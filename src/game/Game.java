@@ -62,7 +62,7 @@ public class Game implements Serializable {
     String ip = server.getIp();
 
     Thread networkThread = new Thread(() -> {
-      server.startServer();
+      server.startServer(username, avatar);
     });
     networkThread.start();
 
