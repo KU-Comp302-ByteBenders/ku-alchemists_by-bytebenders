@@ -1,10 +1,6 @@
 package ui;
 
-import game.Aspect;
-import game.Board;
-import game.Ingredient;
-import game.Theory;
-import game.Token;
+import game.*;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -25,7 +21,7 @@ import javax.swing.JPanel;
 
 public class DebunkTheoryJFrame extends JFrame {
 
-  public DebunkTheoryJFrame(BoardJFrame boardJFrame, Board board) {
+  public DebunkTheoryJFrame(BoardJFrame boardJFrame, Board board, State state) {
     this.setSize(1280, 720);
     this.setResizable(false);
     JPanel gridPanel = new JPanel(new GridLayout(2, 4));
@@ -80,8 +76,10 @@ public class DebunkTheoryJFrame extends JFrame {
                   
                   if (success) {
                     JOptionPane.showMessageDialog(null, imageLabel, "Success!!!", JOptionPane.INFORMATION_MESSAGE);
+                    Game.controlRoundAction(boardJFrame, state, true);
                   } else {
                     JOptionPane.showMessageDialog(null, imageLabel, "Failure!!!", JOptionPane.INFORMATION_MESSAGE);
+                    Game.controlRoundAction(boardJFrame, state, true);
                   }
                 }
             };

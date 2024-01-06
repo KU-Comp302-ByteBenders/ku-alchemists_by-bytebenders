@@ -12,8 +12,10 @@ public class TransmuteIngredientFrame extends JFrame {
   private ArrayList<Ingredient> displayedIngredients;
   private Board mainBoard;
   private BoardJFrame boardFrame;
+    private State state;
+    private Boolean endTurnFlag;
 
-  public TransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard, BoardJFrame boardFrame) {
+  public TransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard, BoardJFrame boardFrame, State state) {
     this.displayedIngredients = new ArrayList<>(displayedIngredients);
     this.mainBoard = mainBoard;
     this.boardFrame = boardFrame;
@@ -65,6 +67,7 @@ public class TransmuteIngredientFrame extends JFrame {
     if (selectedIngredient != null) {
       String ingredientName = selectedIngredient;
       boardFrame.removeIngredientFromBoardByName(ingredientName);
+      Game.controlRoundAction(boardFrame, state, true);
       dispose();
     } else {
       JOptionPane.showMessageDialog(

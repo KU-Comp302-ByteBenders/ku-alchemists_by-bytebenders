@@ -1,9 +1,7 @@
 package ui;
 
-import game.Board;
-import game.Ingredient;
-import game.Potion;
-import game.Token;
+import game.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,7 +50,7 @@ public class MakeExperimentJFrame extends JFrame {
   Potion newPotion;
 
 
-  public MakeExperimentJFrame(Board board, BoardJFrame boardFrame) {
+  public MakeExperimentJFrame(Board board, BoardJFrame boardFrame, State state) {
     this.board = board;
     this.boardFrame = boardFrame;
 
@@ -170,6 +168,7 @@ public class MakeExperimentJFrame extends JFrame {
             );
             boardFrame.addMiniPotionImage(newPotion);
           showResult(newPotion.getName(), newPotion.getPotionColor());
+          Game.controlRoundAction(boardFrame, state, true);
         }
       }
     );
