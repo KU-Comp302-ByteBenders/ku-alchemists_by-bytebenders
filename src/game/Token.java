@@ -22,7 +22,8 @@ public class Token {
   private int reputation;
   public static ArrayList<Potion> potionsForFrame;
 
-  
+   //Abstract function is 
+  // AF(c) = (ingredients, potions, artifactCards, goldBalance, sicknessLevel, avatarImage, tokenImage, username, reputation)
 
   // The rep invariant is 
 	// username != null && avatarImage != null && tokenImage != null 
