@@ -501,7 +501,7 @@ public class BoardJFrame extends JFrame {
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          Game.openExperimentFrame(board, BoardJFrame.this, state);
+          Game.openExperimentFrame(token1, board, BoardJFrame.this, state);
         }
       }
     );

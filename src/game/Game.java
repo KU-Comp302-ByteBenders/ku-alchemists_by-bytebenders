@@ -110,8 +110,8 @@ public class Game {
     HelpJFrame helpJFrame = new HelpJFrame();
   }
 
-  public static void openExperimentFrame(Board board, BoardJFrame boardJFrame, State state ) {
-    MakeExperimentJFrame makeExperimentJFrame = new MakeExperimentJFrame(board, boardJFrame, state);
+  public static void openExperimentFrame(Token token, Board board, BoardJFrame boardJFrame, State state ) {
+    MakeExperimentJFrame makeExperimentJFrame = new MakeExperimentJFrame(token, board, boardJFrame, state);
   }
   public static void openPotionJFrame(Board board, BoardJFrame boardJFrame, State state) {
     PotionJFrame potionJFrame = new PotionJFrame(board, boardJFrame, state);

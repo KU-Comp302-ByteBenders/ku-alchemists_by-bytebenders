@@ -218,7 +218,7 @@ public class Token {
     }
   }
 
-  private Ingredient findIngredientByName(String name) {
+  public Ingredient findIngredientByName(String name) {
     //REQUIRES: ingredient name
     //EFFECTS: returns the ingredient that has the given name 
     for (Ingredient ingredient : ingredients) {

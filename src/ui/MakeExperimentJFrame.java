@@ -53,11 +53,11 @@ public class MakeExperimentJFrame extends JFrame {
   Potion newPotion;
 
 
-  public MakeExperimentJFrame(Board board, BoardJFrame boardFrame, State state) {
+  public MakeExperimentJFrame(Token token, Board board, BoardJFrame boardFrame, State state) {
     this.board = board;
     this.boardFrame = boardFrame;
 
-    token1 = board.getTokens().get(0);
+    token1 = token;
 
 
     ingredientModel1 = new DefaultComboBoxModel<>();
