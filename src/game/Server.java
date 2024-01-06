@@ -1,9 +1,6 @@
 package game;
 
 import java.io.*;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.ServerSocket;
@@ -15,7 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import ui.WaitingJFrame;
 
-public class Server {
+public class Server implements Serializable {
+  private static final long serialVersionUID = 9L;
 
   private static final int PORT = 5001;
   private static final List<ClientHandler> clients = new ArrayList<>();
@@ -93,8 +91,8 @@ public class Server {
       try {
         dataIn = new DataInputStream(clientSocket.getInputStream());
         dataOut = new DataOutputStream(clientSocket.getOutputStream());
-        objectIn = new ObjectInputStream(clientSocket.getInputStream());
         objectOut = new ObjectOutputStream(clientSocket.getOutputStream());
+        objectIn = new ObjectInputStream(clientSocket.getInputStream());
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -124,6 +122,7 @@ public class Server {
       try {
         objectOut.writeObject(object);
         objectOut.flush();
+        System.out.println("sended the object.");
       } catch (IOException e) {
         e.printStackTrace();
       }

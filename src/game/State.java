@@ -4,11 +4,14 @@ import ui.BoardJFrame;
 import ui.TransitionJFrame;
 import ui.TransitionStarterJFrame;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public class State {
+public class State implements Serializable {
+
+  private static final long serialVersionUID = 10L;
 
   private ArrayList<Token> tokens;
   private int actionsMadeInRound; // track the number of actions made in that round

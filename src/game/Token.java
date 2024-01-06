@@ -3,13 +3,15 @@ package game;
 import game.ArtifactCards.ArtifactCard;
 import game.ArtifactCards.EffectStrategy;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import ui.BoardJFrame;
 
 
-public class Token {
+public class Token implements Serializable {
   //  OVERVIEW: This class provides the token's properties and methods
 
+  private static final long serialVersionUID = 12L;
   //  the rep
   private ArrayList<Ingredient> ingredients;
   private ArrayList<Potion> potions;

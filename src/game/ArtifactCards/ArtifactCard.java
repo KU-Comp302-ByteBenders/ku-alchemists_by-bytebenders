@@ -1,13 +1,16 @@
 package game.ArtifactCards;
 
+import java.io.Serializable;
+
 import game.Board;
 import game.Token;
 
 //We used the strategy pattern while creating the artifact cards. We created an effect interface and
 //made the different artifact card classes have different implementations of the applyEffect method of
 //the effect class.
-public class ArtifactCard implements EffectStrategy {
+public class ArtifactCard implements EffectStrategy, Serializable {
 
+  private static final long serialVersionUID = 13L;
   private String name;
   private int goldPrice;
   private EffectStrategy effect;
