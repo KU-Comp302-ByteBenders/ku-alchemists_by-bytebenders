@@ -3,6 +3,7 @@ package game;
 import java.util.ArrayList;
 import javax.swing.*;
 import ui.*;
+import ui.interfaces.ChangeableVisibility;
 
 /*
  * This class is the Controller class.
@@ -30,11 +31,43 @@ public class Game {
     MainMenuJFrame mainMenu = new MainMenuJFrame();
   }
 
-  public void openLogin(JFrame mainMenu) {
+  public void openLogin(ChangeableVisibility mainMenu) {
     // Open the login screen
     LoginJFrame loginScreen = new LoginJFrame();
     // Close the main menu
-    mainMenu.setVisible(false);
+    mainMenu.changeVisible(false);
+  }
+
+  public void openLoginSingle(ChangeableVisibility frame, boolean isClient) {
+    // Open the login screen
+    LoginOneUserJFrame loginScreen = new LoginOneUserJFrame(isClient);
+    // Close the main menu
+    frame.changeVisible(false);
+  }
+
+  public void openGameMode(ChangeableVisibility mainMenu) {
+    // Open the game mode screen
+    GameModeJFrame gameMode = new GameModeJFrame();
+    // Close the login screen
+    mainMenu.changeVisible(false);
+  }
+
+  public void openWaitingRoom(ChangeableVisibility frame, String username, String avatar) {
+    // Start the server
+    Server server = new Server();
+    // Get the IP address of the server
+    String ip = server.getIp();
+
+    Thread networkThread = new Thread(() -> {
+      server.startServer();
+    });
+    networkThread.start();
+
+    // Open the waiting room screen
+    WaitingJFrame waitingRoom = new WaitingJFrame(ip, username, avatar);
+    server.setWaitingFrame(waitingRoom);
+    // Close the game mode screen
+    frame.changeVisible(false);
   }
 
   public void startGame(String username1, String username2, String avatar1, String avatar2, JFrame loginScreen) {
@@ -71,12 +104,12 @@ public class Game {
     pauseMenu.dispose();
   }
 
-  public static void inactivateBoard(JFrame board) {
-    board.setVisible(false);
+  public static void inactivateBoard(ChangeableVisibility board) {
+    board.changeVisible(false);
   }
 
-  public static void activateBoard(JFrame board) {
-    board.setVisible(true);
+  public static void activateBoard(ChangeableVisibility board) {
+    board.changeVisible(true);
   }
 
   public static void openArtifactBuyScreen(BoardJFrame boardJFrame, Board board, Token token, State state) {
@@ -110,13 +143,15 @@ public class Game {
     HelpJFrame helpJFrame = new HelpJFrame();
   }
 
-  public static void openExperimentFrame(Token token, Board board, BoardJFrame boardJFrame, State state ) {
+  public static void openExperimentFrame(Token token, Board board, BoardJFrame boardJFrame, State state) {
     MakeExperimentJFrame makeExperimentJFrame = new MakeExperimentJFrame(token, board, boardJFrame, state);
   }
+
   public static void openPotionJFrame(Board board, BoardJFrame boardJFrame, State state) {
     PotionJFrame potionJFrame = new PotionJFrame(board, boardJFrame, state);
   }
-  public static void controlRoundAction(BoardJFrame boardJFrame, State state, Boolean endTurnFlag){
+
+  public static void controlRoundAction(BoardJFrame boardJFrame, State state, Boolean endTurnFlag) {
     boardJFrame.controlRoundActions(endTurnFlag, state);
   }
 }

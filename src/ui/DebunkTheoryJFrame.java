@@ -1,7 +1,6 @@
 package ui;
 
 import game.*;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -9,7 +8,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import ui.interfaces.ConfirmationListener;
 
 public class DebunkTheoryJFrame extends JFrame {
 
@@ -55,38 +54,40 @@ public class DebunkTheoryJFrame extends JFrame {
         ImageIcon markerIcon = new ImageIcon(theoryMarkerImage);
         JLabel markerLabel = new JLabel(markerIcon);
 
-        String[] options = {"Select an Aspect", "Red Aspect", "Blue Aspect", "Yellow Aspect"};
+        String[] options = { "Select an Aspect", "Red Aspect", "Blue Aspect", "Yellow Aspect" };
         JComboBox<String> debunkComboBox = new JComboBox<>(options);
         final Theory finalCurrentTheory = currentTheory;
-        debunkComboBox.addItemListener(new ItemListener() {
-          @Override
-          public void itemStateChanged(ItemEvent e) {
-            if (e.getStateChange() == ItemEvent.SELECTED && e.getItem() != "Select an Aspect") {
-              ConfirmationListener listener = new ConfirmationListener() {
-                @Override
-                public void onConfirmed() throws Exception {
-                  Token token = board.getState().getCurrentToken();
-                  int aspectIndex = debunkComboBox.getSelectedIndex() - 1;
-                  Aspect selectedAspect = ingredient.getAlchemyMarker().getAspectList().get(aspectIndex);
-                  boolean success = token.debunkTheory(board, finalCurrentTheory, selectedAspect);
-                  boardJFrame.updateTokensGoldLabel();
-                  boardJFrame.updateTokensReputationLabel();
-                  ImageIcon imageIcon = new ImageIcon(ingredient.getImagePath());
-                  JLabel imageLabel = new JLabel(imageIcon);
-                  
-                  if (success) {
-                    JOptionPane.showMessageDialog(null, imageLabel, "Success!!!", JOptionPane.INFORMATION_MESSAGE);
-                    Game.controlRoundAction(boardJFrame, state, true);
-                  } else {
-                    JOptionPane.showMessageDialog(null, imageLabel, "Failure!!!", JOptionPane.INFORMATION_MESSAGE);
-                    Game.controlRoundAction(boardJFrame, state, true);
+        debunkComboBox.addItemListener(
+          new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+              if (e.getStateChange() == ItemEvent.SELECTED && e.getItem() != "Select an Aspect") {
+                ConfirmationListener listener = new ConfirmationListener() {
+                  @Override
+                  public void onConfirmed() throws Exception {
+                    Token token = board.getState().getCurrentToken();
+                    int aspectIndex = debunkComboBox.getSelectedIndex() - 1;
+                    Aspect selectedAspect = ingredient.getAlchemyMarker().getAspectList().get(aspectIndex);
+                    boolean success = token.debunkTheory(board, finalCurrentTheory, selectedAspect);
+                    boardJFrame.updateTokensGoldLabel();
+                    boardJFrame.updateTokensReputationLabel();
+                    ImageIcon imageIcon = new ImageIcon(ingredient.getImagePath());
+                    JLabel imageLabel = new JLabel(imageIcon);
+
+                    if (success) {
+                      JOptionPane.showMessageDialog(null, imageLabel, "Success!!!", JOptionPane.INFORMATION_MESSAGE);
+                      Game.controlRoundAction(boardJFrame, state, true);
+                    } else {
+                      JOptionPane.showMessageDialog(null, imageLabel, "Failure!!!", JOptionPane.INFORMATION_MESSAGE);
+                      Game.controlRoundAction(boardJFrame, state, true);
+                    }
                   }
-                }
-            };
-              ConfirmJFrame confirmJFrame = new ConfirmJFrame((String) e.getItem(), ingredient.getName(), listener);
+                };
+                ConfirmJFrame confirmJFrame = new ConfirmJFrame((String) e.getItem(), ingredient.getName(), listener);
+              }
             }
           }
-        });
+        );
         JPanel southPanel = new JPanel(new BorderLayout());
         southPanel.add(markerLabel, BorderLayout.NORTH);
         southPanel.add(debunkComboBox, BorderLayout.SOUTH);

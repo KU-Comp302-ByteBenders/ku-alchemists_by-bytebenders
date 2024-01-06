@@ -4,8 +4,9 @@ import game.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import ui.interfaces.ChangeableVisibility;
 
-public class MainMenuJFrame extends JFrame {
+public class MainMenuJFrame extends JFrame implements ChangeableVisibility {
 
   public MainMenuJFrame() {
     this.setSize(1280, 720);
@@ -30,7 +31,7 @@ public class MainMenuJFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
           Game game = Game.getInstance();
-          game.openLogin(MainMenuJFrame.this);
+          game.openGameMode(MainMenuJFrame.this);
         }
       }
     );
@@ -75,5 +76,10 @@ public class MainMenuJFrame extends JFrame {
 
     // Make the frame visible
     this.setVisible(true);
+  }
+
+  @Override
+  public void changeVisible(Boolean visible) {
+    this.setVisible(visible);
   }
 }

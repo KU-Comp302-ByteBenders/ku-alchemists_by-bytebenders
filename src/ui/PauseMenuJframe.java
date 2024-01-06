@@ -5,8 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import ui.interfaces.ChangeableVisibility;
 
-public class PauseMenuJframe extends JFrame {
+public class PauseMenuJframe extends JFrame implements ChangeableVisibility {
 
   JFrame board;
 
@@ -67,6 +68,11 @@ public class PauseMenuJframe extends JFrame {
 
   public void closingMenu() {
     Game.closePauseMenu(this);
-    Game.activateBoard(board);
+    Game.activateBoard((ChangeableVisibility) board);
+  }
+
+  @Override
+  public void changeVisible(Boolean visible) {
+    this.setVisible(visible);
   }
 }
