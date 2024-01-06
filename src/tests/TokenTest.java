@@ -2,6 +2,7 @@ package tests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -81,6 +82,7 @@ public class TokenTest {
                         ,token.getIngredients().get(1), "0", "not negative potion");
         
         assertTrue(potion1.getPotionColor().equals(potion2.getPotionColor()));
+        assertEquals("transparent", potion2.getPotionColor());
     }
 
     @Test
@@ -102,6 +104,9 @@ public class TokenTest {
         
         testToken.decreaseSickness(1);
         assertFalse(testToken.repOK());
+
+        
+
         
     }
     @Test
@@ -111,11 +116,51 @@ public class TokenTest {
         Potion potion1 = token.makeExperiment("feather", "obsidian", true);        
         
         int lastSickness = token.getSicknessLevel();
-
         token.testPotion(potion1, false);
+        assertEquals(lastSickness, 1);
         
 
     }
 
+    @Test
+    public void sellPotionTest(){     
+        // Test sellPotion method  
+        token.sellPotion("+");
+        int lastGold = token.getGoldBalance();
+        assertEquals(3, lastGold);
+
+        token.sellPotion("-");
+        lastGold = token.getGoldBalance();
+        assertEquals(4, lastGold);
+
+        token.sellPotion("0");
+        lastGold = token.getGoldBalance();
+        assertEquals(6, lastGold);
+    }
+
+    @Test
+    public void forageForIngredientTest(){
+        // Test forageForIngredient method
+        int lastIngredient = token.getIngredients().size();
+        token.forageForIngredient(board);
+        assertEquals(lastIngredient + 1, token.getIngredients().size());
+    }
+
+    @Test
+    public void removeIngredientTest(){
+        // Test removeIngredient method
+        int firstIngredientSize = token.getIngredients().size();
+        token.removeIngredient(("feather"));
+        assertEquals(firstIngredientSize - 1, token.getIngredients().size());
+    }
+
+    @Test
+    public void transmuteIngredientTest(){
+        int firstIngredientSize = token.getIngredients().size();
+        token.transmuteIngredient("ginger");
+        assertEquals(firstIngredientSize - 1, token.getIngredients().size());
+    }
+
 }
 
+ 
