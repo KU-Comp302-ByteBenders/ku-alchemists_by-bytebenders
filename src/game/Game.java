@@ -89,14 +89,14 @@ public class Game implements Serializable {
 
   public void closePauseMenu() {}
 
-  public static void openPublishMenu(BoardJFrame boardJFrame, Board board, State state) {
+  public static void openPublishMenu(BoardJFrame boardJFrame, Board board, State state, Token token1) {
     // Open the publish theory action menu
-    PublishTheoryJFrame publishTheoryJFrame = new PublishTheoryJFrame(boardJFrame, board, state);
+    PublishTheoryJFrame publishTheoryJFrame = new PublishTheoryJFrame(boardJFrame, board, state, token1);
   }
 
-  public static void openDebunkMenu(BoardJFrame boardJFrame, Board board, State state) {
+  public static void openDebunkMenu(BoardJFrame boardJFrame, Board board, State state, Token token1) {
     // Open the debunk theory action menu
-    DebunkTheoryJFrame debunkTheoryJFrame = new DebunkTheoryJFrame(boardJFrame, board, state);
+    DebunkTheoryJFrame debunkTheoryJFrame = new DebunkTheoryJFrame(boardJFrame, board, state, token1);
   }
 
   public static void openPublicationTrack(JFrame boardJFrame, Board board) {

@@ -624,7 +624,7 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility {
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          openPublishMenu();
+          openPublishMenu(token1);
         }
       }
     );
@@ -638,7 +638,7 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility {
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          openDebunkMenu();
+          openDebunkMenu(token1);
         }
       }
     );
@@ -659,12 +659,12 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility {
     return publicationTrackButton;
   }
 
-  public void openPublishMenu() {
-    Game.openPublishMenu(this, board, state);
+  public void openPublishMenu(Token token1) {
+    Game.openPublishMenu(this, board, state, token1);
   }
 
-  public void openDebunkMenu() {
-    Game.openDebunkMenu(this, board, state);
+  public void openDebunkMenu(Token token1) {
+    Game.openDebunkMenu(this, board, state, token1);
   }
 
   public void openPublicationTrack() {

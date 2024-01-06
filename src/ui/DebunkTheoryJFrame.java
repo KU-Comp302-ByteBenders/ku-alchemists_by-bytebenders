@@ -20,7 +20,7 @@ import ui.interfaces.ConfirmationListener;
 
 public class DebunkTheoryJFrame extends JFrame {
 
-  public DebunkTheoryJFrame(BoardJFrame boardJFrame, Board board, State state) {
+  public DebunkTheoryJFrame(BoardJFrame boardJFrame, Board board, State state, Token token1) {
     this.setSize(1280, 720);
     this.setResizable(false);
     JPanel gridPanel = new JPanel(new GridLayout(2, 4));
@@ -65,10 +65,9 @@ public class DebunkTheoryJFrame extends JFrame {
                 ConfirmationListener listener = new ConfirmationListener() {
                   @Override
                   public void onConfirmed() throws Exception {
-                    Token token = board.getState().getCurrentToken();
                     int aspectIndex = debunkComboBox.getSelectedIndex() - 1;
                     Aspect selectedAspect = ingredient.getAlchemyMarker().getAspectList().get(aspectIndex);
-                    boolean success = token.debunkTheory(board, finalCurrentTheory, selectedAspect);
+                    boolean success = token1.debunkTheory(board, finalCurrentTheory, selectedAspect);
                     boardJFrame.updateTokensGoldLabel();
                     boardJFrame.updateTokensReputationLabel();
                     ImageIcon imageIcon = new ImageIcon(ingredient.getImagePath());
