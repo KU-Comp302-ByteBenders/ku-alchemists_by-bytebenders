@@ -22,8 +22,11 @@ public class Server implements Serializable {
 
   public Server() {}
 
-  public void startServer() {
+  public void startServer(String username, String avatar) {
+    credentials.put(username, avatar); // Host's credentials
+
     String ip = getIp();
+
     try {
       ServerSocket serverSocket = new ServerSocket(PORT, 0, InetAddress.getByName(ip));
       System.out.println("Server waiting for clients on port " + PORT);
@@ -36,7 +39,6 @@ public class Server implements Serializable {
         ClientHandler clientHandler = new ClientHandler(clientSocket);
         clientHandler.setWaitingFrame(waitingFrame);
         clientHandler.setServer(this);
-        clientHandler.sendObject(new Board(ip, ip, ip, ip));
         clients.add(clientHandler);
         new Thread(clientHandler).start();
       }
@@ -46,7 +48,7 @@ public class Server implements Serializable {
   }
 
   public String getIp() {
-    String ip = "127.0.0.1";
+    String ip = "127.0.0.1"; // Dummy IP address
     try {
       Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
       while (networkInterfaces.hasMoreElements()) {
@@ -108,6 +110,9 @@ public class Server implements Serializable {
             String avatar = clientMessage.split(" ")[2];
             server.getCredentials().put(username, avatar);
             waitingFrame.addPlayer(username, avatar);
+            for (String u : server.getCredentials().keySet()) {
+              System.out.println("username: " + u + " avatar: " + server.getCredentials().get(u));
+            }
           }
         }
       } catch (IOException e) {
