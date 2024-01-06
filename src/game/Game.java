@@ -153,8 +153,8 @@ public class Game {
     MakeExperimentJFrame makeExperimentJFrame = new MakeExperimentJFrame(token, board, boardJFrame, state);
   }
 
-  public static void openPotionJFrame(Board board, BoardJFrame boardJFrame, State state) {
-    PotionJFrame potionJFrame = new PotionJFrame(board, boardJFrame, state);
+  public static void openPotionJFrame(Token token, Board board, BoardJFrame boardJFrame, State state) {
+    PotionJFrame potionJFrame = new PotionJFrame(token, board, boardJFrame, state);
   }
 
   public static void controlRoundAction(BoardJFrame boardJFrame, State state, Boolean endTurnFlag) {
