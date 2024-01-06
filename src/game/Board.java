@@ -8,7 +8,8 @@ import game.ArtifactCards.WisdomIdolEffect;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import ui.BoardJFrame;
+
+import ui.TransitionStarterJFrame;
 
 public class Board {
 
@@ -40,10 +41,12 @@ public class Board {
 
     // init state object
     state = new State(tokens);
+    Token firstToken = state.selectRandomToken();
+    TransitionStarterJFrame transitionStarterJFrame = new TransitionStarterJFrame(firstToken, this, state);
 
     theories = new ArrayList<Theory>();
 
-    BoardJFrame boardJFrame = new BoardJFrame(this);
+
   }
 
   public void createIngredients() {
@@ -235,7 +238,7 @@ public class Board {
 
     //If the player has artifact card printing press, give him 1 gold
     if (token.checkPrintingPress() && token.getGoldBalance() >= 1) {
-      token.getArtifactCardByName("Printing Press").applyEffect(token, this);
+      token.getArtifactCardByName("Printing Press").applyEffect(token, this, null);
     }
 
     System.out.println("Theory published!");

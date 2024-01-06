@@ -1,9 +1,7 @@
 package ui;
 
-import game.Board;
-import game.Ingredient;
-import game.Potion;
-import game.Token;
+import game.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,9 +12,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.lang.model.type.NullType;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+
+import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.NullString;
 
 public class MakeExperimentJFrame extends JFrame {
 
@@ -52,7 +53,7 @@ public class MakeExperimentJFrame extends JFrame {
   Potion newPotion;
 
 
-  public MakeExperimentJFrame(Board board, BoardJFrame boardFrame) {
+  public MakeExperimentJFrame(Board board, BoardJFrame boardFrame, State state) {
     this.board = board;
     this.boardFrame = boardFrame;
 
@@ -162,14 +163,22 @@ public class MakeExperimentJFrame extends JFrame {
           boardFrame.removeIngredient(path1);
           boardFrame.removeIngredient(path2);
           
+          if (token1.getArtifactCardByName("Magic Mortar") != null){
+              token1.getArtifactCardByName("Magic Mortar").applyEffect(token1, board, ingName1);
+              Ingredient mortarIng = token1.findIngredientByName(ingName1);
+              boardFrame.addIngredient(mortarIng);
+            }
+
           newPotion =
             token1.makeExperiment(
               ingName1,
               ingName2,
               testResult(testComboBox.getSelectedItem().toString())
             );
+            
             boardFrame.addMiniPotionImage(newPotion);
           showResult(newPotion.getName(), newPotion.getPotionColor());
+          Game.controlRoundAction(boardFrame, state, true);
         }
       }
     );

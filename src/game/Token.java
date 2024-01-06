@@ -296,7 +296,7 @@ public class Token {
 
   public void useArtifactCard(ArtifactCard artifactCard, Board board) {
     //EFFECTS: applies the given artifact card's effect to the board
-    artifactCard.applyEffect(this, board);
+    artifactCard.applyEffect(this, board, null);
   }
 
   public void addArtifactCard(ArtifactCard artifactCard) {

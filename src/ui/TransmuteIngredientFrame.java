@@ -12,8 +12,10 @@ public class TransmuteIngredientFrame extends JFrame {
   private ArrayList<Ingredient> displayedIngredients;
   private Board mainBoard;
   private BoardJFrame boardFrame;
+    private State state;
+    private Boolean endTurnFlag;
 
-  public TransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard, BoardJFrame boardFrame) {
+  public TransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard, BoardJFrame boardFrame, State state) {
     this.displayedIngredients = new ArrayList<>(displayedIngredients);
     this.mainBoard = mainBoard;
     this.boardFrame = boardFrame;
@@ -43,6 +45,7 @@ public class TransmuteIngredientFrame extends JFrame {
           // Get the selected ingredient from the combo box
           String selectedIngredient = (String) ingredientComboBox.getSelectedItem();
           handleTransformButtonClick(selectedIngredient);
+          Game.controlRoundAction(boardFrame, state, true);
         }
       }
     );
