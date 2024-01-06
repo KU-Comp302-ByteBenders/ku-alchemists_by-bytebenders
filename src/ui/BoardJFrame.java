@@ -215,13 +215,12 @@ public class BoardJFrame extends JFrame {
 
     // ADD THE TOKENS ARTIFACT CARDS TO THE BOARD
 
-    int token2ArtifactsNumber = token2.getArtifactCards().size();
     int token1ArtifactsNumber = token1.getArtifactCards().size();
 
     //this will have to be changed into something turn based
-    for (int i = 0; i < token2ArtifactsNumber; i++) {
-      ArtifactCard myArtifactCard = token2.getArtifactCards().get(i);
-      createArtifactUseButton(myArtifactCard, token2);
+    for (int i = 0; i < token1ArtifactsNumber; i++) {
+      ArtifactCard myArtifactCard = token1.getArtifactCards().get(i);
+      createArtifactUseButton(myArtifactCard, token1);
     }
 
     // CREATE THE JLABELS THAT CONTAIN WORDS.
@@ -400,7 +399,7 @@ public class BoardJFrame extends JFrame {
         public void actionPerformed(ActionEvent e) {
           // Open the BuyArtifactFrame when the button is clicked
           // Controller version
-          Game.openArtifactBuyScreen(thisBoardJFrame, board, token1, token2, state);
+          Game.openArtifactBuyScreen(thisBoardJFrame, board, token1, state);
         }
       }
     );

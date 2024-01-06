@@ -108,6 +108,11 @@ public class MakeExperimentJFrame extends JFrame {
     versionLabel.setFont(new Font("Arial", Font.BOLD, 35));
     versionLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
+    JLabel MagicMortarLabel = new JLabel("If you have magic mortar artifact card, the first ingredient you choose will remain with you.");
+    MagicMortarLabel.setForeground(Color.decode("#A020F0"));
+    MagicMortarLabel.setFont(new Font("Arial", Font.BOLD, 15));
+    MagicMortarLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
     JLabel panelLabel = new JLabel("INGREDIENTS");
     panelLabel.setForeground(Color.decode("#A020F0"));
     panelLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -255,6 +260,7 @@ public class MakeExperimentJFrame extends JFrame {
     westPanel.add(selectIngredientsButton, BorderLayout.SOUTH);
     westPanel.add(bottomComboBoxPanel, BorderLayout.SOUTH);
     westPanel.add(selectPersonButton, BorderLayout.SOUTH);
+    southPanel.add(MagicMortarLabel, BorderLayout.SOUTH);
 
     this.add(westPanel, BorderLayout.WEST);
     this.add(eastPanel, BorderLayout.EAST);

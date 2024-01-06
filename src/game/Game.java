@@ -79,8 +79,8 @@ public class Game {
     board.setVisible(true);
   }
 
-  public static void openArtifactBuyScreen(BoardJFrame boardJFrame, Board board, Token token1, Token token2, State state) {
-    BuyArtifactFrame buyArtifactFrame = new BuyArtifactFrame(boardJFrame, board, token1, token2, state);
+  public static void openArtifactBuyScreen(BoardJFrame boardJFrame, Board board, Token token, State state) {
+    BuyArtifactFrame buyArtifactFrame = new BuyArtifactFrame(boardJFrame, board, token, state);
     buyArtifactFrame.setVisible(true);
   }
 
