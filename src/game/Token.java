@@ -183,7 +183,7 @@ public class Token {
     }
   }
 
-  private Ingredient findIngredientByName(String name) {
+  public Ingredient findIngredientByName(String name) {
     for (Ingredient ingredient : ingredients) {
       if (ingredient.getName().equals(name)) {
         return ingredient;
@@ -246,7 +246,7 @@ public class Token {
 
   //Burada niye direkt artifactCard.applyEffect yapamıyom anlamadım. SIKINTI ÇIKARABİLİR
   public void useArtifactCard(ArtifactCard artifactCard, Board board) {
-    artifactCard.applyEffect(this, board);
+    artifactCard.applyEffect(this, board, null);
   }
 
   public void addArtifactCard(ArtifactCard artifactCard) {

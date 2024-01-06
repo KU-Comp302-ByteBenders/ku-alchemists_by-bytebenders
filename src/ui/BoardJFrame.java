@@ -415,7 +415,7 @@ public class BoardJFrame extends JFrame {
     addTooltipToComponent(artifactUseButton, artifactCard.getName()); //added tool tips
     
     //If it is printing press, it will not be clickable/actionable.
-    if ("Printing Press" != artifactCard.getName()) {
+    if ("Printing Press" != artifactCard.getName() && "Magic Mortar" != artifactCard.getName()) {
       artifactUseButton.addActionListener(
       new ActionListener() {
         @Override

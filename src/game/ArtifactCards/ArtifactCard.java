@@ -31,8 +31,8 @@ public class ArtifactCard implements EffectStrategy {
   }
 
   @Override
-  public void applyEffect(Token token, Board board) {
-    effect.applyEffect(token, board);
+  public void applyEffect(Token token, Board board, String ing) {
+    effect.applyEffect(token, board, ing);
   }
 
   
