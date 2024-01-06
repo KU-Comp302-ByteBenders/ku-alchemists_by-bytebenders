@@ -1,6 +1,7 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.*;
 import ui.*;
 import ui.interfaces.ChangeableVisibility;
@@ -75,6 +76,11 @@ public class Game {
     Board board = new Board(username1, username2, avatar1, avatar2);
     // Close the login screen
     loginScreen.setVisible(false);
+  }
+
+  public void startGameOnline(HashMap<String, String> credentials) {
+    // Create Board Controller. Board Controller opens the BoardJFrame
+    // Board board = new Board(credentials);
   }
 
   public void openPauseMenu() {}
