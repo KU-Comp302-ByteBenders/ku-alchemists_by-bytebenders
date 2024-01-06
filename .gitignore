@@ -1,2 +1,6 @@
 .prettierrc.yaml
-.out
+out/
+bin/
+.project
+.classpath
+
