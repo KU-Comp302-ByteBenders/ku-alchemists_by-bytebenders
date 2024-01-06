@@ -20,12 +20,11 @@ public class Token {
   private int goldBalance;
   private int sicknessLevel;
   private String avatarImage;
-  private String tokenImage;
   private String username;
   private int reputation;
   public static ArrayList<Potion> potionsForFrame;
 
-  public Token(String username, String avatarImage, String tokenImage) {
+  public Token(String username, String avatarImage) {
     ingredients = new ArrayList<Ingredient>();
     potions = new ArrayList<Potion>();
     artifactCards = new ArrayList<ArtifactCard>();
@@ -35,7 +34,6 @@ public class Token {
     sicknessLevel = 0;
     reputation = 0;
     this.avatarImage = avatarImage;
-    this.tokenImage = tokenImage;
     this.username = username;
     potionsForFrame = new ArrayList<Potion>();
   }
