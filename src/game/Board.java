@@ -24,20 +24,19 @@ public class Board {
   private ArrayList<Ingredient> staticIngredients = new ArrayList<Ingredient>();
   private ArrayList<AlchemyMarker> staticAlchemyMarkers = new ArrayList<AlchemyMarker>();
 
-  public Board(String username1, String username2, String avatar1, String avatar2) {
+  public Board(ArrayList<String> usernames, ArrayList<String> avatars) {
     tokens = new ArrayList<Token>();
     ingredients = new ArrayList<Ingredient>();
     artifactCards = new ArrayList<ArtifactCard>();
     theories = new ArrayList<Theory>();
 
-    Token token1 = new Token(username1, avatar1, avatar1);
-    Token token2 = new Token(username2, avatar2, avatar2);
-    tokens.add(token1);
-    tokens.add(token2);
+    for (int i = 0; i < usernames.size(); i++) {
+      Token token = new Token(usernames.get(i), avatars.get(i));
+      token.addGold(10);
+      tokens.add(token);
+    }
     this.addIngredient();
     this.createArtifactCards();
-    token1.addGold(10);
-    token2.addGold(10);
 
     // init state object
     state = new State(tokens);
