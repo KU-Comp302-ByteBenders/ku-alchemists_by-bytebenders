@@ -32,7 +32,8 @@ public class PotionJFrame extends JFrame {
     private DefaultComboBoxModel<String> potionModel;
 
 
-  public PotionJFrame(Board board, BoardJFrame boardFrame) {
+
+  public PotionJFrame(Board board, BoardJFrame boardFrame, State state) {
     this.board = board;
     this.boardFrame = boardFrame;
     token1 = board.getTokens().get(0);
@@ -124,6 +125,7 @@ public class PotionJFrame extends JFrame {
               JOptionPane.INFORMATION_MESSAGE
             );
           boardFrame.removeMiniPotionImage("src/ui/utils/mini_potion"+ typeOfPotion + ".jpg");//deleting from boardFrame
+          Game.controlRoundAction(boardFrame, state, true);
           closingMenu(PotionJFrame.this);
         }
       }

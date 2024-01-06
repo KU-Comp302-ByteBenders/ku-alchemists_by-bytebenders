@@ -74,5 +74,4 @@ class BoardTest {
         assertFalse(board.getArtifactCards().isEmpty());
     }
 
-
 }

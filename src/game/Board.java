@@ -8,7 +8,8 @@ import game.ArtifactCards.WisdomIdolEffect;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import ui.BoardJFrame;
+
+import ui.TransitionStarterJFrame;
 
 public class Board {
 
@@ -40,10 +41,12 @@ public class Board {
 
     // init state object
     state = new State(tokens);
+    Token firstToken = state.selectRandomToken();
+    TransitionStarterJFrame transitionStarterJFrame = new TransitionStarterJFrame(firstToken, this, state);
 
     theories = new ArrayList<Theory>();
 
-    BoardJFrame boardJFrame = new BoardJFrame(this);
+
   }
 
   public void createIngredients() {

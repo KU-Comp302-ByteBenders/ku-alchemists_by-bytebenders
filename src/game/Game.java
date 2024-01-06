@@ -11,7 +11,6 @@ import ui.*;
 public class Game {
 
   public int round;
-  public String state;
   private Boolean activateBoard;
   //protected Token tokenInfos;
 
@@ -49,14 +48,14 @@ public class Game {
 
   public void closePauseMenu() {}
 
-  public static void openPublishMenu(BoardJFrame boardJFrame, Board board) {
+  public static void openPublishMenu(BoardJFrame boardJFrame, Board board, State state) {
     // Open the publish theory action menu
-    PublishTheoryJFrame publishTheoryJFrame = new PublishTheoryJFrame(boardJFrame, board);
+    PublishTheoryJFrame publishTheoryJFrame = new PublishTheoryJFrame(boardJFrame, board, state);
   }
 
-  public static void openDebunkMenu(BoardJFrame boardJFrame, Board board) {
+  public static void openDebunkMenu(BoardJFrame boardJFrame, Board board, State state) {
     // Open the debunk theory action menu
-    DebunkTheoryJFrame debunkTheoryJFrame = new DebunkTheoryJFrame(boardJFrame, board);
+    DebunkTheoryJFrame debunkTheoryJFrame = new DebunkTheoryJFrame(boardJFrame, board, state);
   }
 
   public static void openPublicationTrack(JFrame boardJFrame, Board board) {
@@ -80,8 +79,8 @@ public class Game {
     board.setVisible(true);
   }
 
-  public static void openArtifactBuyScreen(BoardJFrame boardJFrame, Board board, Token token1, Token token2) {
-    BuyArtifactFrame buyArtifactFrame = new BuyArtifactFrame(boardJFrame, board, token1, token2);
+  public static void openArtifactBuyScreen(BoardJFrame boardJFrame, Board board, Token token1, Token token2, State state) {
+    BuyArtifactFrame buyArtifactFrame = new BuyArtifactFrame(boardJFrame, board, token1, token2, state);
     buyArtifactFrame.setVisible(true);
   }
 
@@ -92,12 +91,14 @@ public class Game {
   public static void activateTransmuteIngredientFrame(
     ArrayList<Ingredient> displayedIngredients,
     Board mainBoard,
-    BoardJFrame boardFrame
+    BoardJFrame boardFrame,
+    State state
   ) {
     TransmuteIngredientFrame transmuteJFrame = new TransmuteIngredientFrame(
       displayedIngredients,
       mainBoard,
-      boardFrame
+      boardFrame,
+      state
     );
   }
 
@@ -109,10 +110,13 @@ public class Game {
     HelpJFrame helpJFrame = new HelpJFrame();
   }
 
-  public static void openExperimentFrame(Board board, BoardJFrame boardJFrame) {
-    MakeExperimentJFrame makeExperimentJFrame = new MakeExperimentJFrame(board, boardJFrame);
+  public static void openExperimentFrame(Board board, BoardJFrame boardJFrame, State state ) {
+    MakeExperimentJFrame makeExperimentJFrame = new MakeExperimentJFrame(board, boardJFrame, state);
   }
-  public static void openPotionJFrame(Board board, BoardJFrame boardJFrame) {
-    PotionJFrame potionJFrame = new PotionJFrame(board, boardJFrame);
+  public static void openPotionJFrame(Board board, BoardJFrame boardJFrame, State state) {
+    PotionJFrame potionJFrame = new PotionJFrame(board, boardJFrame, state);
+  }
+  public static void controlRoundAction(BoardJFrame boardJFrame, State state, Boolean endTurnFlag){
+    boardJFrame.controlRoundActions(endTurnFlag, state);
   }
 }
