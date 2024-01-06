@@ -1,5 +1,6 @@
 package game;
 
+import java.io.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import ui.WaitingJFrame;
 
@@ -18,6 +20,7 @@ public class Server {
   private static final int PORT = 5001;
   private static final List<ClientHandler> clients = new ArrayList<>();
   public WaitingJFrame waitingFrame;
+  private static final HashMap<String, String> credentials = new HashMap<>(); // username, avatar
 
   public Server() {}
 
@@ -34,6 +37,8 @@ public class Server {
         // Create a new thread to handle the client
         ClientHandler clientHandler = new ClientHandler(clientSocket);
         clientHandler.setWaitingFrame(waitingFrame);
+        clientHandler.setServer(this);
+        clientHandler.sendObject(new Board(ip, ip, ip, ip));
         clients.add(clientHandler);
         new Thread(clientHandler).start();
       }
@@ -64,6 +69,10 @@ public class Server {
     return ip;
   }
 
+  public HashMap<String, String> getCredentials() {
+    return credentials;
+  }
+
   public void setWaitingFrame(WaitingJFrame waitingFrame) {
     this.waitingFrame = waitingFrame;
   }
@@ -73,13 +82,19 @@ public class Server {
     private Socket clientSocket;
     private DataInputStream dataIn;
     private DataOutputStream dataOut;
+    private ObjectInputStream objectIn;
+    private ObjectOutputStream objectOut;
     private WaitingJFrame waitingFrame;
+    private Server server;
 
     public ClientHandler(Socket socket) {
       this.clientSocket = socket;
+
       try {
         dataIn = new DataInputStream(clientSocket.getInputStream());
         dataOut = new DataOutputStream(clientSocket.getOutputStream());
+        objectIn = new ObjectInputStream(clientSocket.getInputStream());
+        objectOut = new ObjectOutputStream(clientSocket.getOutputStream());
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -91,16 +106,26 @@ public class Server {
         while (true) {
           String clientMessage = dataIn.readUTF();
           if (clientMessage.split(" ")[0].equals("credentials")) {
-            waitingFrame.addPlayer(clientMessage.split(" ")[1], clientMessage.split(" ")[2]);
+            String username = clientMessage.split(" ")[1];
+            String avatar = clientMessage.split(" ")[2];
+            server.getCredentials().put(username, avatar);
+            waitingFrame.addPlayer(username, avatar);
           }
-          // Broadcast the message to all clients
-          broadcastMessage(clientMessage);
         }
       } catch (IOException e) {
         // Handle client disconnection
         System.out.println("Client disconnected");
         clients.remove(this);
         close();
+      }
+    }
+
+    public void sendObject(Object object) {
+      try {
+        objectOut.writeObject(object);
+        objectOut.flush();
+      } catch (IOException e) {
+        e.printStackTrace();
       }
     }
 
@@ -133,6 +158,10 @@ public class Server {
 
     private void setWaitingFrame(WaitingJFrame waitingFrame) {
       this.waitingFrame = waitingFrame;
+    }
+
+    private void setServer(Server server) {
+      this.server = server;
     }
   }
 }

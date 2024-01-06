@@ -5,19 +5,20 @@ import game.ArtifactCards.ElixirOfInsightEffect;
 import game.ArtifactCards.MagicMortarEffect;
 import game.ArtifactCards.PrintingPressEffect;
 import game.ArtifactCards.WisdomIdolEffect;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-
+import java.util.HashMap;
 import ui.TransitionStarterJFrame;
 
-public class Board {
+public class Board implements Serializable {
 
   private ArrayList<Token> tokens;
   private ArrayList<Ingredient> ingredients;
   private static ArrayList<ArtifactCard> artifactCards;
   private ArrayList<Theory> theories;
   private State state;
+  private static final long serialVersionUID = 1L;
 
   // These two will be used in publishTheory and debunkTheory.
   // The order of static ingredients will remain the same.
@@ -45,8 +46,24 @@ public class Board {
     TransitionStarterJFrame transitionStarterJFrame = new TransitionStarterJFrame(firstToken, this, state);
 
     theories = new ArrayList<Theory>();
+  }
 
+  public Board(HashMap<String, String> credentials) {
+    int length = credentials.size();
+    tokens = new ArrayList<Token>();
+    ingredients = new ArrayList<Ingredient>();
+    artifactCards = new ArrayList<ArtifactCard>();
+    theories = new ArrayList<Theory>();
 
+    for (String username : credentials.keySet()) {
+      String avatar = credentials.get(username);
+      Token token = new Token(username, avatar, avatar);
+      tokens.add(token);
+      token.addGold(10);
+    }
+
+    this.addIngredient();
+    this.createArtifactCards();
   }
 
   public void createIngredients() {
@@ -166,13 +183,12 @@ public class Board {
     ArtifactCard artifactCard1 = new ArtifactCard("Elixir of Insight", 2, new ElixirOfInsightEffect());
     ArtifactCard artifactCard2 = new ArtifactCard("Magic Mortar", 1, new MagicMortarEffect());
     ArtifactCard artifactCard3 = new ArtifactCard("Printing Press", 2, new PrintingPressEffect());
-    ArtifactCard artifactCard4 = new ArtifactCard("Wisdom idol", 3,  new WisdomIdolEffect());
+    ArtifactCard artifactCard4 = new ArtifactCard("Wisdom idol", 3, new WisdomIdolEffect());
 
     artifactCards.add(artifactCard1);
     artifactCards.add(artifactCard2);
     artifactCards.add(artifactCard3);
     artifactCards.add(artifactCard4);
-
   }
 
   public Ingredient getIngredientFromDeck() {
