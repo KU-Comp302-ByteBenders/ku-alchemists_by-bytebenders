@@ -45,6 +45,7 @@ public class TransmuteIngredientFrame extends JFrame {
           // Get the selected ingredient from the combo box
           String selectedIngredient = (String) ingredientComboBox.getSelectedItem();
           handleTransformButtonClick(selectedIngredient);
+          Game.controlRoundAction(boardFrame, state, true);
         }
       }
     );
@@ -67,7 +68,6 @@ public class TransmuteIngredientFrame extends JFrame {
     if (selectedIngredient != null) {
       String ingredientName = selectedIngredient;
       boardFrame.removeIngredientFromBoardByName(ingredientName);
-      Game.controlRoundAction(boardFrame, state, true);
       dispose();
     } else {
       JOptionPane.showMessageDialog(
