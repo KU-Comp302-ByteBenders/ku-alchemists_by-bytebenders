@@ -258,11 +258,12 @@ class BoardTest {
         Token token = board.getTokens().get(0);
         AlchemyMarker alchemyMarker = board.getStaticAlchemyMarkers().get(0);
         Ingredient ingredient = board.getStaticIngredients().get(0);
-        Theory existingTheory = new Theory(ingredient, alchemyMarker, token);
-        board.getTheories().add(existingTheory);
 
+        
+        
         Exception exception = assertThrows(Exception.class, () -> {
-            board.publishTheory(ingredient, alchemyMarker, token);
+            board.publishTheory(ingredient, alchemyMarker, token); // Publish the first theory, it should not throw an exception
+            board.publishTheory(ingredient, alchemyMarker, token); // Publish the second theory with same ingredient and marker, it should throw an exception
         });
 
         assertEquals("A theory on this ingredient already exists!", exception.getMessage());
@@ -279,12 +280,18 @@ class BoardTest {
         // create a board with the parameters
         Board board = new Board(username1, username2, avatar1, avatar2);
         Token token = board.getTokens().get(0);
+        int previousGoldBalance = token.getGoldBalance();
         AlchemyMarker alchemyMarker = board.getStaticAlchemyMarkers().get(0);
         Ingredient ingredient = board.getStaticIngredients().get(0);
 
         assertDoesNotThrow(() -> {
             board.publishTheory(ingredient, alchemyMarker, token);
         });
+        assertNotNull(board.getTheories().get(0));
+        assertEquals(board.getTheories().get(0).isAboutIngredient(ingredient), true);
+        assertEquals(board.getTheories().get(0).hasAlchemyMarker(alchemyMarker), true);
+        assertEquals(board.getTheories().get(0).belongsToToken(token), true);
+        assertEquals(previousGoldBalance, token.getGoldBalance() + 1);
     }
 
     @Test
