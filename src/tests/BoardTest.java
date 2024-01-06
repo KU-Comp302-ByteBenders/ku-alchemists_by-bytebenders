@@ -43,6 +43,11 @@ class BoardTest {
         }
     }
 
+     /**
+     * Requires: A Board instance with two users and their avatars.
+     * Modifies: Nothing.
+     * Effects: Asserts that each token has exactly 2 ingredients by default.
+     */
     @Test
     void testAddIngredient() {
         // parameters for testing
@@ -60,6 +65,11 @@ class BoardTest {
         }
     }
 
+    /**
+     * Requires: A Board instance with two users and their avatars.
+     * Modifies: The ingredients list in the Board instance.
+     * Effects: Asserts that the size of the ingredients list increases after calling addIngredient().
+     */
     @Test
     void testAddIngredientToNonEmptyBoard() {
         // parameters for testing
@@ -77,7 +87,11 @@ class BoardTest {
         assertTrue(board.getIngredients().size() > initialSize, "Adding ingredients should increase the total number of ingredients");
     }
 
-     // Glass-box tests
+     /**
+     * Requires: A Board instance with two users and their avatars.
+     * Modifies: The ingredients list in the Board instance and the ingredients in each Token.
+     * Effects: Asserts that the total number of ingredients in tokens increases after calling addIngredient().
+     */
     @Test
     void testAddIngredientDistribution() {
         // parameters for testing
@@ -104,6 +118,11 @@ class BoardTest {
         assertTrue(finalSize > initialSize, "Adding ingredients should increase the total number of ingredients in tokens");
     }
 
+     /**
+     * Requires: A Board instance with two users and their avatars.
+     * Modifies: The ingredients list in the Board instance.
+     * Effects: Asserts that the size of the ingredients list increases after calling addIngredient().
+     */
     @Test
     void testAddIngredientRemovalFromBoard() {
         // parameters for testing
@@ -121,8 +140,13 @@ class BoardTest {
         assertTrue(board.getIngredients().size() > initialSize, "Adding ingredients should increase the total number of ingredients on the board");
     }
 
+    /**
+     * Requires: A Board instance with two users and their avatars.
+     * Modifies: The ingredients list in the Board instance and the ingredients in each Token.
+     * Effects: Asserts that each token has exactly 2 ingredients by default, and 4 ingredients after calling addIngredient().
+     */
     @Test
-void testAddIngredientDistributionAndEmptyBoard() {
+    void testAddIngredientDistributionAndEmptyBoard() {
     // parameters for testing
     String username1 = "User1";
     String username2 = "User2";
