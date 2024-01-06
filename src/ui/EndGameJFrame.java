@@ -7,8 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import ui.interfaces.ChangeableVisibility;
 
-public class EndGameJFrame extends JFrame {
+public class EndGameJFrame extends JFrame implements ChangeableVisibility {
 
   JPanel northPanel;
   JPanel southPanel;
@@ -180,5 +181,10 @@ public class EndGameJFrame extends JFrame {
 
     // Make the frame visible
     this.setVisible(true);
+  }
+
+  @Override
+  public void changeVisible(Boolean visible) {
+    this.setVisible(visible);
   }
 }

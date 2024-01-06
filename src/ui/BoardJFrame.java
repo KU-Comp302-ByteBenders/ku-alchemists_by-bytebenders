@@ -13,9 +13,10 @@ import java.util.Map;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import ui.interfaces.ChangeableVisibility;
 import ui.uihelpers.RoundedButton;
 
-public class BoardJFrame extends JFrame {
+public class BoardJFrame extends JFrame implements ChangeableVisibility {
 
   Token token1;
   Token token2;
@@ -91,7 +92,6 @@ public class BoardJFrame extends JFrame {
   Map<ArtifactCard, ImageIcon> artifactImageMap;
 
   public BoardJFrame(Token currentToken, Board board, State state) {
-
     super("KUALCH");
     this.state = state;
     this.board = board;
@@ -103,7 +103,6 @@ public class BoardJFrame extends JFrame {
         break;
       }
     }
-
 
     setSize(1600, 900);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -348,13 +347,13 @@ public class BoardJFrame extends JFrame {
   public JButton endTurnButton() {
     JButton endTurnButton = new JButton("End Turn");
     endTurnButton.addActionListener(
-            new ActionListener() {
-              @Override
-              public void actionPerformed(ActionEvent e) {
-                state.endTurn(board, token1, token2);
-                closeBoard();
-              }
-            }
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          state.endTurn(board, token1, token2);
+          closeBoard();
+        }
+      }
     );
     return endTurnButton;
   }
@@ -382,7 +381,12 @@ public class BoardJFrame extends JFrame {
           if (BoardJFrame.this != null) {
             //TransmuteIngredientFrame tif = new TransmuteIngredientFrame(new ArrayList<>(token1.getIngredients()), board, BoardJFrame.this);
             //tif.setVisible(true);
-            Game.activateTransmuteIngredientFrame(new ArrayList<>(token1.getIngredients()), board, BoardJFrame.this, state);
+            Game.activateTransmuteIngredientFrame(
+              new ArrayList<>(token1.getIngredients()),
+              board,
+              BoardJFrame.this,
+              state
+            );
           }
         }
       }
@@ -412,20 +416,20 @@ public class BoardJFrame extends JFrame {
     JButton artifactUseButton = new JButton(artifactImageMap.get(artifactCard));
     artifactUseButton.setPreferredSize(new Dimension(60, 60));
     addTooltipToComponent(artifactUseButton, artifactCard.getName()); //added tool tips
-    
+
     //If it is printing press, it will not be clickable/actionable.
     if ("Printing Press" != artifactCard.getName() && "Magic Mortar" != artifactCard.getName()) {
       artifactUseButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          token.useArtifactCard(artifactCard, board);
-          artifactUseButton.setVisible(false);
-          token.removeArtifactCard(artifactCard);
-          updateTokensReputationLabel();
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            token.useArtifactCard(artifactCard, board);
+            artifactUseButton.setVisible(false);
+            token.removeArtifactCard(artifactCard);
+            updateTokensReputationLabel();
+          }
         }
-      }
-    );
+      );
     }
 
     artifactCardsArea.add(artifactUseButton);
@@ -484,10 +488,10 @@ public class BoardJFrame extends JFrame {
     }
     return null;
   }
-  
-  public String findImagePathByIngredient(String ing){  //finding image path of ingredient from string name
-    for (Ingredient ingred : token1.getIngredients()) {      
-      if (ingred.getName().equals(ing)) {        
+
+  public String findImagePathByIngredient(String ing) { //finding image path of ingredient from string name
+    for (Ingredient ingred : token1.getIngredients()) {
+      if (ingred.getName().equals(ing)) {
         return ingred.getImagePath();
       }
     }
@@ -506,7 +510,7 @@ public class BoardJFrame extends JFrame {
     );
     return experimentButton;
   }
-   
+
   public JButton SellPotionButton() {
     JButton useSellPotionButton = new JButton("Sell Potion");
 
@@ -520,7 +524,6 @@ public class BoardJFrame extends JFrame {
     );
     return useSellPotionButton;
   }
-
 
   public JButton exitButton() {
     ImageIcon exitIcon = new ImageIcon("src/ui/utils/exit.png");
@@ -655,7 +658,7 @@ public class BoardJFrame extends JFrame {
     );
     return publicationTrackButton;
   }
- 
+
   public void openPublishMenu() {
     Game.openPublishMenu(this, board, state);
   }
@@ -682,23 +685,26 @@ public class BoardJFrame extends JFrame {
   }
 
   public void addMiniPotionImage(Potion potion) {
-    ImageIcon potionIcon = new ImageIcon("src/ui/utils/mini_potion" + potion.getPotionColor()+ potion.getName() + ".jpg");
+    ImageIcon potionIcon = new ImageIcon(
+      "src/ui/utils/mini_potion" + potion.getPotionColor() + potion.getName() + ".jpg"
+    );
     JLabel potionLabel = new JLabel(potionIcon);
-    addTooltipToComponent(potionLabel, potion.getPotionColor()+" "+potion.getName()); //added tool tips
+    addTooltipToComponent(potionLabel, potion.getPotionColor() + " " + potion.getName()); //added tool tips
     potionArea.add(potionLabel);
     this.setVisible(false);
     this.setVisible(true);
   }
+
   public void removeMiniPotionImage(String potionImagePath) {
     for (Component component : potionArea.getComponents()) {
       if (component instanceof JLabel) {
         JLabel label = (JLabel) component;
         ImageIcon labelIcon = (ImageIcon) label.getIcon();
-        if(labelIcon != null){
+        if (labelIcon != null) {
           if (labelIcon.getDescription().equals(potionImagePath)) {
-              potionArea.remove(label);
-              break;
-            }
+            potionArea.remove(label);
+            break;
+          }
         }
       }
     }
@@ -706,76 +712,75 @@ public class BoardJFrame extends JFrame {
     this.setVisible(true);
   }
 
-  public void removeIngredient(String imagePath){
+  public void removeIngredient(String imagePath) {
     for (Component component : ingredientCardsArea.getComponents()) {
       if (component instanceof JLabel) {
         JLabel label = (JLabel) component;
         ImageIcon labelIcon = (ImageIcon) label.getIcon();
-        if(labelIcon != null){
+        if (labelIcon != null) {
           if (labelIcon.getDescription().equals(imagePath)) {
-              ingredientCardsArea.remove(label);
-              break;
-            }
+            ingredientCardsArea.remove(label);
+            break;
+          }
         }
       }
     }
     this.setVisible(false);
     this.setVisible(true);
   }
-  public void createRoundActions(Boolean endTurnFlag, State state){
 
+  public void createRoundActions(Boolean endTurnFlag, State state) {
     System.out.println("selam");
-    if(!endTurnFlag){
-    if(state.getCurrentRound() == 1){
-      forageButton = createForageButton();
-      eastPanel.add(forageButton);
-      transmuteButton = createTransmuteButton(getName());
-      eastPanel.add(transmuteButton);
-      experimentButton = createExperimentButton(board);
-      eastPanel.add(experimentButton);
-      artifactBuyerButton = createArtifactBuyerButton();
-      eastPanel.add(artifactBuyerButton);
-      endTurnButton = endTurnButton();
-      eastPanel.add(endTurnButton);
+    if (!endTurnFlag) {
+      if (state.getCurrentRound() == 1) {
+        forageButton = createForageButton();
+        eastPanel.add(forageButton);
+        transmuteButton = createTransmuteButton(getName());
+        eastPanel.add(transmuteButton);
+        experimentButton = createExperimentButton(board);
+        eastPanel.add(experimentButton);
+        artifactBuyerButton = createArtifactBuyerButton();
+        eastPanel.add(artifactBuyerButton);
+        endTurnButton = endTurnButton();
+        eastPanel.add(endTurnButton);
+      } else if (state.getCurrentRound() == 2) {
+        forageButton = createForageButton();
+        eastPanel.add(forageButton);
+        transmuteButton = createTransmuteButton(getName());
+        eastPanel.add(transmuteButton);
+        experimentButton = createExperimentButton(board);
+        eastPanel.add(experimentButton);
+        artifactBuyerButton = createArtifactBuyerButton();
+        eastPanel.add(artifactBuyerButton);
+        publishButton = publishTheoryButton();
+        eastPanel.add(publishButton);
+        publicationTrackButton = publicationTrackButton();
+        eastPanel.add(publicationTrackButton);
+        sellPotionButton = SellPotionButton();
+        eastPanel.add(sellPotionButton);
+        endTurnButton = endTurnButton();
+        eastPanel.add(endTurnButton);
+      } else if (state.getCurrentRound() == 3) {
+        forageButton = createForageButton();
+        eastPanel.add(forageButton);
+        transmuteButton = createTransmuteButton(getName());
+        eastPanel.add(transmuteButton);
+        debunkButton = debunkTheoryButton();
+        eastPanel.add(debunkButton);
+        experimentButton = createExperimentButton(board);
+        eastPanel.add(experimentButton);
+        artifactBuyerButton = createArtifactBuyerButton();
+        eastPanel.add(artifactBuyerButton);
+        publishButton = publishTheoryButton();
+        eastPanel.add(publishButton);
+        publicationTrackButton = publicationTrackButton();
+        eastPanel.add(publicationTrackButton);
+        sellPotionButton = SellPotionButton();
+        eastPanel.add(sellPotionButton);
+        endTurnButton = endTurnButton();
+        eastPanel.add(endTurnButton);
+      }
     }
-    else if (state.getCurrentRound() == 2){
-      forageButton = createForageButton();
-      eastPanel.add(forageButton);
-      transmuteButton = createTransmuteButton(getName());
-      eastPanel.add(transmuteButton);
-      experimentButton = createExperimentButton(board);
-      eastPanel.add(experimentButton);
-      artifactBuyerButton = createArtifactBuyerButton();
-      eastPanel.add(artifactBuyerButton);
-      publishButton = publishTheoryButton();
-      eastPanel.add(publishButton);
-      publicationTrackButton = publicationTrackButton();
-      eastPanel.add(publicationTrackButton);
-      sellPotionButton = SellPotionButton();
-      eastPanel.add(sellPotionButton);
-      endTurnButton = endTurnButton();
-      eastPanel.add(endTurnButton);
-    }
-    else if (state.getCurrentRound() == 3){
-      forageButton = createForageButton();
-      eastPanel.add(forageButton);
-      transmuteButton = createTransmuteButton(getName());
-      eastPanel.add(transmuteButton);
-      debunkButton = debunkTheoryButton();
-      eastPanel.add(debunkButton);
-      experimentButton = createExperimentButton(board);
-      eastPanel.add(experimentButton);
-      artifactBuyerButton = createArtifactBuyerButton();
-      eastPanel.add(artifactBuyerButton);
-      publishButton = publishTheoryButton();
-      eastPanel.add(publishButton);
-      publicationTrackButton = publicationTrackButton();
-      eastPanel.add(publicationTrackButton);
-      sellPotionButton = SellPotionButton();
-      eastPanel.add(sellPotionButton);
-      endTurnButton = endTurnButton();
-      eastPanel.add(endTurnButton);
-    }}
   }
 
   public void controlRoundActions(Boolean endTurnFlag, State state) {
@@ -807,8 +812,13 @@ public class BoardJFrame extends JFrame {
       }
     }
   }
+
   public void closeBoard() {
     this.setVisible(false);
   }
 
+  @Override
+  public void changeVisible(Boolean visible) {
+    this.setVisible(visible);
+  }
 }
