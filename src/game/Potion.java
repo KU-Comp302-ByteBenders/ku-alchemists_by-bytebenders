@@ -1,7 +1,10 @@
 package game;
 
-public class Potion {
+import java.io.Serializable;
 
+public class Potion implements Serializable {
+
+  private static final long serialVersionUID = 8L;
   private Ingredient ing1;
   private Ingredient ing2;
   private String name;

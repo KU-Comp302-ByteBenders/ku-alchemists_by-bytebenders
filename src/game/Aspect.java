@@ -1,11 +1,14 @@
 package game;
 
-public class Aspect {
+import java.io.Serializable;
+
+public class Aspect implements Serializable {
 
   private String color;
   private String size;
   private String sign;
   private String imagePath;
+  private static final long serialVersionUID = 3L;
 
   public Aspect(String color, String size, String sign, String imagePath) {
     this.color = color;

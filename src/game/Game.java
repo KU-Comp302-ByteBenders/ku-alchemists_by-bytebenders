@@ -1,5 +1,6 @@
 package game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.*;
@@ -10,7 +11,8 @@ import ui.interfaces.ChangeableVisibility;
  * This class is the Controller class.
  * Also a Singleton class.
  */
-public class Game {
+public class Game implements Serializable {
+  private static final long serialVersionUID = 6L;
 
   public int round;
   private Boolean activateBoard;

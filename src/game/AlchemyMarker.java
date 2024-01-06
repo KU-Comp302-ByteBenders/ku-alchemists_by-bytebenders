@@ -1,12 +1,14 @@
 package game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class AlchemyMarker {
+public class AlchemyMarker implements Serializable{
 
   private Aspect aspect1;
   private Aspect aspect2;
   private Aspect aspect3;
+  private static final long serialVersionUID = 2L;
 
   private String imagePath;
   private ArrayList<Aspect> aspectList = new ArrayList<Aspect>();
