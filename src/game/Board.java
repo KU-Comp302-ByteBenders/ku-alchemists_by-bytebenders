@@ -246,11 +246,9 @@ public class Board {
   }
 
   public boolean debunkTheory(Theory theory, Aspect aspect, Token token) throws Exception {
-    /* 
     if (theory.belongsToToken(token)) {
       throw new Exception("You can't debunk your own theory!");
     }
-    */
 
     if (theory.debunkSuccess(aspect)) {
       token.addReputation(2); // Increase reputation of the debunker
