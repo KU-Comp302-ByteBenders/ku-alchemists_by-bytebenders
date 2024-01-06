@@ -179,7 +179,6 @@ public class MakeExperimentJFrame extends JFrame {
             boardFrame.addMiniPotionImage(newPotion);
           showResult(newPotion.getName(), newPotion.getPotionColor());
           Game.controlRoundAction(boardFrame, state, true);
-          
         }
       }
     );
