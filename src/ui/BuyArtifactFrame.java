@@ -13,7 +13,7 @@ public class BuyArtifactFrame extends JFrame {
 
   Board board;
 
-  public BuyArtifactFrame(BoardJFrame boardJFrame, Board board, Token token1, Token token2, State state) {
+  public BuyArtifactFrame(BoardJFrame boardJFrame, Board board, Token token, State state) {
     this.board = board;
     setTitle("Buy Artifact Cards");
     setSize(400, 300);
@@ -32,12 +32,12 @@ public class BuyArtifactFrame extends JFrame {
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          if (token1.getGoldBalance() < board.getArtifactCards().get(0).getGoldPrice()) {
+          if (token.getGoldBalance() < board.getArtifactCards().get(0).getGoldPrice()) {
             System.err.println("You do not have enough gold to buy the artifact card!");
           } else {
             Game.controlRoundAction(boardJFrame, state, true);
-            Board.giveArtifactCardtoToken(token1, board.getArtifactCards().get(0));
-            boardJFrame.createArtifactUseButton(board.getArtifactCards().get(0), token1);
+            Board.giveArtifactCardtoToken(token, board.getArtifactCards().get(0));
+            boardJFrame.createArtifactUseButton(board.getArtifactCards().get(0), token);
 
             //boardJFrame.refreshArtifactCardsArea(board.getArtifactCards().get(1));
             closeArtifactBuyScreen();
@@ -51,12 +51,12 @@ public class BuyArtifactFrame extends JFrame {
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          if (token1.getGoldBalance() < board.getArtifactCards().get(1).getGoldPrice()) {
+          if (token.getGoldBalance() < board.getArtifactCards().get(1).getGoldPrice()) {
             System.err.println("You do not have enough gold to buy the artifact card!");
           } else {
             Game.controlRoundAction(boardJFrame, state, true);
-            Board.giveArtifactCardtoToken(token1, board.getArtifactCards().get(1));
-            boardJFrame.createArtifactUseButton(board.getArtifactCards().get(1), token1);
+            Board.giveArtifactCardtoToken(token, board.getArtifactCards().get(1));
+            boardJFrame.createArtifactUseButton(board.getArtifactCards().get(1), token);
 
             //boardJFrame.refreshArtifactCardsArea(board.getArtifactCards().get(0));
             closeArtifactBuyScreen();
@@ -70,12 +70,12 @@ public class BuyArtifactFrame extends JFrame {
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          if (token1.getGoldBalance() < board.getArtifactCards().get(2).getGoldPrice()) {
+          if (token.getGoldBalance() < board.getArtifactCards().get(2).getGoldPrice()) {
             System.err.println("You do not have enough gold to buy the artifact card!");
           } else {
             Game.controlRoundAction(boardJFrame, state, true);
-            Board.giveArtifactCardtoToken(token1, board.getArtifactCards().get(2));
-            boardJFrame.createArtifactUseButton(board.getArtifactCards().get(2), token1);
+            Board.giveArtifactCardtoToken(token, board.getArtifactCards().get(2));
+            boardJFrame.createArtifactUseButton(board.getArtifactCards().get(2), token);
             //boardJFrame.refreshArtifactCardsArea(board.getArtifactCards().get(2));
 
             closeArtifactBuyScreen();
@@ -89,12 +89,12 @@ public class BuyArtifactFrame extends JFrame {
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          if (token1.getGoldBalance() < board.getArtifactCards().get(3).getGoldPrice()) {
+          if (token.getGoldBalance() < board.getArtifactCards().get(3).getGoldPrice()) {
             System.err.println("You do not have enough gold to buy the artifact card!");
           } else {
             Game.controlRoundAction(boardJFrame, state, true);
-            Board.giveArtifactCardtoToken(token1, board.getArtifactCards().get(3));
-            boardJFrame.createArtifactUseButton(board.getArtifactCards().get(3), token1);
+            Board.giveArtifactCardtoToken(token, board.getArtifactCards().get(3));
+            boardJFrame.createArtifactUseButton(board.getArtifactCards().get(3), token);
             //boardJFrame.refreshArtifactCardsArea(board.getArtifactCards().get(3));
             closeArtifactBuyScreen();
             boardJFrame.updateTokensGoldLabel();
