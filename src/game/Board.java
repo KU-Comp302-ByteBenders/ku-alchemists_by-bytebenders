@@ -235,7 +235,7 @@ public class Board {
 
     //If the player has artifact card printing press, give him 1 gold
     if (token.checkPrintingPress() && token.getGoldBalance() >= 1) {
-      token.getArtifactCardByName("Printing Press").applyEffect(token, this);
+      token.getArtifactCardByName("Printing Press").applyEffect(token, this, null);
     }
 
     System.out.println("Theory published!");
