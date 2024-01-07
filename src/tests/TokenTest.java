@@ -8,6 +8,7 @@ import org.junit.Test;
 import game.Token;
 import game.Board;
 import game.Potion;
+import game.Ingredient;
 
 
 public class TokenTest {
@@ -19,22 +20,34 @@ public class TokenTest {
     @Before
     public void setUp() {    
         board.createIngredients();
+        // Add test ingredients to the token
         token.addIngredient(board.getIngredientByName("feather"));
         token.addIngredient(board.getIngredientByName("dragon fruit"));
         token.addIngredient(board.getIngredientByName("ginger"));
         token.addIngredient(board.getIngredientByName("obsidian"));      
     }
 
-    //controlling the make experiment result with the expected result
-    //if the name's are equal, the test is passed
+    //glass box testing
     @Test
     public void testMakeExperiment() {
-         
-        Potion potion1 = token.makeExperiment("feather", "dragon fruit", false);
-        Potion potion2 = new Potion("red", token.getIngredients().get(0)
-                        ,token.getIngredients().get(1), "+", "not negative potion");
-        
-        assertEquals(potion1.getName(), potion2.getName());
+        // Create test ingredients
+        Ingredient ingredient1 = token.getIngredients().get(0);
+        Ingredient ingredient2 = token.getIngredients().get(1);
+
+        // Call the makeExperiment method
+        Potion result = token.makeExperiment("feather", "dragon fruit", false);
+
+        // Assert the expected potion properties
+        assertEquals("Red", result.getPotionColor());
+        assertEquals("+", result.getName());
+        assertEquals("not negative potion", result.getGuarantee());
+
+        // Assert that the ingredients are removed from the token
+        assertFalse(token.getIngredients().contains(ingredient1));
+        assertFalse(token.getIngredients().contains(ingredient2));
+
+        // Assert that the potion is added to the token's potions list
+        assertTrue(token.getPotions().contains(result));
     }
 
     //if the color's are equal, the test is passed
@@ -102,11 +115,8 @@ public class TokenTest {
         
         testToken.decreaseSickness(1);
         assertFalse(testToken.repOK());
-
-        
-
-        
     }
+
     @Test
     public void testPotionTest(){
         // Test testPotion method control sickness level
@@ -117,8 +127,6 @@ public class TokenTest {
         int lastSickness = token.getSicknessLevel();
         token.testPotion(potion1, false);
         assertEquals(lastSickness, 1);
-        
-
     }
 
     @Test
@@ -160,7 +168,6 @@ public class TokenTest {
         token.transmuteIngredient("ginger");
         assertEquals(firstIngredientSize - 1, token.getIngredients().size());
     }
-
 }
 
  
