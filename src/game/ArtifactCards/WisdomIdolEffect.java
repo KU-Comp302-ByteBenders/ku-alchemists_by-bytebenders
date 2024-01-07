@@ -4,7 +4,6 @@ import javax.swing.JOptionPane;
 
 import game.Board;
 import game.Token;
-import ui.WisdomIdolJFrame;
 
 public class WisdomIdolEffect implements EffectStrategy {
 
