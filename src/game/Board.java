@@ -263,13 +263,23 @@ public class Board implements Serializable {
   }
 
   public boolean debunkTheory(Theory theory, Aspect aspect, Token token) throws Exception {
-     
     if (theory.belongsToToken(token)) {
       throw new Exception("You can't debunk your own theory!");
     }
-    
 
-    if (theory.debunkSuccess(aspect)) {
+    boolean wisdomIdolAppliedFlag = false;
+    Token owner = theory.getTheoryOwner();
+    ArtifactCard card = owner.getArtifactCardByName("Wisdom Idol");
+    if (card != null) {
+      card.applyEffect(token, this, null);
+      wisdomIdolAppliedFlag = card.isToBeAppliedFlag();
+    }
+
+    // debunk was successful but the player played it's artifact card wisdom idol
+    if (theory.debunkSuccess(aspect) && wisdomIdolAppliedFlag == true) {
+      token.addReputation(2); // Increase reputation of the debunker
+      return true;
+    } else if (theory.debunkSuccess(aspect) && wisdomIdolAppliedFlag == false) {
       token.addReputation(2); // Increase reputation of the debunker
       theory.getTheoryOwner().decreaseReputation(1); // Decrease reputation of the publisher
       return true;

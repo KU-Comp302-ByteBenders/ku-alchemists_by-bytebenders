@@ -9,21 +9,36 @@ import ui.interfaces.ChangeableVisibility;
 public class MainMenuJFrame extends JFrame implements ChangeableVisibility {
 
   public MainMenuJFrame() {
-    this.setSize(1280, 720);
+    super("KU Alchemists");
+    this.setSize(960, 720);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(null);
     this.setResizable(false);
 
-    JLabel titleLabel = new JLabel("KU ALCHEMIST");
-    titleLabel.setForeground(Color.RED);
-    titleLabel.setBounds(550, 150, 150, 30);
+    // Load the image
+    ImageIcon imageIcon = new ImageIcon("src/ui/utils/google_chateau.png");
+
+    // Scale the image to fit the frame
+    Image image = imageIcon.getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT);
+    imageIcon = new ImageIcon(image);
+
+    // Add the background image
+    JLabel background = new JLabel(imageIcon);
+    background.setBounds(0, 0, this.getWidth(), this.getHeight());
+    this.add(background);
+
+    JLabel titleLabel = new JLabel("KU ALCHEMISTS");
+    titleLabel.setForeground(Color.WHITE);
+    titleLabel.setFont(new Font("Arial", Font.BOLD, 50));
+    titleLabel.setBounds(470, 50, 500, 100);
 
     JLabel versionLabel = new JLabel("by ByteBenders");
-    versionLabel.setForeground(Color.BLACK);
-    versionLabel.setBounds(550, 180, 150, 30);
+    versionLabel.setForeground(Color.WHITE);
+    versionLabel.setFont(new Font("Arial", Font.BOLD, 20));
+    versionLabel.setBounds(600, 135, 200, 30);
 
     JButton newGameButton = new JButton("NEW GAME");
-    newGameButton.setBounds(550, 220, 150, 30);
+    newGameButton.setBounds(580, 260, 200, 50);
 
     // Add ActionListener to the "NEW GAME" button
     newGameButton.addActionListener(
@@ -37,7 +52,7 @@ public class MainMenuJFrame extends JFrame implements ChangeableVisibility {
     );
 
     JButton helpButton = new JButton("HELP");
-    helpButton.setBounds(550, 260, 150, 30);
+    helpButton.setBounds(580, 320, 200, 50);
 
     // Add ActionListener to the "HELP" button
     helpButton.addActionListener(
@@ -50,7 +65,7 @@ public class MainMenuJFrame extends JFrame implements ChangeableVisibility {
     );
 
     JButton exitButton = new JButton("EXIT");
-    exitButton.setBounds(550, 300, 150, 30);
+    exitButton.setBounds(580, 380, 200, 50);
 
     exitButton.addActionListener(
       new ActionListener() {
@@ -60,12 +75,19 @@ public class MainMenuJFrame extends JFrame implements ChangeableVisibility {
         }
       }
     );
-
+      /* 
     this.add(titleLabel);
     this.add(versionLabel);
     this.add(newGameButton);
     this.add(helpButton);
     this.add(exitButton);
+      */
+      
+    background.add(titleLabel);
+    background.add(versionLabel);
+    background.add(newGameButton);
+    background.add(helpButton);
+    background.add(exitButton);
 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int x = (screenSize.width - this.getWidth()) / 2;
@@ -83,3 +105,5 @@ public class MainMenuJFrame extends JFrame implements ChangeableVisibility {
     this.setVisible(visible);
   }
 }
+
+
