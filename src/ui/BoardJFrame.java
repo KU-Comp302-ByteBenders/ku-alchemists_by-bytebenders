@@ -427,7 +427,7 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility {
     addTooltipToComponent(artifactUseButton, artifactCard.getName()); //added tool tips
 
     //If it is printing press, it will not be clickable/actionable.
-    if ("Printing Press" != artifactCard.getName() && "Magic Mortar" != artifactCard.getName()) {
+    if ("Printing Press" != artifactCard.getName() && "Magic Mortar" != artifactCard.getName() && "Wisdom Idol" != artifactCard.getName()) {
       artifactUseButton.addActionListener(
         new ActionListener() {
           @Override

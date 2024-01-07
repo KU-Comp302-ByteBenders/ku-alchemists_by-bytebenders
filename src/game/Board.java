@@ -278,13 +278,17 @@ public class Board implements Serializable {
     // debunk was successful but the player played it's artifact card wisdom idol
     if (theory.debunkSuccess(aspect) && wisdomIdolAppliedFlag == true) {
       token.addReputation(2); // Increase reputation of the debunker
-      owner.removeArtifactCard(card); // Decrease reputation of the publisher
+      owner.removeArtifactCard(card); // Remove the used wisdom idol card from the player
       return true;
     } else if (theory.debunkSuccess(aspect) && wisdomIdolAppliedFlag == false) {
       token.addReputation(2); // Increase reputation of the debunker
       theory.getTheoryOwner().decreaseReputation(1); // Decrease reputation of the publisher
       return true;
-    } else { // Debunk failed
+    } else if (!theory.debunkSuccess(aspect) && wisdomIdolAppliedFlag == true) { // Debunk failed
+      token.decreaseReputation(1); // Decrease reputation of the publisher
+      owner.removeArtifactCard(card); // Remove the used wisdom idol card from the player
+      return false;
+    } else {
       token.decreaseReputation(1); // Decrease reputation of the publisher
       return false;
     }
