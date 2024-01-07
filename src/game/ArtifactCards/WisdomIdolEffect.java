@@ -14,7 +14,7 @@ public class WisdomIdolEffect implements EffectStrategy {
 
     // Add confirmation dialog
     int confirmed = JOptionPane.showConfirmDialog(null, 
-      "Are you sure you want to apply the Wisdom Idol effect?", "Confirmation", 
+       "Is the Theory Owner sure that they want to apply the Wisdom Idol effect?", "Confirmation", 
       JOptionPane.YES_NO_OPTION);
 
     if (confirmed == JOptionPane.YES_OPTION) {
