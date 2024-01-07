@@ -183,7 +183,7 @@ public class Board implements Serializable {
     ArtifactCard artifactCard1 = new ArtifactCard("Elixir of Insight", 2, new ElixirOfInsightEffect());
     ArtifactCard artifactCard2 = new ArtifactCard("Magic Mortar", 1, new MagicMortarEffect());
     ArtifactCard artifactCard3 = new ArtifactCard("Printing Press", 2, new PrintingPressEffect());
-    ArtifactCard artifactCard4 = new ArtifactCard("Wisdom idol", 3, new WisdomIdolEffect());
+    ArtifactCard artifactCard4 = new ArtifactCard("Wisdom Idol", 3, new WisdomIdolEffect());
 
     artifactCards.add(artifactCard1);
     artifactCards.add(artifactCard2);
@@ -271,13 +271,14 @@ public class Board implements Serializable {
     Token owner = theory.getTheoryOwner();
     ArtifactCard card = owner.getArtifactCardByName("Wisdom Idol");
     if (card != null) {
-      card.applyEffect(token, this, null);
+      card.applyEffect(owner, this, null);
       wisdomIdolAppliedFlag = card.isToBeAppliedFlag();
     }
 
     // debunk was successful but the player played it's artifact card wisdom idol
     if (theory.debunkSuccess(aspect) && wisdomIdolAppliedFlag == true) {
       token.addReputation(2); // Increase reputation of the debunker
+      owner.removeArtifactCard(card); // Decrease reputation of the publisher
       return true;
     } else if (theory.debunkSuccess(aspect) && wisdomIdolAppliedFlag == false) {
       token.addReputation(2); // Increase reputation of the debunker

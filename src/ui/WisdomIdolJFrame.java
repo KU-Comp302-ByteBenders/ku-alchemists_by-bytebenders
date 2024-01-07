@@ -1,11 +1,14 @@
 package ui;
 
 import javax.swing.*;
+
+import game.ArtifactCards.ArtifactCard;
+
 import java.awt.event.*;
 
 public class WisdomIdolJFrame extends JFrame {
 
-  public WisdomIdolJFrame() {
+  public WisdomIdolJFrame(ArtifactCard artifactCard) {
 
     // Create the label and buttons
     JLabel questionLabel = new JLabel("Do you want to use your Magic Mortar artifact card?");
@@ -16,14 +19,16 @@ public class WisdomIdolJFrame extends JFrame {
     yesButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        // TODO: Add code to handle the Yes button click
+        artifactCard.setToBeAppliedFlag(true);
+        dispose();
       }
     });
 
     noButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        // TODO: Add code to handle the No button click
+        artifactCard.setToBeAppliedFlag(false);
+        dispose();
       }
     });
 
