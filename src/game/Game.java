@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.*;
+
+import game.ArtifactCards.ArtifactCard;
 import ui.*;
 import ui.interfaces.ChangeableVisibility;
 
@@ -157,6 +159,18 @@ public class Game implements Serializable {
 
   public static void openPotionJFrame(Token token, Board board, BoardJFrame boardJFrame, State state) {
     PotionJFrame potionJFrame = new PotionJFrame(token, board, boardJFrame, state);
+  }
+
+  public static void openWisdomIdolConfirmationDialog(ArtifactCard artifactCard) {
+    // Add confirmation dialog
+    int confirmed = JOptionPane.showConfirmDialog(null, 
+    "Is the Theory Owner sure that they want to apply the Wisdom Idol effect?", "Confirmation", 
+    JOptionPane.YES_NO_OPTION);
+
+    if (confirmed == JOptionPane.YES_OPTION) {
+      // If the user confirmed, set the flag to true
+      artifactCard.setToBeAppliedFlag(true);
+    }
   }
 
   public static void controlRoundAction(BoardJFrame boardJFrame, State state, Boolean endTurnFlag) {
