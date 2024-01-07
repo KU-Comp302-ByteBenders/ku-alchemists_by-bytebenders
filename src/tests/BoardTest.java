@@ -140,6 +140,26 @@ class BoardTest {
         board.addIngredient();
         assertTrue(board.getIngredients().size() > initialSize, "Adding ingredients should increase the total number of ingredients on the board");
     }
+    
+    /*
+     * Requires: A Board instance that has been initialized with two usernames and two avatars. The Board class should have an addIngredient() method and a getIngredients() method.
+     * Modifies: This test modifies the Board instance by calling the addIngredient() method. This method is expected to add an ingredient to the Board.
+     * Effects: The test asserts that the getIngredients() method should return a non-empty list after addIngredient() is called. If this is not the case, the test will fail, indicating that the addIngredient() method did not work as expected.
+     */
+    @Test
+    void testAddIngredient2() {
+        // parameters for testing
+        String username1 = "User1";
+        String username2 = "User2";
+        String avatar1 = "Avatar1";
+        String avatar2 = "Avatar2";
+
+        // I create a board with the parameters
+        Board board = new Board(username1, username2, avatar1, avatar2);
+        board.addIngredient();
+        assertTrue(!board.getIngredients().isEmpty(), "The ingredients list shouldn't be empty after calling addIngredient()");
+    }
+
 
     /**
      * Requires: A Board instance with two users and their avatars.

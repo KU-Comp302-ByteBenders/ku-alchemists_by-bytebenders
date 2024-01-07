@@ -14,6 +14,8 @@ public class ArtifactCard implements EffectStrategy, Serializable {
   private String name;
   private int goldPrice;
   private EffectStrategy effect;
+  // To be used in Wisdom Idol card
+  private boolean toBeAppliedFlag = false;
 
   public ArtifactCard(String name, int goldPrice, EffectStrategy effect) {
     this.name = name;
@@ -33,6 +35,13 @@ public class ArtifactCard implements EffectStrategy, Serializable {
     this.effect = effect;
   }
 
+  public boolean isToBeAppliedFlag() {
+    return toBeAppliedFlag;
+  }
+
+  public void setToBeAppliedFlag(boolean toBeAppliedFlag) {
+    this.toBeAppliedFlag = toBeAppliedFlag;
+  }
   @Override
   public void applyEffect(Token token, Board board, String ing) {
     effect.applyEffect(token, board, ing);
