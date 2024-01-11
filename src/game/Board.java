@@ -225,6 +225,7 @@ public class Board implements Serializable {
     return staticAlchemyMarkers;
   }
 
+
   public State getState() {
     return state;
   }

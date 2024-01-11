@@ -52,6 +52,7 @@ public class Server implements Serializable {
     // TODO: OPENS A NEW FRAME FOR THE PLAYER WHO IS SERVER
     for (ClientHandler client : clients) {
       client.sendObject(board);
+      client.sendObject(board.getState());
     }
   }
 
@@ -77,7 +78,8 @@ public class Server implements Serializable {
     return ip;
   }
 
-  public HashMap<String, String> getCredentials() {
+
+    public HashMap<String, String> getCredentials() {
     return credentials;
   }
 
@@ -154,6 +156,14 @@ public class Server implements Serializable {
       for (ClientHandler client : clients) {
         if (client != this) {
           client.sendMessage(message);
+        }
+      }
+    }
+
+    private void broadcastObject(Object object) {
+      for (ClientHandler client : clients) {
+        if (client != this) {
+          client.sendObject(object);
         }
       }
     }

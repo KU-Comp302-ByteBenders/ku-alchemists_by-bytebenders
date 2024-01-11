@@ -84,7 +84,7 @@ public class DebunkTheoryJFrame extends JFrame {
                     }
                   }
                 };
-                ConfirmJFrame confirmJFrame = new ConfirmJFrame((String) e.getItem(), ingredient.getName(), listener);
+               // ConfirmJFrame confirmJFrame = new ConfirmJFrame((String) e.getItem(), ingredient.getName(), listener);
               }
             }
           }
