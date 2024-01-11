@@ -1,5 +1,7 @@
 package game;
 
+import ui.OnlineBoardJFrame;
+
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -7,6 +9,9 @@ import java.util.Scanner;
 
 public class Client implements Serializable {
   private static final long serialVersionUID = 4L;
+  public Board board;
+  public State state;
+  public Token token;
 
   public Client() {}
 
@@ -24,20 +29,29 @@ public class Client implements Serializable {
 
       new Thread(() -> {
         try {
-          while (true) {
+          while (board == null || state == null) {
             Object serverObject = objectIn.readObject(); // The object that comes from server
             System.out.println("Server object: " + serverObject.toString());
-            // TODO: HANDLE THE BOARD THAT COMES FROM SERVER AND OPEN A NEW FRAME
             if (serverObject instanceof Board) {
-              Board board = (Board) serverObject;
-              System.out.println("board object: " + board.toString());
+              board = (Board) serverObject;
+              System.out.println("Board object: " + board.toString());
+            } else if (serverObject instanceof State) {
+              state = (State) serverObject;
+              System.out.println("State object: " + state.toString());
             }
           }
         } catch (IOException | ClassNotFoundException e) {
           e.printStackTrace();
+        } finally {
+          for(Token token : board.getTokens()) {
+            if(token.getUsername().equals(username)) {
+              this.token = token;
+            }
+          }
+          new OnlineBoardJFrame(token, board, state);
         }
       })
-        .start();
+              .start();
     } catch (Exception e) {
       e.printStackTrace();
     }

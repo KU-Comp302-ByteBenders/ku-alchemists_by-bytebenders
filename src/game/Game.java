@@ -75,11 +75,13 @@ public class Game implements Serializable {
   public void startGame(String username1, String username2, String avatar1, String avatar2, JFrame loginScreen) {
     Board board = new Board(username1, username2, avatar1, avatar2);
     loginScreen.setVisible(false);
+
   }
 
   public void startGameOnline(HashMap<String, String> credentials, JFrame loginScreen) {
     Board board = new Board(credentials);
     loginScreen.setVisible(false);
+    server.getBoard(board, board.getState());
   }
 
   public void startGameOnline() {

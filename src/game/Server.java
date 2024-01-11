@@ -77,7 +77,15 @@ public class Server implements Serializable {
     return ip;
   }
 
-  public HashMap<String, String> getCredentials() {
+  public void getBoard( Board board, State state) {
+    for (ClientHandler client : clients) {
+      client.sendObject(board);
+      client.sendObject(state);
+    }
+  }
+
+
+    public HashMap<String, String> getCredentials() {
     return credentials;
   }
 
@@ -154,6 +162,14 @@ public class Server implements Serializable {
       for (ClientHandler client : clients) {
         if (client != this) {
           client.sendMessage(message);
+        }
+      }
+    }
+
+    private void broadcastObject(Object object) {
+      for (ClientHandler client : clients) {
+        if (client != this) {
+          client.sendObject(object);
         }
       }
     }

@@ -663,7 +663,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          Game.openPotionJFrame(board, OnlineBoardJFrame.this, state);
+          Game.openPotionJFrame(token1, board, OnlineBoardJFrame.this, state);
         }
       }
     );
@@ -805,11 +805,11 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
   }
 
   public void openPublishMenu() {
-    Game.openPublishMenu(this, board, state);
+    Game.openPublishMenu(this, board, state, token1);
   }
 
   public void openDebunkMenu() {
-    Game.openDebunkMenu(this, board, state);
+    Game.openDebunkMenu(this, board, state, token1);
   }
 
   public void openPublicationTrack() {
