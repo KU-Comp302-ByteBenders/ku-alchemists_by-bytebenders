@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import ui.OfflineBoardJFrame;
 import ui.OnlineBoardJFrame;
 import ui.TransitionStarterJFrame;
 
@@ -45,7 +46,7 @@ public class Board implements Serializable {
     // init state object
     state = new State(tokens);
     Token firstToken = state.selectRandomToken();
-    OnlineBoardJFrame onlineBoardJFrame = new OnlineBoardJFrame(firstToken, this, state); //online board creation
+    OfflineBoardJFrame offlineBoardJFrame = new OfflineBoardJFrame(firstToken, this, state); //online board creation
     //TransitionStarterJFrame transitionStarterJFrame = new TransitionStarterJFrame(firstToken, this, state);
 
     theories = new ArrayList<Theory>();

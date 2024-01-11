@@ -47,7 +47,7 @@ public class TransitionJFrame extends JFrame {
         startButton.addActionListener( new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new BoardJFrame(token, board, state);
+                new OfflineBoardJFrame(token, board, state);
             }
         });
 
