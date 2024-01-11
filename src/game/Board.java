@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+
+import ui.OnlineBoardJFrame;
 import ui.TransitionStarterJFrame;
 
 public class Board implements Serializable {
@@ -43,7 +45,8 @@ public class Board implements Serializable {
     // init state object
     state = new State(tokens);
     Token firstToken = state.selectRandomToken();
-    TransitionStarterJFrame transitionStarterJFrame = new TransitionStarterJFrame(firstToken, this, state);
+    OnlineBoardJFrame onlineBoardJFrame = new OnlineBoardJFrame(firstToken, this, state); //online board creation
+    //TransitionStarterJFrame transitionStarterJFrame = new TransitionStarterJFrame(firstToken, this, state);
 
     theories = new ArrayList<Theory>();
   }

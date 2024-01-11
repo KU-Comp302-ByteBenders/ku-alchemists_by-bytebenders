@@ -1,6 +1,8 @@
 package ui;
 
 import game.*;
+import ui.interfaces.BoardFrame;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,11 +13,11 @@ public class TransmuteIngredientFrame extends JFrame {
 
   private ArrayList<Ingredient> displayedIngredients;
   private Board mainBoard;
-  private BoardJFrame boardFrame;
+  private BoardFrame boardFrame;
     private State state;
     private Boolean endTurnFlag;
 
-  public TransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard, BoardJFrame boardFrame, State state) {
+  public TransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard, BoardFrame boardFrame, State state) {
     this.displayedIngredients = new ArrayList<>(displayedIngredients);
     this.mainBoard = mainBoard;
     this.boardFrame = boardFrame;

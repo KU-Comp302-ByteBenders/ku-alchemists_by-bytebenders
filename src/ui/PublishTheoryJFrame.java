@@ -1,6 +1,7 @@
 package ui;
 
 import game.*;
+import ui.interfaces.BoardFrame;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -15,7 +16,7 @@ public class PublishTheoryJFrame extends JFrame {
   private Ingredient selectedIngredient = null;
   private AlchemyMarker selectedAlchemyMarker = null;
 
-  public PublishTheoryJFrame(BoardJFrame boardJFrame, Board board, State state) {
+  public PublishTheoryJFrame(BoardFrame boardFrame, Board board, State state) {
     this.setSize(1280, 720);
     this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
     this.setResizable(false);
@@ -88,9 +89,9 @@ public class PublishTheoryJFrame extends JFrame {
           try {
             Token token = board.getState().getCurrentToken();
             token.publishTheory(board, selectedIngredient, selectedAlchemyMarker);
-            boardJFrame.updateTokensGoldLabel();
-            boardJFrame.updateTokensReputationLabel();
-            Game.controlRoundAction(boardJFrame, state, true);
+            boardFrame.updateTokensGoldLabel();
+            boardFrame.updateTokensReputationLabel();
+            Game.controlRoundAction(boardFrame, state, true);
           } catch (Exception exception) {
             JOptionPane.showMessageDialog(null, exception.getMessage());
             return;

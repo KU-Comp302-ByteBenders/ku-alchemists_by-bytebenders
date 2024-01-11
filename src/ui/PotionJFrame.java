@@ -1,6 +1,8 @@
 package ui;
 
 import game.*;
+import ui.interfaces.BoardFrame;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -10,7 +12,7 @@ import javax.swing.border.LineBorder;
 
 
 public class PotionJFrame extends JFrame {
-    BoardJFrame boardFrame;
+    BoardFrame boardFrame;
     Board board;
     Token token1;
     Border lineBorder;
@@ -33,7 +35,7 @@ public class PotionJFrame extends JFrame {
 
 
 
-  public PotionJFrame(Board board, BoardJFrame boardFrame, State state) {
+  public PotionJFrame(Board board, BoardFrame boardFrame, State state) {
     this.board = board;
     this.boardFrame = boardFrame;
     token1 = board.getTokens().get(0);
