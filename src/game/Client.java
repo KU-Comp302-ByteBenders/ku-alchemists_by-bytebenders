@@ -29,15 +29,12 @@ public class Client implements Serializable {
 
       new Thread(() -> {
         try {
-          while (board == null || state == null) {
+          while (board == null) {
             Object serverObject = objectIn.readObject(); // The object that comes from server
             System.out.println("Server object: " + serverObject.toString());
             if (serverObject instanceof Board) {
               board = (Board) serverObject;
               System.out.println("Board object: " + board.toString());
-            } else if (serverObject instanceof State) {
-              state = (State) serverObject;
-              System.out.println("State object: " + state.toString());
             }
           }
         } catch (IOException | ClassNotFoundException e) {
@@ -48,7 +45,7 @@ public class Client implements Serializable {
               this.token = token;
             }
           }
-          new OnlineBoardJFrame(token, board, state);
+          new OnlineBoardJFrame(token, board, board.getState());
         }
       })
               .start();

@@ -130,17 +130,17 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     setResizable(false);
     setLayout(new BorderLayout());
 
-    this.artifactImageMap =
-      Map.of(
-        board.getArtifactCards().get(0),
-        artifact1Icon,
-        board.getArtifactCards().get(1),
-        artifact2Icon,
-        board.getArtifactCards().get(2),
-        artifact3Icon,
-        board.getArtifactCards().get(3),
-        artifact4Icon
-      );
+    // this.artifactImageMap =
+    //   Map.of(
+    //     board.getArtifactCards().get(0),
+    //     artifact1Icon,
+    //     board.getArtifactCards().get(1),
+    //     artifact2Icon,
+    //     board.getArtifactCards().get(2),
+    //     artifact3Icon,
+    //     board.getArtifactCards().get(3),
+    //     artifact4Icon
+    //   );
 
     // CREATE THE JPANELS AND JLABELS
 

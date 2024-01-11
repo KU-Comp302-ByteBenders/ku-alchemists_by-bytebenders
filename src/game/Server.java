@@ -52,7 +52,6 @@ public class Server implements Serializable {
     // TODO: OPENS A NEW FRAME FOR THE PLAYER WHO IS SERVER
     for (ClientHandler client : clients) {
       client.sendObject(board);
-      client.sendObject(board.getState());
     }
   }
 

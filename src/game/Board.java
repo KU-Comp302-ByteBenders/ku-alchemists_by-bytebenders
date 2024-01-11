@@ -66,6 +66,8 @@ public class Board implements Serializable {
       token.addGold(10);
     }
 
+    state = new State(tokens);
+
     this.addIngredient();
     this.createArtifactCards();
   }
