@@ -35,15 +35,23 @@ public class Server implements Serializable {
         Socket clientSocket = serverSocket.accept();
         System.out.println("Connection established with client");
 
-        // Create a new thread to handle the client
         ClientHandler clientHandler = new ClientHandler(clientSocket);
         clientHandler.setWaitingFrame(waitingFrame);
         clientHandler.setServer(this);
         clients.add(clientHandler);
-        new Thread(clientHandler).start();
+        new Thread(clientHandler).start(); // Clients starts to listen.
       }
     } catch (IOException e) {
       e.printStackTrace();
+    }
+  }
+
+  public void startGame() {
+    // Send the board to all clients
+    Board board = new Board(credentials);
+    // TODO: OPENS A NEW FRAME FOR THE PLAYER WHO IS SERVER
+    for (ClientHandler client : clients) {
+      client.sendObject(board);
     }
   }
 

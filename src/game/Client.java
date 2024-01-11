@@ -22,22 +22,12 @@ public class Client implements Serializable {
       dataOut.writeUTF("credentials " + username + " " + avatar);
       dataOut.flush();
 
-      // new Thread(() -> {
-      //   try {
-      //     while (true) {
-      //       String serverMessage = dataIn.readUTF(); // The message that comes from server
-      //     }
-      //   } catch (IOException e) {
-      //     e.printStackTrace();
-      //   }
-      // })
-      //   .start();
-
       new Thread(() -> {
         try {
           while (true) {
             Object serverObject = objectIn.readObject(); // The object that comes from server
             System.out.println("Server object: " + serverObject.toString());
+            // TODO: HANDLE THE BOARD THAT COMES FROM SERVER AND OPEN A NEW FRAME
             if (serverObject instanceof Board) {
               Board board = (Board) serverObject;
               System.out.println("board object: " + board.toString());
