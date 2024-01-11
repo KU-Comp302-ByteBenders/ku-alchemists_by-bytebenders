@@ -1,6 +1,9 @@
 package game;
 
-public class Theory {
+import java.io.Serializable;
+
+public class Theory implements Serializable {
+  private static final long serialVersionUID = 11L;
 
   private String theoryName;
   private Ingredient theoryIngredient;

@@ -1,9 +1,11 @@
 package game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import ui.EndGameJFrame;
 
-public class EndGamer {
+public class EndGamer implements Serializable {
+  private static final long serialVersionUID = 5L;
 
   private ArrayList<Token> tokens;
   private int winner; // -1 for tie, 0 for token1, 1 for token2

@@ -186,7 +186,7 @@ public class Board implements Serializable {
     ArtifactCard artifactCard1 = new ArtifactCard("Elixir of Insight", 2, new ElixirOfInsightEffect());
     ArtifactCard artifactCard2 = new ArtifactCard("Magic Mortar", 1, new MagicMortarEffect());
     ArtifactCard artifactCard3 = new ArtifactCard("Printing Press", 2, new PrintingPressEffect());
-    ArtifactCard artifactCard4 = new ArtifactCard("Wisdom idol", 3, new WisdomIdolEffect());
+    ArtifactCard artifactCard4 = new ArtifactCard("Wisdom Idol", 3, new WisdomIdolEffect());
 
     artifactCards.add(artifactCard1);
     artifactCards.add(artifactCard2);
@@ -266,17 +266,32 @@ public class Board implements Serializable {
   }
 
   public boolean debunkTheory(Theory theory, Aspect aspect, Token token) throws Exception {
-     
     if (theory.belongsToToken(token)) {
       throw new Exception("You can't debunk your own theory!");
     }
-    
 
-    if (theory.debunkSuccess(aspect)) {
+    boolean wisdomIdolAppliedFlag = false;
+    Token owner = theory.getTheoryOwner();
+    ArtifactCard card = owner.getArtifactCardByName("Wisdom Idol");
+    if (card != null) {
+      card.applyEffect(owner, this, null);
+      wisdomIdolAppliedFlag = card.isToBeAppliedFlag();
+    }
+
+    // debunk was successful but the player played it's artifact card wisdom idol
+    if (theory.debunkSuccess(aspect) && wisdomIdolAppliedFlag == true) {
+      token.addReputation(2); // Increase reputation of the debunker
+      owner.removeArtifactCard(card); // Remove the used wisdom idol card from the player
+      return true;
+    } else if (theory.debunkSuccess(aspect) && wisdomIdolAppliedFlag == false) {
       token.addReputation(2); // Increase reputation of the debunker
       theory.getTheoryOwner().decreaseReputation(1); // Decrease reputation of the publisher
       return true;
-    } else { // Debunk failed
+    } else if (!theory.debunkSuccess(aspect) && wisdomIdolAppliedFlag == true) { // Debunk failed
+      token.decreaseReputation(1); // Decrease reputation of the publisher
+      owner.removeArtifactCard(card); // Remove the used wisdom idol card from the player
+      return false;
+    } else {
       token.decreaseReputation(1); // Decrease reputation of the publisher
       return false;
     }

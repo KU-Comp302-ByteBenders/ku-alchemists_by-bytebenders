@@ -35,10 +35,10 @@ public class PotionJFrame extends JFrame {
 
 
 
-  public PotionJFrame(Board board, BoardFrame boardFrame, State state) {
+  public PotionJFrame(Token token, Board board, BoardFrame boardFrame, State state) {
     this.board = board;
     this.boardFrame = boardFrame;
-    token1 = board.getTokens().get(0);
+    token1 = token;
 
     potionModel = new DefaultComboBoxModel<>();
     potionComboBox1 = new JComboBox<>(potionModel);

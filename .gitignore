@@ -1,2 +1,5 @@
 .prettierrc.yaml
-.out
+out/
+bin/
+.DS_Store
+

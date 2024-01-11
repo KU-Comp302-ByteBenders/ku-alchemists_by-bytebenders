@@ -1,9 +1,6 @@
 package game;
 
 import java.io.*;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.ServerSocket;
@@ -15,7 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import ui.WaitingJFrame;
 
-public class Server {
+public class Server implements Serializable {
+  private static final long serialVersionUID = 9L;
 
   private static final int PORT = 5001;
   private static final List<ClientHandler> clients = new ArrayList<>();
@@ -24,8 +22,11 @@ public class Server {
 
   public Server() {}
 
-  public void startServer() {
+  public void startServer(String username, String avatar) {
+    credentials.put(username, avatar); // Host's credentials
+
     String ip = getIp();
+
     try {
       ServerSocket serverSocket = new ServerSocket(PORT, 0, InetAddress.getByName(ip));
       System.out.println("Server waiting for clients on port " + PORT);
@@ -34,21 +35,28 @@ public class Server {
         Socket clientSocket = serverSocket.accept();
         System.out.println("Connection established with client");
 
-        // Create a new thread to handle the client
         ClientHandler clientHandler = new ClientHandler(clientSocket);
         clientHandler.setWaitingFrame(waitingFrame);
         clientHandler.setServer(this);
-        clientHandler.sendObject(new Board(ip, ip, ip, ip));
         clients.add(clientHandler);
-        new Thread(clientHandler).start();
+        new Thread(clientHandler).start(); // Clients starts to listen.
       }
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
+  public void startGame() {
+    // Send the board to all clients
+    Board board = new Board(credentials);
+    // TODO: OPENS A NEW FRAME FOR THE PLAYER WHO IS SERVER
+    for (ClientHandler client : clients) {
+      client.sendObject(board);
+    }
+  }
+
   public String getIp() {
-    String ip = "127.0.0.1";
+    String ip = "127.0.0.1"; // Dummy IP address
     try {
       Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
       while (networkInterfaces.hasMoreElements()) {
@@ -93,8 +101,8 @@ public class Server {
       try {
         dataIn = new DataInputStream(clientSocket.getInputStream());
         dataOut = new DataOutputStream(clientSocket.getOutputStream());
-        objectIn = new ObjectInputStream(clientSocket.getInputStream());
         objectOut = new ObjectOutputStream(clientSocket.getOutputStream());
+        objectIn = new ObjectInputStream(clientSocket.getInputStream());
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -110,6 +118,9 @@ public class Server {
             String avatar = clientMessage.split(" ")[2];
             server.getCredentials().put(username, avatar);
             waitingFrame.addPlayer(username, avatar);
+            for (String u : server.getCredentials().keySet()) {
+              System.out.println("username: " + u + " avatar: " + server.getCredentials().get(u));
+            }
           }
         }
       } catch (IOException e) {
@@ -124,6 +135,7 @@ public class Server {
       try {
         objectOut.writeObject(object);
         objectOut.flush();
+        System.out.println("sended the object.");
       } catch (IOException e) {
         e.printStackTrace();
       }

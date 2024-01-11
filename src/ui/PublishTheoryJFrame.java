@@ -16,7 +16,7 @@ public class PublishTheoryJFrame extends JFrame {
   private Ingredient selectedIngredient = null;
   private AlchemyMarker selectedAlchemyMarker = null;
 
-  public PublishTheoryJFrame(BoardFrame boardFrame, Board board, State state) {
+  public PublishTheoryJFrame(BoardFrame boardFrame, Board board, State state, Token token1) {
     this.setSize(1280, 720);
     this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
     this.setResizable(false);
@@ -87,8 +87,7 @@ public class PublishTheoryJFrame extends JFrame {
           // Publish the theory
 
           try {
-            Token token = board.getState().getCurrentToken();
-            token.publishTheory(board, selectedIngredient, selectedAlchemyMarker);
+            token1.publishTheory(board, selectedIngredient, selectedAlchemyMarker);
             boardFrame.updateTokensGoldLabel();
             boardFrame.updateTokensReputationLabel();
             Game.controlRoundAction(boardFrame, state, true);

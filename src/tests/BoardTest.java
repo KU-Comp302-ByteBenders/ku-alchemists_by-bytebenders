@@ -140,6 +140,26 @@ class BoardTest {
         board.addIngredient();
         assertTrue(board.getIngredients().size() > initialSize, "Adding ingredients should increase the total number of ingredients on the board");
     }
+    
+    /*
+     * Requires: A Board instance that has been initialized with two usernames and two avatars. The Board class should have an addIngredient() method and a getIngredients() method.
+     * Modifies: This test modifies the Board instance by calling the addIngredient() method. This method is expected to add an ingredient to the Board.
+     * Effects: The test asserts that the getIngredients() method should return a non-empty list after addIngredient() is called. If this is not the case, the test will fail, indicating that the addIngredient() method did not work as expected.
+     */
+    @Test
+    void testAddIngredient2() {
+        // parameters for testing
+        String username1 = "User1";
+        String username2 = "User2";
+        String avatar1 = "Avatar1";
+        String avatar2 = "Avatar2";
+
+        // I create a board with the parameters
+        Board board = new Board(username1, username2, avatar1, avatar2);
+        board.addIngredient();
+        assertTrue(!board.getIngredients().isEmpty(), "The ingredients list shouldn't be empty after calling addIngredient()");
+    }
+
 
     /**
      * Requires: A Board instance with two users and their avatars.
@@ -258,11 +278,12 @@ class BoardTest {
         Token token = board.getTokens().get(0);
         AlchemyMarker alchemyMarker = board.getStaticAlchemyMarkers().get(0);
         Ingredient ingredient = board.getStaticIngredients().get(0);
-        Theory existingTheory = new Theory(ingredient, alchemyMarker, token);
-        board.getTheories().add(existingTheory);
 
+        
+        
         Exception exception = assertThrows(Exception.class, () -> {
-            board.publishTheory(ingredient, alchemyMarker, token);
+            board.publishTheory(ingredient, alchemyMarker, token); // Publish the first theory, it should not throw an exception
+            board.publishTheory(ingredient, alchemyMarker, token); // Publish the second theory with same ingredient and marker, it should throw an exception
         });
 
         assertEquals("A theory on this ingredient already exists!", exception.getMessage());
@@ -279,12 +300,18 @@ class BoardTest {
         // create a board with the parameters
         Board board = new Board(username1, username2, avatar1, avatar2);
         Token token = board.getTokens().get(0);
+        int previousGoldBalance = token.getGoldBalance();
         AlchemyMarker alchemyMarker = board.getStaticAlchemyMarkers().get(0);
         Ingredient ingredient = board.getStaticIngredients().get(0);
 
         assertDoesNotThrow(() -> {
             board.publishTheory(ingredient, alchemyMarker, token);
         });
+        assertNotNull(board.getTheories().get(0));
+        assertEquals(board.getTheories().get(0).isAboutIngredient(ingredient), true);
+        assertEquals(board.getTheories().get(0).hasAlchemyMarker(alchemyMarker), true);
+        assertEquals(board.getTheories().get(0).belongsToToken(token), true);
+        assertEquals(previousGoldBalance, token.getGoldBalance() + 1);
     }
 
     @Test
@@ -409,29 +436,29 @@ class BoardTest {
         assertThrows(Exception.class, () -> board.debunkTheory(theory, debunkAspect, theoryOwnerToken));
 }
 
-    @Test
-    void testDebunkUnsuccessfulTheoryWithInvalidAspect() throws Exception {
-        // parameters for testing
-        String username1 = "User1";
-        String username2 = "User2";
-        String avatar1 = "Avatar1";
-        String avatar2 = "Avatar2";
+        @Test
+        void testDebunkUnsuccessfulTheoryWithInvalidAspect() throws Exception {
+            // parameters for testing
+            String username1 = "User1";
+            String username2 = "User2";
+            String avatar1 = "Avatar1";
+            String avatar2 = "Avatar2";
 
-        // I create a board with the parameters
-        Board board = new Board(username1, username2, avatar1, avatar2);
+            // I create a board with the parameters
+            Board board = new Board(username1, username2, avatar1, avatar2);
 
-        // I got the tokens for the debunker and theory owner
-        Token debunkerToken = board.getTokens().get(0);
-        Token theoryOwnerToken = board.getTokens().get(1);
+            //  I got the tokens for the debunker and theory owner
+            Token debunkerToken = board.getTokens().get(0);
+            Token theoryOwnerToken = board.getTokens().get(1);
 
-        // I created a theory
-        Ingredient ingredient = board.getIngredientFromDeck();
-        AlchemyMarker alchemyMarker = board.getStaticAlchemyMarkers().get(0);
-        Theory theory = new Theory(ingredient, alchemyMarker, theoryOwnerToken);
+            //  I created a theory
+            Ingredient ingredient = board.getIngredientFromDeck();
+            AlchemyMarker alchemyMarker = board.getStaticAlchemyMarkers().get(0);
+            Theory theory = new Theory(ingredient, alchemyMarker, theoryOwnerToken);
 
-        // I attempt to debunk the theory with an invalid aspect, it should fail
-        Aspect invalidAspect = new Aspect("Invalid", "Invalid", "+", "src/ui/utils/aspects/invalid.png");
-        boolean result = board.debunkTheory(theory, invalidAspect, debunkerToken);
+            //  I attempt to debunk the theory with an invalid aspect, it should fail
+            Aspect invalidAspect = new Aspect("Invalid", "Invalid", "+", "src/ui/utils/aspects/invalid.png");
+            boolean result = board.debunkTheory(theory, invalidAspect, debunkerToken);
 
         // I check the internal state of the Theory object
         assertFalse(result);

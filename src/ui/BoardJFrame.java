@@ -224,6 +224,15 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
       createArtifactUseButton(myArtifactCard, token1);
     }
 
+    // ADD THE TOKENS POTION CARDS TO THE BOARD
+
+    int token1PotionsNumber = token1.getPotions().size();
+
+    for (int i = 0; i < token1PotionsNumber; i++) {
+      Potion token1Potion = token1.getPotions().get(i);
+      addMiniPotionImage(token1Potion);
+    }
+
     // CREATE THE JLABELS THAT CONTAIN WORDS.
 
     JLabel theories = new JLabel("THEORIES:");
@@ -420,7 +429,7 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
     addTooltipToComponent(artifactUseButton, artifactCard.getName()); //added tool tips
 
     //If it is printing press, it will not be clickable/actionable.
-    if ("Printing Press" != artifactCard.getName() && "Magic Mortar" != artifactCard.getName()) {
+    if ("Printing Press" != artifactCard.getName() && "Magic Mortar" != artifactCard.getName() && "Wisdom Idol" != artifactCard.getName()) {
       artifactUseButton.addActionListener(
         new ActionListener() {
           @Override
@@ -520,7 +529,7 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          Game.openPotionJFrame(board, BoardJFrame.this, state);
+          Game.openPotionJFrame(token1,board, BoardJFrame.this, state);
         }
       }
     );
@@ -626,7 +635,7 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          openPublishMenu();
+          openPublishMenu(token1);
         }
       }
     );
@@ -640,7 +649,7 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          openDebunkMenu();
+          openDebunkMenu(token1);
         }
       }
     );
@@ -661,12 +670,12 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
     return publicationTrackButton;
   }
 
-  public void openPublishMenu() {
-    Game.openPublishMenu(this, board, state);
+  public void openPublishMenu(Token token1) {
+    Game.openPublishMenu(this, board, state, token1);
   }
 
-  public void openDebunkMenu() {
-    Game.openDebunkMenu(this, board, state);
+  public void openDebunkMenu(Token token1) {
+    Game.openDebunkMenu(this, board, state, token1);
   }
 
   public void openPublicationTrack() {
