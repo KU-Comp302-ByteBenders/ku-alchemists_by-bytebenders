@@ -16,11 +16,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import ui.interfaces.BoardFrame;
 import ui.interfaces.ConfirmationListener;
 
 public class DebunkTheoryJFrame extends JFrame {
 
-  public DebunkTheoryJFrame(BoardJFrame boardJFrame, Board board, State state, Token token1) {
+  public DebunkTheoryJFrame(BoardFrame boardFrame, Board board, State state, Token token1) {
     this.setSize(1280, 720);
     this.setResizable(false);
     JPanel gridPanel = new JPanel(new GridLayout(2, 4));
@@ -68,17 +70,17 @@ public class DebunkTheoryJFrame extends JFrame {
                     int aspectIndex = debunkComboBox.getSelectedIndex() - 1;
                     Aspect selectedAspect = ingredient.getAlchemyMarker().getAspectList().get(aspectIndex);
                     boolean success = token1.debunkTheory(board, finalCurrentTheory, selectedAspect);
-                    boardJFrame.updateTokensGoldLabel();
-                    boardJFrame.updateTokensReputationLabel();
+                    boardFrame.updateTokensGoldLabel();
+                    boardFrame.updateTokensReputationLabel();
                     ImageIcon imageIcon = new ImageIcon(ingredient.getImagePath());
                     JLabel imageLabel = new JLabel(imageIcon);
 
                     if (success) {
                       JOptionPane.showMessageDialog(null, imageLabel, "Success!!!", JOptionPane.INFORMATION_MESSAGE);
-                      Game.controlRoundAction(boardJFrame, state, true);
+                      Game.controlRoundAction(boardFrame, state, true);
                     } else {
                       JOptionPane.showMessageDialog(null, imageLabel, "Failure!!!", JOptionPane.INFORMATION_MESSAGE);
-                      Game.controlRoundAction(boardJFrame, state, true);
+                      Game.controlRoundAction(boardFrame, state, true);
                     }
                   }
                 };

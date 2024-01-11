@@ -7,6 +7,7 @@ import javax.swing.*;
 
 import game.ArtifactCards.ArtifactCard;
 import ui.*;
+import ui.interfaces.BoardFrame;
 import ui.interfaces.ChangeableVisibility;
 
 /*
@@ -89,14 +90,14 @@ public class Game implements Serializable {
 
   public void closePauseMenu() {}
 
-  public static void openPublishMenu(BoardJFrame boardJFrame, Board board, State state, Token token1) {
+  public static void openPublishMenu(BoardFrame boardFrame, Board board, State state, Token token1) {
     // Open the publish theory action menu
-    PublishTheoryJFrame publishTheoryJFrame = new PublishTheoryJFrame(boardJFrame, board, state, token1);
+    PublishTheoryJFrame publishTheoryJFrame = new PublishTheoryJFrame(boardFrame, board, state, token1);
   }
 
-  public static void openDebunkMenu(BoardJFrame boardJFrame, Board board, State state, Token token1) {
+  public static void openDebunkMenu(BoardFrame boardFrame, Board board, State state, Token token1) {
     // Open the debunk theory action menu
-    DebunkTheoryJFrame debunkTheoryJFrame = new DebunkTheoryJFrame(boardJFrame, board, state, token1);
+    DebunkTheoryJFrame debunkTheoryJFrame = new DebunkTheoryJFrame(boardFrame, board, state, token1);
   }
 
   public static void openPublicationTrack(JFrame boardJFrame, Board board) {
@@ -120,8 +121,8 @@ public class Game implements Serializable {
     board.changeVisible(true);
   }
 
-  public static void openArtifactBuyScreen(BoardJFrame boardJFrame, Board board, Token token, State state) {
-    BuyArtifactFrame buyArtifactFrame = new BuyArtifactFrame(boardJFrame, board, token, state);
+  public static void openArtifactBuyScreen(BoardFrame boardFrame, Board board, Token token, State state) {
+    BuyArtifactFrame buyArtifactFrame = new BuyArtifactFrame(boardFrame, board, token, state);
     buyArtifactFrame.setVisible(true);
   }
 
@@ -132,7 +133,7 @@ public class Game implements Serializable {
   public static void activateTransmuteIngredientFrame(
     ArrayList<Ingredient> displayedIngredients,
     Board mainBoard,
-    BoardJFrame boardFrame,
+    BoardFrame boardFrame,
     State state
   ) {
     TransmuteIngredientFrame transmuteJFrame = new TransmuteIngredientFrame(
@@ -151,12 +152,12 @@ public class Game implements Serializable {
     HelpJFrame helpJFrame = new HelpJFrame();
   }
 
-  public static void openExperimentFrame(Token token, Board board, BoardJFrame boardJFrame, State state) {
-    MakeExperimentJFrame makeExperimentJFrame = new MakeExperimentJFrame(token, board, boardJFrame, state);
+  public static void openExperimentFrame(Token token, Board board, BoardFrame boardFrame, State state) {
+    MakeExperimentJFrame makeExperimentJFrame = new MakeExperimentJFrame(token, board, boardFrame, state);
   }
 
-  public static void openPotionJFrame(Token token, Board board, BoardJFrame boardJFrame, State state) {
-    PotionJFrame potionJFrame = new PotionJFrame(token, board, boardJFrame, state);
+  public static void openPotionJFrame(Token token, Board board, BoardFrame boardFrame, State state) {
+    PotionJFrame potionJFrame = new PotionJFrame(token, board, boardFrame, state);
   }
 
   public static void openWisdomIdolConfirmationDialog(ArtifactCard artifactCard) {
@@ -171,7 +172,12 @@ public class Game implements Serializable {
     }
   }
 
-  public static void controlRoundAction(BoardJFrame boardJFrame, State state, Boolean endTurnFlag) {
-    boardJFrame.controlRoundActions(endTurnFlag, state);
+  public static void controlRoundAction(BoardFrame boardFrame, State state, Boolean endTurnFlag) {
+    boardFrame.controlRoundActions(endTurnFlag, state);
   }
+
+  public static void activateTransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard, BoardJFrame boardFrame, State state) {
+    boardFrame.activateTransmuteIngredientFrame(displayedIngredients, mainBoard, state);
+}
+
 }

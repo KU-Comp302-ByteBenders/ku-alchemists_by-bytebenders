@@ -436,29 +436,29 @@ class BoardTest {
         assertThrows(Exception.class, () -> board.debunkTheory(theory, debunkAspect, theoryOwnerToken));
 }
 
-    @Test
-    void testDebunkUnsuccessfulTheoryWithInvalidAspect() throws Exception {
-        // parameters for testing
-        String username1 = "User1";
-        String username2 = "User2";
-        String avatar1 = "Avatar1";
-        String avatar2 = "Avatar2";
+        @Test
+        void testDebunkUnsuccessfulTheoryWithInvalidAspect() throws Exception {
+            // parameters for testing
+            String username1 = "User1";
+            String username2 = "User2";
+            String avatar1 = "Avatar1";
+            String avatar2 = "Avatar2";
 
-        // I create a board with the parameters
-        Board board = new Board(username1, username2, avatar1, avatar2);
+            // I create a board with the parameters
+            Board board = new Board(username1, username2, avatar1, avatar2);
 
-        // I got the tokens for the debunker and theory owner
-        Token debunkerToken = board.getTokens().get(0);
-        Token theoryOwnerToken = board.getTokens().get(1);
+            //  I got the tokens for the debunker and theory owner
+            Token debunkerToken = board.getTokens().get(0);
+            Token theoryOwnerToken = board.getTokens().get(1);
 
-        // I created a theory
-        Ingredient ingredient = board.getIngredientFromDeck();
-        AlchemyMarker alchemyMarker = board.getStaticAlchemyMarkers().get(0);
-        Theory theory = new Theory(ingredient, alchemyMarker, theoryOwnerToken);
+            //  I created a theory
+            Ingredient ingredient = board.getIngredientFromDeck();
+            AlchemyMarker alchemyMarker = board.getStaticAlchemyMarkers().get(0);
+            Theory theory = new Theory(ingredient, alchemyMarker, theoryOwnerToken);
 
-        // I attempt to debunk the theory with an invalid aspect, it should fail
-        Aspect invalidAspect = new Aspect("Invalid", "Invalid", "+", "src/ui/utils/aspects/invalid.png");
-        boolean result = board.debunkTheory(theory, invalidAspect, debunkerToken);
+            //  I attempt to debunk the theory with an invalid aspect, it should fail
+            Aspect invalidAspect = new Aspect("Invalid", "Invalid", "+", "src/ui/utils/aspects/invalid.png");
+            boolean result = board.debunkTheory(theory, invalidAspect, debunkerToken);
 
         // I check the internal state of the Theory object
         assertFalse(result);
@@ -469,5 +469,6 @@ class BoardTest {
         // I check the results
         assertEquals(-1, debunkerToken.getReputation()); // Reputation of debunker should decrease by 1
         assertEquals(0, theoryOwnerToken.getReputation()); // Reputation of theory owner should remain unchanged
-    }
+}
+
 }

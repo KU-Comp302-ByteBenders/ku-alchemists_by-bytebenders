@@ -1,6 +1,7 @@
 package ui;
 
 import game.*;
+import ui.interfaces.BoardFrame;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -44,7 +45,7 @@ public class MakeExperimentJFrame extends JFrame {
   private JComboBox<String> testComboBox;
   private JButton selectIngredientsButton;
   private JButton selectPersonButton;
-  BoardJFrame boardFrame;
+  BoardFrame boardFrame;
   Map<String, JLabel> smallImages = new HashMap<>();
 
   ImageIcon potionIcon1;
@@ -53,7 +54,7 @@ public class MakeExperimentJFrame extends JFrame {
   Potion newPotion;
 
 
-  public MakeExperimentJFrame(Token token, Board board, BoardJFrame boardFrame, State state) {
+  public MakeExperimentJFrame(Token token, Board board, BoardFrame boardFrame, State state) {
     this.board = board;
     this.boardFrame = boardFrame;
 

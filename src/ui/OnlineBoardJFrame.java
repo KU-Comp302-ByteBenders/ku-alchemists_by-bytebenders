@@ -18,10 +18,12 @@ import ui.interfaces.BoardFrame;
 import ui.interfaces.ChangeableVisibility;
 import ui.uihelpers.RoundedButton;
 
-public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFrame {
+public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, BoardFrame {
 
   Token token1;
   Token token2;
+  Token token3; //might delete
+  Token token4; //might delete
   Border lineBorder;
   Board board;
   State state;
@@ -44,6 +46,14 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
   private JLabel reputationLabel;
   private JLabel opponentsReputationLabel;
 
+  private JLabel opponentsGoldLabel2;
+  private JLabel reputationLabel2;
+  private JLabel opponentsReputationLabel2;
+
+  private JLabel opponentsGoldLabel3;
+  private JLabel reputationLabel3;
+  private JLabel opponentsReputationLabel3;
+
   JPanel ingredientCardsArea;
   JPanel artifactCardsArea;
   JPanel effectArea;
@@ -51,9 +61,18 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
   JPanel avatarArea;
   JPanel opponentsPotionArea;
   JPanel opponentsAvatarArea;
+  JPanel opponentsPotionArea2;
+  JPanel opponentsAvatarArea2;
+  JPanel opponentsPotionArea3;
+  JPanel opponentsAvatarArea3;
   JPanel opponentsIngredientCardsArea;
+  JPanel opponentsIngredientCardsArea2;
+  JPanel opponentsIngredientCardsArea3;
   JPanel controlArea;
   JPanel opponentsSegmentedAvatarArea;
+  JPanel opponentsSegmentedAvatarArea2;
+  JPanel opponentsSegmentedAvatarArea3;
+  
 
   ImageIcon obsidianIcon = new ImageIcon("src/ui/utils/obsidian.jpg");
   ImageIcon saffronIcon = new ImageIcon("src/ui/utils/saffron.jpg");
@@ -89,12 +108,12 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
   JButton publicationTrackButton;
   JButton sellPotionButton;
   JButton endTurnButton;
-  BoardJFrame thisBoardJFrame = this;
+  OnlineBoardJFrame thisBoardJFrame = this;
 
   Map<ArtifactCard, ImageIcon> artifactImageMap;
 
-  public BoardJFrame(Token currentToken, Board board, State state) {
-    super("KUALCH");
+  public OnlineBoardJFrame(Token currentToken, Board board, State state) {
+    super("KUALCH ONLINE");
     this.state = state;
     this.board = board;
     token1 = currentToken;
@@ -128,10 +147,15 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
     lineBorder = new LineBorder(new Color(229, 113, 133), 1);
 
     westPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 20)); // Ingredients and Artifacts Of Board
-    eastPanel = new JPanel(new FlowLayout()); // Theories and Potions
-    southPanel = new JPanel(new BorderLayout());
-    northPanel = new JPanel(new BorderLayout());
+    eastPanel = new JPanel(new GridLayout(3, 1)); // Theories and Potions
+    southPanel = new JPanel(new GridLayout(1, 7));
+    northPanel = new JPanel(new GridLayout(1, 6));
     centerPanel = new JPanel(new BorderLayout()); // Deduction Board
+
+    FlowLayout rowLayout = new FlowLayout(FlowLayout.CENTER);
+    JPanel row1 = new JPanel(rowLayout);
+    JPanel row2 = new JPanel(rowLayout);
+    JPanel row3 = new JPanel(rowLayout);
 
     westOfSouthPanel = new JPanel(new BorderLayout());
     eastOfSouthPanel = new JPanel(new BorderLayout());
@@ -143,9 +167,17 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
     avatarArea = new JPanel(new FlowLayout());
     opponentsPotionArea = new JPanel(new FlowLayout());
     opponentsAvatarArea = new JPanel(new FlowLayout());
+    opponentsPotionArea2 = new JPanel(new FlowLayout()); //coppies
+    opponentsAvatarArea2 = new JPanel(new FlowLayout()); //coppies
+    opponentsPotionArea3 = new JPanel(new FlowLayout()); //coppies
+    opponentsAvatarArea3 = new JPanel(new FlowLayout()); //coppies
     opponentsIngredientCardsArea = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    opponentsIngredientCardsArea2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    opponentsIngredientCardsArea3 = new JPanel(new FlowLayout(FlowLayout.CENTER));
     controlArea = new JPanel(new FlowLayout());
     opponentsSegmentedAvatarArea = new JPanel(new BorderLayout());
+    opponentsSegmentedAvatarArea2 = new JPanel(new BorderLayout());
+    opponentsSegmentedAvatarArea3 = new JPanel(new BorderLayout());
 
     bigIngBackLabel = new JLabel(bigIngredientBackIcon);
     addTooltipToComponent(bigIngBackLabel, "Board's Ingredients");
@@ -170,8 +202,14 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
     avatarArea.setPreferredSize(new Dimension(300, 220));
 
     opponentsPotionArea.setPreferredSize(new Dimension(450, 220));
+    opponentsPotionArea2.setPreferredSize(new Dimension(450, 220));
+    opponentsPotionArea3.setPreferredSize(new Dimension(450, 220));
     opponentsAvatarArea.setPreferredSize(new Dimension(450, 220));
+    opponentsAvatarArea2.setPreferredSize(new Dimension(450, 220));
+    opponentsAvatarArea3.setPreferredSize(new Dimension(450, 220));
     opponentsIngredientCardsArea.setPreferredSize(new Dimension(700, 170));
+    opponentsIngredientCardsArea2.setPreferredSize(new Dimension(700, 170));
+    opponentsIngredientCardsArea3.setPreferredSize(new Dimension(700, 170));
     controlArea.setPreferredSize(new Dimension(700, 50));
 
     // SET BORDERS
@@ -188,8 +226,14 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
     potionArea.setBorder(lineBorder);
     avatarArea.setBorder(lineBorder);
     opponentsPotionArea.setBorder(lineBorder);
+    opponentsPotionArea2.setBorder(lineBorder);
+    opponentsPotionArea3.setBorder(lineBorder);
     opponentsAvatarArea.setBorder(lineBorder);
+    opponentsAvatarArea2.setBorder(lineBorder);
+    opponentsAvatarArea3.setBorder(lineBorder);
     opponentsIngredientCardsArea.setBorder(lineBorder);
+    opponentsIngredientCardsArea2.setBorder(lineBorder);
+    opponentsIngredientCardsArea3.setBorder(lineBorder);
     controlArea.setBorder(lineBorder);
 
     // ADD INGREDIENTS TO THE BOARD
@@ -200,6 +244,18 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
     for (int i = 0; i < token2IngredientsNumber; i++) {
       JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
       opponentsIngredientCardsArea.add(opponentIngLabel);
+      addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient"); //added tool tips
+    }
+
+    for (int i = 0; i < token2IngredientsNumber; i++) {
+      JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
+      opponentsIngredientCardsArea2.add(opponentIngLabel);
+      addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient"); //added tool tips
+    }
+
+    for (int i = 0; i < token2IngredientsNumber; i++) {
+      JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
+      opponentsIngredientCardsArea3.add(opponentIngLabel);
       addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient"); //added tool tips
     }
 
@@ -224,15 +280,6 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
       createArtifactUseButton(myArtifactCard, token1);
     }
 
-    // ADD THE TOKENS POTION CARDS TO THE BOARD
-
-    int token1PotionsNumber = token1.getPotions().size();
-
-    for (int i = 0; i < token1PotionsNumber; i++) {
-      Potion token1Potion = token1.getPotions().get(i);
-      addMiniPotionImage(token1Potion);
-    }
-
     // CREATE THE JLABELS THAT CONTAIN WORDS.
 
     JLabel theories = new JLabel("THEORIES:");
@@ -253,6 +300,16 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
     opponentsGoldLabel.setFont(new Font("Arial", Font.BOLD, 20));
     opponentsSegmentedAvatarArea.add(opponentsGoldLabel, BorderLayout.NORTH);
 
+    opponentsGoldLabel2 = new JLabel();
+    opponentsGoldLabel2.setText("GOLD:" + token2.getGoldBalance());
+    opponentsGoldLabel2.setFont(new Font("Arial", Font.BOLD, 20));
+    opponentsSegmentedAvatarArea2.add(opponentsGoldLabel2, BorderLayout.NORTH);
+
+    opponentsGoldLabel3 = new JLabel();
+    opponentsGoldLabel3.setText("GOLD:" + token2.getGoldBalance());
+    opponentsGoldLabel3.setFont(new Font("Arial", Font.BOLD, 20));
+    opponentsSegmentedAvatarArea3.add(opponentsGoldLabel3, BorderLayout.NORTH);
+
     JLabel potionLabel = new JLabel();
     potionLabel.setText("POTIONS:");
     potionLabel.setFont(new Font("Arial", Font.BOLD, 20));
@@ -265,9 +322,25 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
     opponentsPotionLabel.setText("POTIONS:");
     opponentsPotionLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
+    JLabel opponentsPotionLabel2 = new JLabel();
+    opponentsPotionLabel2.setText("POTIONS:");
+    opponentsPotionLabel2.setFont(new Font("Arial", Font.BOLD, 20));
+
+    JLabel opponentsPotionLabel3 = new JLabel();
+    opponentsPotionLabel3.setText("POTIONS:");
+    opponentsPotionLabel3.setFont(new Font("Arial", Font.BOLD, 20));
+
     opponentsReputationLabel = new JLabel();
     opponentsReputationLabel.setText("REPUTATION:" + token2.getReputation());
     opponentsReputationLabel.setFont(new Font("Arial", Font.BOLD, 20));
+
+    opponentsReputationLabel2 = new JLabel();
+    opponentsReputationLabel2.setText("REPUTATION:" + token2.getReputation());
+    opponentsReputationLabel2.setFont(new Font("Arial", Font.BOLD, 20));
+
+    opponentsReputationLabel3 = new JLabel();
+    opponentsReputationLabel3.setText("REPUTATION:" + token2.getReputation());
+    opponentsReputationLabel3.setFont(new Font("Arial", Font.BOLD, 20));
 
     JPanel controlbackgroundPanelToken1 = new JPanel();
     controlbackgroundPanelToken1.setBackground(Color.LIGHT_GRAY);
@@ -283,11 +356,29 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
     scoreLabel2.setText("Token2 Score=" + token2.getScore());
     scoreLabel2.setFont(new Font("Arial", Font.BOLD, 20));
 
+    JPanel controlbackgroundPanelToken3 = new JPanel();
+    controlbackgroundPanelToken3.setBackground(Color.LIGHT_GRAY);
+
+    JLabel scoreLabel3 = new JLabel();
+    scoreLabel3.setText("Token3 Score=" + token2.getScore());
+    scoreLabel3.setFont(new Font("Arial", Font.BOLD, 20));
+
+    JPanel controlbackgroundPanelToken4 = new JPanel();
+    controlbackgroundPanelToken4.setBackground(Color.LIGHT_GRAY);
+
+    JLabel scoreLabel4 = new JLabel();
+    scoreLabel4.setText("Token4 Score=" + token2.getScore());
+    scoreLabel4.setFont(new Font("Arial", Font.BOLD, 20));
+
     ImageIcon avatarIcon = new ImageIcon("src/ui/utils/" + token1.getAvatarImage() + ".png");
     JLabel avatarLabel = new JLabel(avatarIcon);
 
     ImageIcon opponentsAvatarIcon = new ImageIcon("src/ui/utils/" + token2.getAvatarImage() + ".png");
     JLabel opponentsAvatarLabel = new JLabel(opponentsAvatarIcon);
+    ImageIcon opponentsAvatarIcon2 = new ImageIcon("src/ui/utils/" + token2.getAvatarImage() + ".png");
+    JLabel opponentsAvatarLabel2 = new JLabel(opponentsAvatarIcon);
+    ImageIcon opponentsAvatarIcon3 = new ImageIcon("src/ui/utils/" + token2.getAvatarImage() + ".png");
+    JLabel opponentsAvatarLabel3 = new JLabel(opponentsAvatarIcon);
 
     JLabel username1 = new JLabel(token1.getUsername());
     username1.setFont(new Font("Arial", Font.BOLD, 20));
@@ -295,15 +386,17 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
     JLabel username2 = new JLabel(token2.getUsername());
     username2.setFont(new Font("Arial", Font.BOLD, 20));
 
+    JLabel username3 = new JLabel(token2.getUsername());
+    username3.setFont(new Font("Arial", Font.BOLD, 20));
+
+    JLabel username4 = new JLabel(token2.getUsername());
+    username4.setFont(new Font("Arial", Font.BOLD, 20));
+
     JLabel artifactCardsLabel = new JLabel();
     artifactCardsLabel.setText("ARTIFACT CARDS:");
     artifactCardsLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
     // ADD THE JPANELS AND JLABELS TO THE JPANELS
-
-    southPanel.add(westOfSouthPanel, BorderLayout.WEST);
-    southPanel.add(eastOfSouthPanel, BorderLayout.EAST);
-    southPanel.add(ingredientCardsArea, BorderLayout.CENTER);
 
     westOfSouthPanel.add(artifactCardsArea, BorderLayout.WEST);
     westOfSouthPanel.add(effectArea, BorderLayout.EAST);
@@ -311,21 +404,56 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
     eastOfSouthPanel.add(potionArea, BorderLayout.WEST);
     eastOfSouthPanel.add(avatarArea, BorderLayout.EAST);
 
-    northPanel.add(opponentsPotionArea, BorderLayout.WEST);
-    northPanel.add(opponentsAvatarArea, BorderLayout.EAST);
-    northPanel.add(opponentsIngredientCardsArea, BorderLayout.CENTER);
-    northPanel.add(controlArea, BorderLayout.NORTH);
+    southPanel.add(opponentsAvatarArea3);
+    southPanel.add(opponentsPotionArea3);
+    southPanel.add(artifactCardsArea);
+    southPanel.add(effectArea);
+    //southPanel.add(ingredientCardsArea); //might be commented out.
+    southPanel.add(potionArea);
+    southPanel.add(avatarArea);
+    
+    row1.add(opponentsIngredientCardsArea3);
+    row2.add(ingredientCardsArea);
 
-    westPanel.add(bigIngBackLabel);
-    westPanel.add(bigArtifactBackLabel);
+    eastPanel.add(row1);
+    eastPanel.add(row2);
+    //eastPanel.add(row3);
+
+    northPanel.add(opponentsAvatarArea2);
+    northPanel.add(opponentsPotionArea2);
+    northPanel.add(controlArea);
+    northPanel.add(opponentsPotionArea);
+    northPanel.add(opponentsAvatarArea);
+    //northPanel.add(opponentsIngredientCardsArea);
+
+
+    westPanel.add(opponentsIngredientCardsArea);
+    westPanel.add(opponentsIngredientCardsArea2);
+
+    
+    
+
+    //westPanel.add(bigIngBackLabel);
+    //westPanel.add(bigArtifactBackLabel);
 
     opponentsSegmentedAvatarArea.add(opponentsReputationLabel, BorderLayout.CENTER);
     opponentsSegmentedAvatarArea.add(username2, BorderLayout.SOUTH);
+    
+    opponentsSegmentedAvatarArea2.add(opponentsReputationLabel2, BorderLayout.CENTER);
+    opponentsSegmentedAvatarArea2.add(username3, BorderLayout.SOUTH);
+
+    opponentsSegmentedAvatarArea3.add(opponentsReputationLabel3, BorderLayout.CENTER);
+    opponentsSegmentedAvatarArea3.add(username4, BorderLayout.SOUTH);
 
     controlbackgroundPanelToken1.add(scoreLabel1);
     controlbackgroundPanelToken2.add(scoreLabel2);
+    controlbackgroundPanelToken3.add(scoreLabel3);
+    controlbackgroundPanelToken4.add(scoreLabel4);
     controlArea.add(controlbackgroundPanelToken1);
     controlArea.add(controlbackgroundPanelToken2);
+    controlArea.add(controlbackgroundPanelToken3);
+    controlArea.add(controlbackgroundPanelToken4);
+    //controlArea.add(Box.createVerticalStrut(10));
     controlArea.add(pauseButton());
     controlArea.add(exitButton());
     effectArea.add(effects);
@@ -334,8 +462,14 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
     avatarArea.add(avatarLabel);
     avatarArea.add(username1);
     opponentsPotionArea.add(opponentsPotionLabel);
+    opponentsPotionArea2.add(opponentsPotionLabel2);
+    opponentsPotionArea3.add(opponentsPotionLabel3);
     opponentsAvatarArea.add(opponentsSegmentedAvatarArea);
     opponentsAvatarArea.add(opponentsAvatarLabel);
+    opponentsAvatarArea2.add(opponentsSegmentedAvatarArea2);
+    opponentsAvatarArea2.add(opponentsAvatarLabel2);
+    opponentsAvatarArea3.add(opponentsSegmentedAvatarArea3);
+    opponentsAvatarArea3.add(opponentsAvatarLabel3);
     artifactCardsArea.add(artifactCardsLabel);
     createRoundActions(false, state);
 
@@ -389,13 +523,13 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          if (BoardJFrame.this != null) {
+          if (OnlineBoardJFrame.this != null) {
             //TransmuteIngredientFrame tif = new TransmuteIngredientFrame(new ArrayList<>(token1.getIngredients()), board, BoardJFrame.this);
             //tif.setVisible(true);
             Game.activateTransmuteIngredientFrame(
               new ArrayList<>(token1.getIngredients()),
               board,
-              BoardJFrame.this,
+              OnlineBoardJFrame.this,
               state
             );
           }
@@ -429,7 +563,7 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
     addTooltipToComponent(artifactUseButton, artifactCard.getName()); //added tool tips
 
     //If it is printing press, it will not be clickable/actionable.
-    if ("Printing Press" != artifactCard.getName() && "Magic Mortar" != artifactCard.getName() && "Wisdom Idol" != artifactCard.getName()) {
+    if ("Printing Press" != artifactCard.getName() && "Magic Mortar" != artifactCard.getName()) {
       artifactUseButton.addActionListener(
         new ActionListener() {
           @Override
@@ -515,7 +649,7 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          Game.openExperimentFrame(token1, board, BoardJFrame.this, state);
+          Game.openExperimentFrame(token1, board, OnlineBoardJFrame.this, state);
         }
       }
     );
@@ -529,7 +663,7 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          Game.openPotionJFrame(token1,board, BoardJFrame.this, state);
+          Game.openPotionJFrame(board, OnlineBoardJFrame.this, state);
         }
       }
     );
@@ -635,7 +769,7 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          openPublishMenu(token1);
+          openPublishMenu();
         }
       }
     );
@@ -649,7 +783,7 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          openDebunkMenu(token1);
+          openDebunkMenu();
         }
       }
     );
@@ -670,12 +804,12 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
     return publicationTrackButton;
   }
 
-  public void openPublishMenu(Token token1) {
-    Game.openPublishMenu(this, board, state, token1);
+  public void openPublishMenu() {
+    Game.openPublishMenu(this, board, state);
   }
 
-  public void openDebunkMenu(Token token1) {
-    Game.openDebunkMenu(this, board, state, token1);
+  public void openDebunkMenu() {
+    Game.openDebunkMenu(this, board, state);
   }
 
   public void openPublicationTrack() {
@@ -803,15 +937,15 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
     this.setVisible(visible);
   }
 
-  @Override
-  public void activateTransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard,
-      State state) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'activateTransmuteIngredientFrame'");
-  }
 
-  @Override
-  public void controlRoundActions(Boolean endTurnFlag,  State state) {
+@Override
+public void activateTransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard, State state) {
+    TransmuteIngredientFrame transmuteFrame = new TransmuteIngredientFrame(displayedIngredients, mainBoard, this, state);
+    // Add any additional logic specific to OnlineBoardJFrame
+}
+
+@Override
+public void controlRoundActions(Boolean endTurnFlag, State state) {
     if (endTurnFlag) {
       System.out.println("asas");
       if (state.getCurrentRound() == 1) {
@@ -839,5 +973,6 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
         eastPanel.remove(sellPotionButton);
       }
     }
-  }
+}
+
 }
