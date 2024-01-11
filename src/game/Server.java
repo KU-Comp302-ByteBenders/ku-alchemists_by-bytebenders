@@ -52,6 +52,7 @@ public class Server implements Serializable {
     // TODO: OPENS A NEW FRAME FOR THE PLAYER WHO IS SERVER
     for (ClientHandler client : clients) {
       client.sendObject(board);
+      client.sendObject(board.getState());
     }
   }
 
@@ -75,13 +76,6 @@ public class Server implements Serializable {
       e.printStackTrace();
     }
     return ip;
-  }
-
-  public void getBoard( Board board, State state) {
-    for (ClientHandler client : clients) {
-      client.sendObject(board);
-      client.sendObject(state);
-    }
   }
 
 
