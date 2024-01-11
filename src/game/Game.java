@@ -15,10 +15,9 @@ import ui.interfaces.ChangeableVisibility;
  */
 public class Game implements Serializable {
   private static final long serialVersionUID = 6L;
-
   public int round;
   private Boolean activateBoard;
-  //protected Token tokenInfos;
+  Server server;
 
   private static Game instance = null;
 
@@ -36,11 +35,11 @@ public class Game implements Serializable {
     MainMenuJFrame mainMenu = new MainMenuJFrame();
   }
 
-  public void openLogin(ChangeableVisibility mainMenu) {
+  public void openLogin(ChangeableVisibility frame) {
     // Open the login screen
     LoginJFrame loginScreen = new LoginJFrame();
     // Close the main menu
-    mainMenu.changeVisible(false);
+    frame.changeVisible(false);
   }
 
   public void openLoginSingle(ChangeableVisibility frame, boolean isClient) {
@@ -50,17 +49,16 @@ public class Game implements Serializable {
     frame.changeVisible(false);
   }
 
-  public void openGameMode(ChangeableVisibility mainMenu) {
+  public void openGameMode(ChangeableVisibility frame) {
     // Open the game mode screen
     GameModeJFrame gameMode = new GameModeJFrame();
     // Close the login screen
-    mainMenu.changeVisible(false);
+    frame.changeVisible(false);
   }
 
   public void openWaitingRoom(ChangeableVisibility frame, String username, String avatar) {
-    // Start the server
     Server server = new Server();
-    // Get the IP address of the server
+    this.server = server;
     String ip = server.getIp();
 
     Thread networkThread = new Thread(() -> {
@@ -68,23 +66,23 @@ public class Game implements Serializable {
     });
     networkThread.start();
 
-    // Open the waiting room screen
     WaitingJFrame waitingRoom = new WaitingJFrame(ip, username, avatar);
     server.setWaitingFrame(waitingRoom);
-    // Close the game mode screen
     frame.changeVisible(false);
   }
 
   public void startGame(String username1, String username2, String avatar1, String avatar2, JFrame loginScreen) {
-    // Create Board Controller. Board Controller opens the BoardJFrame
     Board board = new Board(username1, username2, avatar1, avatar2);
-    // Close the login screen
     loginScreen.setVisible(false);
   }
 
-  public void startGameOnline(HashMap<String, String> credentials) {
-    // Create Board Controller. Board Controller opens the BoardJFrame
-    // Board board = new Board(credentials);
+  public void startGameOnline(HashMap<String, String> credentials, JFrame loginScreen) {
+    Board board = new Board(credentials);
+    loginScreen.setVisible(false);
+  }
+
+  public void startGameOnline() {
+    server.startGame();
   }
 
   public void openPauseMenu() {}

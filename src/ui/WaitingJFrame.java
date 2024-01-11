@@ -19,6 +19,8 @@ import ui.interfaces.ChangeableVisibility;
 public class WaitingJFrame extends JFrame implements ChangeableVisibility {
 
   JPanel usernamesPanel;
+  JPanel startButtonPanel;
+  JButton startButton;
 
   public WaitingJFrame(String ip, String username, String avatar) {
     super("Waiting");
@@ -30,19 +32,20 @@ public class WaitingJFrame extends JFrame implements ChangeableVisibility {
     JLabel titleLabel = new JLabel("Waiting for other players...");
     JLabel ipAddress = new JLabel("Your ip address: " + ip);
     JLabel usernameLabel = new JLabel("Your username: " + username);
-    JButton startButton = new JButton("Start the game");
+    startButton = new JButton("Start the game");
 
     startButton.addActionListener(
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
           Game game = Game.getInstance();
+          game.startGameOnline();
         }
       }
     );
 
 
-    JPanel startButtonPanel = new JPanel(new FlowLayout());
+    startButtonPanel = new JPanel(new FlowLayout());
     startButtonPanel.add(startButton);
 
     usernamesPanel = new JPanel(new GridLayout(8, 1));
@@ -63,6 +66,7 @@ public class WaitingJFrame extends JFrame implements ChangeableVisibility {
 
   public void addPlayer(String username, String avatar) {
     usernamesPanel.add(new JLabel("joined user: " + username));
+    startButtonPanel.add(startButton);
     this.setVisible(false);
     this.setVisible(true);
   }
