@@ -3,6 +3,8 @@ package game;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
 import javax.swing.*;
 
 import game.ArtifactCards.ArtifactCard;
@@ -19,6 +21,7 @@ public class Game implements Serializable {
   public int round;
   private Boolean activateBoard;
   Server server;
+
 
   private static Game instance = null;
 
@@ -72,11 +75,35 @@ public class Game implements Serializable {
     frame.changeVisible(false);
   }
 
-  public void startGame(String username1, String username2, String avatar1, String avatar2, JFrame loginScreen) {
-    Board board = new Board(username1, username2, avatar1, avatar2);
-    loginScreen.setVisible(false);
 
-  }
+  public void startGame(ArrayList<String> playerNames, ArrayList<String> playerAvatars, LoginJFrame loginScreen) {
+    ArrayList<Token> tokens = new ArrayList<>();
+    // Assuming you want to handle a dynamic number of players
+    int numPlayers = playerNames.size();
+    System.out.println(numPlayers);
+
+    if (numPlayers < 2) {
+        JOptionPane.showMessageDialog(loginScreen, "Add at least 1 more player before starting the game.", "Error", JOptionPane.ERROR_MESSAGE);
+    } else {
+        // You may need to adjust this part based on your actual game logic
+        // For now, it assumes a fixed number of players (2)
+            // Assuming you want to access the first two players for now
+
+            for(int i=0; numPlayers > i; i++ ){
+              Token token1 = new Token(playerNames.get(i), playerAvatars.get(i), playerAvatars.get(i));
+              System.out.println(token1.getUsername());
+              System.out.println(tokens);
+              tokens.add(token1);
+              System.out.println("sfsgdsg");
+            }
+            System.out.println(tokens);
+            
+            Board board = new Board(tokens);
+            System.out.println("aaaaa");
+            loginScreen.setVisible(false);
+    }
+    
+}
 
   public void startGameOnline(HashMap<String, String> credentials, JFrame loginScreen) {
     Board board = new Board(credentials);

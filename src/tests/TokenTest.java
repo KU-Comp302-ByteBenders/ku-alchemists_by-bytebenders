@@ -3,6 +3,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 import game.Token;
@@ -13,12 +15,20 @@ import game.Ingredient;
 
 public class TokenTest {
     Token token = new Token("User1", "Avatar1", "Token1");
-    Board board = new Board("User1", "User2", "Avatar1", "Avatar2");
+    Token token2 = new Token("User2", "Avatar2", "Token2");
+    ArrayList<Token> tokensdeneme = new ArrayList<>();
+    Board board;
+    
     Token testToken;
     
     //creating ingredients for the token
     @Before
     public void setUp() {    
+        tokensdeneme.add(token);
+        tokensdeneme.add(token2);
+        Board board = new Board(tokensdeneme);
+        this.board = board;
+
         board.createIngredients();
         // Add test ingredients to the token
         token.addIngredient(board.getIngredientByName("feather"));
