@@ -495,7 +495,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          state.endTurn(board, token1, token2);
+          state.endTurn(board, token1);
           closeBoard();
         }
       }
