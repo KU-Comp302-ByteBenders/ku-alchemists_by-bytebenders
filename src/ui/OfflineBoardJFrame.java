@@ -280,21 +280,25 @@ public class OfflineBoardJFrame extends JFrame implements ChangeableVisibility, 
     // ADD INGREDIENTS TO THE BOARD
 
     int token2IngredientsNumber = token2.getIngredients().size();
-    int token3IngredientsNumber = token3.getIngredients().size();
-    int token4IngredientsNumber = token4.getIngredients().size();
+    if(token3 != null){
+      int token3IngredientsNumber = token3.getIngredients().size();
+      for (int i = 0; i < token3IngredientsNumber; i++) {
+        JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
+        opponentsIngredientCardsArea.add(opponentIngLabel);
+        addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient"); //added tool tips
+      }
+
+    }
+    if(token4 != null){
+      int token4IngredientsNumber = token4.getIngredients().size();
+      for (int i = 0; i < token4IngredientsNumber; i++) {
+        JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
+        opponentsIngredientCardsArea.add(opponentIngLabel);
+        addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient"); //added tool tips
+      }
+    }
+
     int token1IngredientsNumber = token1.getIngredients().size();
-
-    for (int i = 0; i < token3IngredientsNumber; i++) {
-      JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
-      opponentsIngredientCardsArea.add(opponentIngLabel);
-      addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient"); //added tool tips
-    }
-
-    for (int i = 0; i < token4IngredientsNumber; i++) {
-      JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
-      opponentsIngredientCardsArea2.add(opponentIngLabel);
-      addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient"); //added tool tips
-    }
   ///// Token 2 area
     for (int i = 0; i < token2IngredientsNumber; i++) {
       JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
@@ -344,15 +348,21 @@ public class OfflineBoardJFrame extends JFrame implements ChangeableVisibility, 
     opponentsGoldLabel.setFont(new Font("Arial", Font.BOLD, 20));
     opponentsSegmentedAvatarArea.add(opponentsGoldLabel, BorderLayout.NORTH);
 
-    opponentsGoldLabel2 = new JLabel();
-    opponentsGoldLabel2.setText("GOLD:" + token3.getGoldBalance());
-    opponentsGoldLabel2.setFont(new Font("Arial", Font.BOLD, 20));
-    opponentsSegmentedAvatarArea2.add(opponentsGoldLabel2, BorderLayout.NORTH);
 
-    opponentsGoldLabel3 = new JLabel();
-    opponentsGoldLabel3.setText("GOLD:" + token4.getGoldBalance());
-    opponentsGoldLabel3.setFont(new Font("Arial", Font.BOLD, 20));
-    opponentsSegmentedAvatarArea3.add(opponentsGoldLabel3, BorderLayout.NORTH);
+    if(token3 != null){
+      opponentsGoldLabel2 = new JLabel();
+      opponentsGoldLabel2.setText("GOLD:" + token3.getGoldBalance());
+      opponentsGoldLabel2.setFont(new Font("Arial", Font.BOLD, 20));
+      opponentsSegmentedAvatarArea2.add(opponentsGoldLabel2, BorderLayout.NORTH);
+
+    }
+    if (token4 != null){
+      opponentsGoldLabel3 = new JLabel();
+      opponentsGoldLabel3.setText("GOLD:" + token4.getGoldBalance());
+      opponentsGoldLabel3.setFont(new Font("Arial", Font.BOLD, 20));
+      opponentsSegmentedAvatarArea3.add(opponentsGoldLabel3, BorderLayout.NORTH);
+    }
+
 
     JLabel potionLabel = new JLabel();
     potionLabel.setText("POTIONS:");
@@ -366,21 +376,50 @@ public class OfflineBoardJFrame extends JFrame implements ChangeableVisibility, 
     opponentsPotionLabel.setText("POTIONS:");
     opponentsPotionLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
-    JLabel opponentsPotionLabel2 = new JLabel();
-    opponentsPotionLabel2.setText("POTIONS:");
-    opponentsPotionLabel2.setFont(new Font("Arial", Font.BOLD, 20));
 
-    JLabel opponentsPotionLabel3 = new JLabel();
-    opponentsPotionLabel3.setText("POTIONS:");
-    opponentsPotionLabel3.setFont(new Font("Arial", Font.BOLD, 20));
+
 
     opponentsPotionArea.add(opponentsPotionLabel);
-    opponentsPotionArea2.add(opponentsPotionLabel2);
-    opponentsPotionArea3.add(opponentsPotionLabel3);
+
+
 
     int token2PotionsNumber = token2.getPotions().size();
-    int token3PotionsNumber = token3.getPotions().size();
-    int token4PotionsNumber = token4.getPotions().size();
+    if(token3 != null){
+      JLabel opponentsPotionLabel2 = new JLabel();
+      opponentsPotionLabel2.setText("POTIONS:");
+      opponentsPotionLabel2.setFont(new Font("Arial", Font.BOLD, 20));
+      opponentsPotionArea2.add(opponentsPotionLabel2);
+      int token3PotionsNumber = token3.getPotions().size();
+      for(int i = 0; i < token3PotionsNumber; i++){
+        Potion token1Potion = token3.getPotions().get(i);
+        ImageIcon potionIcon = new ImageIcon(
+                "src/ui/utils/mini_potion" + token1Potion.getPotionColor() + token1Potion.getName() + ".jpg"
+        );
+        JLabel insidePotionLabel = new JLabel(potionIcon);
+        addTooltipToComponent(insidePotionLabel, token1Potion.getPotionColor() + " " + token1Potion.getName()); //added tool tips
+        opponentsPotionArea2.add(insidePotionLabel);
+        addTooltipToComponent(insidePotionLabel, "Opponent's Potion"); //added tool tips
+      }
+    }
+    if(token4 != null){
+      JLabel opponentsPotionLabel3 = new JLabel();
+      opponentsPotionLabel3.setText("POTIONS:");
+      opponentsPotionLabel3.setFont(new Font("Arial", Font.BOLD, 20));
+      opponentsPotionArea3.add(opponentsPotionLabel3);
+      int token4PotionsNumber = token4.getPotions().size();
+
+      for(int i = 0; i < token4PotionsNumber; i++){
+        Potion token1Potion = token4.getPotions().get(i);
+        ImageIcon potionIcon = new ImageIcon(
+                "src/ui/utils/mini_potion" + token1Potion.getPotionColor() + token1Potion.getName() + ".jpg"
+        );
+        JLabel insidePotionLabel = new JLabel(potionIcon);
+        addTooltipToComponent(insidePotionLabel, token1Potion.getPotionColor() + " " + token1Potion.getName()); //added tool tips
+        opponentsPotionArea3.add(insidePotionLabel);
+        addTooltipToComponent(insidePotionLabel, "Opponent's Potion"); //added tool tips
+      }
+
+    }
     int token1PotionsNumber = token1.getPotions().size();
 
     for(int i = 0; i < token2PotionsNumber; i++){
@@ -393,26 +432,7 @@ public class OfflineBoardJFrame extends JFrame implements ChangeableVisibility, 
       opponentsPotionArea.add(insidePotionLabel);
       addTooltipToComponent(insidePotionLabel, "Opponent's Potion"); //added tool tips
     }
-    for(int i = 0; i < token3PotionsNumber; i++){
-      Potion token1Potion = token3.getPotions().get(i);
-      ImageIcon potionIcon = new ImageIcon(
-              "src/ui/utils/mini_potion" + token1Potion.getPotionColor() + token1Potion.getName() + ".jpg"
-      );
-      JLabel insidePotionLabel = new JLabel(potionIcon);
-      addTooltipToComponent(insidePotionLabel, token1Potion.getPotionColor() + " " + token1Potion.getName()); //added tool tips
-      opponentsPotionArea2.add(insidePotionLabel);
-      addTooltipToComponent(insidePotionLabel, "Opponent's Potion"); //added tool tips
-    }
-    for(int i = 0; i < token4PotionsNumber; i++){
-      Potion token1Potion = token4.getPotions().get(i);
-      ImageIcon potionIcon = new ImageIcon(
-              "src/ui/utils/mini_potion" + token1Potion.getPotionColor() + token1Potion.getName() + ".jpg"
-      );
-      JLabel insidePotionLabel = new JLabel(potionIcon);
-      addTooltipToComponent(insidePotionLabel, token1Potion.getPotionColor() + " " + token1Potion.getName()); //added tool tips
-      opponentsPotionArea3.add(insidePotionLabel);
-      addTooltipToComponent(insidePotionLabel, "Opponent's Potion"); //added tool tips
-    }
+
     for(int i = 0; i < token1PotionsNumber; i++){
       Potion token1Potion = token1.getPotions().get(i);
       ImageIcon potionIcon = new ImageIcon(
@@ -429,27 +449,43 @@ public class OfflineBoardJFrame extends JFrame implements ChangeableVisibility, 
     opponentsReputationLabel = new JLabel();
     opponentsReputationLabel.setText("REPUTATION:" + token2.getReputation());
     opponentsReputationLabel.setFont(new Font("Arial", Font.BOLD, 20));
-
+  if(token3 != null) {
     opponentsReputationLabel2 = new JLabel();
     opponentsReputationLabel2.setText("REPUTATION:" + token3.getReputation());
     opponentsReputationLabel2.setFont(new Font("Arial", Font.BOLD, 20));
-
-    opponentsReputationLabel3 = new JLabel();
-    opponentsReputationLabel3.setText("REPUTATION:" + token4.getReputation());
-    opponentsReputationLabel3.setFont(new Font("Arial", Font.BOLD, 20));
-
     JPanel controlbackgroundPanelToken3 = new JPanel();
     controlbackgroundPanelToken3.setBackground(Color.LIGHT_GRAY);
+    ImageIcon opponentsAvatarIcon2 = new ImageIcon("src/ui/utils/" + token3.getAvatarImage() + ".png");
+    JLabel opponentsAvatarLabel2 = new JLabel(opponentsAvatarIcon2);
+    JLabel username3 = new JLabel(token3.getUsername());
+    username3.setFont(new Font("Arial", Font.BOLD, 20));
+    opponentsSegmentedAvatarArea2.add(opponentsReputationLabel2, BorderLayout.CENTER);
+    opponentsSegmentedAvatarArea2.add(username3, BorderLayout.SOUTH);
+    opponentsAvatarArea2.add(opponentsAvatarLabel2);
+
+  }
+    if(token4 != null) {
+      opponentsReputationLabel3 = new JLabel();
+      opponentsReputationLabel3.setText("REPUTATION:" + token4.getReputation());
+      opponentsReputationLabel3.setFont(new Font("Arial", Font.BOLD, 20));
+      ImageIcon opponentsAvatarIcon3 = new ImageIcon("src/ui/utils/" + token4.getAvatarImage() + ".png");
+      JLabel opponentsAvatarLabel3 = new JLabel(opponentsAvatarIcon3);
+      opponentsAvatarArea3.add(opponentsAvatarLabel3);
+      JLabel username4 = new JLabel(token4.getUsername());
+      username4.setFont(new Font("Arial", Font.BOLD, 20));
+      opponentsSegmentedAvatarArea3.add(opponentsReputationLabel3, BorderLayout.CENTER);
+      opponentsSegmentedAvatarArea3.add(username4, BorderLayout.SOUTH);
+    }
+
+
 
     ImageIcon avatarIcon = new ImageIcon("src/ui/utils/" + token1.getAvatarImage() + ".png");
     JLabel avatarLabel = new JLabel(avatarIcon);
 
     ImageIcon opponentsAvatarIcon = new ImageIcon("src/ui/utils/" + token2.getAvatarImage() + ".png");
     JLabel opponentsAvatarLabel = new JLabel(opponentsAvatarIcon);
-    ImageIcon opponentsAvatarIcon2 = new ImageIcon("src/ui/utils/" + token3.getAvatarImage() + ".png");
-    JLabel opponentsAvatarLabel2 = new JLabel(opponentsAvatarIcon2);
-    ImageIcon opponentsAvatarIcon3 = new ImageIcon("src/ui/utils/" + token4.getAvatarImage() + ".png");
-    JLabel opponentsAvatarLabel3 = new JLabel(opponentsAvatarIcon3);
+
+
 
     JLabel username1 = new JLabel(token1.getUsername());
     username1.setFont(new Font("Arial", Font.BOLD, 20));
@@ -457,11 +493,6 @@ public class OfflineBoardJFrame extends JFrame implements ChangeableVisibility, 
     JLabel username2 = new JLabel(token2.getUsername());
     username2.setFont(new Font("Arial", Font.BOLD, 20));
 
-    JLabel username3 = new JLabel(token3.getUsername());
-    username3.setFont(new Font("Arial", Font.BOLD, 20));
-
-    JLabel username4 = new JLabel(token4.getUsername());
-    username4.setFont(new Font("Arial", Font.BOLD, 20));
 
     JLabel artifactCardsLabel = new JLabel();
     artifactCardsLabel.setText("ARTIFACT CARDS:");
@@ -510,11 +541,9 @@ public class OfflineBoardJFrame extends JFrame implements ChangeableVisibility, 
     opponentsSegmentedAvatarArea.add(opponentsReputationLabel, BorderLayout.CENTER);
     opponentsSegmentedAvatarArea.add(username2, BorderLayout.SOUTH);
     
-    opponentsSegmentedAvatarArea2.add(opponentsReputationLabel2, BorderLayout.CENTER);
-    opponentsSegmentedAvatarArea2.add(username3, BorderLayout.SOUTH);
 
-    opponentsSegmentedAvatarArea3.add(opponentsReputationLabel3, BorderLayout.CENTER);
-    opponentsSegmentedAvatarArea3.add(username4, BorderLayout.SOUTH);
+
+
 
 
     //controlArea.add(Box.createVerticalStrut(10));
@@ -528,9 +557,7 @@ public class OfflineBoardJFrame extends JFrame implements ChangeableVisibility, 
     opponentsAvatarArea.add(opponentsSegmentedAvatarArea);
     opponentsAvatarArea.add(opponentsAvatarLabel);
     opponentsAvatarArea2.add(opponentsSegmentedAvatarArea2);
-    opponentsAvatarArea2.add(opponentsAvatarLabel2);
     opponentsAvatarArea3.add(opponentsSegmentedAvatarArea3);
-    opponentsAvatarArea3.add(opponentsAvatarLabel3);
     artifactCardsArea.add(artifactCardsLabel);
     createRoundActions(false, state);
 
