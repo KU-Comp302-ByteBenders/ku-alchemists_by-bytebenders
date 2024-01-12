@@ -10,6 +10,8 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 class BoardTest {
 
     @Test
@@ -21,7 +23,17 @@ class BoardTest {
         String avatar2 = "Avatar2";
 
         // I create a board with the parameters
-        Board board = new Board(username1, username2, avatar1, avatar2);
+        ArrayList<Token> tokens = new ArrayList();
+
+        Token token1 = new Token(username1, avatar1, avatar1);
+        Token token2 = new Token(username2, avatar2, avatar2);
+        tokens.add(token1);
+        tokens.add(token2);
+
+
+
+        // I create a board with the parameters
+        Board board = new Board(tokens);
 
         // I check if the board has 2 tokens
         assertEquals(2, board.getTokens().size());
@@ -36,7 +48,17 @@ class BoardTest {
         String avatar2 = "Avatar2";
 
         // I create a board with the parameters
-        Board board = new Board(username1, username2, avatar1, avatar2);
+        ArrayList<Token> tokens = new ArrayList();
+
+        Token token1 = new Token(username1, avatar1, avatar1);
+        Token token2 = new Token(username2, avatar2, avatar2);
+        tokens.add(token1);
+        tokens.add(token2);
+
+
+
+        // I create a board with the parameters
+        Board board = new Board(tokens);
 
         // I check whether the tokens' gold balance is 10
         for (Token token : board.getTokens()) {
@@ -58,7 +80,17 @@ class BoardTest {
         String avatar2 = "Avatar2";
 
         // I create a board with the parameters
-        Board board = new Board(username1, username2, avatar1, avatar2);
+        ArrayList<Token> tokens = new ArrayList();
+
+        Token token1 = new Token(username1, avatar1, avatar1);
+        Token token2 = new Token(username2, avatar2, avatar2);
+        tokens.add(token1);
+        tokens.add(token2);
+
+
+
+        // I create a board with the parameters
+        Board board = new Board(tokens);
 
         // I check whether the default ingredient cards amount of tokens' is 2
         for (Token token : board.getTokens()) {
@@ -80,7 +112,17 @@ class BoardTest {
         String avatar2 = "Avatar2";
 
         // I create a board with the parameters
-        Board board = new Board(username1, username2, avatar1, avatar2);
+        ArrayList<Token> tokens = new ArrayList();
+
+        Token token1 = new Token(username1, avatar1, avatar1);
+        Token token2 = new Token(username2, avatar2, avatar2);
+        tokens.add(token1);
+        tokens.add(token2);
+
+
+
+        // I create a board with the parameters
+        Board board = new Board(tokens);
 
         board.addIngredient();
         int initialSize = board.getIngredients().size();
@@ -102,7 +144,17 @@ class BoardTest {
         String avatar2 = "Avatar2";
 
         // I create a board with the parameters
-        Board board = new Board(username1, username2, avatar1, avatar2);
+        ArrayList<Token> tokens = new ArrayList();
+
+        Token token1 = new Token(username1, avatar1, avatar1);
+        Token token2 = new Token(username2, avatar2, avatar2);
+        tokens.add(token1);
+        tokens.add(token2);
+
+
+
+        // I create a board with the parameters
+        Board board = new Board(tokens);
         board.addIngredient();
 
         int initialSize = 0;
@@ -133,7 +185,17 @@ class BoardTest {
         String avatar2 = "Avatar2";
 
         // I create a board with the parameters
-        Board board = new Board(username1, username2, avatar1, avatar2);
+        ArrayList<Token> tokens = new ArrayList();
+
+        Token token1 = new Token(username1, avatar1, avatar1);
+        Token token2 = new Token(username2, avatar2, avatar2);
+        tokens.add(token1);
+        tokens.add(token2);
+
+
+
+        // I create a board with the parameters
+        Board board = new Board(tokens);
 
         board.addIngredient();
         int initialSize = board.getIngredients().size();
@@ -155,7 +217,17 @@ class BoardTest {
         String avatar2 = "Avatar2";
 
         // I create a board with the parameters
-        Board board = new Board(username1, username2, avatar1, avatar2);
+        ArrayList<Token> tokens = new ArrayList();
+
+        Token token1 = new Token(username1, avatar1, avatar1);
+        Token token2 = new Token(username2, avatar2, avatar2);
+        tokens.add(token1);
+        tokens.add(token2);
+
+
+
+        // I create a board with the parameters
+        Board board = new Board(tokens);
         board.addIngredient();
         assertTrue(!board.getIngredients().isEmpty(), "The ingredients list shouldn't be empty after calling addIngredient()");
     }
@@ -175,7 +247,17 @@ class BoardTest {
     String avatar2 = "Avatar2";
 
     // I create a board with the parameters
-    Board board = new Board(username1, username2, avatar1, avatar2);
+    ArrayList<Token> tokens = new ArrayList();
+
+    Token token1 = new Token(username1, avatar1, avatar1);
+    Token token2 = new Token(username2, avatar2, avatar2);
+    tokens.add(token1);
+    tokens.add(token2);
+
+
+
+    // I create a board with the parameters
+    Board board = new Board(tokens);
 
     // Check that each token has exactly 2 ingredients
     for (Token token : board.getTokens()) {
@@ -197,7 +279,17 @@ class BoardTest {
         String avatar2 = "Avatar2";
 
         // I create a board with the parameters
-        Board board = new Board(username1, username2, avatar1, avatar2);
+        ArrayList<Token> tokens = new ArrayList();
+
+        Token token1 = new Token(username1, avatar1, avatar1);
+        Token token2 = new Token(username2, avatar2, avatar2);
+        tokens.add(token1);
+        tokens.add(token2);
+
+
+
+        // I create a board with the parameters
+        Board board = new Board(tokens);
 
         // I check whether the artifact card list is empty
         assertFalse(board.getArtifactCards().isEmpty());
@@ -212,7 +304,17 @@ class BoardTest {
         String avatar2 = "Avatar2";
 
         // create a board with the parameters
-        Board board = new Board(username1, username2, avatar1, avatar2);
+        ArrayList<Token> tokens = new ArrayList();
+
+        Token token1 = new Token(username1, avatar1, avatar1);
+        Token token2 = new Token(username2, avatar2, avatar2);
+        tokens.add(token1);
+        tokens.add(token2);
+
+
+
+        // I create a board with the parameters
+        Board board = new Board(tokens);
         Token token = board.getTokens().get(0);
         AlchemyMarker alchemyMarker = board.getStaticAlchemyMarkers().get(0);
 
@@ -232,7 +334,17 @@ class BoardTest {
         String avatar2 = "Avatar2";
 
         // create a board with the parameters
-        Board board = new Board(username1, username2, avatar1, avatar2);
+        ArrayList<Token> tokens = new ArrayList();
+
+        Token token1 = new Token(username1, avatar1, avatar1);
+        Token token2 = new Token(username2, avatar2, avatar2);
+        tokens.add(token1);
+        tokens.add(token2);
+
+
+
+        // I create a board with the parameters
+        Board board = new Board(tokens);
         Token token = board.getTokens().get(0);
         Ingredient ingredient = board.getStaticIngredients().get(0);
 
@@ -252,7 +364,17 @@ class BoardTest {
         String avatar2 = "Avatar2";
 
         // create a board with the parameters
-        Board board = new Board(username1, username2, avatar1, avatar2);
+        ArrayList<Token> tokens = new ArrayList();
+
+        Token token1 = new Token(username1, avatar1, avatar1);
+        Token token2 = new Token(username2, avatar2, avatar2);
+        tokens.add(token1);
+        tokens.add(token2);
+
+
+
+        // I create a board with the parameters
+        Board board = new Board(tokens);
         Token token = board.getTokens().get(0);
         token.decreaseGold(10); // decrease the gold balance to 0
         AlchemyMarker alchemyMarker = board.getStaticAlchemyMarkers().get(0);
@@ -274,7 +396,17 @@ class BoardTest {
         String avatar2 = "Avatar2";
 
         // create a board with the parameters
-        Board board = new Board(username1, username2, avatar1, avatar2);
+        ArrayList<Token> tokens = new ArrayList();
+
+        Token token1 = new Token(username1, avatar1, avatar1);
+        Token token2 = new Token(username2, avatar2, avatar2);
+        tokens.add(token1);
+        tokens.add(token2);
+
+
+
+        // I create a board with the parameters
+        Board board = new Board(tokens);
         Token token = board.getTokens().get(0);
         AlchemyMarker alchemyMarker = board.getStaticAlchemyMarkers().get(0);
         Ingredient ingredient = board.getStaticIngredients().get(0);
@@ -298,7 +430,17 @@ class BoardTest {
         String avatar2 = "Avatar2";
 
         // create a board with the parameters
-        Board board = new Board(username1, username2, avatar1, avatar2);
+        ArrayList<Token> tokens = new ArrayList();
+
+        Token token1 = new Token(username1, avatar1, avatar1);
+        Token token2 = new Token(username2, avatar2, avatar2);
+        tokens.add(token1);
+        tokens.add(token2);
+
+
+
+        // I create a board with the parameters
+        Board board = new Board(tokens);
         Token token = board.getTokens().get(0);
         int previousGoldBalance = token.getGoldBalance();
         AlchemyMarker alchemyMarker = board.getStaticAlchemyMarkers().get(0);
@@ -323,7 +465,17 @@ class BoardTest {
         String avatar2 = "Avatar2";
 
         // Create a board with the parameters
-        Board board = new Board(username1, username2, avatar1, avatar2);
+        ArrayList<Token> tokens = new ArrayList();
+
+        Token token1 = new Token(username1, avatar1, avatar1);
+        Token token2 = new Token(username2, avatar2, avatar2);
+        tokens.add(token1);
+        tokens.add(token2);
+
+
+
+        // I create a board with the parameters
+        Board board = new Board(tokens);
 
         // Check if the state object is not null
         assertNotNull(board.getState());
@@ -338,7 +490,17 @@ class BoardTest {
         String avatar2 = "Avatar2";
 
         // I create a board with the parameters
-        Board board = new Board(username1, username2, avatar1, avatar2);
+        ArrayList<Token> tokens = new ArrayList();
+
+        Token token1 = new Token(username1, avatar1, avatar1);
+        Token token2 = new Token(username2, avatar2, avatar2);
+        tokens.add(token1);
+        tokens.add(token2);
+
+
+
+        // I create a board with the parameters
+        Board board = new Board(tokens);
 
         // I check whether the reputation points set correct or not
         for (Token token : board.getTokens()) {
@@ -355,7 +517,17 @@ class BoardTest {
         String avatar2 = "Avatar2";
 
         // I create a board with the parameters
-        Board board = new Board(username1, username2, avatar1, avatar2);
+        ArrayList<Token> tokens = new ArrayList();
+
+        Token token1 = new Token(username1, avatar1, avatar1);
+        Token token2 = new Token(username2, avatar2, avatar2);
+        tokens.add(token1);
+        tokens.add(token2);
+
+
+
+        // I create a board with the parameters
+        Board board = new Board(tokens);
 
         //I got the tokens for the debunker and theory owner
         Token debunkerToken = board.getTokens().get(0);
@@ -391,7 +563,17 @@ class BoardTest {
         String avatar2 = "Avatar2";
 
         // I create a board with the parameters
-        Board board = new Board(username1, username2, avatar1, avatar2);
+        ArrayList<Token> tokens = new ArrayList();
+
+        Token token1 = new Token(username1, avatar1, avatar1);
+        Token token2 = new Token(username2, avatar2, avatar2);
+        tokens.add(token1);
+        tokens.add(token2);
+
+
+
+        // I create a board with the parameters
+        Board board = new Board(tokens);
 
         //I got the tokens for the debunker and theory owner
         Token debunkerToken = board.getTokens().get(0);
@@ -419,9 +601,17 @@ class BoardTest {
         String username2 = "User2";
         String avatar1 = "Avatar1";
         String avatar2 = "Avatar2";
+        ArrayList<Token> tokens = new ArrayList();
+
+        Token token1 = new Token(username1, avatar1, avatar1);
+        Token token2 = new Token(username2, avatar2, avatar2);
+        tokens.add(token1);
+        tokens.add(token2);
+
+
 
         // I create a board with the parameters
-        Board board = new Board(username1, username2, avatar1, avatar2);
+        Board board = new Board(tokens);
 
         //I got the token for the theory owner
         Token theoryOwnerToken = board.getTokens().get(0);
@@ -443,9 +633,16 @@ class BoardTest {
             String username2 = "User2";
             String avatar1 = "Avatar1";
             String avatar2 = "Avatar2";
+            ArrayList<Token> tokens = new ArrayList();
+
+            Token token1 = new Token(username1, avatar1, avatar1);
+            Token token2 = new Token(username2, avatar2, avatar2);
+            tokens.add(token1);
+            tokens.add(token2);
+            
 
             // I create a board with the parameters
-            Board board = new Board(username1, username2, avatar1, avatar2);
+            Board board = new Board(tokens);
 
             //  I got the tokens for the debunker and theory owner
             Token debunkerToken = board.getTokens().get(0);

@@ -2,8 +2,12 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import game.Board;
 import game.EndGamer;
+import game.Token;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +20,7 @@ public class EndGamerTest {
   String avatar2;
   Board board;
   EndGamer endGamer;
+  ArrayList<Token> tokens;
 
   @BeforeEach
   public void setUp() {
@@ -23,7 +28,12 @@ public class EndGamerTest {
     this.username2 = "User2";
     this.avatar1 = "Avatar1";
     this.avatar2 = "Avatar2";
-    this.board = new Board(username1, username2, avatar1, avatar2);
+    Token token1 = new Token(username1, avatar1, avatar1);
+    Token token2 = new Token(username2, avatar2, avatar2);
+    tokens.add(token1);
+    tokens.add(token2);
+    
+    this.board = new Board(tokens);
   }
 
   @AfterEach
