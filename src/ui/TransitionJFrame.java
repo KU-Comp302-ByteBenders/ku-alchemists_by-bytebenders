@@ -8,16 +8,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class TransitionJFrame extends JFrame {
     Token token;
     Board board;
     State state;
 
-    public TransitionJFrame(Token token, Board board, State state) {
+    ArrayList<Token> tokens;
+
+    public TransitionJFrame(Token token, Board board, State state, ArrayList<Token> tokens) {
         this.board = board;
         this.token = token;
         this.state = state;
+        this.tokens = tokens;
         this.setLayout(null);
 
         // Set the size of the frame
@@ -47,7 +51,7 @@ public class TransitionJFrame extends JFrame {
         startButton.addActionListener( new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new OfflineBoardJFrame(token, board, state);
+                new OfflineBoardJFrame(token, board, state, tokens);
             }
         });
 

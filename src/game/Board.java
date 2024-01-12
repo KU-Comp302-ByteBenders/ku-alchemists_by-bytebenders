@@ -44,7 +44,7 @@ public class Board implements Serializable {
     // init state object
     state = new State(tokens);
     Token firstToken = state.selectRandomToken();
-    OfflineBoardJFrame offlineBoardJFrame = new OfflineBoardJFrame(firstToken, this, state); //online board creation
+    OfflineBoardJFrame offlineBoardJFrame = new OfflineBoardJFrame(firstToken, this, state, tokens); //online board creation
     //TransitionStarterJFrame transitionStarterJFrame = new TransitionStarterJFrame(firstToken, this, state);
 
     theories = new ArrayList<Theory>();

@@ -6,6 +6,7 @@ import ui.TransitionStarterJFrame;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -25,12 +26,16 @@ public class State implements Serializable {
   private HashMap<Token, Integer> round3Turns = new HashMap<>();
 
   public State(ArrayList<Token> tokens) {
+    Collections.shuffle(tokens);
     this.tokens = tokens;
     actionsMadeInRound = 0;
     currentRound = 1;
     currentTurn = 0;
     numberOfPlayers = tokens.size();
     initializeTurnMaps(tokens);
+    for(Token token : tokens){
+      System.out.println(token.getUsername());
+    }
   }
 
   private void initializeTurnMaps(ArrayList<Token> tokens) {
@@ -54,13 +59,29 @@ public class State implements Serializable {
     this.currentRound = currentRound;
   }
 
+  public int getNumberOfPlayers() {
+        return numberOfPlayers;
+    }
+    public ArrayList<Token> getTokens() {
+        return tokens;
+    }
+
 
   public Token getCurrentToken() {
     return tokens.get(currentTurn - 1); // decrement 1 because of zero indexing
   }
 
 
-  public void endTurn(Board board, Token token1, Token token2) {
+  public void endTurn(Board board, Token token1) {
+      Token currentToken;
+      int index = tokens.indexOf(token1);
+
+    if (index >= 0 && index < tokens.size() - 1) {
+      currentToken = tokens.get(index + 1);
+    } else {
+      currentToken = tokens.get(0);
+    }
+
       if(currentRound == 1){
         round1Turns.put(token1, round1Turns.get(token1) + 1);
       }
@@ -77,7 +98,7 @@ public class State implements Serializable {
         endGamer.openEndGame();
       }
       else {
-        TransitionJFrame transitionJFrame = new TransitionJFrame(token2, board, this);
+        TransitionJFrame transitionJFrame = new TransitionJFrame(currentToken, board, this, tokens);
       }
   }
 
@@ -124,10 +145,7 @@ public class State implements Serializable {
     if (tokens == null || tokens.isEmpty()) {
       return null;
     }
-
-    Random random = new Random();
-    int randomIndex = random.nextInt(tokens.size());
-    return tokens.get(randomIndex);
+    return tokens.get(0);
   }
 
 }
