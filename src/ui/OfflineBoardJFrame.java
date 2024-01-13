@@ -293,7 +293,7 @@ public class OfflineBoardJFrame extends JFrame implements ChangeableVisibility, 
       int token4IngredientsNumber = token4.getIngredients().size();
       for (int i = 0; i < token4IngredientsNumber; i++) {
         JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
-        opponentsIngredientCardsArea.add(opponentIngLabel);
+        opponentsIngredientCardsArea2.add(opponentIngLabel);
         addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient"); //added tool tips
       }
     }
