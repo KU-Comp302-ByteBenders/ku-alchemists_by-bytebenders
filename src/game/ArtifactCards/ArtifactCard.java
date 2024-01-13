@@ -1,14 +1,12 @@
 package game.ArtifactCards;
 
-import java.io.Serializable;
-
 import game.Board;
 import game.Token;
 
 //We used the strategy pattern while creating the artifact cards. We created an effect interface and
 //made the different artifact card classes have different implementations of the applyEffect method of
 //the effect class.
-public class ArtifactCard implements EffectStrategy, Serializable {
+public class ArtifactCard implements EffectStrategy {
 
   private static final long serialVersionUID = 13L;
   private String name;
@@ -42,10 +40,9 @@ public class ArtifactCard implements EffectStrategy, Serializable {
   public void setToBeAppliedFlag(boolean toBeAppliedFlag) {
     this.toBeAppliedFlag = toBeAppliedFlag;
   }
+
   @Override
   public void applyEffect(Token token, Board board, String ing) {
     effect.applyEffect(token, board, ing);
   }
-
-  
 }

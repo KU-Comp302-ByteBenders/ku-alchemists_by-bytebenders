@@ -1,13 +1,11 @@
 package game;
 
+import game.ArtifactCards.ArtifactCard;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import javax.swing.*;
-
-import game.ArtifactCards.ArtifactCard;
 import ui.*;
 import ui.interfaces.BoardFrame;
 import ui.interfaces.ChangeableVisibility;
@@ -17,11 +15,13 @@ import ui.interfaces.ChangeableVisibility;
  * Also a Singleton class.
  */
 public class Game implements Serializable {
+
   private static final long serialVersionUID = 6L;
-  public int round;
   private Boolean activateBoard;
   Server server;
+  Client client;
 
+  OnlineBoardJFrame onlineBoardJFrame;
 
   private static Game instance = null;
 
@@ -33,6 +33,22 @@ public class Game implements Serializable {
   }
 
   private Game() {}
+
+  public void openCountDownFrame(Token token, Board board) {
+    CountDownFrame countDownJFrame = new CountDownFrame(token, board);
+  }
+
+  public void openOnlineBoard(Token token, Board board, ChangeableVisibility frame) {
+    frame.changeVisible(false);
+    OnlineBoardJFrame onlineBoardJFrame = new OnlineBoardJFrame(token, board);
+    this.onlineBoardJFrame = onlineBoardJFrame;
+  }
+
+  public void reopenOnlineBoard(Token token, Board board) {
+    onlineBoardJFrame.dispose();
+    OnlineBoardJFrame onlineBoardJFrame = new OnlineBoardJFrame(token, board);
+    this.onlineBoardJFrame = onlineBoardJFrame;
+  }
 
   public void openMainMenu() {
     // Open the main menu
@@ -75,7 +91,6 @@ public class Game implements Serializable {
     frame.changeVisible(false);
   }
 
-
   public void startGame(ArrayList<String> playerNames, ArrayList<String> playerAvatars, LoginJFrame loginScreen) {
     ArrayList<Token> tokens = new ArrayList<>();
     // Assuming you want to handle a dynamic number of players
@@ -83,30 +98,43 @@ public class Game implements Serializable {
     System.out.println(numPlayers);
 
     if (numPlayers < 2) {
-        JOptionPane.showMessageDialog(loginScreen, "Add at least 1 more player before starting the game.", "Error", JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(
+        loginScreen,
+        "Add at least 1 more player before starting the game.",
+        "Error",
+        JOptionPane.ERROR_MESSAGE
+      );
     } else {
-        // You may need to adjust this part based on your actual game logic
-        // For now, it assumes a fixed number of players (2)
-            // Assuming you want to access the first two players for now
+      // You may need to adjust this part based on your actual game logic
+      // For now, it assumes a fixed number of players (2)
+      // Assuming you want to access the first two players for now
 
-            for(int i=0; numPlayers > i; i++ ){
-              Token token1 = new Token(playerNames.get(i), playerAvatars.get(i), playerAvatars.get(i));
-              System.out.println(token1.getUsername());
-              System.out.println(tokens);
-              tokens.add(token1);
-              System.out.println("sfsgdsg");
-            }
-            System.out.println(tokens);
-            
-            Board board = new Board(tokens);
-            System.out.println("aaaaa");
-            loginScreen.setVisible(false);
+      for (int i = 0; numPlayers > i; i++) {
+        Token token1 = new Token(playerNames.get(i), playerAvatars.get(i), playerAvatars.get(i));
+        System.out.println(token1.getUsername());
+        System.out.println(tokens);
+        tokens.add(token1);
+        System.out.println("sfsgdsg");
+      }
+      System.out.println(tokens);
+
+      Board board = new Board(tokens);
+      System.out.println("aaaaa");
+      loginScreen.setVisible(false);
     }
-    
-}
+  }
 
-  public void startGameOnline() {
+  public void startGameOnline(ChangeableVisibility frame) {
+    frame.changeVisible(false);
     server.startGame();
+  }
+
+  public void publishAction(String action) {
+    if (server == null) {
+      client.sendAction(action);
+    } else {
+      server.publishAction(action);
+    }
   }
 
   public void openPauseMenu() {}
@@ -185,9 +213,12 @@ public class Game implements Serializable {
 
   public static void openWisdomIdolConfirmationDialog(ArtifactCard artifactCard) {
     // Add confirmation dialog
-    int confirmed = JOptionPane.showConfirmDialog(null, 
-    "Is the Theory Owner sure that they want to apply the Wisdom Idol effect?", "Confirmation", 
-    JOptionPane.YES_NO_OPTION);
+    int confirmed = JOptionPane.showConfirmDialog(
+      null,
+      "Is the Theory Owner sure that they want to apply the Wisdom Idol effect?",
+      "Confirmation",
+      JOptionPane.YES_NO_OPTION
+    );
 
     if (confirmed == JOptionPane.YES_OPTION) {
       // If the user confirmed, set the flag to true
@@ -199,8 +230,16 @@ public class Game implements Serializable {
     boardFrame.controlRoundActions(endTurnFlag, state);
   }
 
-  public static void activateTransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard, BoardJFrame boardFrame, State state) {
+  public static void activateTransmuteIngredientFrame(
+    ArrayList<Ingredient> displayedIngredients,
+    Board mainBoard,
+    BoardJFrame boardFrame,
+    State state
+  ) {
     boardFrame.activateTransmuteIngredientFrame(displayedIngredients, mainBoard, state);
-}
+  }
 
+  public void setClient(Client client) {
+    this.client = client;
+  }
 }

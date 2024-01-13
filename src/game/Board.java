@@ -9,19 +9,21 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-
 import ui.OfflineBoardJFrame;
-import ui.OnlineBoardJFrame;
-import ui.TransitionStarterJFrame;
 
 public class Board implements Serializable {
 
   private ArrayList<Token> tokens;
   private ArrayList<Ingredient> ingredients;
-  private static ArrayList<ArtifactCard> artifactCards;
+  private ArrayList<ArtifactCard> artifactCards;
   private ArrayList<Theory> theories;
   private State state;
   private static final long serialVersionUID = 1L;
+
+  //For online version
+  private int round = 1;
+  private int turn = 1;
+  private int whoseTurn = 0;
 
   // These two will be used in publishTheory and debunkTheory.
   // The order of static ingredients will remain the same.
@@ -36,10 +38,9 @@ public class Board implements Serializable {
 
     this.addIngredient();
     this.createArtifactCards();
-    for(int i=0; tokens.size() > i; i++ ){
+    for (int i = 0; tokens.size() > i; i++) {
       tokens.get(i).addGold(10);
     }
-
 
     // init state object
     state = new State(tokens);
@@ -225,7 +226,6 @@ public class Board implements Serializable {
     return staticAlchemyMarkers;
   }
 
-
   public State getState() {
     return state;
   }
@@ -263,8 +263,6 @@ public class Board implements Serializable {
     }
 
     System.out.println("Theory published!");
-    // Update game state
-    // state.updateState();
   }
 
   public boolean debunkTheory(Theory theory, Aspect aspect, Token token) throws Exception {
@@ -308,7 +306,6 @@ public class Board implements Serializable {
     if (token.getGoldBalance() >= artifactCard.getGoldPrice()) {
       token.decreaseGold(artifactCard.getGoldPrice());
       token.addArtifactCard(artifactCard);
-      //System.out.println(token.getArtifactCards());
       System.out.println("artifactCard succesfully added to token");
     } else {
       System.err.println("The player does not have enough gold to buy an artifact card");
@@ -328,5 +325,44 @@ public class Board implements Serializable {
     this.ingredients.set(0, firstIng);
     this.ingredients.set(1, secondIng);
     this.ingredients.set(2, thirdIng);
+  }
+
+  public int getRound() {
+    return round;
+  }
+
+  public void setRound(int round) {
+    this.round = round;
+  }
+
+  public int getTurn() {
+    return turn;
+  }
+
+  public void setTurn(int turn) {
+    this.turn = turn;
+  }
+
+  public int getWhoseTurn() {
+    return whoseTurn;
+  }
+
+  public void setWhoseTurn(int whoseTurn) {
+    this.whoseTurn = whoseTurn;
+  }
+
+  public void endTurn() {
+    if (whoseTurn == tokens.size() - 1) {
+      turn++;
+      if (turn % 3 == 0) {
+        round++;
+        if (round == 3) {
+          //endGame();
+        }
+      }
+      whoseTurn = 0;
+    } else {
+      whoseTurn++;
+    }
   }
 }

@@ -13,7 +13,6 @@ import java.util.Map;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-
 import ui.interfaces.BoardFrame;
 import ui.interfaces.ChangeableVisibility;
 import ui.uihelpers.RoundedButton;
@@ -429,7 +428,11 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
     addTooltipToComponent(artifactUseButton, artifactCard.getName()); //added tool tips
 
     //If it is printing press, it will not be clickable/actionable.
-    if ("Printing Press" != artifactCard.getName() && "Magic Mortar" != artifactCard.getName() && "Wisdom Idol" != artifactCard.getName()) {
+    if (
+      "Printing Press" != artifactCard.getName() &&
+      "Magic Mortar" != artifactCard.getName() &&
+      "Wisdom Idol" != artifactCard.getName()
+    ) {
       artifactUseButton.addActionListener(
         new ActionListener() {
           @Override
@@ -529,7 +532,7 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          Game.openPotionJFrame(token1,board, BoardJFrame.this, state);
+          Game.openPotionJFrame(token1, board, BoardJFrame.this, state);
         }
       }
     );
@@ -804,18 +807,19 @@ public class BoardJFrame extends JFrame implements ChangeableVisibility, BoardFr
   }
 
   @Override
-  public void activateTransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard,
-      State state) {
+  public void activateTransmuteIngredientFrame(
+    ArrayList<Ingredient> displayedIngredients,
+    Board mainBoard,
+    State state
+  ) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'activateTransmuteIngredientFrame'");
   }
 
   @Override
-  public void controlRoundActions(Boolean endTurnFlag,  State state) {
+  public void controlRoundActions(Boolean endTurnFlag, State state) {
     if (endTurnFlag) {
-      System.out.println("asas");
       if (state.getCurrentRound() == 1) {
-        System.out.println("gel");
         eastPanel.remove(forageButton);
         eastPanel.remove(transmuteButton);
         eastPanel.remove(experimentButton);
