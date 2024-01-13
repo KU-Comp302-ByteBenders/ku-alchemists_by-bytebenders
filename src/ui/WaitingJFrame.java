@@ -1,7 +1,6 @@
 package ui;
 
 import game.Game;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -13,7 +12,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import ui.interfaces.ChangeableVisibility;
 
 public class WaitingJFrame extends JFrame implements ChangeableVisibility {
@@ -39,17 +37,15 @@ public class WaitingJFrame extends JFrame implements ChangeableVisibility {
         @Override
         public void actionPerformed(ActionEvent e) {
           Game game = Game.getInstance();
-          game.startGameOnline();
+          game.startGameOnline(WaitingJFrame.this);
         }
       }
     );
-
 
     startButtonPanel = new JPanel(new FlowLayout());
     startButtonPanel.add(startButton);
 
     usernamesPanel = new JPanel(new GridLayout(8, 1));
-
 
     usernamesPanel.add(titleLabel);
     usernamesPanel.add(ipAddress);

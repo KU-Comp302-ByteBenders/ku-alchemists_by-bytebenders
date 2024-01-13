@@ -13,16 +13,21 @@ import java.util.List;
 import ui.WaitingJFrame;
 
 public class Server implements Serializable {
+
   private static final long serialVersionUID = 9L;
 
   private static final int PORT = 5001;
   private static final List<ClientHandler> clients = new ArrayList<>();
   public WaitingJFrame waitingFrame;
   private static final HashMap<String, String> credentials = new HashMap<>(); // username, avatar
+  private String username;
+  private Token token;
+  private Board board;
 
   public Server() {}
 
   public void startServer(String username, String avatar) {
+    this.username = username;
     credentials.put(username, avatar); // Host's credentials
 
     String ip = getIp();
@@ -49,10 +54,20 @@ public class Server implements Serializable {
   public void startGame() {
     // Send the board to all clients
     Board board = new Board(credentials);
-    // TODO: OPENS A NEW FRAME FOR THE PLAYER WHO IS SERVER
+    this.board = board;
+    for (Token token : board.getTokens()) {
+      if (token.getUsername().equals(username)) {
+        this.token = token;
+      }
+    }
+
     for (ClientHandler client : clients) {
+      client.setBoard(board);
+      client.setToken(token);
       client.sendObject(board);
     }
+    Game game = Game.getInstance();
+    game.openCountDownFrame(token, board);
   }
 
   public String getIp() {
@@ -77,8 +92,7 @@ public class Server implements Serializable {
     return ip;
   }
 
-
-    public HashMap<String, String> getCredentials() {
+  public HashMap<String, String> getCredentials() {
     return credentials;
   }
 
@@ -86,6 +100,13 @@ public class Server implements Serializable {
     this.waitingFrame = waitingFrame;
   }
 
+  public void publishAction(String action) {
+    for (ClientHandler client : clients) {
+      client.sendMessage(action);
+    }
+  }
+
+  // Inner class !!
   private static class ClientHandler implements Runnable {
 
     private Socket clientSocket;
@@ -95,6 +116,8 @@ public class Server implements Serializable {
     private ObjectOutputStream objectOut;
     private WaitingJFrame waitingFrame;
     private Server server;
+    private Board board;
+    private Token token;
 
     public ClientHandler(Socket socket) {
       this.clientSocket = socket;
@@ -114,14 +137,41 @@ public class Server implements Serializable {
       try {
         while (true) {
           String clientMessage = dataIn.readUTF();
-          if (clientMessage.split(" ")[0].equals("credentials")) {
-            String username = clientMessage.split(" ")[1];
-            String avatar = clientMessage.split(" ")[2];
+          System.out.println("Client message: " + clientMessage);
+          String[] messageParts = clientMessage.split(" ");
+          Game game = Game.getInstance();
+          for (String part : messageParts) {
+            System.out.println(part);
+          }
+
+          if (messageParts[0].equals("credentials")) {
+            String username = messageParts[1];
+            String avatar = messageParts[2];
             server.getCredentials().put(username, avatar);
             waitingFrame.addPlayer(username, avatar);
-            for (String u : server.getCredentials().keySet()) {
-              System.out.println("username: " + u + " avatar: " + server.getCredentials().get(u));
+          }
+
+          if (messageParts[0].equals("Action")) {
+            broadcastMessage(clientMessage);
+            String index = messageParts[1];
+            String action = messageParts[2];
+            server.publishAction(action);
+
+            System.out.println("Action: " + action);
+            System.out.println("Index: " + index);
+
+            if (action.equals("EndTurn")) {
+              System.out.println("Inside End turn");
+              board.endTurn();
+              game.reopenOnlineBoard(token, board);
             }
+
+            if (action.equals("ForageForIngredient")) {
+              System.out.println("Inside ForageForIngredient");
+              board.getTokens().get(Integer.parseInt(index)).forageForIngredient(board);
+              game.reopenOnlineBoard(token, board);
+            }
+            // TODO: Add other actions
           }
         }
       } catch (IOException e) {
@@ -183,6 +233,14 @@ public class Server implements Serializable {
 
     private void setServer(Server server) {
       this.server = server;
+    }
+
+    private void setBoard(Board board) {
+      this.board = board;
+    }
+
+    private void setToken(Token token) {
+      this.token = token;
     }
   }
 }

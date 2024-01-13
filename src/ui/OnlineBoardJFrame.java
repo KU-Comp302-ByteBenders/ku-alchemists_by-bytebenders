@@ -13,7 +13,6 @@ import java.util.Map;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-
 import ui.interfaces.BoardFrame;
 import ui.interfaces.ChangeableVisibility;
 import ui.uihelpers.RoundedButton;
@@ -22,8 +21,8 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
 
   Token token1;
   Token token2;
-  Token token3; //might delete
-  Token token4; //might delete
+  Token token3;
+  Token token4;
   Border lineBorder;
   Board board;
   State state;
@@ -72,7 +71,6 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
   JPanel opponentsSegmentedAvatarArea;
   JPanel opponentsSegmentedAvatarArea2;
   JPanel opponentsSegmentedAvatarArea3;
-  
 
   ImageIcon obsidianIcon = new ImageIcon("src/ui/utils/obsidian.jpg");
   ImageIcon saffronIcon = new ImageIcon("src/ui/utils/saffron.jpg");
@@ -110,18 +108,51 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
   JButton endTurnButton;
   OnlineBoardJFrame thisBoardJFrame = this;
 
+  JPanel row3;
+
   Map<ArtifactCard, ImageIcon> artifactImageMap;
 
-  public OnlineBoardJFrame(Token currentToken, Board board, State state) {
+  private int numOfPlayers;
+
+  public OnlineBoardJFrame(Token currentToken, Board board) {
     super("KUALCH ONLINE");
-    this.state = state;
     this.board = board;
+    this.numOfPlayers = board.getTokens().size();
     token1 = currentToken;
 
-    for (Token token : board.getTokens()) {
-      if (!token.getUsername().equals(token1.getUsername())) {
-        token2 = token;
-        break;
+    if (numOfPlayers == 2) {
+      for (Token token : board.getTokens()) {
+        if (token != token1) {
+          token2 = token;
+        }
+      }
+    } else if (numOfPlayers == 3) {
+      for (Token token : board.getTokens()) {
+        if (token != token1) {
+          if (token2 != null) {
+            if (token != token2) {
+              token3 = token;
+            }
+          } else {
+            token2 = token;
+          }
+        }
+      }
+    } else if (numOfPlayers == 4) {
+      for (Token token : board.getTokens()) {
+        if (token != token1) {
+          if (token2 != null) {
+            if (token3 != null) {
+              if (token != token2 && token != token3) {
+                token4 = token;
+              }
+            } else {
+              token3 = token;
+            }
+          } else {
+            token2 = token;
+          }
+        }
       }
     }
 
@@ -130,32 +161,35 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     setResizable(false);
     setLayout(new BorderLayout());
 
-    // this.artifactImageMap =
-    //   Map.of(
-    //     board.getArtifactCards().get(0),
-    //     artifact1Icon,
-    //     board.getArtifactCards().get(1),
-    //     artifact2Icon,
-    //     board.getArtifactCards().get(2),
-    //     artifact3Icon,
-    //     board.getArtifactCards().get(3),
-    //     artifact4Icon
-    //   );
+    this.artifactImageMap =
+      Map.of(
+        board.getArtifactCards().get(0),
+        artifact1Icon,
+        board.getArtifactCards().get(1),
+        artifact2Icon,
+        board.getArtifactCards().get(2),
+        artifact3Icon,
+        board.getArtifactCards().get(3),
+        artifact4Icon
+      );
 
     // CREATE THE JPANELS AND JLABELS
 
     lineBorder = new LineBorder(new Color(229, 113, 133), 1);
 
-    westPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 20)); // Ingredients and Artifacts Of Board
-    eastPanel = new JPanel(new GridLayout(3, 1)); // Theories and Potions
+    westPanel = new JPanel(new BorderLayout()); // Ingredients and Artifacts Of Board
+    eastPanel = new JPanel(new BorderLayout()); // Theories and Potions
     southPanel = new JPanel(new GridLayout(1, 7));
     northPanel = new JPanel(new GridLayout(1, 6));
     centerPanel = new JPanel(new BorderLayout()); // Deduction Board
 
     FlowLayout rowLayout = new FlowLayout(FlowLayout.CENTER);
     JPanel row1 = new JPanel(rowLayout);
+    row1.setPreferredSize(new Dimension(450, 100));
     JPanel row2 = new JPanel(rowLayout);
-    JPanel row3 = new JPanel(rowLayout);
+    row2.setPreferredSize(new Dimension(450, 150));
+    row3 = new JPanel(rowLayout);
+    row3.setPreferredSize(new Dimension(450, 210));
 
     westOfSouthPanel = new JPanel(new BorderLayout());
     eastOfSouthPanel = new JPanel(new BorderLayout());
@@ -174,7 +208,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     opponentsIngredientCardsArea = new JPanel(new FlowLayout(FlowLayout.CENTER));
     opponentsIngredientCardsArea2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
     opponentsIngredientCardsArea3 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-    controlArea = new JPanel(new FlowLayout());
+    controlArea = new JPanel(new GridLayout(5, 1));
     opponentsSegmentedAvatarArea = new JPanel(new BorderLayout());
     opponentsSegmentedAvatarArea2 = new JPanel(new BorderLayout());
     opponentsSegmentedAvatarArea3 = new JPanel(new BorderLayout());
@@ -239,27 +273,30 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     // ADD INGREDIENTS TO THE BOARD
 
     int token2IngredientsNumber = token2.getIngredients().size();
+    if (token3 != null) {
+      int token3IngredientsNumber = token3.getIngredients().size();
+      for (int i = 0; i < token3IngredientsNumber; i++) {
+        JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
+        opponentsIngredientCardsArea.add(opponentIngLabel);
+        addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient"); //added tool tips
+      }
+    }
+    if (token4 != null) {
+      int token4IngredientsNumber = token4.getIngredients().size();
+      for (int i = 0; i < token4IngredientsNumber; i++) {
+        JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
+        opponentsIngredientCardsArea2.add(opponentIngLabel);
+        addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient"); //added tool tips
+      }
+    }
+
     int token1IngredientsNumber = token1.getIngredients().size();
-
-    for (int i = 0; i < token2IngredientsNumber; i++) {
-      JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
-      opponentsIngredientCardsArea.add(opponentIngLabel);
-      addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient"); //added tool tips
-    }
-
-    for (int i = 0; i < token2IngredientsNumber; i++) {
-      JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
-      opponentsIngredientCardsArea2.add(opponentIngLabel);
-      addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient"); //added tool tips
-    }
-
+    ///// Token 2 area
     for (int i = 0; i < token2IngredientsNumber; i++) {
       JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
       opponentsIngredientCardsArea3.add(opponentIngLabel);
       addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient"); //added tool tips
     }
-
-    System.out.println("token1.getIngredients().size() = " + token1.getIngredients().size());
 
     for (int i = 0; i < token1IngredientsNumber; i++) {
       Ingredient token1Ingredient = token1.getIngredients().get(i);
@@ -300,15 +337,18 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     opponentsGoldLabel.setFont(new Font("Arial", Font.BOLD, 20));
     opponentsSegmentedAvatarArea.add(opponentsGoldLabel, BorderLayout.NORTH);
 
-    opponentsGoldLabel2 = new JLabel();
-    opponentsGoldLabel2.setText("GOLD:" + token2.getGoldBalance());
-    opponentsGoldLabel2.setFont(new Font("Arial", Font.BOLD, 20));
-    opponentsSegmentedAvatarArea2.add(opponentsGoldLabel2, BorderLayout.NORTH);
-
-    opponentsGoldLabel3 = new JLabel();
-    opponentsGoldLabel3.setText("GOLD:" + token2.getGoldBalance());
-    opponentsGoldLabel3.setFont(new Font("Arial", Font.BOLD, 20));
-    opponentsSegmentedAvatarArea3.add(opponentsGoldLabel3, BorderLayout.NORTH);
+    if (token3 != null) {
+      opponentsGoldLabel2 = new JLabel();
+      opponentsGoldLabel2.setText("GOLD:" + token3.getGoldBalance());
+      opponentsGoldLabel2.setFont(new Font("Arial", Font.BOLD, 20));
+      opponentsSegmentedAvatarArea2.add(opponentsGoldLabel2, BorderLayout.NORTH);
+    }
+    if (token4 != null) {
+      opponentsGoldLabel3 = new JLabel();
+      opponentsGoldLabel3.setText("GOLD:" + token4.getGoldBalance());
+      opponentsGoldLabel3.setFont(new Font("Arial", Font.BOLD, 20));
+      opponentsSegmentedAvatarArea3.add(opponentsGoldLabel3, BorderLayout.NORTH);
+    }
 
     JLabel potionLabel = new JLabel();
     potionLabel.setText("POTIONS:");
@@ -322,75 +362,108 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     opponentsPotionLabel.setText("POTIONS:");
     opponentsPotionLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
-    JLabel opponentsPotionLabel2 = new JLabel();
-    opponentsPotionLabel2.setText("POTIONS:");
-    opponentsPotionLabel2.setFont(new Font("Arial", Font.BOLD, 20));
+    opponentsPotionArea.add(opponentsPotionLabel);
 
-    JLabel opponentsPotionLabel3 = new JLabel();
-    opponentsPotionLabel3.setText("POTIONS:");
-    opponentsPotionLabel3.setFont(new Font("Arial", Font.BOLD, 20));
+    int token2PotionsNumber = token2.getPotions().size();
+    if (token3 != null) {
+      JLabel opponentsPotionLabel2 = new JLabel();
+      opponentsPotionLabel2.setText("POTIONS:");
+      opponentsPotionLabel2.setFont(new Font("Arial", Font.BOLD, 20));
+      opponentsPotionArea2.add(opponentsPotionLabel2);
+      int token3PotionsNumber = token3.getPotions().size();
+      for (int i = 0; i < token3PotionsNumber; i++) {
+        Potion token1Potion = token3.getPotions().get(i);
+        ImageIcon potionIcon = new ImageIcon(
+          "src/ui/utils/mini_potion" + token1Potion.getPotionColor() + token1Potion.getName() + ".jpg"
+        );
+        JLabel insidePotionLabel = new JLabel(potionIcon);
+        addTooltipToComponent(insidePotionLabel, token1Potion.getPotionColor() + " " + token1Potion.getName()); //added tool tips
+        opponentsPotionArea2.add(insidePotionLabel);
+        addTooltipToComponent(insidePotionLabel, "Opponent's Potion"); //added tool tips
+      }
+    }
+    if (token4 != null) {
+      JLabel opponentsPotionLabel3 = new JLabel();
+      opponentsPotionLabel3.setText("POTIONS:");
+      opponentsPotionLabel3.setFont(new Font("Arial", Font.BOLD, 20));
+      opponentsPotionArea3.add(opponentsPotionLabel3);
+      int token4PotionsNumber = token4.getPotions().size();
+
+      for (int i = 0; i < token4PotionsNumber; i++) {
+        Potion token1Potion = token4.getPotions().get(i);
+        ImageIcon potionIcon = new ImageIcon(
+          "src/ui/utils/mini_potion" + token1Potion.getPotionColor() + token1Potion.getName() + ".jpg"
+        );
+        JLabel insidePotionLabel = new JLabel(potionIcon);
+        addTooltipToComponent(insidePotionLabel, token1Potion.getPotionColor() + " " + token1Potion.getName()); //added tool tips
+        opponentsPotionArea3.add(insidePotionLabel);
+        addTooltipToComponent(insidePotionLabel, "Opponent's Potion"); //added tool tips
+      }
+    }
+    int token1PotionsNumber = token1.getPotions().size();
+
+    for (int i = 0; i < token2PotionsNumber; i++) {
+      Potion token1Potion = token2.getPotions().get(i);
+      ImageIcon potionIcon = new ImageIcon(
+        "src/ui/utils/mini_potion" + token1Potion.getPotionColor() + token1Potion.getName() + ".jpg"
+      );
+      JLabel insidePotionLabel = new JLabel(potionIcon);
+      addTooltipToComponent(insidePotionLabel, token1Potion.getPotionColor() + " " + token1Potion.getName()); //added tool tips
+      opponentsPotionArea.add(insidePotionLabel);
+      addTooltipToComponent(insidePotionLabel, "Opponent's Potion"); //added tool tips
+    }
+
+    for (int i = 0; i < token1PotionsNumber; i++) {
+      Potion token1Potion = token1.getPotions().get(i);
+      ImageIcon potionIcon = new ImageIcon(
+        "src/ui/utils/mini_potion" + token1Potion.getPotionColor() + token1Potion.getName() + ".jpg"
+      );
+      JLabel insidePotionLabel = new JLabel(potionIcon);
+      addTooltipToComponent(insidePotionLabel, token1Potion.getPotionColor() + " " + token1Potion.getName()); //added tool tips
+      potionArea.add(insidePotionLabel);
+    }
 
     opponentsReputationLabel = new JLabel();
     opponentsReputationLabel.setText("REPUTATION:" + token2.getReputation());
     opponentsReputationLabel.setFont(new Font("Arial", Font.BOLD, 20));
-
-    opponentsReputationLabel2 = new JLabel();
-    opponentsReputationLabel2.setText("REPUTATION:" + token2.getReputation());
-    opponentsReputationLabel2.setFont(new Font("Arial", Font.BOLD, 20));
-
-    opponentsReputationLabel3 = new JLabel();
-    opponentsReputationLabel3.setText("REPUTATION:" + token2.getReputation());
-    opponentsReputationLabel3.setFont(new Font("Arial", Font.BOLD, 20));
-
-    JPanel controlbackgroundPanelToken1 = new JPanel();
-    controlbackgroundPanelToken1.setBackground(Color.LIGHT_GRAY);
-
-    JLabel scoreLabel1 = new JLabel();
-    scoreLabel1.setText("Token1 Score=" + token1.getScore());
-    scoreLabel1.setFont(new Font("Arial", Font.BOLD, 20));
-
-    JPanel controlbackgroundPanelToken2 = new JPanel();
-    controlbackgroundPanelToken2.setBackground(Color.LIGHT_GRAY);
-
-    JLabel scoreLabel2 = new JLabel();
-    scoreLabel2.setText("Token2 Score=" + token2.getScore());
-    scoreLabel2.setFont(new Font("Arial", Font.BOLD, 20));
-
-    JPanel controlbackgroundPanelToken3 = new JPanel();
-    controlbackgroundPanelToken3.setBackground(Color.LIGHT_GRAY);
-
-    JLabel scoreLabel3 = new JLabel();
-    scoreLabel3.setText("Token3 Score=" + token2.getScore());
-    scoreLabel3.setFont(new Font("Arial", Font.BOLD, 20));
-
-    JPanel controlbackgroundPanelToken4 = new JPanel();
-    controlbackgroundPanelToken4.setBackground(Color.LIGHT_GRAY);
-
-    JLabel scoreLabel4 = new JLabel();
-    scoreLabel4.setText("Token4 Score=" + token2.getScore());
-    scoreLabel4.setFont(new Font("Arial", Font.BOLD, 20));
+    if (token3 != null) {
+      opponentsReputationLabel2 = new JLabel();
+      opponentsReputationLabel2.setText("REPUTATION:" + token3.getReputation());
+      opponentsReputationLabel2.setFont(new Font("Arial", Font.BOLD, 20));
+      JPanel controlbackgroundPanelToken3 = new JPanel();
+      controlbackgroundPanelToken3.setBackground(Color.LIGHT_GRAY);
+      ImageIcon opponentsAvatarIcon2 = new ImageIcon("src/ui/utils/" + token3.getAvatarImage() + ".png");
+      JLabel opponentsAvatarLabel2 = new JLabel(opponentsAvatarIcon2);
+      JLabel username3 = new JLabel(token3.getUsername());
+      username3.setFont(new Font("Arial", Font.BOLD, 20));
+      opponentsSegmentedAvatarArea2.add(opponentsReputationLabel2, BorderLayout.CENTER);
+      opponentsSegmentedAvatarArea2.add(username3, BorderLayout.SOUTH);
+      opponentsAvatarArea2.add(opponentsAvatarLabel2);
+    }
+    if (token4 != null) {
+      opponentsReputationLabel3 = new JLabel();
+      opponentsReputationLabel3.setText("REPUTATION:" + token4.getReputation());
+      opponentsReputationLabel3.setFont(new Font("Arial", Font.BOLD, 20));
+      ImageIcon opponentsAvatarIcon3 = new ImageIcon("src/ui/utils/" + token4.getAvatarImage() + ".png");
+      JLabel opponentsAvatarLabel3 = new JLabel(opponentsAvatarIcon3);
+      opponentsAvatarArea3.add(opponentsAvatarLabel3);
+      JLabel username4 = new JLabel(token4.getUsername());
+      username4.setFont(new Font("Arial", Font.BOLD, 20));
+      opponentsSegmentedAvatarArea3.add(opponentsReputationLabel3, BorderLayout.CENTER);
+      opponentsSegmentedAvatarArea3.add(username4, BorderLayout.SOUTH);
+    }
 
     ImageIcon avatarIcon = new ImageIcon("src/ui/utils/" + token1.getAvatarImage() + ".png");
     JLabel avatarLabel = new JLabel(avatarIcon);
 
     ImageIcon opponentsAvatarIcon = new ImageIcon("src/ui/utils/" + token2.getAvatarImage() + ".png");
     JLabel opponentsAvatarLabel = new JLabel(opponentsAvatarIcon);
-    ImageIcon opponentsAvatarIcon2 = new ImageIcon("src/ui/utils/" + token2.getAvatarImage() + ".png");
-    JLabel opponentsAvatarLabel2 = new JLabel(opponentsAvatarIcon);
-    ImageIcon opponentsAvatarIcon3 = new ImageIcon("src/ui/utils/" + token2.getAvatarImage() + ".png");
-    JLabel opponentsAvatarLabel3 = new JLabel(opponentsAvatarIcon);
 
     JLabel username1 = new JLabel(token1.getUsername());
     username1.setFont(new Font("Arial", Font.BOLD, 20));
 
     JLabel username2 = new JLabel(token2.getUsername());
     username2.setFont(new Font("Arial", Font.BOLD, 20));
-
-    JLabel username3 = new JLabel(token2.getUsername());
-    username3.setFont(new Font("Arial", Font.BOLD, 20));
-
-    JLabel username4 = new JLabel(token2.getUsername());
-    username4.setFont(new Font("Arial", Font.BOLD, 20));
 
     JLabel artifactCardsLabel = new JLabel();
     artifactCardsLabel.setText("ARTIFACT CARDS:");
@@ -411,13 +484,13 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     //southPanel.add(ingredientCardsArea); //might be commented out.
     southPanel.add(potionArea);
     southPanel.add(avatarArea);
-    
+
     row1.add(opponentsIngredientCardsArea3);
     row2.add(ingredientCardsArea);
 
-    eastPanel.add(row1);
-    eastPanel.add(row2);
-    //eastPanel.add(row3);
+    eastPanel.add(row1, BorderLayout.NORTH);
+    eastPanel.add(row3, BorderLayout.CENTER);
+    eastPanel.add(row2, BorderLayout.SOUTH);
 
     northPanel.add(opponentsAvatarArea2);
     northPanel.add(opponentsPotionArea2);
@@ -426,34 +499,16 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     northPanel.add(opponentsAvatarArea);
     //northPanel.add(opponentsIngredientCardsArea);
 
-
-    westPanel.add(opponentsIngredientCardsArea);
-    westPanel.add(opponentsIngredientCardsArea2);
-
-    
-    
-
-    //westPanel.add(bigIngBackLabel);
-    //westPanel.add(bigArtifactBackLabel);
+    westPanel.add(opponentsIngredientCardsArea, BorderLayout.NORTH);
+    westPanel.add(opponentsIngredientCardsArea2, BorderLayout.SOUTH);
 
     opponentsSegmentedAvatarArea.add(opponentsReputationLabel, BorderLayout.CENTER);
     opponentsSegmentedAvatarArea.add(username2, BorderLayout.SOUTH);
-    
-    opponentsSegmentedAvatarArea2.add(opponentsReputationLabel2, BorderLayout.CENTER);
-    opponentsSegmentedAvatarArea2.add(username3, BorderLayout.SOUTH);
 
-    opponentsSegmentedAvatarArea3.add(opponentsReputationLabel3, BorderLayout.CENTER);
-    opponentsSegmentedAvatarArea3.add(username4, BorderLayout.SOUTH);
-
-    controlbackgroundPanelToken1.add(scoreLabel1);
-    controlbackgroundPanelToken2.add(scoreLabel2);
-    controlbackgroundPanelToken3.add(scoreLabel3);
-    controlbackgroundPanelToken4.add(scoreLabel4);
-    controlArea.add(controlbackgroundPanelToken1);
-    controlArea.add(controlbackgroundPanelToken2);
-    controlArea.add(controlbackgroundPanelToken3);
-    controlArea.add(controlbackgroundPanelToken4);
     //controlArea.add(Box.createVerticalStrut(10));
+    controlArea.add(new JLabel("Turn: " + board.getTurn()));
+    controlArea.add(new JLabel("Round: " + board.getRound()));
+    controlArea.add(new JLabel("This is the turn of: " + board.getTokens().get(board.getWhoseTurn()).getUsername()));
     controlArea.add(pauseButton());
     controlArea.add(exitButton());
     effectArea.add(effects);
@@ -461,17 +516,15 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     avatarArea.add(reputationLabel);
     avatarArea.add(avatarLabel);
     avatarArea.add(username1);
-    opponentsPotionArea.add(opponentsPotionLabel);
-    opponentsPotionArea2.add(opponentsPotionLabel2);
-    opponentsPotionArea3.add(opponentsPotionLabel3);
     opponentsAvatarArea.add(opponentsSegmentedAvatarArea);
     opponentsAvatarArea.add(opponentsAvatarLabel);
     opponentsAvatarArea2.add(opponentsSegmentedAvatarArea2);
-    opponentsAvatarArea2.add(opponentsAvatarLabel2);
     opponentsAvatarArea3.add(opponentsSegmentedAvatarArea3);
-    opponentsAvatarArea3.add(opponentsAvatarLabel3);
     artifactCardsArea.add(artifactCardsLabel);
-    createRoundActions(false, state);
+
+    if (board.getTokens().get(board.getWhoseTurn()).equals(currentToken)) {
+      controlRoundActions(false, null);
+    }
 
     this.add(westPanel, BorderLayout.WEST);
     this.add(eastPanel, BorderLayout.EAST);
@@ -495,8 +548,10 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          state.endTurn(board, token1);
-          closeBoard();
+          Game game = Game.getInstance();
+          game.publishAction("Action " + board.getTokens().indexOf(token1) + " EndTurn");
+          board.endTurn();
+          game.reopenOnlineBoard(token1, board);
         }
       }
     );
@@ -509,8 +564,11 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
+          controlRoundActions(true, null);
           Ingredient ingredient = token1.forageForIngredient(board);
           addIngredient(ingredient);
+          Game game = Game.getInstance();
+          game.publishAction("Action " + board.getTokens().indexOf(token1) + " ForageForIngredient");
         }
       }
     );
@@ -578,20 +636,17 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     }
 
     artifactCardsArea.add(artifactUseButton);
-    this.setVisible(false);
-    this.setVisible(true);
+    restartBoard();
   }
 
   public void addIngredient(Ingredient ingredient) {
-    controlRoundActions(true, state);
     int ingID = ingredient.getID();
 
     ImageIcon ingredientIcon = new ImageIcon("src/ui/utils/ingredient_" + ingID + ".jpg");
     JLabel ingredientLabel = new JLabel(ingredientIcon);
     ingredientCardsArea.add(ingredientLabel);
     addTooltipToComponent(ingredientLabel, ingredient.getName()); //added tool tips
-    this.setVisible(false);
-    this.setVisible(true);
+    restartBoard();
   }
 
   public void removeIngredientFromBoardByName(String ingredientName) {
@@ -621,8 +676,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
         break;
       }
     }
-    this.setVisible(false);
-    this.setVisible(true);
+    restartBoard();
   }
 
   public Ingredient findIngredientByImagePath(String imagePath) {
@@ -836,8 +890,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     JLabel potionLabel = new JLabel(potionIcon);
     addTooltipToComponent(potionLabel, potion.getPotionColor() + " " + potion.getName()); //added tool tips
     potionArea.add(potionLabel);
-    this.setVisible(false);
-    this.setVisible(true);
+    restartBoard();
   }
 
   public void removeMiniPotionImage(String potionImagePath) {
@@ -853,8 +906,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
         }
       }
     }
-    this.setVisible(false);
-    this.setVisible(true);
+    restartBoard();
   }
 
   public void removeIngredient(String imagePath) {
@@ -870,66 +922,16 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
         }
       }
     }
-    this.setVisible(false);
-    this.setVisible(true);
-  }
-
-  public void createRoundActions(Boolean endTurnFlag, State state) {
-    System.out.println("selam");
-    if (!endTurnFlag) {
-      if (state.getCurrentRound() == 1) {
-        forageButton = createForageButton();
-        eastPanel.add(forageButton);
-        transmuteButton = createTransmuteButton(getName());
-        eastPanel.add(transmuteButton);
-        experimentButton = createExperimentButton(board);
-        eastPanel.add(experimentButton);
-        artifactBuyerButton = createArtifactBuyerButton();
-        eastPanel.add(artifactBuyerButton);
-        endTurnButton = endTurnButton();
-        eastPanel.add(endTurnButton);
-      } else if (state.getCurrentRound() == 2) {
-        forageButton = createForageButton();
-        eastPanel.add(forageButton);
-        transmuteButton = createTransmuteButton(getName());
-        eastPanel.add(transmuteButton);
-        experimentButton = createExperimentButton(board);
-        eastPanel.add(experimentButton);
-        artifactBuyerButton = createArtifactBuyerButton();
-        eastPanel.add(artifactBuyerButton);
-        publishButton = publishTheoryButton();
-        eastPanel.add(publishButton);
-        publicationTrackButton = publicationTrackButton();
-        eastPanel.add(publicationTrackButton);
-        sellPotionButton = SellPotionButton();
-        eastPanel.add(sellPotionButton);
-        endTurnButton = endTurnButton();
-        eastPanel.add(endTurnButton);
-      } else if (state.getCurrentRound() == 3) {
-        forageButton = createForageButton();
-        eastPanel.add(forageButton);
-        transmuteButton = createTransmuteButton(getName());
-        eastPanel.add(transmuteButton);
-        debunkButton = debunkTheoryButton();
-        eastPanel.add(debunkButton);
-        experimentButton = createExperimentButton(board);
-        eastPanel.add(experimentButton);
-        artifactBuyerButton = createArtifactBuyerButton();
-        eastPanel.add(artifactBuyerButton);
-        publishButton = publishTheoryButton();
-        eastPanel.add(publishButton);
-        publicationTrackButton = publicationTrackButton();
-        eastPanel.add(publicationTrackButton);
-        sellPotionButton = SellPotionButton();
-        eastPanel.add(sellPotionButton);
-        endTurnButton = endTurnButton();
-        eastPanel.add(endTurnButton);
-      }
-    }
+    restartBoard();
   }
 
   public void closeBoard() {
     this.setVisible(false);
+  }
+
+  public void restartBoard() {
+    this.setVisible(false);
+    this.setVisible(true);
   }
 
   @Override
@@ -937,42 +939,96 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     this.setVisible(visible);
   }
 
+  @Override
+  public void activateTransmuteIngredientFrame(
+    ArrayList<Ingredient> displayedIngredients,
+    Board mainBoard,
+    State state
+  ) {
+    TransmuteIngredientFrame transmuteFrame = new TransmuteIngredientFrame(
+      displayedIngredients,
+      mainBoard,
+      this,
+      state
+    );
+  }
 
-@Override
-public void activateTransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard, State state) {
-    TransmuteIngredientFrame transmuteFrame = new TransmuteIngredientFrame(displayedIngredients, mainBoard, this, state);
-    // Add any additional logic specific to OnlineBoardJFrame
-}
-
-@Override
-public void controlRoundActions(Boolean endTurnFlag, State state) {
+  @Override
+  public void controlRoundActions(Boolean endTurnFlag, State state) {
+    // CONTROL THE BUTTONS
     if (endTurnFlag) {
-      System.out.println("asas");
-      if (state.getCurrentRound() == 1) {
-        System.out.println("gel");
-        eastPanel.remove(forageButton);
-        eastPanel.remove(transmuteButton);
-        eastPanel.remove(experimentButton);
-        eastPanel.remove(artifactBuyerButton);
-      } else if (state.getCurrentRound() == 2) {
-        eastPanel.remove(forageButton);
-        eastPanel.remove(transmuteButton);
-        eastPanel.remove(publishButton);
-        eastPanel.remove(publicationTrackButton);
-        eastPanel.remove(experimentButton);
-        eastPanel.remove(artifactBuyerButton);
-        eastPanel.remove(sellPotionButton);
-      } else if (state.getCurrentRound() == 3) {
-        eastPanel.remove(forageButton);
-        eastPanel.remove(transmuteButton);
-        eastPanel.remove(publishButton);
-        eastPanel.remove(debunkButton);
-        eastPanel.remove(publicationTrackButton);
-        eastPanel.remove(experimentButton);
-        eastPanel.remove(artifactBuyerButton);
-        eastPanel.remove(sellPotionButton);
+      if (board.getRound() == 1) {
+        row3.remove(forageButton);
+        row3.remove(transmuteButton);
+        row3.remove(experimentButton);
+        row3.remove(artifactBuyerButton);
+      } else if (board.getRound() == 2) {
+        row3.remove(forageButton);
+        row3.remove(transmuteButton);
+        row3.remove(publishButton);
+        row3.remove(publicationTrackButton);
+        row3.remove(experimentButton);
+        row3.remove(artifactBuyerButton);
+        row3.remove(sellPotionButton);
+      } else if (board.getRound() == 3) {
+        row3.remove(forageButton);
+        row3.remove(transmuteButton);
+        row3.remove(publishButton);
+        row3.remove(debunkButton);
+        row3.remove(publicationTrackButton);
+        row3.remove(experimentButton);
+        row3.remove(artifactBuyerButton);
+        row3.remove(sellPotionButton);
+      }
+    } else {
+      if (board.getRound() == 1) {
+        forageButton = createForageButton();
+        row3.add(forageButton);
+        transmuteButton = createTransmuteButton(getName());
+        row3.add(transmuteButton);
+        experimentButton = createExperimentButton(board);
+        row3.add(experimentButton);
+        artifactBuyerButton = createArtifactBuyerButton();
+        row3.add(artifactBuyerButton);
+        endTurnButton = endTurnButton();
+        row3.add(endTurnButton);
+      } else if (board.getRound() == 2) {
+        forageButton = createForageButton();
+        row3.add(forageButton);
+        transmuteButton = createTransmuteButton(getName());
+        row3.add(transmuteButton);
+        experimentButton = createExperimentButton(board);
+        row3.add(experimentButton);
+        artifactBuyerButton = createArtifactBuyerButton();
+        row3.add(artifactBuyerButton);
+        publishButton = publishTheoryButton();
+        row3.add(publishButton);
+        publicationTrackButton = publicationTrackButton();
+        row3.add(publicationTrackButton);
+        sellPotionButton = SellPotionButton();
+        row3.add(sellPotionButton);
+        endTurnButton = endTurnButton();
+        row3.add(endTurnButton);
+      } else if (board.getRound() == 3) {
+        forageButton = createForageButton();
+        row3.add(forageButton);
+        transmuteButton = createTransmuteButton(getName());
+        row3.add(transmuteButton);
+        debunkButton = debunkTheoryButton();
+        row3.add(debunkButton);
+        experimentButton = createExperimentButton(board);
+        row3.add(experimentButton);
+        artifactBuyerButton = createArtifactBuyerButton();
+        row3.add(artifactBuyerButton);
+        publishButton = publishTheoryButton();
+        row3.add(publishButton);
+        publicationTrackButton = publicationTrackButton();
+        row3.add(publicationTrackButton);
+        sellPotionButton = SellPotionButton();
+        row3.add(sellPotionButton);
+        endTurnButton = endTurnButton();
+        row3.add(endTurnButton);
       }
     }
-}
-
+  }
 }
