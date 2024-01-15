@@ -171,6 +171,10 @@ public class Server implements Serializable {
               board.getTokens().get(Integer.parseInt(index)).forageForIngredient(board);
               game.reopenOnlineBoard(token, board);
             }
+            if (action.equals("DeductionBoard")) {
+              System.out.println("Inside DeductionBoard");
+              game.reopenOnlineBoard(token, board);
+            }
             // TODO: Add other actions
           }
         }

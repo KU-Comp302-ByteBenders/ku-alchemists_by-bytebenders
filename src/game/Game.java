@@ -195,8 +195,8 @@ public class Game implements Serializable {
     );
   }
 
-  public static void openTriangleBoard(JButton button, Token token, int index) {
-    TriangleBoardJFrame triangleBoardJFrame = new TriangleBoardJFrame(button, token, index);
+  public static void openTriangleBoard(JButton button, Token token, int index, Board board) {
+    TriangleBoardJFrame triangleBoardJFrame = new TriangleBoardJFrame(button, token, index, board);
   }
 
   public static void openHelpScreen() {

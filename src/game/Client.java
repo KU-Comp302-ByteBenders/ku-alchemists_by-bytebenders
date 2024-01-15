@@ -120,6 +120,11 @@ public class Client implements Serializable {
               Game game = Game.getInstance();
               game.reopenOnlineBoard(token, board);
             }
+            if(action.equals("DeductionBoard")){
+              System.out.println("Inside DeductionBoard");
+              Game game = Game.getInstance();
+              game.reopenOnlineBoard(token, board);
+            }
             // TODO: add other actions
           }
         }

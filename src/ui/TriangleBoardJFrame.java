@@ -1,5 +1,7 @@
 package ui;
 
+import game.Board;
+import game.Game;
 import game.Token;
 
 import java.awt.*;
@@ -12,8 +14,10 @@ public class TriangleBoardJFrame extends JFrame { // this class for selecting an
   // we open this. Our tokens can select the different options like colors, sign.
   Token token;
   int index;
+  Board board;
 
-  public TriangleBoardJFrame(JButton pressedbutton, Token token, int index ){
+  public TriangleBoardJFrame(JButton pressedbutton, Token token, int index, Board board){
+    this.board = board;
     this.token = token;
     this.index = index;
     // Set the layout manager to null for absolute positioning
@@ -183,6 +187,8 @@ public class TriangleBoardJFrame extends JFrame { // this class for selecting an
   }
 
   public void closeTheFrame() {
+    Game game = Game.getInstance();
+    game.publishAction("Action " + board.getTokens().indexOf(token) + "DeductionBoard");
     this.setVisible(false);
   }
   public void setTokenButton(String sign, String color) {
