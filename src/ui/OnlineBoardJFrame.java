@@ -807,7 +807,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
           new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              Game.openTriangleBoard(roundedButtons[finals], token1, finals);
+              Game.openTriangleBoard(roundedButtons[finals], token1, finals, board);
             } // This action for the changing of button shape, color and features. We send call to game due to game is our controller.
           }
         );
