@@ -29,7 +29,6 @@ public class TransitionStarterJFrame extends JFrame {
         this.setSize(1280, 720);
 
         this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JLabel label1 = new JLabel(token.getUsername() + " will start the game!");
         JButton startButton = new JButton("Start the Game");
@@ -55,6 +54,7 @@ public class TransitionStarterJFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new OfflineBoardJFrame(token, board, state, state.getTokens());
+                closeFrame();
             }
         });
 
@@ -70,5 +70,9 @@ public class TransitionStarterJFrame extends JFrame {
 
         // Make the frame visible
         this.setVisible(true);
+    }
+
+    public void closeFrame() {
+        this.dispose();
     }
 }

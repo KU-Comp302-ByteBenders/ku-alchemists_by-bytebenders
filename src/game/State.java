@@ -1,14 +1,11 @@
 package game;
 
-import ui.BoardJFrame;
 import ui.TransitionJFrame;
-import ui.TransitionStarterJFrame;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Random;
 
 public class State implements Serializable {
 

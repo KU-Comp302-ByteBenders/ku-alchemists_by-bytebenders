@@ -1,11 +1,10 @@
 package game;
 
 import game.ArtifactCards.ArtifactCard;
-import game.ArtifactCards.EffectStrategy;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import ui.BoardJFrame;
+import java.util.HashMap;
 
 
 public class Token implements Serializable {
@@ -23,6 +22,7 @@ public class Token implements Serializable {
   private String username;
   private int reputation;
   public static ArrayList<Potion> potionsForFrame;
+  private HashMap<Integer, String> deductionBoardIndexCS = new HashMap<Integer, String>();
 
    //Abstract function is 
   // AF(c) = (ingredients, potions, artifactCards, goldBalance, sicknessLevel, avatarImage, tokenImage, username, reputation)
@@ -104,6 +104,10 @@ public class Token implements Serializable {
   public int getReputation() {
     //EFFECTS: returns the token's reputation
     return reputation;
+  }
+
+  public HashMap<Integer, String> getDeductionBoardIndexCS() {
+    return deductionBoardIndexCS;
   }
 
   public int getScore() {
@@ -305,6 +309,11 @@ public class Token implements Serializable {
   public void addArtifactCard(ArtifactCard artifactCard) {
     //EFFECTS: adds the given artifact card to the token's artifact card list
     artifactCards.add(artifactCard);
+  }
+
+  public void setTriangle(int index, String sign, String color) {
+    deductionBoardIndexCS.put(index, sign + color);
+
   }
 
   public void transmuteIngredient(String ingredientName) {

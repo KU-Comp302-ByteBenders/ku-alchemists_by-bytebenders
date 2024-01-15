@@ -3,7 +3,7 @@ package game;
 import java.io.Serializable;
 
 public class Ingredient implements Serializable{
-  private static final long serialVersionUID = 7L;
+  private static final long serialVersionUID = 712L;
   private String name;
   private int id;
   private AlchemyMarker alchemyMarker;

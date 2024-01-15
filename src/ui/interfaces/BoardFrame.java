@@ -7,7 +7,6 @@ import game.Potion;
 import game.State;
 import game.Token;
 import java.util.ArrayList;
-import ui.BoardJFrame;
 
 public interface BoardFrame {
   void removeMiniPotionImage(String img);

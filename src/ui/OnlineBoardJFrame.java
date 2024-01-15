@@ -767,7 +767,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     reputationLabel.setText("Reputation: " + token1.getReputation());
   }
 
-  public static JPanel arrangeBoardTriangle() {
+  public JPanel arrangeBoardTriangle() {
     // this method's purpose is adding buttons to deduction image. There are 36 different buttons and we arrange they in the for loop.
     JPanel mainPanel = new JPanel(new GridBagLayout());
 
@@ -775,7 +775,31 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     JLabel centerLabel = new JLabel(centerIcon);
     RoundedButton[] roundedButtons = new RoundedButton[36];
     for (int i = 0; i < roundedButtons.length; i++) { // creating 36 buttons.
-      roundedButtons[i] = new RoundedButton("∅");
+      Boolean flag = false;
+      for(int index: token1.getDeductionBoardIndexCS().keySet()){
+        if(i==index){
+          flag = true;
+
+        }
+
+      }
+      if(!flag){
+        roundedButtons[i] = new RoundedButton("∅");
+      }
+      else{
+        roundedButtons[i] = new RoundedButton(token1.getDeductionBoardIndexCS().get(i).substring(0,1));
+
+        if("Red".equals(token1.getDeductionBoardIndexCS().get(i).substring(1))){
+          roundedButtons[i].setBackground(Color.RED);
+        }
+        if("Blue".equals(token1.getDeductionBoardIndexCS().get(i).substring(1))){
+          roundedButtons[i].setBackground(Color.BLUE);
+        }
+        if("Yellow".equals(token1.getDeductionBoardIndexCS().get(i).substring(1))){
+          roundedButtons[i].setBackground(Color.YELLOW);
+        }
+
+      }
       roundedButtons[i].setBorder(BorderFactory.createEmptyBorder(11, 11, 11, 11));
 
       int finals = i;
@@ -783,7 +807,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
           new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              Game.openTriangleBoard(roundedButtons[finals]);
+              Game.openTriangleBoard(roundedButtons[finals], token1, finals);
             } // This action for the changing of button shape, color and features. We send call to game due to game is our controller.
           }
         );
