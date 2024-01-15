@@ -188,7 +188,7 @@ public class TriangleBoardJFrame extends JFrame { // this class for selecting an
 
   public void closeTheFrame() {
     Game game = Game.getInstance();
-    game.publishAction("Action " + board.getTokens().indexOf(token) + "DeductionBoard");
+    game.publishAction("Action " + board.getTokens().indexOf(token) + " DeductionBoard");
     this.setVisible(false);
   }
   public void setTokenButton(String sign, String color) {
