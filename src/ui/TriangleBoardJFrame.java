@@ -1,5 +1,7 @@
 package ui;
 
+import game.Token;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,8 +10,12 @@ import javax.swing.*;
 public class TriangleBoardJFrame extends JFrame { // this class for selecting and arranging out deduction board. When tokens click the button on the deduction board,
 
   // we open this. Our tokens can select the different options like colors, sign.
+  Token token;
+  int index;
 
-  public TriangleBoardJFrame(JButton pressedbutton) {
+  public TriangleBoardJFrame(JButton pressedbutton, Token token, int index ){
+    this.token = token;
+    this.index = index;
     // Set the layout manager to null for absolute positioning
     this.setLayout(null);
 
@@ -85,6 +91,7 @@ public class TriangleBoardJFrame extends JFrame { // this class for selecting an
             pressedbutton.setText("∅");
             pressedbutton.setBackground(null);
             closeTheFrame();
+            setTokenButton("∅", "");
           } else if (!option1.isSelected() && !option2.isSelected() && !option3.isSelected()) {
             JOptionPane.showMessageDialog(panel, "You didn't select a sign");
           } else {
@@ -104,16 +111,19 @@ public class TriangleBoardJFrame extends JFrame { // this class for selecting an
                     if (selectedColor.equals("Red")) {
                       pressedbutton.setBackground(Color.RED);
                       pressedbutton.setText("+");
+                      setTokenButton("+", "Red");
                       closeTheFrame();
                     }
                     if (selectedColor.equals("Blue")) {
                       pressedbutton.setBackground(Color.BLUE);
                       pressedbutton.setText("+");
+                      setTokenButton("+", "Blue");
                       closeTheFrame();
                     }
                     if (selectedColor.equals("Yellow")) {
                       pressedbutton.setBackground(Color.YELLOW);
                       pressedbutton.setText("+");
+                        setTokenButton("+", "Yellow");
                       closeTheFrame();
                     }
                   }
@@ -128,16 +138,19 @@ public class TriangleBoardJFrame extends JFrame { // this class for selecting an
                     if (selectedColor.equals("Red")) {
                       pressedbutton.setBackground(Color.RED);
                       pressedbutton.setText("-");
+                      setTokenButton("-", "Red");
                       closeTheFrame();
                     }
                     if (selectedColor.equals("Blue")) {
                       pressedbutton.setBackground(Color.BLUE);
                       pressedbutton.setText("-");
+                      setTokenButton("-", "Blue");
                       closeTheFrame();
                     }
                     if (selectedColor.equals("Yellow")) {
                       pressedbutton.setBackground(Color.YELLOW);
                       pressedbutton.setText("-");
+                      setTokenButton("-", "Yellow");
                       closeTheFrame();
                     }
                   }
@@ -171,5 +184,8 @@ public class TriangleBoardJFrame extends JFrame { // this class for selecting an
 
   public void closeTheFrame() {
     this.setVisible(false);
+  }
+  public void setTokenButton(String sign, String color) {
+    token.setTriangle(index, sign, color);
   }
 }

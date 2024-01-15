@@ -195,8 +195,8 @@ public class Game implements Serializable {
     );
   }
 
-  public static void openTriangleBoard(JButton button) {
-    TriangleBoardJFrame triangleBoardJFrame = new TriangleBoardJFrame(button);
+  public static void openTriangleBoard(JButton button, Token token, int index) {
+    TriangleBoardJFrame triangleBoardJFrame = new TriangleBoardJFrame(button, token, index);
   }
 
   public static void openHelpScreen() {
@@ -233,7 +233,7 @@ public class Game implements Serializable {
   public static void activateTransmuteIngredientFrame(
     ArrayList<Ingredient> displayedIngredients,
     Board mainBoard,
-    BoardJFrame boardFrame,
+    OfflineBoardJFrame boardFrame,
     State state
   ) {
     boardFrame.activateTransmuteIngredientFrame(displayedIngredients, mainBoard, state);
