@@ -125,6 +125,14 @@ public class Client implements Serializable {
               Game game = Game.getInstance();
               game.reopenOnlineBoard(token, board);
             }
+            if(action.equals("TransmuteIngredient")){
+              System.out.println("Inside TransmuteIngredient");
+              String ingredientName = messageParts[3];
+              System.out.println(ingredientName);
+              board.getTokens().get(Integer.parseInt(index)).transmuteIngredient(ingredientName);
+              Game game = Game.getInstance();
+              game.reopenOnlineBoard(token, board);
+            }
             // TODO: add other actions
           }
         }
