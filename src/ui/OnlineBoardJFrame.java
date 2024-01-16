@@ -582,8 +582,9 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
         @Override
         public void actionPerformed(ActionEvent e) {
           if (OnlineBoardJFrame.this != null) {
-            //TransmuteIngredientFrame tif = new TransmuteIngredientFrame(new ArrayList<>(token1.getIngredients()), board, BoardJFrame.this);
-            //tif.setVisible(true);
+            token1.transmuteIngredient(ingredientName);
+            Game game = Game.getInstance();
+            game.publishAction("Action " + board.getTokens().indexOf(token1) + " TransmuteIngredient " + ingredientName);
             Game.activateTransmuteIngredientFrame(
               new ArrayList<>(token1.getIngredients()),
               board,

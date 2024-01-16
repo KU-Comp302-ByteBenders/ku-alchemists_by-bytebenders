@@ -175,6 +175,12 @@ public class Server implements Serializable {
               System.out.println("Inside DeductionBoard");
               game.reopenOnlineBoard(token, board);
             }
+            if (action.equals("TransmuteIngredient")) {
+              System.out.println("Inside TransmuteIngredient");
+              String ingredientName = messageParts[3];
+              board.getTokens().get(Integer.parseInt(index)).transmuteIngredient(ingredientName);
+              game.reopenOnlineBoard(token, board);
+            }
             // TODO: Add other actions
           }
         }
