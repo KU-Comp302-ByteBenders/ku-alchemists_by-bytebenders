@@ -32,7 +32,8 @@ public class Game implements Serializable {
     return instance;
   }
 
-  private Game() {}
+  private Game() {
+  }
 
   public void restartGame() {
     instance = new Game();
@@ -44,6 +45,10 @@ public class Game implements Serializable {
 
   public void closeOnlineBoard() {
     this.onlineBoardJFrame.dispose();
+  }
+
+  public boolean isOffline() {
+    return server == null && client == null;
   }
 
   public void openOnlineBoard(Token token, Board board, ChangeableVisibility frame) {
@@ -112,11 +117,10 @@ public class Game implements Serializable {
 
     if (numPlayers < 2) {
       JOptionPane.showMessageDialog(
-        loginScreen,
-        "Add at least 1 more player before starting the game.",
-        "Error",
-        JOptionPane.ERROR_MESSAGE
-      );
+          loginScreen,
+          "Add at least 1 more player before starting the game.",
+          "Error",
+          JOptionPane.ERROR_MESSAGE);
     } else {
       // You may need to adjust this part based on your actual game logic
       // For now, it assumes a fixed number of players (2)
@@ -150,9 +154,11 @@ public class Game implements Serializable {
     }
   }
 
-  public void openPauseMenu() {}
+  public void openPauseMenu() {
+  }
 
-  public void closePauseMenu() {}
+  public void closePauseMenu() {
+  }
 
   public static void openPublishMenu(BoardFrame boardFrame, Board board, State state, Token token1) {
     // Open the publish theory action menu
@@ -195,17 +201,15 @@ public class Game implements Serializable {
   }
 
   public static void activateTransmuteIngredientFrame(
-    ArrayList<Ingredient> displayedIngredients,
-    Board mainBoard,
-    BoardFrame boardFrame,
-    State state
-  ) {
+      ArrayList<Ingredient> displayedIngredients,
+      Board mainBoard,
+      BoardFrame boardFrame,
+      State state) {
     TransmuteIngredientFrame transmuteJFrame = new TransmuteIngredientFrame(
-      displayedIngredients,
-      mainBoard,
-      boardFrame,
-      state
-    );
+        displayedIngredients,
+        mainBoard,
+        boardFrame,
+        state);
   }
 
   public static void openTriangleBoard(JButton button, Token token, int index, Board board) {
@@ -227,11 +231,10 @@ public class Game implements Serializable {
   public static void openWisdomIdolConfirmationDialog(ArtifactCard artifactCard) {
     // Add confirmation dialog
     int confirmed = JOptionPane.showConfirmDialog(
-      null,
-      "Is the Theory Owner sure that they want to apply the Wisdom Idol effect?",
-      "Confirmation",
-      JOptionPane.YES_NO_OPTION
-    );
+        null,
+        "Is the Theory Owner sure that they want to apply the Wisdom Idol effect?",
+        "Confirmation",
+        JOptionPane.YES_NO_OPTION);
 
     if (confirmed == JOptionPane.YES_OPTION) {
       // If the user confirmed, set the flag to true
@@ -244,11 +247,10 @@ public class Game implements Serializable {
   }
 
   public static void activateTransmuteIngredientFrame(
-    ArrayList<Ingredient> displayedIngredients,
-    Board mainBoard,
-    OfflineBoardJFrame boardFrame,
-    State state
-  ) {
+      ArrayList<Ingredient> displayedIngredients,
+      Board mainBoard,
+      OfflineBoardJFrame boardFrame,
+      State state) {
     boardFrame.activateTransmuteIngredientFrame(displayedIngredients, mainBoard, state);
   }
 

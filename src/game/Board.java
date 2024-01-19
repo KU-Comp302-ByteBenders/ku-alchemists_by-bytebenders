@@ -20,7 +20,7 @@ public class Board implements Serializable {
   private State state;
   private static final long serialVersionUID = 1L;
 
-  //For online version
+  // For online version
   private int round = 1;
   private int turn = 1;
   private int whoseTurn = 0;
@@ -45,8 +45,10 @@ public class Board implements Serializable {
     // init state object
     state = new State(tokens);
     Token firstToken = state.selectRandomToken();
-    OfflineBoardJFrame offlineBoardJFrame = new OfflineBoardJFrame(firstToken, this, state, tokens); //online board creation
-    //TransitionStarterJFrame transitionStarterJFrame = new TransitionStarterJFrame(firstToken, this, state);
+    OfflineBoardJFrame offlineBoardJFrame = new OfflineBoardJFrame(firstToken, this, state, tokens); // online board
+                                                                                                     // creation
+    // TransitionStarterJFrame transitionStarterJFrame = new
+    // TransitionStarterJFrame(firstToken, this, state);
 
     theories = new ArrayList<Theory>();
   }
@@ -86,53 +88,45 @@ public class Board implements Serializable {
     Aspect aspect12 = new Aspect("Yellow", "Big", "-", "src/ui/utils/aspects/aspect_12.png");
 
     AlchemyMarker alchemyMarker1 = new AlchemyMarker(
-      aspect7,
-      aspect8,
-      aspect9,
-      "src/ui/utils/markers/alchemy_marker1.png"
-    );
+        aspect7,
+        aspect8,
+        aspect9,
+        "src/ui/utils/markers/alchemy_marker1.png");
     AlchemyMarker alchemyMarker2 = new AlchemyMarker(
-      aspect10,
-      aspect11,
-      aspect12,
-      "src/ui/utils/markers/alchemy_marker2.png"
-    );
+        aspect10,
+        aspect11,
+        aspect12,
+        "src/ui/utils/markers/alchemy_marker2.png");
     AlchemyMarker alchemyMarker3 = new AlchemyMarker(
-      aspect1,
-      aspect12,
-      aspect5,
-      "src/ui/utils/markers/alchemy_marker3.png"
-    );
+        aspect1,
+        aspect12,
+        aspect5,
+        "src/ui/utils/markers/alchemy_marker3.png");
     AlchemyMarker alchemyMarker4 = new AlchemyMarker(
-      aspect9,
-      aspect4,
-      aspect2,
-      "src/ui/utils/markers/alchemy_marker4.png"
-    );
+        aspect9,
+        aspect4,
+        aspect2,
+        "src/ui/utils/markers/alchemy_marker4.png");
     AlchemyMarker alchemyMarker5 = new AlchemyMarker(
-      aspect1,
-      aspect6,
-      aspect8,
-      "src/ui/utils/markers/alchemy_marker5.png"
-    );
+        aspect1,
+        aspect6,
+        aspect8,
+        "src/ui/utils/markers/alchemy_marker5.png");
     AlchemyMarker alchemyMarker6 = new AlchemyMarker(
-      aspect3,
-      aspect11,
-      aspect4,
-      "src/ui/utils/markers/alchemy_marker6.png"
-    );
+        aspect3,
+        aspect11,
+        aspect4,
+        "src/ui/utils/markers/alchemy_marker6.png");
     AlchemyMarker alchemyMarker7 = new AlchemyMarker(
-      aspect3,
-      aspect7,
-      aspect5,
-      "src/ui/utils/markers/alchemy_marker7.png"
-    );
+        aspect3,
+        aspect7,
+        aspect5,
+        "src/ui/utils/markers/alchemy_marker7.png");
     AlchemyMarker alchemyMarker8 = new AlchemyMarker(
-      aspect6,
-      aspect7,
-      aspect5,
-      "src/ui/utils/markers/alchemy_marker8.png"
-    );
+        aspect6,
+        aspect7,
+        aspect5,
+        "src/ui/utils/markers/alchemy_marker8.png");
 
     staticAlchemyMarkers.add(alchemyMarker1);
     staticAlchemyMarkers.add(alchemyMarker2);
@@ -143,7 +137,7 @@ public class Board implements Serializable {
     staticAlchemyMarkers.add(alchemyMarker7);
     staticAlchemyMarkers.add(alchemyMarker8);
 
-    Ingredient ingredient1 = new Ingredient("dragon fruit", 1, alchemyMarker1, "src/ui/utils/ingredient_1.jpg");
+    Ingredient ingredient1 = new Ingredient("dragon_fruit", 1, alchemyMarker1, "src/ui/utils/ingredient_1.jpg");
     Ingredient ingredient2 = new Ingredient("emerald", 2, alchemyMarker2, "src/ui/utils/ingredient_2.jpg");
     Ingredient ingredient3 = new Ingredient("feather", 3, alchemyMarker3, "src/ui/utils/ingredient_3.jpg");
     Ingredient ingredient4 = new Ingredient("ginger", 4, alchemyMarker4, "src/ui/utils/ingredient_4.jpg");
@@ -257,7 +251,7 @@ public class Board implements Serializable {
     token.addReputation(1);
     token.decreaseGold(1);
 
-    //If the player has artifact card printing press, give him 1 gold
+    // If the player has artifact card printing press, give him 1 gold
     if (token.checkPrintingPress() && token.getGoldBalance() >= 1) {
       token.getArtifactCardByName("Printing Press").applyEffect(token, this, null);
     }
@@ -301,7 +295,7 @@ public class Board implements Serializable {
     token.addArtifactCard(artifactCard);
   }
 
-  //This method was named buyArtifactCard in the design
+  // This method was named buyArtifactCard in the design
   public static void giveArtifactCardtoToken(Token token, ArtifactCard artifactCard) {
     if (token.getGoldBalance() >= artifactCard.getGoldPrice()) {
       token.decreaseGold(artifactCard.getGoldPrice());
