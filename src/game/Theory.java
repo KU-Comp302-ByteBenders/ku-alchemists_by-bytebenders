@@ -34,12 +34,18 @@ public class Theory implements Serializable {
 
   // Returns true if alchemyMarker matches the Ingredient of the Theory's alchemyMarker
   public boolean debunkSuccess(Aspect aspect) {
-    if (aspect.getColor() == "Red")
-      return this.getTheoryIngredient().getAlchemyMarker().getAspectList().get(0).equals(aspect);
-    else if (aspect.getColor() == "Blue")
-      return this.getTheoryIngredient().getAlchemyMarker().getAspectList().get(1).equals(aspect);
-    else // Yellow
-      return this.getTheoryIngredient().getAlchemyMarker().getAspectList().get(2).equals(aspect);
+    if (aspect.getColor() == "Red") {
+      Aspect originalAspect = this.getTheoryIngredient().getAlchemyMarker().getAspectList().get(0);
+      return !(originalAspect.getSign().equals(aspect.getSign()) && originalAspect.getSize().equals(aspect.getSize()));
+    }
+    else if (aspect.getColor() == "Blue") {
+      Aspect originalAspect = this.getTheoryIngredient().getAlchemyMarker().getAspectList().get(1);
+      return !(originalAspect.getSign().equals(aspect.getSign()) && originalAspect.getSize().equals(aspect.getSize()));
+    }
+    else { // Yellow 
+      Aspect originalAspect = this.getTheoryIngredient().getAlchemyMarker().getAspectList().get(2);
+      return !(originalAspect.getSign().equals(aspect.getSign()) && originalAspect.getSize().equals(aspect.getSize()));
+    }
   }
 
   public Token getTheoryOwner() {
