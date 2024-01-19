@@ -775,6 +775,21 @@ controlArea.add(infolabel);
     reputationLabel.setText("Reputation: " + token1.getReputation());
   }
 
+  public void updateOpponentsLabels(Token theoryOwner) {
+    if (token2.equals(theoryOwner)) {
+        opponentsReputationLabel.setText("Reputation: " + token2.getReputation());
+        opponentsGoldLabel.setText("Gold: " + token2.getGoldBalance());
+      }
+    else if (token3.equals(theoryOwner)) {
+        opponentsReputationLabel2.setText("Reputation: " + token3.getReputation());
+        opponentsGoldLabel2.setText("Gold: " + token3.getGoldBalance());
+      }
+    else if (token4.equals(theoryOwner)) {
+        opponentsReputationLabel3.setText("Reputation: " + token4.getReputation());
+        opponentsGoldLabel3.setText("Gold: " + token4.getGoldBalance());
+      }
+    }
+
   public JPanel arrangeBoardTriangle() {
     // this method's purpose is adding buttons to deduction image. There are 36
     // different buttons and we arrange they in the for loop.

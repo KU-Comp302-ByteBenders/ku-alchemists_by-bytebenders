@@ -757,6 +757,20 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
   public void updateTokensReputationLabel() {
     reputationLabel.setText("Reputation: " + token1.getReputation());
   }
+  public void updateOpponentsLabels(Token theoryOwner) {
+    if (token2.equals(theoryOwner)) {
+        opponentsReputationLabel.setText("Reputation: " + token2.getReputation());
+        opponentsGoldLabel.setText("Gold: " + token2.getGoldBalance());
+      }
+    else if (token3.equals(theoryOwner)) {
+        opponentsReputationLabel2.setText("Reputation: " + token3.getReputation());
+        opponentsGoldLabel2.setText("Gold: " + token3.getGoldBalance());
+      }
+    else if (token4.equals(theoryOwner)) {
+        opponentsReputationLabel3.setText("Reputation: " + token4.getReputation());
+        opponentsGoldLabel3.setText("Gold: " + token4.getGoldBalance());
+      }
+    }
 
   public JPanel arrangeBoardTriangle() {
     // this method's purpose is adding buttons to deduction image. There are 36
@@ -969,6 +983,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
         row3.remove(transmuteButton);
         row3.remove(experimentButton);
         row3.remove(artifactBuyerButton);
+        row3.setBackground(Color.LIGHT_GRAY);
       } else if (board.getRound() == 2) {
         row3.remove(forageButton);
         row3.remove(transmuteButton);
@@ -977,6 +992,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
         row3.remove(experimentButton);
         row3.remove(artifactBuyerButton);
         row3.remove(sellPotionButton);
+        row3.setBackground(Color.LIGHT_GRAY);
       } else if (board.getRound() == 3) {
         row3.remove(forageButton);
         row3.remove(transmuteButton);
@@ -986,6 +1002,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
         row3.remove(experimentButton);
         row3.remove(artifactBuyerButton);
         row3.remove(sellPotionButton);
+        row3.setBackground(Color.LIGHT_GRAY);
       }
     } else {
       if (board.getRound() == 1) {
@@ -999,6 +1016,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
         row3.add(artifactBuyerButton);
         endTurnButton = endTurnButton();
         row3.add(endTurnButton);
+        row3.setBackground(Color.LIGHT_GRAY);
       } else if (board.getRound() == 2) {
         forageButton = createForageButton();
         row3.add(forageButton);
@@ -1016,6 +1034,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
         row3.add(sellPotionButton);
         endTurnButton = endTurnButton();
         row3.add(endTurnButton);
+        row3.setBackground(Color.LIGHT_GRAY);
       } else if (board.getRound() == 3) {
         forageButton = createForageButton();
         row3.add(forageButton);
@@ -1035,6 +1054,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
         row3.add(sellPotionButton);
         endTurnButton = endTurnButton();
         row3.add(endTurnButton);
+        row3.setBackground(Color.LIGHT_GRAY);
       }
     }
   }

@@ -73,6 +73,7 @@ public class DebunkTheoryJFrame extends JFrame {
                     boolean success = token1.debunkTheory(board, finalCurrentTheory, selectedAspect);
                     boardFrame.updateTokensGoldLabel();
                     boardFrame.updateTokensReputationLabel();
+                    boardFrame.updateOpponentsLabels(finalCurrentTheory.getTheoryOwner());
                     ImageIcon imageIcon = new ImageIcon(ingredient.getImagePath());
                     JLabel imageLabel = new JLabel(imageIcon);
 
@@ -87,6 +88,7 @@ public class DebunkTheoryJFrame extends JFrame {
                       JOptionPane.showMessageDialog(null, imageLabel, "Failure!!!", JOptionPane.INFORMATION_MESSAGE);
                       Game.controlRoundAction(boardFrame, state, true);
                     }
+                    dispose();
                   }
                 };
                ConfirmJFrame confirmJFrame = new ConfirmJFrame((String) e.getItem(), ingredient.getName(), listener);

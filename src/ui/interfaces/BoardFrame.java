@@ -15,6 +15,7 @@ public interface BoardFrame {
   void controlRoundActions(Boolean endTurnFlag, State state);
   void updateTokensGoldLabel();
   void updateTokensReputationLabel();
+  void updateOpponentsLabels(Token theoryOwner);
   String findImagePathByIngredient(String string);
   void removeIngredient(String string);
   void addIngredient(Ingredient ingredient);
