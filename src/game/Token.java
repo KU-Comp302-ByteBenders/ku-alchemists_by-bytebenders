@@ -1,13 +1,12 @@
 package game;
 
 import game.ArtifactCards.ArtifactCard;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
 public class Token implements Serializable {
+
   //  OVERVIEW: This class provides the token's properties and methods
 
   private static final long serialVersionUID = 12L;
@@ -24,22 +23,21 @@ public class Token implements Serializable {
   public static ArrayList<Potion> potionsForFrame;
   private HashMap<Integer, String> deductionBoardIndexCS = new HashMap<Integer, String>();
 
-   //Abstract function is 
+  //Abstract function is
   // AF(c) = (ingredients, potions, artifactCards, goldBalance, sicknessLevel, avatarImage, tokenImage, username, reputation)
 
-  // The rep invariant is 
-	// username != null && avatarImage != null && tokenImage != null 
+  // The rep invariant is
+  // username != null && avatarImage != null && tokenImage != null
   // && goldBalance >= 0 && sicknessLevel >= 0 && reputation >= 0
-	// 
-	// 
+  //
+  //
 
   //constructor
   public Token(String username, String avatarImage, String tokenImage) {
-  
     ingredients = new ArrayList<Ingredient>();
     potions = new ArrayList<Potion>();
     artifactCards = new ArrayList<ArtifactCard>();
-    
+
     goldBalance = 0;
     sicknessLevel = 0;
     reputation = 0;
@@ -48,7 +46,6 @@ public class Token implements Serializable {
     this.username = username;
     potionsForFrame = new ArrayList<Potion>();
   }
-
 
   //Methods
   public Ingredient forageForIngredient(Board board) {
@@ -73,6 +70,10 @@ public class Token implements Serializable {
     } else {
       goldBalance = 0;
     }
+  }
+
+  public int getGold() {
+    return goldBalance;
   }
 
   public void addIngredient(Ingredient ingredient) {
@@ -125,9 +126,9 @@ public class Token implements Serializable {
     return potions;
   }
 
-  public Potion makeExperiment(String ingredient1, String ingredient2, Boolean testOnSelf) { 
+  public Potion makeExperiment(String ingredient1, String ingredient2, Boolean testOnSelf) {
     //REQUIRES: ingredient1 != null, ingredient2 != null
-    //EFFECTS: returns the potion that is created by the given ingredients. 
+    //EFFECTS: returns the potion that is created by the given ingredients.
     //          If the ingredients' color and sign same and size different, the potion is positive or negative.
     //          If the ingredients' color and sign same and size same, the potion is neutral.
     //MODIFIES: ingredients, potions arraylists
@@ -197,7 +198,7 @@ public class Token implements Serializable {
   public void testPotion(Potion potion, Boolean testOnSelf) {
     //REQUIRES: potion != null
     //EFFECTS: tests the given potion on the token. If the potion is positive, it decreases the token's sickness level by 1.
-    //         If the potion is negative and test on yourself, 
+    //         If the potion is negative and test on yourself,
     //         it increases the token's sickness level by 1. If it tested on student, you lose 1 gold
     //MODIFIES: sicknessLevel, goldBalance
     if (testOnSelf) {
@@ -208,8 +209,7 @@ public class Token implements Serializable {
         if (sicknessLevel == 3) {
           goldBalance = 0;
         }
-      } 
-      else if (potion.getName().equals("+")) { 
+      } else if (potion.getName().equals("+")) {
         if (getSicknessLevel() > 0) {
           decreaseSickness(1);
           potion.setGuarantee("guaranteed");
@@ -227,7 +227,7 @@ public class Token implements Serializable {
 
   public Ingredient findIngredientByName(String name) {
     //REQUIRES: ingredient name
-    //EFFECTS: returns the ingredient that has the given name 
+    //EFFECTS: returns the ingredient that has the given name
     for (Ingredient ingredient : ingredients) {
       if (ingredient.getName().equals(name)) {
         return ingredient;
@@ -237,8 +237,8 @@ public class Token implements Serializable {
   }
 
   public void removeIngredient(String ingredient) {
-   //MODIFIES: ingredients arraylist
-   //EFFECTS: removes the given ingredient from the token's ingredient list 
+    //MODIFIES: ingredients arraylist
+    //EFFECTS: removes the given ingredient from the token's ingredient list
     for (Ingredient ing : ingredients) {
       if (ing.getName().equals(ingredient)) {
         ingredients.remove(ing);
@@ -248,7 +248,7 @@ public class Token implements Serializable {
   }
 
   public void sellPotion(String potion) {
-    //REQUIRES: potion 
+    //REQUIRES: potion
     //MODIFIES: goldBalance
     //EFFECTS: sells the given potion and adds the gold to the token's gold balance
     if (potion.equals("+")) {
@@ -313,7 +313,6 @@ public class Token implements Serializable {
 
   public void setTriangle(int index, String sign, String color) {
     deductionBoardIndexCS.put(index, sign + color);
-
   }
 
   public void transmuteIngredient(String ingredientName) {
@@ -364,15 +363,27 @@ public class Token implements Serializable {
     }
     return null;
   }
-  
+
   public boolean repOK() {
     //EFFECTS: returns true if the rep invariant is satisfied
-    if(username == null){ return false; }
-    if(avatarImage == null){ return false; }
-    if(tokenImage == null){ return false; }
-    if(goldBalance < 0){ return false; }
-    if(sicknessLevel < 0){ return false; }
-    if(reputation < 0){ return false; }
+    if (username == null) {
+      return false;
+    }
+    if (avatarImage == null) {
+      return false;
+    }
+    if (tokenImage == null) {
+      return false;
+    }
+    if (goldBalance < 0) {
+      return false;
+    }
+    if (sicknessLevel < 0) {
+      return false;
+    }
+    if (reputation < 0) {
+      return false;
+    }
 
     return true;
   }
