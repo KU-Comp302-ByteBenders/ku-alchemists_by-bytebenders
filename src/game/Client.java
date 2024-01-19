@@ -135,7 +135,7 @@ public class Client implements Serializable {
               String ingredientName = messageParts[3];
               System.out.println(ingredientName);
               board.getTokens().get(Integer.parseInt(index)).transmuteIngredient(ingredientName);
-              board.getTokens().get(Integer.parseInt(index)).addGold(1);
+              //board.getTokens().get(Integer.parseInt(index)).addGold(1);
               Game game = Game.getInstance();
               game.reopenOnlineBoard(token, board);
             }

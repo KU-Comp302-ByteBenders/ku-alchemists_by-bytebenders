@@ -201,15 +201,19 @@ public class Game implements Serializable {
   }
 
   public static void activateTransmuteIngredientFrame(
-      ArrayList<Ingredient> displayedIngredients,
-      Board mainBoard,
-      BoardFrame boardFrame,
-      State state) {
+    ArrayList<Ingredient> displayedIngredients,
+    Board mainBoard,
+    BoardFrame boardFrame,
+    State state,
+    Token token
+  ) {
     TransmuteIngredientFrame transmuteJFrame = new TransmuteIngredientFrame(
-        displayedIngredients,
-        mainBoard,
-        boardFrame,
-        state);
+      displayedIngredients,
+      mainBoard,
+      boardFrame,
+      state,
+      token
+    );
   }
 
   public static void openTriangleBoard(JButton button, Token token, int index, Board board) {
@@ -243,6 +247,7 @@ public class Game implements Serializable {
   }
 
   public static void controlRoundAction(BoardFrame boardFrame, State state, Boolean endTurnFlag) {
+    System.out.println("geldin mi be");
     boardFrame.controlRoundActions(endTurnFlag, state);
   }
 

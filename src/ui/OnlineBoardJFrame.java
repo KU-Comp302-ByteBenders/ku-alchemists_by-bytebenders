@@ -574,22 +574,24 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
   public JButton createTransmuteButton(String ingredientName) {
     JButton transmuteButton = new JButton("Transmute For Ingredients");
     transmuteButton.addActionListener(
-        new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            if (OnlineBoardJFrame.this != null) {
-              token1.transmuteIngredient(ingredientName);
-              Game game = Game.getInstance();
-              game.publishAction(
-                  "Action " + board.getTokens().indexOf(token1) + " TransmuteIngredient " + ingredientName);
-              Game.activateTransmuteIngredientFrame(
-                  new ArrayList<>(token1.getIngredients()),
-                  board,
-                  OnlineBoardJFrame.this,
-                  state);
-            }
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          if (OnlineBoardJFrame.this != null) {
+            token1.transmuteIngredient(ingredientName);
+            Game game = Game.getInstance();
+            game.publishAction("Action " + board.getTokens().indexOf(token1) + " TransmuteIngredient " + ingredientName);
+            Game.activateTransmuteIngredientFrame(
+              new ArrayList<>(token1.getIngredients()),
+              board,
+              OnlineBoardJFrame.this,
+              state,
+              token1
+            );
           }
-        });
+        }
+      }
+    );
     return transmuteButton;
   }
 
@@ -651,11 +653,10 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
         JLabel label = (JLabel) component;
         ImageIcon labelIcon = (ImageIcon) label.getIcon();
         Ingredient ingredient = findIngredientByImagePath(labelIcon.getDescription());
-
         if (ingredient != null && ingredient.getName().equals(ingredientName)) {
           path = labelIcon.getDescription();
           ingredientCardsArea.remove(label);
-          token1.addGold(1);
+          //token1.addGold(1);
           updateTokensGoldLabel();
           break;
         }
@@ -951,10 +952,12 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
       Board mainBoard,
       State state) {
     TransmuteIngredientFrame transmuteFrame = new TransmuteIngredientFrame(
-        displayedIngredients,
-        mainBoard,
-        this,
-        state);
+      displayedIngredients,
+      mainBoard,
+      this,
+      state,
+      token1
+    );
   }
 
   @Override
