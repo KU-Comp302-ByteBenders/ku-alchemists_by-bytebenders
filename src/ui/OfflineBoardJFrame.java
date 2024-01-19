@@ -982,6 +982,10 @@ controlArea.add(infolabel);
         row3.add(experimentButton);
         artifactBuyerButton = createArtifactBuyerButton();
         row3.add(artifactBuyerButton);
+        publishButton = publishTheoryButton();
+        row3.add(publishButton);
+        debunkButton = debunkTheoryButton();
+        row3.add(debunkButton);
         endTurnButton = endTurnButton();
         row3.add(endTurnButton);
       } else if (state.getCurrentRound() == 2) {

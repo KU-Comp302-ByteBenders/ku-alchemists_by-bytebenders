@@ -35,16 +35,22 @@ public class Theory implements Serializable {
   // Returns true if alchemyMarker matches the Ingredient of the Theory's alchemyMarker
   public boolean debunkSuccess(Aspect aspect) {
     if (aspect.getColor() == "Red") {
-      Aspect originalAspect = this.getTheoryIngredient().getAlchemyMarker().getAspectList().get(0);
-      return !(originalAspect.getSign().equals(aspect.getSign()) && originalAspect.getSize().equals(aspect.getSize()));
+      Aspect theoryAspect = this.getAlchemyMarker().getAspect1();
+      System.out.println(aspect.getSign());
+      System.out.println(aspect.getSize());
+      System.out.println(aspect.getColor());
+      System.out.println(theoryAspect.getSign());
+      System.out.println(theoryAspect.getSize());
+      System.out.println(theoryAspect.getColor());
+      return !(theoryAspect.getSign().equals(aspect.getSign()) && theoryAspect.getSize().equals(aspect.getSize()));
     }
     else if (aspect.getColor() == "Blue") {
-      Aspect originalAspect = this.getTheoryIngredient().getAlchemyMarker().getAspectList().get(1);
-      return !(originalAspect.getSign().equals(aspect.getSign()) && originalAspect.getSize().equals(aspect.getSize()));
+      Aspect theoryAspect = this.getAlchemyMarker().getAspect2();
+      return !(theoryAspect.getSign().equals(aspect.getSign()) && theoryAspect.getSize().equals(aspect.getSize()));
     }
     else { // Yellow 
-      Aspect originalAspect = this.getTheoryIngredient().getAlchemyMarker().getAspectList().get(2);
-      return !(originalAspect.getSign().equals(aspect.getSign()) && originalAspect.getSize().equals(aspect.getSize()));
+      Aspect theoryAspect = this.getAlchemyMarker().getAspect3();
+      return !(theoryAspect.getSign().equals(aspect.getSign()) && theoryAspect.getSize().equals(aspect.getSize()));
     }
   }
 
