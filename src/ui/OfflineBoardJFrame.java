@@ -511,9 +511,29 @@ public class OfflineBoardJFrame extends JFrame implements ChangeableVisibility, 
     opponentsSegmentedAvatarArea.add(opponentsReputationLabel, BorderLayout.CENTER);
     opponentsSegmentedAvatarArea.add(username2, BorderLayout.SOUTH);
 
-    // controlArea.add(Box.createVerticalStrut(10));
-    controlArea.add(pauseButton());
-    controlArea.add(exitButton());
+//controlArea.add(Box.createVerticalStrut(10));
+controlArea.add(pauseButton());
+controlArea.add(exitButton());
+String turnnum = "";
+if(state.getCurrentRound() == 1){
+  state.getRound1Turns().get(token1);
+  turnnum = state.getRound1Turns().get(token1).toString();
+}
+else if (state.getCurrentRound() == 2){
+  state.getRound2Turns().get(token1);
+  turnnum = state.getRound2Turns().get(token1).toString();
+}
+else if (state.getCurrentRound() == 3){
+  state.getRound3Turns().get(token1);
+  turnnum = state.getRound3Turns().get(token1).toString();
+}
+
+String labelText = "<html>ROUND: " + state.getCurrentRound() + "<br/>TURN: " + turnnum + "</html>";
+JLabel infolabel = new JLabel(labelText);
+controlArea.add(infolabel);
+
+
+
     effectArea.add(effects);
 
     avatarArea.add(reputationLabel);
@@ -1014,6 +1034,7 @@ public void activateTransmuteIngredientFrame(ArrayList<Ingredient> displayedIngr
         row3.remove(transmuteButton);
         row3.remove(experimentButton);
         row3.remove(artifactBuyerButton);
+        row3.setBackground(Color.lightGray);
       } else if (state.getCurrentRound() == 2) {
         row3.remove(forageButton);
         row3.remove(transmuteButton);
@@ -1022,6 +1043,7 @@ public void activateTransmuteIngredientFrame(ArrayList<Ingredient> displayedIngr
         row3.remove(experimentButton);
         row3.remove(artifactBuyerButton);
         row3.remove(sellPotionButton);
+        row3.setBackground(Color.lightGray);
       } else if (state.getCurrentRound() == 3) {
         row3.remove(forageButton);
         row3.remove(transmuteButton);
@@ -1031,6 +1053,7 @@ public void activateTransmuteIngredientFrame(ArrayList<Ingredient> displayedIngr
         row3.remove(experimentButton);
         row3.remove(artifactBuyerButton);
         row3.remove(sellPotionButton);
+        row3.setBackground(Color.lightGray);
       }
     }
   }

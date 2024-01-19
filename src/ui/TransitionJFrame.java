@@ -51,6 +51,7 @@ public class TransitionJFrame extends JFrame {
         startButton.addActionListener( new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                closeFrame();
                 new OfflineBoardJFrame(token, board, state, tokens);
             }
         });
@@ -68,5 +69,8 @@ public class TransitionJFrame extends JFrame {
         // Make the frame visible
         this.setVisible(true);
 
+    }
+    public void closeFrame() {
+        this.dispose();
     }
 }
