@@ -266,8 +266,4 @@ public class Game implements Serializable {
   public void setClient(Client client) {
     this.client = client;
   }
-
-  public boolean isOffline() {
-    return server == null || client == null;
-  }
 }
