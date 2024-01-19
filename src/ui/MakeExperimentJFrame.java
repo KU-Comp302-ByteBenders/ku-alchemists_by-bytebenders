@@ -356,16 +356,5 @@ public class MakeExperimentJFrame extends JFrame {
       this.setVisible(false);
       this.setVisible(true);
     }
-    Timer timer = new Timer(
-        7000,
-        new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            // Close the JFrame
-            closingMenu(MakeExperimentJFrame.this);
-          }
-        });
-    timer.setRepeats(false); // Set to false to run the ActionListener only once
-    timer.start();
   }
 }
