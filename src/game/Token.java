@@ -330,6 +330,7 @@ public class Token implements Serializable {
         if (ingredient.getName().equals(ingredientName)) {
             iterator.remove(); // Safely remove the current element
             addGold(1);
+            break;
         }
     }
 }

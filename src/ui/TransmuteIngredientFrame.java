@@ -74,8 +74,8 @@ public class TransmuteIngredientFrame extends JFrame {
       Game.controlRoundAction(boardFrame, state, true);
       Game game = Game.getInstance();
       token.addGold(1);
-      game.publishAction("Action " + mainBoard.getTokens().indexOf(token) + " TransmuteIngredient " + ingredientName);
       boardFrame.updateTokensGoldLabel();
+      game.publishAction("Action " + mainBoard.getTokens().indexOf(token) + " TransmuteIngredient " + ingredientName);
       dispose();
     } else {
       JOptionPane.showMessageDialog(
