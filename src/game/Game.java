@@ -20,6 +20,9 @@ public class Game implements Serializable {
   private Boolean activateBoard;
   Server server;
   Client client;
+  private IGameStarterAdapter gameStarterAdapter;
+  private ArrayList<String> playerNames;
+  private ArrayList<String> playerAvatars;
 
   OnlineBoardJFrame onlineBoardJFrame;
 
@@ -33,6 +36,32 @@ public class Game implements Serializable {
   }
 
   private Game() {
+    gameStarterAdapter = new GameStarterAdapter(this);
+  }
+
+  public void setGameStarterAdapter(IGameStarterAdapter gameStarterAdapter) {
+    this.gameStarterAdapter = gameStarterAdapter;
+  }
+
+  public ArrayList<String> getPlayerNames() {
+    return playerNames;
+  }
+
+  public void setPlayerNames(ArrayList<String> playerNames) {
+    this.playerNames = playerNames;
+  }
+
+  public ArrayList<String> getPlayerAvatars() {
+    return playerAvatars;
+  }
+
+  public void setPlayerAvatars(ArrayList<String> playerAvatars) {
+    this.playerAvatars = playerAvatars;
+  }
+
+  public Server getServer() {
+    return server;
+
   }
 
   public void restartGame() {
@@ -110,40 +139,15 @@ public class Game implements Serializable {
   }
 
   public void startGame(ArrayList<String> playerNames, ArrayList<String> playerAvatars, LoginJFrame loginScreen) {
-    ArrayList<Token> tokens = new ArrayList<>();
-    // Assuming you want to handle a dynamic number of players
-    int numPlayers = playerNames.size();
-    System.out.println(numPlayers);
-
-    if (numPlayers < 2) {
-      JOptionPane.showMessageDialog(
-          loginScreen,
-          "Add at least 1 more player before starting the game.",
-          "Error",
-          JOptionPane.ERROR_MESSAGE);
-    } else {
-      // You may need to adjust this part based on your actual game logic
-      // For now, it assumes a fixed number of players (2)
-      // Assuming you want to access the first two players for now
-
-      for (int i = 0; numPlayers > i; i++) {
-        Token token1 = new Token(playerNames.get(i), playerAvatars.get(i), playerAvatars.get(i));
-        System.out.println(token1.getUsername());
-        System.out.println(tokens);
-        tokens.add(token1);
-        System.out.println("sfsgdsg");
-      }
-      System.out.println(tokens);
-
-      Board board = new Board(tokens);
-      System.out.println("aaaaa");
-      loginScreen.setVisible(false);
-    }
+    this.playerNames = playerNames;
+    this.playerAvatars = playerAvatars;
+    gameStarterAdapter.startGame(); // Starts the game with the adapter.
+    loginScreen.setVisible(false);
   }
 
-  public void startGameOnline(ChangeableVisibility frame) {
+  public void startGame(ChangeableVisibility frame) {
     frame.changeVisible(false);
-    server.startGame();
+    gameStarterAdapter.startGame(); //Starts the game with the adapter.
   }
 
   public void publishAction(String action) {
@@ -261,5 +265,9 @@ public class Game implements Serializable {
 
   public void setClient(Client client) {
     this.client = client;
+  }
+
+  public boolean isOffline() {
+    return server == null || client == null;
   }
 }
