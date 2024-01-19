@@ -14,7 +14,7 @@ public class Theory implements Serializable {
     this.theoryIngredient = ingredient;
     this.alchemyMarker = alchemyMarker;
     this.theoryOwner = token;
-    this.theoryName = String.format("Theory on %s", ingredient.getName());
+    this.theoryName = String.format("Theory:%s", ingredient.getName());
   }
 
   // Returns true if the theory is about the given ingredient

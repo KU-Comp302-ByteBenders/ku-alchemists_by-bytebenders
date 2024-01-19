@@ -306,6 +306,14 @@ public class Board implements Serializable {
     }
   }
 
+  public Theory getTheoryByName(String theoryName) {
+    for (Theory theory : theories) {
+      if (theory.getTheoryName().equals(theoryName)) {
+        return theory;
+      }
+    }
+    return null;
+  }
   public Ingredient getIngredientByName(String name) {
     for (Ingredient ingredient : ingredients) {
       if (ingredient.getName().equals(name)) {

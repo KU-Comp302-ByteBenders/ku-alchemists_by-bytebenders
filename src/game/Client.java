@@ -171,6 +171,22 @@ public class Client implements Serializable {
                 continue;
               }
             }
+            if (action.equals("DebunkTheory")) {
+              System.out.println("Inside DebunkTheory");
+              try {
+                String theoryName = messageParts[3];
+                Theory theory = board.getTheoryByName(theoryName);
+                int ingredientIndex = Integer.parseInt(messageParts[4]);
+                int aspectIndex = Integer.parseInt(messageParts[5]);
+                Ingredient ingredient = board.getStaticIngredients().get(ingredientIndex);
+                Aspect selectedAspect = ingredient.getAlchemyMarker().getAspectList().get(aspectIndex);
+                board.getTokens().get(Integer.parseInt(index)).debunkTheory(board, theory, selectedAspect);
+                game.reopenOnlineBoard(token, board);
+              } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, exception.getMessage());
+                continue;
+              }
+            }
             // TODO: add other actions
           }
         }
