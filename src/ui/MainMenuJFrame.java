@@ -10,13 +10,13 @@ public class MainMenuJFrame extends JFrame implements ChangeableVisibility {
 
   public MainMenuJFrame() {
     super("KU Alchemists");
-    this.setSize(960, 720);
+    this.setSize(768, 768);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(null);
     this.setResizable(false);
 
     // Load the image
-    ImageIcon imageIcon = new ImageIcon("src/ui/utils/google_chateau.png");
+    ImageIcon imageIcon = new ImageIcon("src/ui/utils/avatarmenu.png");
 
     // Scale the image to fit the frame
     Image image = imageIcon.getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT);
@@ -29,16 +29,16 @@ public class MainMenuJFrame extends JFrame implements ChangeableVisibility {
 
     JLabel titleLabel = new JLabel("KU ALCHEMISTS");
     titleLabel.setForeground(Color.WHITE);
-    titleLabel.setFont(new Font("Arial", Font.BOLD, 50));
-    titleLabel.setBounds(470, 50, 500, 100);
+    titleLabel.setFont(new Font("Arial", Font.BOLD, 35));
+    titleLabel.setBounds(270, 450, 500, 100);
 
     JLabel versionLabel = new JLabel("by ByteBenders");
     versionLabel.setForeground(Color.WHITE);
-    versionLabel.setFont(new Font("Arial", Font.BOLD, 20));
-    versionLabel.setBounds(600, 135, 200, 30);
+    versionLabel.setFont(new Font("Arial", Font.BOLD, 30));
+    versionLabel.setBounds(300, 535, 300, 40);
 
     JButton newGameButton = new JButton("NEW GAME");
-    newGameButton.setBounds(580, 260, 200, 50);
+    newGameButton.setBounds(10, 550, 100, 50);
 
     // Add ActionListener to the "NEW GAME" button
     newGameButton.addActionListener(
@@ -52,7 +52,7 @@ public class MainMenuJFrame extends JFrame implements ChangeableVisibility {
     );
 
     JButton helpButton = new JButton("HELP");
-    helpButton.setBounds(580, 320, 200, 50);
+    helpButton.setBounds(350, 140, 70, 50);
 
     // Add ActionListener to the "HELP" button
     helpButton.addActionListener(
@@ -65,7 +65,7 @@ public class MainMenuJFrame extends JFrame implements ChangeableVisibility {
     );
 
     JButton exitButton = new JButton("EXIT");
-    exitButton.setBounds(580, 380, 200, 50);
+    exitButton.setBounds(640, 610, 100, 50);
 
     exitButton.addActionListener(
       new ActionListener() {
