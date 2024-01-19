@@ -164,7 +164,11 @@ public class Server implements Serializable {
             if (action.equals("EndTurn")) {
               System.out.println("Inside End turn");
               board.endTurn();
-              game.reopenOnlineBoard(token, board);
+              if (!(board.getRound() == 4)) {
+                game.reopenOnlineBoard(token, board);
+              } else {
+                game.closeOnlineBoard();
+              }
             }
 
             if (action.equals("ForageForIngredient")) {
@@ -179,7 +183,9 @@ public class Server implements Serializable {
             if (action.equals("TransmuteIngredient")) {
               System.out.println("Inside TransmuteIngredient");
               String ingredientName = messageParts[3];
+              System.out.println(ingredientName);
               board.getTokens().get(Integer.parseInt(index)).transmuteIngredient(ingredientName);
+              board.getTokens().get(Integer.parseInt(index)).addGold(1);
               game.reopenOnlineBoard(token, board);
             }
             if (action.equals("MakeExperiment")) {

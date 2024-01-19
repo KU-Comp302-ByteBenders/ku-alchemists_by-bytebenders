@@ -545,7 +545,11 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
             Game game = Game.getInstance();
             game.publishAction("Action " + board.getTokens().indexOf(token1) + " EndTurn");
             board.endTurn();
-            game.reopenOnlineBoard(token1, board);
+            if (board.getRound() == 4) {
+              game.closeOnlineBoard();
+            } else {
+              game.reopenOnlineBoard(token1, board);
+            }
           }
         });
     return endTurnButton;
@@ -766,9 +770,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
       for (int index : token1.getDeductionBoardIndexCS().keySet()) {
         if (i == index) {
           flag = true;
-
         }
-
       }
       if (!flag) {
         roundedButtons[i] = new RoundedButton("∅");
@@ -784,7 +786,6 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
         if ("Yellow".equals(token1.getDeductionBoardIndexCS().get(i).substring(1))) {
           roundedButtons[i].setBackground(Color.YELLOW);
         }
-
       }
       roundedButtons[i].setBorder(BorderFactory.createEmptyBorder(11, 11, 11, 11));
 

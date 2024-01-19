@@ -1,12 +1,12 @@
 package game;
 
 import game.ArtifactCards.ArtifactCard;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Token implements Serializable {
+
   // OVERVIEW: This class provides the token's properties and methods
 
   private static final long serialVersionUID = 12L;
@@ -29,7 +29,11 @@ public class Token implements Serializable {
 
   // The rep invariant is
   // username != null && avatarImage != null && tokenImage != null
+  // The rep invariant is
+  // username != null && avatarImage != null && tokenImage != null
   // && goldBalance >= 0 && sicknessLevel >= 0 && reputation >= 0
+  //
+  //
   //
   //
 
@@ -72,6 +76,10 @@ public class Token implements Serializable {
     } else {
       goldBalance = 0;
     }
+  }
+
+  public int getGold() {
+    return goldBalance;
   }
 
   public void addIngredient(Ingredient ingredient) {
@@ -204,6 +212,7 @@ public class Token implements Serializable {
           goldBalance = 0;
         }
       } else if (potion.getName().equals("+")) {
+      } else if (potion.getName().equals("+")) {
         if (getSicknessLevel() > 0) {
           decreaseSickness(1);
           potion.setGuarantee("guaranteed");
@@ -308,7 +317,6 @@ public class Token implements Serializable {
 
   public void setTriangle(int index, String sign, String color) {
     deductionBoardIndexCS.put(index, sign + color);
-
   }
 
   public void transmuteIngredient(String ingredientName) {

@@ -35,8 +35,16 @@ public class Game implements Serializable {
   private Game() {
   }
 
+  public void restartGame() {
+    instance = new Game();
+  }
+
   public void openCountDownFrame(Token token, Board board) {
     CountDownFrame countDownJFrame = new CountDownFrame(token, board);
+  }
+
+  public void closeOnlineBoard() {
+    this.onlineBoardJFrame.dispose();
   }
 
   public boolean isOffline() {
@@ -53,6 +61,11 @@ public class Game implements Serializable {
     OnlineBoardJFrame onlineBoardJFrame = new OnlineBoardJFrame(token, board);
     this.onlineBoardJFrame.dispose();
     this.onlineBoardJFrame = onlineBoardJFrame;
+  }
+
+  public void openEndGame(Board board) {
+    EndGamer endGamer = new EndGamer(board);
+    endGamer.openEndGame();
   }
 
   public void openMainMenu() {

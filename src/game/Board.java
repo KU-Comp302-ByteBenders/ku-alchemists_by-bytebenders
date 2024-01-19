@@ -348,10 +348,13 @@ public class Board implements Serializable {
   public void endTurn() {
     if (whoseTurn == tokens.size() - 1) {
       turn++;
-      if (turn % 3 == 0) {
+      if (turn % 3 == 1) {
         round++;
-        if (round == 3) {
-          // endGame();
+        System.out.println("turn: " + turn);
+        System.out.println("round: " + round);
+        if (round == 4) {
+          EndGamer endGamer = new EndGamer(this);
+          endGamer.openEndGame();
         }
       }
       whoseTurn = 0;
