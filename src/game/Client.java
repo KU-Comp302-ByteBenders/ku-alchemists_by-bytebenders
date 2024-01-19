@@ -3,6 +3,9 @@ package game;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+
+import javax.swing.JOptionPane;
+
 import ui.interfaces.ChangeableVisibility;
 
 public class Client implements Serializable {
@@ -137,6 +140,21 @@ public class Client implements Serializable {
               board.getTokens().get(Integer.parseInt(index)).addGold(1);
               Game game = Game.getInstance();
               game.reopenOnlineBoard(token, board);
+            }
+            if (action.equals("PublishTheory")) {
+              System.out.println("Inside PublishTheory");
+              Game game = Game.getInstance();
+              try {
+                int ingredientIndex = Integer.parseInt(messageParts[3]);
+                int markerIndex = Integer.parseInt(messageParts[4]);
+                Ingredient ingredient = board.getStaticIngredients().get(ingredientIndex);
+                AlchemyMarker alchemyMarker = board.getStaticAlchemyMarkers().get(markerIndex);
+                board.getTokens().get(Integer.parseInt(index)).publishTheory(board, ingredient, alchemyMarker);
+                game.reopenOnlineBoard(token, board);
+              } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, exception.getMessage());
+                continue;
+              }
             }
             // TODO: add other actions
           }
