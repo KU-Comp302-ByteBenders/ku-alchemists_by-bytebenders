@@ -672,7 +672,7 @@ controlArea.add(infolabel);
         if (ingredient != null && ingredient.getName().equals(ingredientName)) {
           path = labelIcon.getDescription();
           ingredientCardsArea.remove(label);
-          token1.addGold(1);
+          //token1.addGold(1);
           updateTokensGoldLabel();
           break;
         }
