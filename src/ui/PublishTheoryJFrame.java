@@ -89,7 +89,6 @@ public class PublishTheoryJFrame extends JFrame {
       new ActionListener() {
         public void actionPerformed(ActionEvent e) {
           // Publish the theory
-
           try {
             token1.publishTheory(board, selectedIngredient, selectedAlchemyMarker);
           } catch (Exception exception) {
