@@ -27,7 +27,7 @@ public class State implements Serializable {
     this.tokens = tokens;
     actionsMadeInRound = 0;
     currentRound = 1;
-    currentTurn = 0;
+    currentTurn = 1;
     numberOfPlayers = tokens.size();
     initializeTurnMaps(tokens);
     for(Token token : tokens){
@@ -37,9 +37,9 @@ public class State implements Serializable {
 
   private void initializeTurnMaps(ArrayList<Token> tokens) {
     for (Token token : tokens) {
-      round1Turns.put(token, 0);
-      round2Turns.put(token, 0);
-      round3Turns.put(token, 0);
+      round1Turns.put(token, 1);
+      round2Turns.put(token, 1);
+      round3Turns.put(token, 1);
     }
   }
 
@@ -54,6 +54,17 @@ public class State implements Serializable {
   }
   public void setCurrentRound(int currentRound) {
     this.currentRound = currentRound;
+  }
+
+  public HashMap<Token, Integer> getRound1Turns() {
+      return round1Turns;
+  }
+
+  public HashMap<Token, Integer> getRound2Turns() {
+      return round2Turns;
+  }
+  public HashMap<Token, Integer> getRound3Turns() {
+      return round3Turns;
   }
 
   public int getNumberOfPlayers() {
@@ -103,7 +114,7 @@ public class State implements Serializable {
     int controller = 0;
     if(currentRound ==1 ){
       for (Integer value : round1Turns.values()) {
-        if (value == 3) {
+        if (value == 4) {
           controller++;
         }
       }
@@ -113,7 +124,7 @@ public class State implements Serializable {
     }
     else if(currentRound == 2){
       for (Integer value : round2Turns.values()) {
-        if (value == 3) {
+        if (value == 4) {
           controller++;
         }
       }
@@ -123,7 +134,7 @@ public class State implements Serializable {
     }
     else if(currentRound == 3){
       for (Integer value : round3Turns.values()) {
-        if (value == 3) {
+        if (value == 4) {
           controller++;
         }
       }
