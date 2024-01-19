@@ -4,6 +4,7 @@ import game.ArtifactCards.ArtifactCard;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class Token implements Serializable {
 
@@ -245,6 +246,7 @@ public class Token implements Serializable {
     for (Ingredient ing : ingredients) {
       if (ing.getName().equals(ingredient)) {
         ingredients.remove(ing);
+        addGold(1);
         break;
       }
     }
@@ -322,12 +324,15 @@ public class Token implements Serializable {
   public void transmuteIngredient(String ingredientName) {
     // EFFECT: transmutes the given ingredient and adds it to the token's ingredient
     // list
-    for (Ingredient ingredient : ingredients) {
-      if (ingredient.getName().equals(ingredientName)) {
-        ingredients.remove(ingredient);
-      }
+    Iterator<Ingredient> iterator = ingredients.iterator();
+    while (iterator.hasNext()) {
+        Ingredient ingredient = iterator.next();
+        if (ingredient.getName().equals(ingredientName)) {
+            iterator.remove(); // Safely remove the current element
+            addGold(1);
+        }
     }
-  }
+}
 
   public void removeArtifactCard(ArtifactCard artifactCard) {
     // EFFECTS: removes the given artifact card from the token's artifact card list

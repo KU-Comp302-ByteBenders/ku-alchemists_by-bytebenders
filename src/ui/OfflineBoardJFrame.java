@@ -998,12 +998,10 @@ public class OfflineBoardJFrame extends JFrame implements ChangeableVisibility, 
     this.setVisible(visible);
   }
 
-  @Override
-  public void activateTransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard,
-      State state) {
-    TransmuteIngredientFrame transmuteFrame = new TransmuteIngredientFrame(displayedIngredients, mainBoard, this,
-        state);
-    // Add any additional logic specific to OnlineBoardJFrame
+
+@Override
+public void activateTransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard, State state) {
+    TransmuteIngredientFrame transmuteFrame = new TransmuteIngredientFrame(displayedIngredients, mainBoard, this, state, token1);
   }
 
   @Override

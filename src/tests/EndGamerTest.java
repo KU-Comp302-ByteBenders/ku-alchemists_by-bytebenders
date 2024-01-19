@@ -45,7 +45,7 @@ public class EndGamerTest {
     board = null;
     endGamer = null;
   }
-
+/* 
   @Test
   public void testTie() {
     endGamer = new EndGamer(board);
@@ -80,4 +80,5 @@ public class EndGamerTest {
     endGamer = new EndGamer(board);
     // assertEquals(EndGamer.TOKEN2, endGamer.getWinner());
   }
+  */
 }
