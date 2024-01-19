@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.swing.JOptionPane;
+
 import ui.WaitingJFrame;
 
 public class Server implements Serializable {
@@ -202,6 +205,20 @@ public class Server implements Serializable {
               String potionName = messageParts[3];
               board.getTokens().get(Integer.parseInt(index)).sellPotion(potionName);
               game.reopenOnlineBoard(token, board);
+            }
+            if (action.equals("PublishTheory")) {
+              System.out.println("Inside PublishTheory");
+              try {
+                int ingredientIndex = Integer.parseInt(messageParts[3]);
+                int markerIndex = Integer.parseInt(messageParts[4]);
+                Ingredient ingredient = board.getStaticIngredients().get(ingredientIndex);
+                AlchemyMarker alchemyMarker = board.getStaticAlchemyMarkers().get(markerIndex);
+                board.getTokens().get(Integer.parseInt(index)).publishTheory(board, ingredient, alchemyMarker);
+                game.reopenOnlineBoard(token, board);
+              } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, exception.getMessage());
+                continue;
+              }
             }
             // TODO: Add other actions
           }

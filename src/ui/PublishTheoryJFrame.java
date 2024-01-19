@@ -15,6 +15,8 @@ public class PublishTheoryJFrame extends JFrame {
 
   private Ingredient selectedIngredient = null;
   private AlchemyMarker selectedAlchemyMarker = null;
+  private int selectedIngredientIndex = -1;
+  private int selectedMarkerIndex = -1;
 
   public PublishTheoryJFrame(BoardFrame boardFrame, Board board, State state, Token token1) {
     this.setSize(1280, 720);
@@ -54,6 +56,7 @@ public class PublishTheoryJFrame extends JFrame {
               if (e.getStateChange() == ItemEvent.SELECTED) {
                 // Get the selected ingredient from board
                 selectedIngredient = board.getStaticIngredients().get(index);
+                selectedIngredientIndex = index;
                 selectedIngredientField.setText("Selected Ingredient: " + selectedIngredient.getName());
               }
             }
@@ -70,6 +73,7 @@ public class PublishTheoryJFrame extends JFrame {
               if (e.getStateChange() == ItemEvent.SELECTED) {
                 // Get the selected marker from board
                 selectedAlchemyMarker = board.getStaticAlchemyMarkers().get(index);
+                selectedMarkerIndex = index;
                 selectedMarkerField.setText("Selected Marker: " + (index + 1));
               }
             }
@@ -85,18 +89,19 @@ public class PublishTheoryJFrame extends JFrame {
       new ActionListener() {
         public void actionPerformed(ActionEvent e) {
           // Publish the theory
-
           try {
             token1.publishTheory(board, selectedIngredient, selectedAlchemyMarker);
-            boardFrame.updateTokensGoldLabel();
-            boardFrame.updateTokensReputationLabel();
-            Game.controlRoundAction(boardFrame, state, true);
           } catch (Exception exception) {
             JOptionPane.showMessageDialog(null, exception.getMessage());
             return;
           }
+          boardFrame.updateTokensGoldLabel();
+          boardFrame.updateTokensReputationLabel();
           // Close the window
           dispose();
+          Game game = Game.getInstance();
+          game.publishAction("Action " + board.getTokens().indexOf(token1)  + " PublishTheory " + selectedIngredientIndex + " " + selectedMarkerIndex);
+          Game.controlRoundAction(boardFrame, state, true);
         }
       }
     );
