@@ -511,28 +511,24 @@ public class OfflineBoardJFrame extends JFrame implements ChangeableVisibility, 
     opponentsSegmentedAvatarArea.add(opponentsReputationLabel, BorderLayout.CENTER);
     opponentsSegmentedAvatarArea.add(username2, BorderLayout.SOUTH);
 
-//controlArea.add(Box.createVerticalStrut(10));
-controlArea.add(pauseButton());
-controlArea.add(exitButton());
-String turnnum = "";
-if(state.getCurrentRound() == 1){
-  state.getRound1Turns().get(token1);
-  turnnum = state.getRound1Turns().get(token1).toString();
-}
-else if (state.getCurrentRound() == 2){
-  state.getRound2Turns().get(token1);
-  turnnum = state.getRound2Turns().get(token1).toString();
-}
-else if (state.getCurrentRound() == 3){
-  state.getRound3Turns().get(token1);
-  turnnum = state.getRound3Turns().get(token1).toString();
-}
+    // controlArea.add(Box.createVerticalStrut(10));
+    controlArea.add(pauseButton());
+    controlArea.add(exitButton());
+    String turnnum = "";
+    if (state.getCurrentRound() == 1) {
+      state.getRound1Turns().get(token1);
+      turnnum = state.getRound1Turns().get(token1).toString();
+    } else if (state.getCurrentRound() == 2) {
+      state.getRound2Turns().get(token1);
+      turnnum = state.getRound2Turns().get(token1).toString();
+    } else if (state.getCurrentRound() == 3) {
+      state.getRound3Turns().get(token1);
+      turnnum = state.getRound3Turns().get(token1).toString();
+    }
 
-String labelText = "<html>ROUND: " + state.getCurrentRound() + "<br/>TURN: " + turnnum + "</html>";
-JLabel infolabel = new JLabel(labelText);
-controlArea.add(infolabel);
-
-
+    String labelText = "<html>ROUND: " + state.getCurrentRound() + "<br/>TURN: " + turnnum + "</html>";
+    JLabel infolabel = new JLabel(labelText);
+    controlArea.add(infolabel);
 
     effectArea.add(effects);
 
@@ -672,7 +668,7 @@ controlArea.add(infolabel);
         if (ingredient != null && ingredient.getName().equals(ingredientName)) {
           path = labelIcon.getDescription();
           ingredientCardsArea.remove(label);
-          //token1.addGold(1);
+          // token1.addGold(1);
           updateTokensGoldLabel();
           break;
         }
@@ -777,18 +773,16 @@ controlArea.add(infolabel);
 
   public void updateOpponentsLabels(Token theoryOwner) {
     if (token2.equals(theoryOwner)) {
-        opponentsReputationLabel.setText("Reputation: " + token2.getReputation());
-        opponentsGoldLabel.setText("Gold: " + token2.getGoldBalance());
-      }
-    else if (token3.equals(theoryOwner)) {
-        opponentsReputationLabel2.setText("Reputation: " + token3.getReputation());
-        opponentsGoldLabel2.setText("Gold: " + token3.getGoldBalance());
-      }
-    else if (token4.equals(theoryOwner)) {
-        opponentsReputationLabel3.setText("Reputation: " + token4.getReputation());
-        opponentsGoldLabel3.setText("Gold: " + token4.getGoldBalance());
-      }
+      opponentsReputationLabel.setText("Reputation: " + token2.getReputation());
+      opponentsGoldLabel.setText("Gold: " + token2.getGoldBalance());
+    } else if (token3.equals(theoryOwner)) {
+      opponentsReputationLabel2.setText("Reputation: " + token3.getReputation());
+      opponentsGoldLabel2.setText("Gold: " + token3.getGoldBalance());
+    } else if (token4.equals(theoryOwner)) {
+      opponentsReputationLabel3.setText("Reputation: " + token4.getReputation());
+      opponentsGoldLabel3.setText("Gold: " + token4.getGoldBalance());
     }
+  }
 
   public JPanel arrangeBoardTriangle() {
     // this method's purpose is adding buttons to deduction image. There are 36
@@ -797,8 +791,8 @@ controlArea.add(infolabel);
 
     ImageIcon centerIcon = new ImageIcon("src/ui/utils/pubboard.png");
     JLabel centerLabel = new JLabel(centerIcon);
-    RoundedButton[] roundedButtons = new RoundedButton[36];
-    for (int i = 0; i < roundedButtons.length; i++) { // creating 36 buttons.
+    RoundedButton[] roundedButtons = new RoundedButton[28];
+    for (int i = 0; i < roundedButtons.length; i++) { // creating 28 buttons.
       Boolean flag = false;
       for (int index : token1.getDeductionBoardIndexCS().keySet()) {
         if (i == index) {
@@ -845,7 +839,7 @@ controlArea.add(infolabel);
     int startery = 283;
     int starterx = 0;
     int nodeNumber = 0;
-    for (int k = 1; k < 9; k++) { // we used 2 different for loop. They used for rows and number of buttons.
+    for (int k = 1; k < 8; k++) { // we used 2 different for loop. They used for rows and number of buttons.
       for (int i = 0; i < k; i++) {
         GridBagConstraints gbcButton = new GridBagConstraints();
         gbcButton.gridx = 0;
@@ -1033,10 +1027,11 @@ controlArea.add(infolabel);
     this.setVisible(visible);
   }
 
-
-@Override
-public void activateTransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard, State state) {
-    TransmuteIngredientFrame transmuteFrame = new TransmuteIngredientFrame(displayedIngredients, mainBoard, this, state, token1);
+  @Override
+  public void activateTransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard,
+      State state) {
+    TransmuteIngredientFrame transmuteFrame = new TransmuteIngredientFrame(displayedIngredients, mainBoard, this, state,
+        token1);
   }
 
   @Override

@@ -574,24 +574,23 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
   public JButton createTransmuteButton(String ingredientName) {
     JButton transmuteButton = new JButton("Transmute For Ingredients");
     transmuteButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          if (OnlineBoardJFrame.this != null) {
-            token1.transmuteIngredient(ingredientName);
-            Game game = Game.getInstance();
-            game.publishAction("Action " + board.getTokens().indexOf(token1) + " TransmuteIngredient " + ingredientName);
-            Game.activateTransmuteIngredientFrame(
-              new ArrayList<>(token1.getIngredients()),
-              board,
-              OnlineBoardJFrame.this,
-              state,
-              token1
-            );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            if (OnlineBoardJFrame.this != null) {
+              token1.transmuteIngredient(ingredientName);
+              Game game = Game.getInstance();
+              game.publishAction(
+                  "Action " + board.getTokens().indexOf(token1) + " TransmuteIngredient " + ingredientName);
+              Game.activateTransmuteIngredientFrame(
+                  new ArrayList<>(token1.getIngredients()),
+                  board,
+                  OnlineBoardJFrame.this,
+                  state,
+                  token1);
+            }
           }
-        }
-      }
-    );
+        });
     return transmuteButton;
   }
 
@@ -656,7 +655,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
         if (ingredient != null && ingredient.getName().equals(ingredientName)) {
           path = labelIcon.getDescription();
           ingredientCardsArea.remove(label);
-          //token1.addGold(1);
+          // token1.addGold(1);
           updateTokensGoldLabel();
           break;
         }
@@ -757,20 +756,19 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
   public void updateTokensReputationLabel() {
     reputationLabel.setText("Reputation: " + token1.getReputation());
   }
+
   public void updateOpponentsLabels(Token theoryOwner) {
     if (token2.equals(theoryOwner)) {
-        opponentsReputationLabel.setText("Reputation: " + token2.getReputation());
-        opponentsGoldLabel.setText("Gold: " + token2.getGoldBalance());
-      }
-    else if (token3.equals(theoryOwner)) {
-        opponentsReputationLabel2.setText("Reputation: " + token3.getReputation());
-        opponentsGoldLabel2.setText("Gold: " + token3.getGoldBalance());
-      }
-    else if (token4.equals(theoryOwner)) {
-        opponentsReputationLabel3.setText("Reputation: " + token4.getReputation());
-        opponentsGoldLabel3.setText("Gold: " + token4.getGoldBalance());
-      }
+      opponentsReputationLabel.setText("Reputation: " + token2.getReputation());
+      opponentsGoldLabel.setText("Gold: " + token2.getGoldBalance());
+    } else if (token3.equals(theoryOwner)) {
+      opponentsReputationLabel2.setText("Reputation: " + token3.getReputation());
+      opponentsGoldLabel2.setText("Gold: " + token3.getGoldBalance());
+    } else if (token4.equals(theoryOwner)) {
+      opponentsReputationLabel3.setText("Reputation: " + token4.getReputation());
+      opponentsGoldLabel3.setText("Gold: " + token4.getGoldBalance());
     }
+  }
 
   public JPanel arrangeBoardTriangle() {
     // this method's purpose is adding buttons to deduction image. There are 36
@@ -779,7 +777,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
 
     ImageIcon centerIcon = new ImageIcon("src/ui/utils/pubboard.png");
     JLabel centerLabel = new JLabel(centerIcon);
-    RoundedButton[] roundedButtons = new RoundedButton[36];
+    RoundedButton[] roundedButtons = new RoundedButton[28];
     for (int i = 0; i < roundedButtons.length; i++) { // creating 36 buttons.
       Boolean flag = false;
       for (int index : token1.getDeductionBoardIndexCS().keySet()) {
@@ -824,7 +822,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     int startery = 283;
     int starterx = 0;
     int nodeNumber = 0;
-    for (int k = 1; k < 9; k++) { // we used 2 different for loop. They used for rows and number of buttons.
+    for (int k = 1; k < 8; k++) { // we used 2 different for loop. They used for rows and number of buttons.
       for (int i = 0; i < k; i++) {
         GridBagConstraints gbcButton = new GridBagConstraints();
         gbcButton.gridx = 0;
@@ -966,12 +964,11 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
       Board mainBoard,
       State state) {
     TransmuteIngredientFrame transmuteFrame = new TransmuteIngredientFrame(
-      displayedIngredients,
-      mainBoard,
-      this,
-      state,
-      token1
-    );
+        displayedIngredients,
+        mainBoard,
+        this,
+        state,
+        token1);
   }
 
   @Override
