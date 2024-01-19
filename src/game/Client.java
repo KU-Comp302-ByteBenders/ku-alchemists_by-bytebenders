@@ -109,9 +109,13 @@ public class Client implements Serializable {
             if (action.equals("EndTurn")) {
               System.out.println("Inside EndTurn");
               board.endTurn();
-              System.out.println("whose turn:" + board.getWhoseTurn());
               Game game = Game.getInstance();
-              game.reopenOnlineBoard(token, board);
+
+              if (!(board.getRound() == 4)) {
+                game.reopenOnlineBoard(token, board);
+              } else {
+                game.closeOnlineBoard();
+              }
             }
 
             if (action.equals("ForageForIngredient")) {
@@ -120,16 +124,17 @@ public class Client implements Serializable {
               Game game = Game.getInstance();
               game.reopenOnlineBoard(token, board);
             }
-            if(action.equals("DeductionBoard")){
+            if (action.equals("DeductionBoard")) {
               System.out.println("Inside DeductionBoard");
               Game game = Game.getInstance();
               game.reopenOnlineBoard(token, board);
             }
-            if(action.equals("TransmuteIngredient")){
+            if (action.equals("TransmuteIngredient")) {
               System.out.println("Inside TransmuteIngredient");
               String ingredientName = messageParts[3];
               System.out.println(ingredientName);
               board.getTokens().get(Integer.parseInt(index)).transmuteIngredient(ingredientName);
+              board.getTokens().get(Integer.parseInt(index)).addGold(1);
               Game game = Game.getInstance();
               game.reopenOnlineBoard(token, board);
             }
