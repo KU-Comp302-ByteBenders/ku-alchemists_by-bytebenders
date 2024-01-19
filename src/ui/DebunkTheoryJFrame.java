@@ -32,6 +32,7 @@ public class DebunkTheoryJFrame extends JFrame {
 
       Theory currentTheory = null;
 
+      final int index = i;
       Ingredient ingredient = board.getStaticIngredients().get(i);
       String imagePath = ingredient.getImagePath();
       String theoryOwner = "No theory";
@@ -76,7 +77,7 @@ public class DebunkTheoryJFrame extends JFrame {
                     JLabel imageLabel = new JLabel(imageIcon);
 
                     Game game = Game.getInstance();
-                    game.publishAction("Action " + board.getTokens().indexOf(token1)  + " DebunkTheory " + finalCurrentTheory.getTheoryName() + " " + aspectIndex);
+                    game.publishAction("Action " + board.getTokens().indexOf(token1)  + " DebunkTheory " + finalCurrentTheory.getTheoryName() + " " + index + " " + aspectIndex );
                     if (success) {
                       JOptionPane.showMessageDialog(null, imageLabel, "Success!!!", JOptionPane.INFORMATION_MESSAGE);
                       Game.controlRoundAction(boardFrame, state, true);
