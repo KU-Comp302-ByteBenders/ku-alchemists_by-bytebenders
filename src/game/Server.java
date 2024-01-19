@@ -195,9 +195,12 @@ public class Server implements Serializable {
               String testOnSelf = messageParts[5];
               board.getTokens().get(Integer.parseInt(index)).makeExperiment(ingredientName, ingredientName2,
                   Boolean.valueOf(testOnSelf));
-              System.out.println(ingredientName);
-              System.out.println(ingredientName2);
-              System.out.println(testOnSelf);
+              game.reopenOnlineBoard(token, board);
+            }
+            if (action.equals("SellPotion")) {
+              System.out.println("Inside SellPotion");
+              String potionName = messageParts[3];
+              board.getTokens().get(Integer.parseInt(index)).sellPotion(potionName);
               game.reopenOnlineBoard(token, board);
             }
             // TODO: Add other actions
