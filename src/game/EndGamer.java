@@ -92,6 +92,9 @@ public class EndGamer implements Serializable {
       boolean isTie = false;
 
       for (int playerIndex : tiePlayers) {
+        if (playerIndex == 0) {
+          continue;
+        }
         if (tieBreakerGolds[playerIndex] > maxLeftOverGold) {
           maxLeftOverGold = tieBreakerGolds[playerIndex];
           maxTieBreakerPlayer = playerIndex;
@@ -103,12 +106,12 @@ public class EndGamer implements Serializable {
         }
       }
 
-      for (int i : tiePlayersTies) {
-        System.out.println(i);
-      }
-
       tiePlayersTies = removeDuplicates(tiePlayersTies);
-      winner = isTie ? -1 : maxTieBreakerPlayer;
+      if (isTie) {
+        winner = -1;
+      } else {
+        winner = maxTieBreakerPlayer;
+      }
     } else {
       winner = maxScorePlayer;
     }
