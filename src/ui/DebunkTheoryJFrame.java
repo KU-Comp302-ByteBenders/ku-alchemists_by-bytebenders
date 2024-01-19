@@ -75,6 +75,8 @@ public class DebunkTheoryJFrame extends JFrame {
                     ImageIcon imageIcon = new ImageIcon(ingredient.getImagePath());
                     JLabel imageLabel = new JLabel(imageIcon);
 
+                    Game game = Game.getInstance();
+                    game.publishAction("Action " + board.getTokens().indexOf(token1)  + " DebunkTheory " + finalCurrentTheory.getTheoryName() + " " + aspectIndex);
                     if (success) {
                       JOptionPane.showMessageDialog(null, imageLabel, "Success!!!", JOptionPane.INFORMATION_MESSAGE);
                       Game.controlRoundAction(boardFrame, state, true);
