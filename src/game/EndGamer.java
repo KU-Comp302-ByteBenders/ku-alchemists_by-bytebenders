@@ -61,11 +61,6 @@ public class EndGamer implements Serializable {
       tokenReputations[i] = token.getReputation();
       tokenArtifactCardNumbers[i] = token.getArtifactCards().size();
       tokenGoldAmounts[i] = token.getGoldBalance();
-
-      if (token.getArtifactCardByName("Wisdom Idol") != null) {
-        tokenReputations[i] += 1;
-      }
-
       tokenGoldAmounts[i] += tokenArtifactCardNumbers[i] * 2;
 
       int scoreFromGold = (int) Math.floor(tokenGoldAmounts[i] / 3);
