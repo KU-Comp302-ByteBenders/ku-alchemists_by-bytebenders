@@ -9,31 +9,27 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-
-
 public class PotionJFrame extends JFrame {
-    BoardFrame boardFrame;
-    Board board;
-    Token token1;
-    Border lineBorder;
-    
-    JPanel southPanel;
-    JPanel northPanel;
-    JPanel centerPanel;
+  BoardFrame boardFrame;
+  Board board;
+  Token token1;
+  Border lineBorder;
 
-    JPanel westOfSouthPanel;
-    JPanel eastOfSouthPanel;
+  JPanel southPanel;
+  JPanel northPanel;
+  JPanel centerPanel;
 
-    JButton closePotionButton;
-    JButton sellPotionButton;
-    JButton imageButton;
-    JLabel imageLabel;
-    ImageIcon potionIcon;
+  JPanel westOfSouthPanel;
+  JPanel eastOfSouthPanel;
 
-    private JComboBox<String> potionComboBox1;
-    private DefaultComboBoxModel<String> potionModel;
+  JButton closePotionButton;
+  JButton sellPotionButton;
+  JButton imageButton;
+  JLabel imageLabel;
+  ImageIcon potionIcon;
 
-
+  private JComboBox<String> potionComboBox1;
+  private DefaultComboBoxModel<String> potionModel;
 
   public PotionJFrame(Token token, Board board, BoardFrame boardFrame, State state) {
     this.board = board;
@@ -42,7 +38,7 @@ public class PotionJFrame extends JFrame {
 
     potionModel = new DefaultComboBoxModel<>();
     potionComboBox1 = new JComboBox<>(potionModel);
-    
+
     this.setSize(1200, 360);
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     this.setLayout(new BorderLayout());
@@ -72,8 +68,8 @@ public class PotionJFrame extends JFrame {
 
     westOfSouthPanel.setPreferredSize(new Dimension(200, 50));
     eastOfSouthPanel.setPreferredSize(new Dimension(200, 50));
-    
-    potionImageGenerator(token1);//can create with whole token
+
+    potionImageGenerator(token1);// can create with whole token
 
     this.add(southPanel, BorderLayout.SOUTH);
     this.add(northPanel, BorderLayout.NORTH);
@@ -85,60 +81,61 @@ public class PotionJFrame extends JFrame {
 
     // Add the north and south panels to the main container
 
-    //closing PotionJFrame
+    // closing PotionJFrame
     closePotionButton = new JButton("Return Board");
     closePotionButton.setPreferredSize(new Dimension(150, 30));
     closePotionButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          PotionJFrame.this.dispose();
-        }
-      }
-    ); 
-    
-    //selling potion if you have any
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            PotionJFrame.this.dispose();
+          }
+        });
+
+    // selling potion if you have any
     sellPotionButton = new JButton("SELL POTION");
     sellPotionButton.setEnabled(false);
     sellPotionButton.setPreferredSize(new Dimension(150, 30));
     sellPotionButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
 
-          if(potionComboBox1.getItemCount() == 0){//checking whether you have any potion to sell
+            if (potionComboBox1.getItemCount() == 0) {// checking whether you have any potion to sell
+              JOptionPane.showMessageDialog(
+                  PotionJFrame.this,
+                  "You don't have any potion to sell.",
+                  "Error",
+                  JOptionPane.ERROR_MESSAGE);
+              PotionJFrame.this.dispose();
+              return;
+            }
+            String typeOfPotion = potionComboBox1.getSelectedItem().toString();// getting the color and name of potion
+
+            String signOfPotion = typeOfPotion.substring(typeOfPotion.length() - 1);// getting the sign of potion(name)
+
+            Game game = Game.getInstance();
+            if (!game.isOffline()) {
+              game.publishAction("Action " + board.getTokens().indexOf(token1) + " SellPotion " + signOfPotion);
+
+            }
+
+            token1.sellPotion(signOfPotion);
             JOptionPane.showMessageDialog(
-              PotionJFrame.this,
-              "You don't have any potion to sell.",
-              "Error",
-              JOptionPane.ERROR_MESSAGE 
-            );PotionJFrame.this.dispose();
-            return;
+                PotionJFrame.this,
+                "Congratulations! Your gold balance increased to " + token1.getGoldBalance() + ".",
+                "Success",
+                JOptionPane.INFORMATION_MESSAGE);
+            boardFrame.removeMiniPotionImage("src/ui/utils/mini_potion" + typeOfPotion + ".jpg");// deleting from
+                                                                                                 // boardFrame
+            Game.controlRoundAction(boardFrame, state, true);
+            closingMenu(PotionJFrame.this);
           }
-          String typeOfPotion = potionComboBox1.getSelectedItem().toString();//getting the color and name of potion
-          
-          String signOfPotion = typeOfPotion.substring(typeOfPotion.length() - 1);//getting the sign of potion(name)
-          
-          token1.sellPotion(signOfPotion);
-          JOptionPane.showMessageDialog(
-              PotionJFrame.this,
-              "Congratulations! Your gold balance increased to " + token1.getGoldBalance() + ".",
-              "Success",
-              JOptionPane.INFORMATION_MESSAGE
-            );
-          boardFrame.removeMiniPotionImage("src/ui/utils/mini_potion"+ typeOfPotion + ".jpg");//deleting from boardFrame
-          Game.controlRoundAction(boardFrame, state, true);
-          closingMenu(PotionJFrame.this);
-        }
-      }
-    );
-    
-  
+        });
 
     JPanel potionComboBoxPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 20));
     potionComboBoxPanel.add(potionComboBox1);
     sellPotionButton.setEnabled(true);
-    
 
     southPanel.add(eastOfSouthPanel, BorderLayout.EAST);
     southPanel.add(westOfSouthPanel, BorderLayout.WEST);
@@ -146,7 +143,6 @@ public class PotionJFrame extends JFrame {
     eastOfSouthPanel.add(sellPotionButton, BorderLayout.CENTER);
     westOfSouthPanel.add(closePotionButton, BorderLayout.CENTER);
     southPanel.add(potionComboBoxPanel, BorderLayout.CENTER);
-
 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int x = (screenSize.width - this.getWidth()) / 2;
@@ -159,18 +155,21 @@ public class PotionJFrame extends JFrame {
     this.setVisible(true);
   }
 
-  public void potionImageGenerator(Token token){
+  public void potionImageGenerator(Token token) {
     int potionNumber = token.getPotions().size();
     for (int i = 0; i < potionNumber; i++) {
       Potion potion = token.getPotions().get(i);
       JLabel imageLabel = new JLabel();
 
-      potionIcon = new ImageIcon("src/ui/utils/potion"+ potion.getPotionColor() + potion.getName() + ".jpg");
-      potionModel.addElement(token.getPotions().get(i).getPotionColor()+token.getPotions().get(i).getName()); //giving information to combobox
+      potionIcon = new ImageIcon("src/ui/utils/potion" + potion.getPotionColor() + potion.getName() + ".jpg");
+      potionModel.addElement(token.getPotions().get(i).getPotionColor() + token.getPotions().get(i).getName()); // giving
+                                                                                                                // information
+                                                                                                                // to
+                                                                                                                // combobox
       imageLabel.setIcon(potionIcon);
       centerPanel.add(imageLabel);
-      
-        }
+
+    }
   }
 
   public void closingMenu(JFrame potionFrame) {
@@ -178,5 +177,4 @@ public class PotionJFrame extends JFrame {
     potionFrame.dispose();
   }
 
-  
 }
