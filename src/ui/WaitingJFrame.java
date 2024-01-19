@@ -37,7 +37,7 @@ public class WaitingJFrame extends JFrame implements ChangeableVisibility {
         @Override
         public void actionPerformed(ActionEvent e) {
           Game game = Game.getInstance();
-          game.startGameOnline(WaitingJFrame.this);
+          game.startGame(WaitingJFrame.this);
         }
       }
     );
