@@ -322,11 +322,22 @@ public class OfflineBoardJFrame extends JFrame implements ChangeableVisibility, 
     effects.setFont(new Font("Arial", Font.BOLD, 20));
     effects.setForeground(Color.BLACK);
 
+    ImageIcon avatarIcon = new ImageIcon("src/ui/utils/" + token1.getAvatarImage() + ".png");
+    JLabel avatarLabel = new JLabel(avatarIcon);
+    avatarArea.add(avatarLabel);
+
+
     goldLabel = new JLabel();
     goldLabel.setText("GOLD:" + token1.getGoldBalance());
     goldLabel.setFont(new Font("Arial", Font.BOLD, 20));
     avatarArea.add(goldLabel);
 
+    ImageIcon opponentsAvatarIcon = new ImageIcon("src/ui/utils/" + token2.getAvatarImage() + ".png");
+    JLabel opponentsAvatarLabel = new JLabel(opponentsAvatarIcon);
+
+    opponentsAvatarArea.add(opponentsAvatarLabel);
+    opponentsAvatarArea.add(opponentsSegmentedAvatarArea);
+    
     opponentsGoldLabel = new JLabel();
     opponentsGoldLabel.setText("GOLD:" + token2.getGoldBalance());
     opponentsGoldLabel.setFont(new Font("Arial", Font.BOLD, 20));
@@ -456,11 +467,9 @@ public class OfflineBoardJFrame extends JFrame implements ChangeableVisibility, 
       opponentsSegmentedAvatarArea3.add(username4, BorderLayout.SOUTH);
     }
 
-    ImageIcon avatarIcon = new ImageIcon("src/ui/utils/" + token1.getAvatarImage() + ".png");
-    JLabel avatarLabel = new JLabel(avatarIcon);
 
-    ImageIcon opponentsAvatarIcon = new ImageIcon("src/ui/utils/" + token2.getAvatarImage() + ".png");
-    JLabel opponentsAvatarLabel = new JLabel(opponentsAvatarIcon);
+
+
 
     JLabel username1 = new JLabel(token1.getUsername());
     username1.setFont(new Font("Arial", Font.BOLD, 20));
@@ -535,8 +544,6 @@ public class OfflineBoardJFrame extends JFrame implements ChangeableVisibility, 
     avatarArea.add(reputationLabel);
     avatarArea.add(avatarLabel);
     avatarArea.add(username1);
-    opponentsAvatarArea.add(opponentsSegmentedAvatarArea);
-    opponentsAvatarArea.add(opponentsAvatarLabel);
     opponentsAvatarArea2.add(opponentsSegmentedAvatarArea2);
     opponentsAvatarArea3.add(opponentsSegmentedAvatarArea3);
     artifactCardsArea.add(artifactCardsLabel);
