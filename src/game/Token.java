@@ -166,7 +166,7 @@ public class Token implements Serializable {
                 .getSize()
                 .equals(ing2.getAlchemyMarker().getAspectList().get(j).getSize())) {
               Potion newPotion = new Potion(
-                  ing1.getAlchemyMarker().getAspectList().get(j).getColor(),
+                  ing1.getAlchemyMarker().getAspectList().get(i).getColor(),
                   ing1,
                   ing2,
                   ing1.getAlchemyMarker().getAspectList().get(i).getSign(),
@@ -326,14 +326,14 @@ public class Token implements Serializable {
     // list
     Iterator<Ingredient> iterator = ingredients.iterator();
     while (iterator.hasNext()) {
-        Ingredient ingredient = iterator.next();
-        if (ingredient.getName().equals(ingredientName)) {
-            iterator.remove(); // Safely remove the current element
-            addGold(1);
-            break;
-        }
+      Ingredient ingredient = iterator.next();
+      if (ingredient.getName().equals(ingredientName)) {
+        iterator.remove(); // Safely remove the current element
+        addGold(1);
+        break;
+      }
     }
-}
+  }
 
   public void removeArtifactCard(ArtifactCard artifactCard) {
     // EFFECTS: removes the given artifact card from the token's artifact card list
