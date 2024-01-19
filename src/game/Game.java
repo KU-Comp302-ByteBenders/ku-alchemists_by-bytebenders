@@ -45,8 +45,8 @@ public class Game implements Serializable {
   }
 
   public void reopenOnlineBoard(Token token, Board board) {
-    onlineBoardJFrame.dispose();
     OnlineBoardJFrame onlineBoardJFrame = new OnlineBoardJFrame(token, board);
+    this.onlineBoardJFrame.dispose();
     this.onlineBoardJFrame = onlineBoardJFrame;
   }
 
