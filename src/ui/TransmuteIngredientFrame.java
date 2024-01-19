@@ -48,7 +48,6 @@ public class TransmuteIngredientFrame extends JFrame {
           // Get the selected ingredient from the combo box
           String selectedIngredient = (String) ingredientComboBox.getSelectedItem();
           handleTransformButtonClick(selectedIngredient, token);
-         
         }
       }
     );
@@ -75,8 +74,10 @@ public class TransmuteIngredientFrame extends JFrame {
       Game game = Game.getInstance();
       token.addGold(1);
       boardFrame.updateTokensGoldLabel();
-      game.publishAction("Action " + mainBoard.getTokens().indexOf(token) + " TransmuteIngredient " + ingredientName);
-      dispose();
+      if (!game.isOffline()) {
+        game.publishAction("Action " + mainBoard.getTokens().indexOf(token) + " TransmuteIngredient " + ingredientName);
+      }
+      this.setVisible(false);
     } else {
       JOptionPane.showMessageDialog(
         this,
