@@ -24,7 +24,8 @@ public class Server implements Serializable {
   private Token token;
   private Board board;
 
-  public Server() {}
+  public Server() {
+  }
 
   public void startServer(String username, String avatar) {
     this.username = username;
@@ -179,6 +180,18 @@ public class Server implements Serializable {
               System.out.println("Inside TransmuteIngredient");
               String ingredientName = messageParts[3];
               board.getTokens().get(Integer.parseInt(index)).transmuteIngredient(ingredientName);
+              game.reopenOnlineBoard(token, board);
+            }
+            if (action.equals("MakeExperiment")) {
+              System.out.println("Inside MakeExperiment");
+              String ingredientName = messageParts[3];
+              String ingredientName2 = messageParts[4];
+              String testOnSelf = messageParts[5];
+              board.getTokens().get(Integer.parseInt(index)).makeExperiment(ingredientName, ingredientName2,
+                  Boolean.valueOf(testOnSelf));
+              System.out.println(ingredientName);
+              System.out.println(ingredientName2);
+              System.out.println(testOnSelf);
               game.reopenOnlineBoard(token, board);
             }
             // TODO: Add other actions

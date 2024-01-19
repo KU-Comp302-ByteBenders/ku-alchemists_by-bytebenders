@@ -19,7 +19,8 @@ public class Client implements Serializable {
   ChangeableVisibility frame;
   Game game;
 
-  public Client() {}
+  public Client() {
+  }
 
   public void connect(String ip, String username, String avatar, ChangeableVisibility frame) {
     this.username = username;
@@ -120,17 +121,29 @@ public class Client implements Serializable {
               Game game = Game.getInstance();
               game.reopenOnlineBoard(token, board);
             }
-            if(action.equals("DeductionBoard")){
+            if (action.equals("DeductionBoard")) {
               System.out.println("Inside DeductionBoard");
               Game game = Game.getInstance();
               game.reopenOnlineBoard(token, board);
             }
-            if(action.equals("TransmuteIngredient")){
+            if (action.equals("TransmuteIngredient")) {
               System.out.println("Inside TransmuteIngredient");
               String ingredientName = messageParts[3];
               System.out.println(ingredientName);
               board.getTokens().get(Integer.parseInt(index)).transmuteIngredient(ingredientName);
               Game game = Game.getInstance();
+              game.reopenOnlineBoard(token, board);
+            }
+            if (action.equals("MakeExperiment")) {
+              System.out.println("Inside MakeExperiment");
+              String ingredientName = messageParts[3];
+              String ingredientName2 = messageParts[4];
+              String testOnSelf = messageParts[5];
+              board.getTokens().get(Integer.parseInt(index)).makeExperiment(ingredientName, ingredientName2,
+                  Boolean.valueOf(testOnSelf));
+              System.out.println(ingredientName);
+              System.out.println(ingredientName2);
+              System.out.println(testOnSelf);
               game.reopenOnlineBoard(token, board);
             }
             // TODO: add other actions
