@@ -142,22 +142,6 @@ public class Client implements Serializable {
               Game game = Game.getInstance();
               game.reopenOnlineBoard(token, board);
             }
-
-            if (action.equals("PublishTheory")) {
-              System.out.println("Inside PublishTheory");
-              Game game = Game.getInstance();
-              try {
-                int ingredientIndex = Integer.parseInt(messageParts[3]);
-                int markerIndex = Integer.parseInt(messageParts[4]);
-                Ingredient ingredient = board.getStaticIngredients().get(ingredientIndex);
-                AlchemyMarker alchemyMarker = board.getStaticAlchemyMarkers().get(markerIndex);
-                board.getTokens().get(Integer.parseInt(index)).publishTheory(board, ingredient, alchemyMarker);
-                game.reopenOnlineBoard(token, board);
-              } catch (Exception exception) {
-                JOptionPane.showMessageDialog(null, exception.getMessage());
-                continue;
-              }
-
             if (action.equals("MakeExperiment")) {
               System.out.println("Inside MakeExperiment");
               String ingredientName = messageParts[3];
@@ -172,6 +156,20 @@ public class Client implements Serializable {
               String potionName = messageParts[3];
               board.getTokens().get(Integer.parseInt(index)).sellPotion(potionName);
               game.reopenOnlineBoard(token, board);
+            }
+            if (action.equals("PublishTheory")) {
+              System.out.println("Inside PublishTheory");
+              try {
+                int ingredientIndex = Integer.parseInt(messageParts[3]);
+                int markerIndex = Integer.parseInt(messageParts[4]);
+                Ingredient ingredient = board.getStaticIngredients().get(ingredientIndex);
+                AlchemyMarker alchemyMarker = board.getStaticAlchemyMarkers().get(markerIndex);
+                board.getTokens().get(Integer.parseInt(index)).publishTheory(board, ingredient, alchemyMarker);
+                game.reopenOnlineBoard(token, board);
+              } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, exception.getMessage());
+                continue;
+              }
             }
             // TODO: add other actions
           }
