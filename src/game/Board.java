@@ -99,23 +99,23 @@ public class Board implements Serializable {
         "src/ui/utils/markers/alchemy_marker2.png");
     AlchemyMarker alchemyMarker3 = new AlchemyMarker(
         aspect1,
-        aspect12,
         aspect5,
+        aspect12,
         "src/ui/utils/markers/alchemy_marker3.png");
     AlchemyMarker alchemyMarker4 = new AlchemyMarker(
-        aspect9,
         aspect4,
         aspect2,
+        aspect9,
         "src/ui/utils/markers/alchemy_marker4.png");
     AlchemyMarker alchemyMarker5 = new AlchemyMarker(
         aspect1,
-        aspect6,
         aspect8,
+        aspect6,
         "src/ui/utils/markers/alchemy_marker5.png");
     AlchemyMarker alchemyMarker6 = new AlchemyMarker(
-        aspect3,
-        aspect11,
         aspect4,
+        aspect11,
+        aspect3,
         "src/ui/utils/markers/alchemy_marker6.png");
     AlchemyMarker alchemyMarker7 = new AlchemyMarker(
         aspect7,
@@ -128,14 +128,14 @@ public class Board implements Serializable {
         aspect6,
         "src/ui/utils/markers/alchemy_marker8.png");
 
-    staticAlchemyMarkers.add(alchemyMarker1);
-    staticAlchemyMarkers.add(alchemyMarker2);
     staticAlchemyMarkers.add(alchemyMarker3);
-    staticAlchemyMarkers.add(alchemyMarker4);
     staticAlchemyMarkers.add(alchemyMarker5);
-    staticAlchemyMarkers.add(alchemyMarker6);
-    staticAlchemyMarkers.add(alchemyMarker7);
+    staticAlchemyMarkers.add(alchemyMarker2);
+    staticAlchemyMarkers.add(alchemyMarker1);
     staticAlchemyMarkers.add(alchemyMarker8);
+    staticAlchemyMarkers.add(alchemyMarker7);
+    staticAlchemyMarkers.add(alchemyMarker4);
+    staticAlchemyMarkers.add(alchemyMarker6);
 
     Ingredient ingredient1 = new Ingredient("dragon_fruit", 1, alchemyMarker3, "src/ui/utils/ingredient_1.jpg");
     Ingredient ingredient2 = new Ingredient("emerald", 2, alchemyMarker5, "src/ui/utils/ingredient_2.jpg");
@@ -260,6 +260,18 @@ public class Board implements Serializable {
   }
 
   public boolean debunkTheory(Theory theory, Aspect aspect, Token token) throws Exception {
+    System.out.println(theory.getAlchemyMarker().getAspect1().getColor());
+    System.out.println(theory.getAlchemyMarker().getAspect1().getSign());
+    System.out.println(theory.getAlchemyMarker().getAspect1().getSize());
+    System.out.println(theory.getAlchemyMarker().getAspect2().getColor());
+    System.out.println(theory.getAlchemyMarker().getAspect2().getSign());
+    System.out.println(theory.getAlchemyMarker().getAspect2().getSize());
+    System.out.println(theory.getAlchemyMarker().getAspect3().getColor());
+    System.out.println(theory.getAlchemyMarker().getAspect3().getSign());
+    System.out.println(theory.getAlchemyMarker().getAspect3().getSize());
+    System.out.println(aspect.getColor());
+    System.out.println(aspect.getSign());
+    System.out.println(aspect.getSize());
     if (theory.belongsToToken(token)) {
       throw new Exception("You can't debunk your own theory!");
     }
