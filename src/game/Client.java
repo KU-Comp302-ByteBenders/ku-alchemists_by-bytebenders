@@ -22,7 +22,8 @@ public class Client implements Serializable {
   ChangeableVisibility frame;
   Game game;
 
-  public Client() {}
+  public Client() {
+  }
 
   public void connect(String ip, String username, String avatar, ChangeableVisibility frame) {
     this.username = username;
@@ -137,10 +138,11 @@ public class Client implements Serializable {
               String ingredientName = messageParts[3];
               System.out.println(ingredientName);
               board.getTokens().get(Integer.parseInt(index)).transmuteIngredient(ingredientName);
-              board.getTokens().get(Integer.parseInt(index)).addGold(1);
+              //board.getTokens().get(Integer.parseInt(index)).addGold(1);
               Game game = Game.getInstance();
               game.reopenOnlineBoard(token, board);
             }
+
             if (action.equals("PublishTheory")) {
               System.out.println("Inside PublishTheory");
               Game game = Game.getInstance();
@@ -155,6 +157,21 @@ public class Client implements Serializable {
                 JOptionPane.showMessageDialog(null, exception.getMessage());
                 continue;
               }
+
+            if (action.equals("MakeExperiment")) {
+              System.out.println("Inside MakeExperiment");
+              String ingredientName = messageParts[3];
+              String ingredientName2 = messageParts[4];
+              String testOnSelf = messageParts[5];
+              board.getTokens().get(Integer.parseInt(index)).makeExperiment(ingredientName, ingredientName2,
+                  Boolean.valueOf(testOnSelf));
+              game.reopenOnlineBoard(token, board);
+            }
+            if (action.equals("SellPotion")) {
+              System.out.println("Inside SellPotion");
+              String potionName = messageParts[3];
+              board.getTokens().get(Integer.parseInt(index)).sellPotion(potionName);
+              game.reopenOnlineBoard(token, board);
             }
             // TODO: add other actions
           }

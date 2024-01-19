@@ -40,7 +40,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
   JLabel bigArtifactBackLabel;
   JLabel centerLabel;
   JLabel goldLabel;
-  //JLabel goldLabel;
+  // JLabel goldLabel;
   private JLabel opponentsGoldLabel;
   private JLabel reputationLabel;
   private JLabel opponentsReputationLabel;
@@ -72,14 +72,6 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
   JPanel opponentsSegmentedAvatarArea2;
   JPanel opponentsSegmentedAvatarArea3;
 
-  ImageIcon obsidianIcon = new ImageIcon("src/ui/utils/obsidian.jpg");
-  ImageIcon saffronIcon = new ImageIcon("src/ui/utils/saffron.jpg");
-  ImageIcon featherIcon = new ImageIcon("src/ui/utils/feather.png");
-  ImageIcon emeraldIcon = new ImageIcon("src/ui/utils/emerald.jpg");
-  ImageIcon redstoneIcon = new ImageIcon("src/ui/utils/redstone.jpg");
-  ImageIcon moondustIcon = new ImageIcon("src/ui/utils/moondust.jpg");
-  ImageIcon gingerIcon = new ImageIcon("src/ui/utils/ginger.png");
-  ImageIcon dragonIcon = new ImageIcon("src/ui/utils/dragon fru.jpg");
   ImageIcon bigArtifactBackIcon = new ImageIcon("src/ui/utils/artifact card image.png");
   ImageIcon bigIngredientBackIcon = new ImageIcon("src/ui/utils/ingredient image.png");
   ImageIcon smallIngredientBackIcon = new ImageIcon("src/ui/utils/small-ingredient-image.png");
@@ -161,8 +153,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     setResizable(false);
     setLayout(new BorderLayout());
 
-    this.artifactImageMap =
-      Map.of(
+    this.artifactImageMap = Map.of(
         board.getArtifactCards().get(0),
         artifact1Icon,
         board.getArtifactCards().get(1),
@@ -170,8 +161,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
         board.getArtifactCards().get(2),
         artifact3Icon,
         board.getArtifactCards().get(3),
-        artifact4Icon
-      );
+        artifact4Icon);
 
     // CREATE THE JPANELS AND JLABELS
 
@@ -201,10 +191,10 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     avatarArea = new JPanel(new FlowLayout());
     opponentsPotionArea = new JPanel(new FlowLayout());
     opponentsAvatarArea = new JPanel(new FlowLayout());
-    opponentsPotionArea2 = new JPanel(new FlowLayout()); //coppies
-    opponentsAvatarArea2 = new JPanel(new FlowLayout()); //coppies
-    opponentsPotionArea3 = new JPanel(new FlowLayout()); //coppies
-    opponentsAvatarArea3 = new JPanel(new FlowLayout()); //coppies
+    opponentsPotionArea2 = new JPanel(new FlowLayout()); // coppies
+    opponentsAvatarArea2 = new JPanel(new FlowLayout()); // coppies
+    opponentsPotionArea3 = new JPanel(new FlowLayout()); // coppies
+    opponentsAvatarArea3 = new JPanel(new FlowLayout()); // coppies
     opponentsIngredientCardsArea = new JPanel(new FlowLayout(FlowLayout.CENTER));
     opponentsIngredientCardsArea2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
     opponentsIngredientCardsArea3 = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -216,7 +206,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     bigIngBackLabel = new JLabel(bigIngredientBackIcon);
     addTooltipToComponent(bigIngBackLabel, "Board's Ingredients");
     bigArtifactBackLabel = new JLabel(bigArtifactBackIcon);
-    addTooltipToComponent(bigArtifactBackLabel, "Board's Artifact Cards"); //added tool tips
+    addTooltipToComponent(bigArtifactBackLabel, "Board's Artifact Cards"); // added tool tips
 
     // SET THE DIMENSIONS OF THE JPANELS AND JLABELS
 
@@ -278,7 +268,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
       for (int i = 0; i < token3IngredientsNumber; i++) {
         JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
         opponentsIngredientCardsArea.add(opponentIngLabel);
-        addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient"); //added tool tips
+        addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient"); // added tool tips
       }
     }
     if (token4 != null) {
@@ -286,7 +276,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
       for (int i = 0; i < token4IngredientsNumber; i++) {
         JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
         opponentsIngredientCardsArea2.add(opponentIngLabel);
-        addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient"); //added tool tips
+        addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient"); // added tool tips
       }
     }
 
@@ -295,7 +285,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     for (int i = 0; i < token2IngredientsNumber; i++) {
       JLabel opponentIngLabel = new JLabel(smallIngredientBackIcon);
       opponentsIngredientCardsArea3.add(opponentIngLabel);
-      addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient"); //added tool tips
+      addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient"); // added tool tips
     }
 
     for (int i = 0; i < token1IngredientsNumber; i++) {
@@ -303,7 +293,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
       int ingID = token1Ingredient.getID();
       ImageIcon ingredientIcon = new ImageIcon("src/ui/utils/ingredient_" + ingID + ".jpg");
       JLabel ingredientLabel = new JLabel(ingredientIcon);
-      addTooltipToComponent(ingredientLabel, token1Ingredient.getName()); //added tool tips
+      addTooltipToComponent(ingredientLabel, token1Ingredient.getName()); // added tool tips
       ingredientCardsArea.add(ingredientLabel);
     }
 
@@ -311,7 +301,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
 
     int token1ArtifactsNumber = token1.getArtifactCards().size();
 
-    //this will have to be changed into something turn based
+    // this will have to be changed into something turn based
     for (int i = 0; i < token1ArtifactsNumber; i++) {
       ArtifactCard myArtifactCard = token1.getArtifactCards().get(i);
       createArtifactUseButton(myArtifactCard, token1);
@@ -353,6 +343,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     JLabel potionLabel = new JLabel();
     potionLabel.setText("POTIONS:");
     potionLabel.setFont(new Font("Arial", Font.BOLD, 20));
+    potionArea.add(potionLabel);
 
     reputationLabel = new JLabel();
     reputationLabel.setText("REPUTATION:" + token1.getReputation());
@@ -374,12 +365,13 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
       for (int i = 0; i < token3PotionsNumber; i++) {
         Potion token1Potion = token3.getPotions().get(i);
         ImageIcon potionIcon = new ImageIcon(
-          "src/ui/utils/mini_potion" + token1Potion.getPotionColor() + token1Potion.getName() + ".jpg"
-        );
+            "src/ui/utils/mini_potion" + token1Potion.getPotionColor() + token1Potion.getName() + ".jpg");
         JLabel insidePotionLabel = new JLabel(potionIcon);
-        addTooltipToComponent(insidePotionLabel, token1Potion.getPotionColor() + " " + token1Potion.getName()); //added tool tips
+        addTooltipToComponent(insidePotionLabel, token1Potion.getPotionColor() + " " + token1Potion.getName()); // added
+                                                                                                                // tool
+                                                                                                                // tips
         opponentsPotionArea2.add(insidePotionLabel);
-        addTooltipToComponent(insidePotionLabel, "Opponent's Potion"); //added tool tips
+        addTooltipToComponent(insidePotionLabel, "Opponent's Potion"); // added tool tips
       }
     }
     if (token4 != null) {
@@ -392,12 +384,13 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
       for (int i = 0; i < token4PotionsNumber; i++) {
         Potion token1Potion = token4.getPotions().get(i);
         ImageIcon potionIcon = new ImageIcon(
-          "src/ui/utils/mini_potion" + token1Potion.getPotionColor() + token1Potion.getName() + ".jpg"
-        );
+            "src/ui/utils/mini_potion" + token1Potion.getPotionColor() + token1Potion.getName() + ".jpg");
         JLabel insidePotionLabel = new JLabel(potionIcon);
-        addTooltipToComponent(insidePotionLabel, token1Potion.getPotionColor() + " " + token1Potion.getName()); //added tool tips
+        addTooltipToComponent(insidePotionLabel, token1Potion.getPotionColor() + " " + token1Potion.getName()); // added
+                                                                                                                // tool
+                                                                                                                // tips
         opponentsPotionArea3.add(insidePotionLabel);
-        addTooltipToComponent(insidePotionLabel, "Opponent's Potion"); //added tool tips
+        addTooltipToComponent(insidePotionLabel, "Opponent's Potion"); // added tool tips
       }
     }
     int token1PotionsNumber = token1.getPotions().size();
@@ -405,21 +398,23 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     for (int i = 0; i < token2PotionsNumber; i++) {
       Potion token1Potion = token2.getPotions().get(i);
       ImageIcon potionIcon = new ImageIcon(
-        "src/ui/utils/mini_potion" + token1Potion.getPotionColor() + token1Potion.getName() + ".jpg"
-      );
+          "src/ui/utils/mini_potion" + token1Potion.getPotionColor() + token1Potion.getName() + ".jpg");
       JLabel insidePotionLabel = new JLabel(potionIcon);
-      addTooltipToComponent(insidePotionLabel, token1Potion.getPotionColor() + " " + token1Potion.getName()); //added tool tips
+      addTooltipToComponent(insidePotionLabel, token1Potion.getPotionColor() + " " + token1Potion.getName()); // added
+                                                                                                              // tool
+                                                                                                              // tips
       opponentsPotionArea.add(insidePotionLabel);
-      addTooltipToComponent(insidePotionLabel, "Opponent's Potion"); //added tool tips
+      addTooltipToComponent(insidePotionLabel, "Opponent's Potion"); // added tool tips
     }
 
     for (int i = 0; i < token1PotionsNumber; i++) {
       Potion token1Potion = token1.getPotions().get(i);
       ImageIcon potionIcon = new ImageIcon(
-        "src/ui/utils/mini_potion" + token1Potion.getPotionColor() + token1Potion.getName() + ".jpg"
-      );
+          "src/ui/utils/mini_potion" + token1Potion.getPotionColor() + token1Potion.getName() + ".jpg");
       JLabel insidePotionLabel = new JLabel(potionIcon);
-      addTooltipToComponent(insidePotionLabel, token1Potion.getPotionColor() + " " + token1Potion.getName()); //added tool tips
+      addTooltipToComponent(insidePotionLabel, token1Potion.getPotionColor() + " " + token1Potion.getName()); // added
+                                                                                                              // tool
+                                                                                                              // tips
       potionArea.add(insidePotionLabel);
     }
 
@@ -481,7 +476,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     southPanel.add(opponentsPotionArea3);
     southPanel.add(artifactCardsArea);
     southPanel.add(effectArea);
-    //southPanel.add(ingredientCardsArea); //might be commented out.
+    // southPanel.add(ingredientCardsArea); //might be commented out.
     southPanel.add(potionArea);
     southPanel.add(avatarArea);
 
@@ -497,7 +492,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     northPanel.add(controlArea);
     northPanel.add(opponentsPotionArea);
     northPanel.add(opponentsAvatarArea);
-    //northPanel.add(opponentsIngredientCardsArea);
+    // northPanel.add(opponentsIngredientCardsArea);
 
     westPanel.add(opponentsIngredientCardsArea, BorderLayout.NORTH);
     westPanel.add(opponentsIngredientCardsArea2, BorderLayout.SOUTH);
@@ -505,14 +500,13 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     opponentsSegmentedAvatarArea.add(opponentsReputationLabel, BorderLayout.CENTER);
     opponentsSegmentedAvatarArea.add(username2, BorderLayout.SOUTH);
 
-    //controlArea.add(Box.createVerticalStrut(10));
+    // controlArea.add(Box.createVerticalStrut(10));
     controlArea.add(new JLabel("Turn: " + board.getTurn()));
     controlArea.add(new JLabel("Round: " + board.getRound()));
     controlArea.add(new JLabel("This is the turn of: " + board.getTokens().get(board.getWhoseTurn()).getUsername()));
     controlArea.add(pauseButton());
     controlArea.add(exitButton());
     effectArea.add(effects);
-    potionArea.add(potionLabel);
     avatarArea.add(reputationLabel);
     avatarArea.add(avatarLabel);
     avatarArea.add(username1);
@@ -545,37 +539,35 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
   public JButton endTurnButton() {
     JButton endTurnButton = new JButton("End Turn");
     endTurnButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          Game game = Game.getInstance();
-          game.publishAction("Action " + board.getTokens().indexOf(token1) + " EndTurn");
-          board.endTurn();
-          if (board.getRound() == 4) {
-            game.closeOnlineBoard();
-          } else {
-            game.reopenOnlineBoard(token1, board);
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            Game game = Game.getInstance();
+            game.publishAction("Action " + board.getTokens().indexOf(token1) + " EndTurn");
+            board.endTurn();
+            if (board.getRound() == 4) {
+              game.closeOnlineBoard();
+            } else {
+              game.reopenOnlineBoard(token1, board);
+            }
           }
-        }
-      }
-    );
+        });
     return endTurnButton;
   }
 
   public JButton createForageButton() {
     JButton forageButton = new JButton("Forage For Ingredients");
     forageButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          controlRoundActions(true, null);
-          Ingredient ingredient = token1.forageForIngredient(board);
-          addIngredient(ingredient);
-          Game game = Game.getInstance();
-          game.publishAction("Action " + board.getTokens().indexOf(token1) + " ForageForIngredient");
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            controlRoundActions(true, null);
+            Ingredient ingredient = token1.forageForIngredient(board);
+            addIngredient(ingredient);
+            Game game = Game.getInstance();
+            game.publishAction("Action " + board.getTokens().indexOf(token1) + " ForageForIngredient");
+          }
+        });
     return forageButton;
   }
 
@@ -588,14 +580,13 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
           if (OnlineBoardJFrame.this != null) {
             token1.transmuteIngredient(ingredientName);
             Game game = Game.getInstance();
-            game.publishAction(
-              "Action " + board.getTokens().indexOf(token1) + " TransmuteIngredient " + ingredientName
-            );
+            game.publishAction("Action " + board.getTokens().indexOf(token1) + " TransmuteIngredient " + ingredientName);
             Game.activateTransmuteIngredientFrame(
               new ArrayList<>(token1.getIngredients()),
               board,
               OnlineBoardJFrame.this,
-              state
+              state,
+              token1
             );
           }
         }
@@ -608,15 +599,14 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
   public JButton createArtifactBuyerButton() {
     JButton ArtifactBuyerButton = new JButton("Buy Artifact Cards");
     ArtifactBuyerButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          // Open the BuyArtifactFrame when the button is clicked
-          // Controller version
-          Game.openArtifactBuyScreen(thisBoardJFrame, board, token1, state);
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            // Open the BuyArtifactFrame when the button is clicked
+            // Controller version
+            Game.openArtifactBuyScreen(thisBoardJFrame, board, token1, state);
+          }
+        });
     return ArtifactBuyerButton;
   }
 
@@ -625,21 +615,20 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
   public void createArtifactUseButton(ArtifactCard artifactCard, Token token) {
     JButton artifactUseButton = new JButton(artifactImageMap.get(artifactCard));
     artifactUseButton.setPreferredSize(new Dimension(60, 60));
-    addTooltipToComponent(artifactUseButton, artifactCard.getName()); //added tool tips
+    addTooltipToComponent(artifactUseButton, artifactCard.getName()); // added tool tips
 
-    //If it is printing press, it will not be clickable/actionable.
+    // If it is printing press, it will not be clickable/actionable.
     if ("Printing Press" != artifactCard.getName() && "Magic Mortar" != artifactCard.getName()) {
       artifactUseButton.addActionListener(
-        new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            token.useArtifactCard(artifactCard, board);
-            artifactUseButton.setVisible(false);
-            token.removeArtifactCard(artifactCard);
-            updateTokensReputationLabel();
-          }
-        }
-      );
+          new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              token.useArtifactCard(artifactCard, board);
+              artifactUseButton.setVisible(false);
+              token.removeArtifactCard(artifactCard);
+              updateTokensReputationLabel();
+            }
+          });
     }
 
     artifactCardsArea.add(artifactUseButton);
@@ -652,7 +641,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     ImageIcon ingredientIcon = new ImageIcon("src/ui/utils/ingredient_" + ingID + ".jpg");
     JLabel ingredientLabel = new JLabel(ingredientIcon);
     ingredientCardsArea.add(ingredientLabel);
-    addTooltipToComponent(ingredientLabel, ingredient.getName()); //added tool tips
+    addTooltipToComponent(ingredientLabel, ingredient.getName()); // added tool tips
     restartBoard();
   }
 
@@ -664,11 +653,10 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
         JLabel label = (JLabel) component;
         ImageIcon labelIcon = (ImageIcon) label.getIcon();
         Ingredient ingredient = findIngredientByImagePath(labelIcon.getDescription());
-
         if (ingredient != null && ingredient.getName().equals(ingredientName)) {
           path = labelIcon.getDescription();
           ingredientCardsArea.remove(label);
-          token1.addGold(1);
+          //token1.addGold(1);
           updateTokensGoldLabel();
           break;
         }
@@ -695,7 +683,7 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     return null;
   }
 
-  public String findImagePathByIngredient(String ing) { //finding image path of ingredient from string name
+  public String findImagePathByIngredient(String ing) { // finding image path of ingredient from string name
     for (Ingredient ingred : token1.getIngredients()) {
       if (ingred.getName().equals(ing)) {
         return ingred.getImagePath();
@@ -707,13 +695,12 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
   public JButton createExperimentButton(Board board) {
     JButton experimentButton = new JButton("Make Experiment");
     experimentButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          Game.openExperimentFrame(token1, board, OnlineBoardJFrame.this, state);
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            Game.openExperimentFrame(token1, board, OnlineBoardJFrame.this, state);
+          }
+        });
     return experimentButton;
   }
 
@@ -721,13 +708,12 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     JButton useSellPotionButton = new JButton("Sell Potion");
 
     useSellPotionButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          Game.openPotionJFrame(token1, board, OnlineBoardJFrame.this, state);
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            Game.openPotionJFrame(token1, board, OnlineBoardJFrame.this, state);
+          }
+        });
     return useSellPotionButton;
   }
 
@@ -736,13 +722,12 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     JButton exitButton = new JButton(exitIcon);
 
     exitButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          System.exit(0);
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            System.exit(0);
+          }
+        });
     return exitButton;
   }
 
@@ -751,13 +736,12 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     JButton pauseButton = new JButton(pauseIcon);
 
     pauseButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          openingPauseMenu();
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            openingPauseMenu();
+          }
+        });
     return pauseButton;
   }
 
@@ -775,7 +759,8 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
   }
 
   public JPanel arrangeBoardTriangle() {
-    // this method's purpose is adding buttons to deduction image. There are 36 different buttons and we arrange they in the for loop.
+    // this method's purpose is adding buttons to deduction image. There are 36
+    // different buttons and we arrange they in the for loop.
     JPanel mainPanel = new JPanel(new GridBagLayout());
 
     ImageIcon centerIcon = new ImageIcon("src/ui/utils/pubboard.png");
@@ -811,9 +796,9 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
             @Override
             public void actionPerformed(ActionEvent e) {
               Game.openTriangleBoard(roundedButtons[finals], token1, finals, board);
-            } // This action for the changing of button shape, color and features. We send call to game due to game is our controller.
-          }
-        );
+            } // This action for the changing of button shape, color and features. We send
+              // call to game due to game is our controller.
+          });
     }
 
     GridBagConstraints gbcCenterLabel = new GridBagConstraints();
@@ -847,13 +832,12 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     JButton publishButton = new JButton("Publish Theory");
 
     publishButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          openPublishMenu();
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            openPublishMenu();
+          }
+        });
     return publishButton;
   }
 
@@ -861,13 +845,12 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     JButton debunkButton = new JButton("Debunk Theory");
 
     debunkButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          openDebunkMenu();
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            openDebunkMenu();
+          }
+        });
     return debunkButton;
   }
 
@@ -875,13 +858,12 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     JButton publicationTrackButton = new JButton("Publication Track");
 
     publicationTrackButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          openPublicationTrack();
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            openPublicationTrack();
+          }
+        });
     return publicationTrackButton;
   }
 
@@ -898,24 +880,22 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
     // this.setFocusable(false);
   }
 
-  //adding tooltip to components for see messages when mouse is on the component
+  // adding tooltip to components for see messages when mouse is on the component
   public void addTooltipToComponent(JComponent component, String tooltipText) {
     component.addMouseMotionListener(
-      new MouseMotionAdapter() {
-        @Override
-        public void mouseMoved(MouseEvent e) {
-          ((JComponent) e.getComponent()).setToolTipText(tooltipText);
-        }
-      }
-    );
+        new MouseMotionAdapter() {
+          @Override
+          public void mouseMoved(MouseEvent e) {
+            ((JComponent) e.getComponent()).setToolTipText(tooltipText);
+          }
+        });
   }
 
   public void addMiniPotionImage(Potion potion) {
     ImageIcon potionIcon = new ImageIcon(
-      "src/ui/utils/mini_potion" + potion.getPotionColor() + potion.getName() + ".jpg"
-    );
+        "src/ui/utils/mini_potion" + potion.getPotionColor() + potion.getName() + ".jpg");
     JLabel potionLabel = new JLabel(potionIcon);
-    addTooltipToComponent(potionLabel, potion.getPotionColor() + " " + potion.getName()); //added tool tips
+    addTooltipToComponent(potionLabel, potion.getPotionColor() + " " + potion.getName()); // added tool tips
     potionArea.add(potionLabel);
     restartBoard();
   }
@@ -968,15 +948,15 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
 
   @Override
   public void activateTransmuteIngredientFrame(
-    ArrayList<Ingredient> displayedIngredients,
-    Board mainBoard,
-    State state
-  ) {
+      ArrayList<Ingredient> displayedIngredients,
+      Board mainBoard,
+      State state) {
     TransmuteIngredientFrame transmuteFrame = new TransmuteIngredientFrame(
       displayedIngredients,
       mainBoard,
       this,
-      state
+      state,
+      token1
     );
   }
 

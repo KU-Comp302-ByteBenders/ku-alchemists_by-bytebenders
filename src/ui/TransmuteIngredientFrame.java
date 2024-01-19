@@ -14,10 +14,11 @@ public class TransmuteIngredientFrame extends JFrame {
   private ArrayList<Ingredient> displayedIngredients;
   private Board mainBoard;
   private BoardFrame boardFrame;
-    private State state;
-    private Boolean endTurnFlag;
+  private State state;
+  private Boolean endTurnFlag;
 
-  public TransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard, BoardFrame boardFrame, State state) {
+  public TransmuteIngredientFrame(ArrayList<Ingredient> displayedIngredients, Board mainBoard, BoardFrame boardFrame, State state, Token token) {
+    this.state = state;
     this.displayedIngredients = new ArrayList<>(displayedIngredients);
     this.mainBoard = mainBoard;
     this.boardFrame = boardFrame;
@@ -46,8 +47,8 @@ public class TransmuteIngredientFrame extends JFrame {
         public void actionPerformed(ActionEvent e) {
           // Get the selected ingredient from the combo box
           String selectedIngredient = (String) ingredientComboBox.getSelectedItem();
-          handleTransformButtonClick(selectedIngredient);
-          Game.controlRoundAction(boardFrame, state, true);
+          handleTransformButtonClick(selectedIngredient, token);
+         
         }
       }
     );
@@ -66,10 +67,15 @@ public class TransmuteIngredientFrame extends JFrame {
     setVisible(true);
   }
 
-  private void handleTransformButtonClick(String selectedIngredient) {
+  private void handleTransformButtonClick(String selectedIngredient, Token token) {
     if (selectedIngredient != null) {
       String ingredientName = selectedIngredient;
       boardFrame.removeIngredientFromBoardByName(ingredientName);
+      Game.controlRoundAction(boardFrame, state, true);
+      Game game = Game.getInstance();
+      token.addGold(1);
+      boardFrame.updateTokensGoldLabel();
+      game.publishAction("Action " + mainBoard.getTokens().indexOf(token) + " TransmuteIngredient " + ingredientName);
       dispose();
     } else {
       JOptionPane.showMessageDialog(
