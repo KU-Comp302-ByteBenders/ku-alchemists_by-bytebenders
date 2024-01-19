@@ -61,6 +61,7 @@ public class Game implements Serializable {
 
   public Server getServer() {
     return server;
+
   }
 
   public void restartGame() {
@@ -69,6 +70,14 @@ public class Game implements Serializable {
 
   public void openCountDownFrame(Token token, Board board) {
     CountDownFrame countDownJFrame = new CountDownFrame(token, board);
+  }
+
+  public void closeOnlineBoard() {
+    this.onlineBoardJFrame.dispose();
+  }
+
+  public boolean isOffline() {
+    return server == null && client == null;
   }
 
   public void openOnlineBoard(Token token, Board board, ChangeableVisibility frame) {
@@ -81,6 +90,11 @@ public class Game implements Serializable {
     OnlineBoardJFrame onlineBoardJFrame = new OnlineBoardJFrame(token, board);
     this.onlineBoardJFrame.dispose();
     this.onlineBoardJFrame = onlineBoardJFrame;
+  }
+
+  public void openEndGame(Board board) {
+    EndGamer endGamer = new EndGamer(board);
+    endGamer.openEndGame();
   }
 
   public void openMainMenu() {
@@ -144,9 +158,11 @@ public class Game implements Serializable {
     }
   }
 
-  public void openPauseMenu() {}
+  public void openPauseMenu() {
+  }
 
-  public void closePauseMenu() {}
+  public void closePauseMenu() {
+  }
 
   public static void openPublishMenu(BoardFrame boardFrame, Board board, State state, Token token1) {
     // Open the publish theory action menu
@@ -192,13 +208,15 @@ public class Game implements Serializable {
     ArrayList<Ingredient> displayedIngredients,
     Board mainBoard,
     BoardFrame boardFrame,
-    State state
+    State state,
+    Token token
   ) {
     TransmuteIngredientFrame transmuteJFrame = new TransmuteIngredientFrame(
       displayedIngredients,
       mainBoard,
       boardFrame,
-      state
+      state,
+      token
     );
   }
 
@@ -221,11 +239,10 @@ public class Game implements Serializable {
   public static void openWisdomIdolConfirmationDialog(ArtifactCard artifactCard) {
     // Add confirmation dialog
     int confirmed = JOptionPane.showConfirmDialog(
-      null,
-      "Is the Theory Owner sure that they want to apply the Wisdom Idol effect?",
-      "Confirmation",
-      JOptionPane.YES_NO_OPTION
-    );
+        null,
+        "Is the Theory Owner sure that they want to apply the Wisdom Idol effect?",
+        "Confirmation",
+        JOptionPane.YES_NO_OPTION);
 
     if (confirmed == JOptionPane.YES_OPTION) {
       // If the user confirmed, set the flag to true
@@ -234,15 +251,15 @@ public class Game implements Serializable {
   }
 
   public static void controlRoundAction(BoardFrame boardFrame, State state, Boolean endTurnFlag) {
+    System.out.println("geldin mi be");
     boardFrame.controlRoundActions(endTurnFlag, state);
   }
 
   public static void activateTransmuteIngredientFrame(
-    ArrayList<Ingredient> displayedIngredients,
-    Board mainBoard,
-    OfflineBoardJFrame boardFrame,
-    State state
-  ) {
+      ArrayList<Ingredient> displayedIngredients,
+      Board mainBoard,
+      OfflineBoardJFrame boardFrame,
+      State state) {
     boardFrame.activateTransmuteIngredientFrame(displayedIngredients, mainBoard, state);
   }
 

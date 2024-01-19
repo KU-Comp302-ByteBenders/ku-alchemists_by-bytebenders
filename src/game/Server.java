@@ -24,7 +24,8 @@ public class Server implements Serializable {
   private Token token;
   private Board board;
 
-  public Server() {}
+  public Server() {
+  }
 
   public void startServer(String username, String avatar) {
     this.username = username;
@@ -163,7 +164,11 @@ public class Server implements Serializable {
             if (action.equals("EndTurn")) {
               System.out.println("Inside End turn");
               board.endTurn();
-              game.reopenOnlineBoard(token, board);
+              if (!(board.getRound() == 4)) {
+                game.reopenOnlineBoard(token, board);
+              } else {
+                game.closeOnlineBoard();
+              }
             }
 
             if (action.equals("ForageForIngredient")) {
@@ -178,7 +183,24 @@ public class Server implements Serializable {
             if (action.equals("TransmuteIngredient")) {
               System.out.println("Inside TransmuteIngredient");
               String ingredientName = messageParts[3];
+              System.out.println(ingredientName);
               board.getTokens().get(Integer.parseInt(index)).transmuteIngredient(ingredientName);
+              //board.getTokens().get(Integer.parseInt(index)).addGold(1);
+              game.reopenOnlineBoard(token, board);
+            }
+            if (action.equals("MakeExperiment")) {
+              System.out.println("Inside MakeExperiment");
+              String ingredientName = messageParts[3];
+              String ingredientName2 = messageParts[4];
+              String testOnSelf = messageParts[5];
+              board.getTokens().get(Integer.parseInt(index)).makeExperiment(ingredientName, ingredientName2,
+                  Boolean.valueOf(testOnSelf));
+              game.reopenOnlineBoard(token, board);
+            }
+            if (action.equals("SellPotion")) {
+              System.out.println("Inside SellPotion");
+              String potionName = messageParts[3];
+              board.getTokens().get(Integer.parseInt(index)).sellPotion(potionName);
               game.reopenOnlineBoard(token, board);
             }
             // TODO: Add other actions

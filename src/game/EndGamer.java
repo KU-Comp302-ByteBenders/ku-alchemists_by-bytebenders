@@ -2,18 +2,19 @@ package game;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import ui.EndGameJFrame;
 
 public class EndGamer implements Serializable {
+
   private static final long serialVersionUID = 5L;
 
   private ArrayList<Token> tokens;
-  private int winner; // -1 for tie, 0 for token1, 1 for token2
-  private int token1Score;
-  private int token2Score;
-  public static final int TIE = -1;
-  public static final int TOKEN1 = 0;
-  public static final int TOKEN2 = 1;
+  private int winner; // index of the winner - (-1) for tie
+  private ArrayList<Integer> tiePlayersTies;
+  private int maxLeftOverGold;
+  private int[] tokenScores;
 
   public EndGamer(Board board) {
     tokens = board.getTokens();
@@ -24,16 +25,20 @@ public class EndGamer implements Serializable {
     return winner;
   }
 
-  public int getToken1Score() {
-    return token1Score;
-  }
-
-  public int getToken2Score() {
-    return token2Score;
+  public int[] getTokenScores() {
+    return tokenScores;
   }
 
   public ArrayList<Token> getTokens() {
     return tokens;
+  }
+
+  public ArrayList<Integer> getTiePlayersTies() {
+    return tiePlayersTies;
+  }
+
+  public int getMaxLeftOverGold() {
+    return maxLeftOverGold;
   }
 
   public void openEndGame() {
@@ -41,58 +46,82 @@ public class EndGamer implements Serializable {
   }
 
   public void calculateResults(Board board) {
-    Token token1 = board.getTokens().get(0);
-    Token token2 = board.getTokens().get(1);
+    int playerNumber = board.getTokens().size();
+    ArrayList<Token> tokens = board.getTokens();
+    int[] tokenReputations = new int[playerNumber];
+    int[] tokenArtifactCardNumbers = new int[playerNumber];
+    int[] tokenGoldAmounts = new int[playerNumber];
+    tokenScores = new int[playerNumber];
+    ArrayList<Integer> tiePlayers = new ArrayList<Integer>();
+    tiePlayersTies = new ArrayList<Integer>();
+    int[] tieBreakerGolds = new int[playerNumber];
 
-    int token1Reputation = token1.getReputation();
-    int token2Reputation = token2.getReputation();
+    for (int i = 0; i < playerNumber; i++) {
+      Token token = tokens.get(i);
+      tokenReputations[i] = token.getReputation();
+      tokenArtifactCardNumbers[i] = token.getArtifactCards().size();
+      tokenGoldAmounts[i] = token.getGoldBalance();
 
-    System.out.println("token1Reputation: " + token1Reputation);
-    System.out.println("token2Reputation: " + token2Reputation);
+      if (token.getArtifactCardByName("Wisdom Idol") != null) {
+        tokenReputations[i] += 1;
+      }
 
-    int token1ArtifactCardNumber = token1.getArtifactCards().size();
-    int token2ArtifactCardNumber = token2.getArtifactCards().size();
+      tokenGoldAmounts[i] += tokenArtifactCardNumbers[i] * 2;
 
-    if (token1.getArtifactCardByName("Wisdom Idol") != null) {
-      token1Reputation += 1;
+      int scoreFromGold = (int) Math.floor(tokenGoldAmounts[i] / 3);
+      tieBreakerGolds[i] = tokenGoldAmounts[i] % 3;
+      tokenScores[i] = tokenReputations[i] * 10 + scoreFromGold;
     }
 
-    if (token2.getArtifactCardByName("Wisdom Idol") != null) {
-      token2Reputation += 1;
-    }
+    int maxScore = tokenScores[0];
+    int maxScorePlayer = 0;
+    boolean lookLeftOver = false;
 
-    int token1GoldAmount = token1.getGoldBalance();
-    int token2GoldAmount = token2.getGoldBalance();
-
-    System.out.println("token1GoldAmount: " + token1GoldAmount);
-    System.out.println("token2GoldAmount: " + token2GoldAmount);
-
-    token1GoldAmount += token1ArtifactCardNumber * 2;
-    token2GoldAmount += token2ArtifactCardNumber * 2;
-
-    int scoreFromGoldToken1 = (int) Math.floor(token1GoldAmount / 3);
-    int scoreFromGoldToken2 = (int) Math.floor(token2GoldAmount / 3);
-
-    int token1Score = token1Reputation * 10 + scoreFromGoldToken1;
-    int token2Score = token2Reputation * 10 + scoreFromGoldToken2;
-
-    System.out.println("token1Score: " + token1Score);
-    System.out.println("token2Score: " + token2Score);
-
-    if (token1Score > token2Score) {
-      winner = 0;
-    } else if (token1Score < token2Score) {
-      winner = 1;
-    } else {
-      int leftOverGoldToken1 = token1GoldAmount % 3;
-      int leftOverGoldToken2 = token2GoldAmount % 3;
-      if (leftOverGoldToken1 > leftOverGoldToken2) {
-        winner = 0;
-      } else if (leftOverGoldToken1 < leftOverGoldToken2) {
-        winner = 1;
-      } else {
-        winner = -1;
+    for (int i = 1; i < playerNumber; i++) {
+      if (tokenScores[i] > maxScore) {
+        maxScore = tokenScores[i];
+        maxScorePlayer = i;
+        lookLeftOver = false;
+      } else if (tokenScores[i] == maxScore) {
+        if (!tiePlayers.contains(maxScorePlayer)) {
+          tiePlayers.add(maxScorePlayer);
+        }
+        tiePlayers.add(i);
+        lookLeftOver = true;
       }
     }
+
+    if (lookLeftOver) {
+      maxLeftOverGold = tieBreakerGolds[tiePlayers.get(0)];
+      int maxTieBreakerPlayer = tiePlayers.get(0);
+      boolean isTie = false;
+
+      for (int playerIndex : tiePlayers) {
+        if (tieBreakerGolds[playerIndex] > maxLeftOverGold) {
+          maxLeftOverGold = tieBreakerGolds[playerIndex];
+          maxTieBreakerPlayer = playerIndex;
+          isTie = false;
+        } else if (tieBreakerGolds[playerIndex] == maxLeftOverGold) {
+          tiePlayersTies.add(playerIndex);
+          tiePlayersTies.add(maxTieBreakerPlayer);
+          isTie = true;
+        }
+      }
+
+      for (int i : tiePlayersTies) {
+        System.out.println(i);
+      }
+
+      tiePlayersTies = removeDuplicates(tiePlayersTies);
+      winner = isTie ? -1 : maxTieBreakerPlayer;
+    } else {
+      winner = maxScorePlayer;
+    }
+  }
+
+  public static <T> ArrayList<T> removeDuplicates(List<T> listWithDuplicates) {
+    HashSet<T> uniqueSet = new HashSet<>(listWithDuplicates);
+    ArrayList<T> uniqueList = new ArrayList<>(uniqueSet);
+    return uniqueList;
   }
 }
