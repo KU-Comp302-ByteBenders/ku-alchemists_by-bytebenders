@@ -15,18 +15,17 @@ public class EndGameJFrame extends JFrame implements ChangeableVisibility {
   JPanel controlPanel;
 
   public EndGameJFrame(EndGamer endGamer) {
-    this.setLayout(new BorderLayout());
     this.setTitle("End Game");
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.setSize(1000, 1000);
+    this.setSize(1000, 600);
     this.setLocationRelativeTo(null);
     this.setResizable(false);
 
     winnerPanel = new JPanel();
-    winnerPanel.setPreferredSize(new Dimension(1000, 300));
+    winnerPanel.setPreferredSize(new Dimension(1000, 100));
 
     resultsPanel = new JPanel();
-    resultsPanel.setPreferredSize(new Dimension(1000, 700));
+    resultsPanel.setPreferredSize(new Dimension(1000, 400));
 
     controlPanel = new JPanel();
     controlPanel.setPreferredSize(new Dimension(1000, 100));
@@ -44,19 +43,20 @@ public class EndGameJFrame extends JFrame implements ChangeableVisibility {
   public void feedWinnerPanel(EndGamer endGamer) {
     JLabel winnerLabel = new JLabel();
     if (endGamer.getWinner() == -1) {
-      String buff = "Tie between: ";
+      StringBuilder tiePlayers = new StringBuilder("Tie between: ");
       for (int i = 0; i < endGamer.getTiePlayersTies().size(); i++) {
-        buff += endGamer.getTokens().get(endGamer.getTiePlayersTies().get(i)).getUsername() + " ";
+        tiePlayers.append(endGamer.getTokens().get(endGamer.getTiePlayersTies().get(i)).getUsername()).append(" ");
       }
-      winnerLabel.setText(buff);
+      winnerLabel.setText(tiePlayers.toString());
     } else {
-      winnerLabel.setText("The winner is: " + endGamer.getTokens().get(endGamer.getWinner()).getUsername());
+      winnerLabel.setText("Winner: " + endGamer.getTokens().get(endGamer.getWinner()).getUsername());
     }
+    winnerLabel.setFont(new Font("Garamond", Font.BOLD, 20));
     winnerPanel.add(winnerLabel);
   }
 
   public void feedResultsPanel(EndGamer endGamer) {
-    JPanel scoresPanel = new JPanel(new GridLayout(endGamer.getTokens().size(), 1));
+    JPanel scoresPanel = new JPanel(new GridLayout(endGamer.getTokens().size() * 2, 1));
     for (int i = 0; i < endGamer.getTokens().size(); i++) {
       JLabel scoreLabel = new JLabel();
       scoreLabel.setText(
@@ -70,8 +70,13 @@ public class EndGameJFrame extends JFrame implements ChangeableVisibility {
         ", gold balance: " +
         endGamer.getTokens().get(i).getGold()
       );
+      JLabel spaceLabel = new JLabel();
+      spaceLabel.setText(" ");
+
+      scoresPanel.add(spaceLabel);
       scoresPanel.add(scoreLabel);
     }
+
     resultsPanel.add(scoresPanel);
   }
 
