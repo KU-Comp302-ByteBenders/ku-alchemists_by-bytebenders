@@ -6,19 +6,12 @@ import ui.interfaces.BoardFrame;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.lang.model.type.NullType;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-
-import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.NullString;
 
 public class MakeExperimentJFrame extends JFrame {
 

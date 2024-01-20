@@ -3,8 +3,6 @@ package game;
 import game.ArtifactCards.ArtifactCard;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import javax.swing.*;
 import ui.*;
 import ui.interfaces.BoardFrame;

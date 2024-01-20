@@ -1,10 +1,8 @@
 package ui;
 
 import game.Board;
-import game.Game;
 import game.State;
 import game.Token;
-import ui.LoginJFrame;
 
 import javax.swing.*;
 import java.awt.*;
