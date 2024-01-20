@@ -6,6 +6,7 @@ import java.net.Socket;
 
 import javax.swing.JOptionPane;
 
+import game.ArtifactCards.ArtifactCard;
 import ui.interfaces.ChangeableVisibility;
 
 public class Client implements Serializable {
@@ -175,6 +176,67 @@ public class Client implements Serializable {
                 continue;
               }
             }
+
+            if (action.equals("BuyArtifact")) {
+              System.out.println("Inside BuyArtifact");
+              try {
+                if (messageParts[4].equals("Wisdom")) {
+                  board.addArtifactCardToToken(board.getTokens().get(Integer.parseInt(index)), board.geArtifactCardByName("Wisdom Idol"));
+                } else if (messageParts[4].equals("Elixir")) {
+                  board.addArtifactCardToToken(board.getTokens().get(Integer.parseInt(index)), board.geArtifactCardByName("Elixir of Insight"));
+                } else if (messageParts[4].equals("Printing")) {
+                  board.addArtifactCardToToken(board.getTokens().get(Integer.parseInt(index)), board.geArtifactCardByName("Printing Press"));
+                } else {
+                  board.addArtifactCardToToken(board.getTokens().get(Integer.parseInt(index)), board.geArtifactCardByName("Magic Mortar"));
+                }
+                board.getTokens().get(Integer.parseInt(index)).addGold(-Integer.parseInt(messageParts[3]));
+                game.reopenOnlineBoard(token, board);
+              } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, exception.getMessage());
+                continue;
+              }
+            }
+
+            if (action.equals("UseArtifact")) {
+              System.out.println("Inside UseArtifact");
+              try {
+                ArtifactCard artifactCard;
+                if( messageParts[3].equals("Wisdom")) { artifactCard = board.geArtifactCardByName("Wisdom Idol");}
+                else if(messageParts[3].equals("Elixir")) { artifactCard = board.geArtifactCardByName("Elixir of Insight");
+                board.getTokens().get(Integer.parseInt(index)).useArtifactCard(artifactCard, board);}
+                else if(messageParts[3].equals("Printing")) { artifactCard = board.geArtifactCardByName("Printing Press");
+                board.getTokens().get(Integer.parseInt(index)).useArtifactCard(artifactCard, board);}
+                else{ artifactCard = board.geArtifactCardByName("Magic Mortar");
+                board.getTokens().get(Integer.parseInt(index)).useArtifactCard(artifactCard, board);
+              }
+                
+                game.reopenOnlineBoard(token, board);
+              } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, "samet hata");
+                continue;
+              }
+            }
+
+            if (action.equals("ElixirReorder")) {
+              System.out.println("Inside UseArtifact");
+              try {
+                String firstIngredient = messageParts[2];
+                String secondIngredient = messageParts[3];
+                String thirdIngredient = messageParts[4];
+
+                Ingredient firstIng = board.getIngredientByName(firstIngredient);
+                Ingredient secondIng = board.getIngredientByName(secondIngredient);
+                Ingredient thirdIng = board.getIngredientByName(thirdIngredient);
+
+                board.reorderIngredients(firstIng, secondIng, thirdIng);
+                game.reopenOnlineBoard(token, board);
+              } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, "samet hata");
+                continue;
+              }
+
+            // TODO: Add other actions
+          }
             // TODO: add other actions
           }
         }

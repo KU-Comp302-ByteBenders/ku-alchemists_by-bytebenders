@@ -5,6 +5,7 @@ import game.Game;
 import game.State;
 import game.Token;
 import ui.interfaces.BoardFrame;
+import game.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -44,6 +45,12 @@ public class BuyArtifactFrame extends JFrame {
             //boardJFrame.refreshArtifactCardsArea(board.getArtifactCards().get(1));
             closeArtifactBuyScreen();
             boardFrame.updateTokensGoldLabel();
+
+            //YENİ EKLEDİM
+            Game game = Game.getInstance();
+            if (!game.isOffline()) {
+              game.publishAction("Action " + board.getTokens().indexOf(token)  + " BuyArtifact " + board.getArtifactCards().get(0).getGoldPrice() + " " + board.getArtifactCards().get(0).getName());
+            }
           }
         }
       }
@@ -63,6 +70,11 @@ public class BuyArtifactFrame extends JFrame {
             //boardJFrame.refreshArtifactCardsArea(board.getArtifactCards().get(0));
             closeArtifactBuyScreen();
             boardFrame.updateTokensGoldLabel();
+
+            Game game = Game.getInstance();
+            if (!game.isOffline()) {
+              game.publishAction("Action " + board.getTokens().indexOf(token)  + " BuyArtifact " + board.getArtifactCards().get(1).getGoldPrice() + " " +  board.getArtifactCards().get(1).getName());
+            }
           }
         }
       }
@@ -82,6 +94,11 @@ public class BuyArtifactFrame extends JFrame {
 
             closeArtifactBuyScreen();
             boardFrame.updateTokensGoldLabel();
+
+            Game game = Game.getInstance();
+            if (!game.isOffline()) {
+              game.publishAction("Action " + board.getTokens().indexOf(token)  + " BuyArtifact " + board.getArtifactCards().get(2).getGoldPrice() + " " + board.getArtifactCards().get(2).getName());
+            }
           }
         }
       }
@@ -100,6 +117,11 @@ public class BuyArtifactFrame extends JFrame {
             //boardJFrame.refreshArtifactCardsArea(board.getArtifactCards().get(3));
             closeArtifactBuyScreen();
             boardFrame.updateTokensGoldLabel();
+
+            Game game = Game.getInstance();
+            if (!game.isOffline()) {
+              game.publishAction("Action " + board.getTokens().indexOf(token)  + " BuyArtifact " + board.getArtifactCards().get(3).getGoldPrice() + " " + board.getArtifactCards().get(3).getName());
+            }
           }
         }
       }
