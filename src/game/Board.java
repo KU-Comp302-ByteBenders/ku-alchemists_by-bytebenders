@@ -208,6 +208,15 @@ public class Board implements Serializable {
     return artifactCards;
   }
 
+  public ArtifactCard geArtifactCardByName(String name) {
+    for (ArtifactCard artifactCard : artifactCards) {
+      if (artifactCard.getName().equals(name)) {
+        return artifactCard;
+      }
+    }
+    return null;
+  }
+
   public ArrayList<Token> getTokens() {
     return tokens;
   }

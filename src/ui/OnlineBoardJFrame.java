@@ -627,6 +627,11 @@ public class OnlineBoardJFrame extends JFrame implements ChangeableVisibility, B
               artifactUseButton.setVisible(false);
               token.removeArtifactCard(artifactCard);
               updateTokensReputationLabel();
+              //online
+              Game game = Game.getInstance();
+              if (!game.isOffline()) {
+                game.publishAction("Action " + board.getTokens().indexOf(token)  + " UseArtifact " + artifactCard.getName());
+              }
             }
           });
     }

@@ -24,7 +24,7 @@ public class Game implements Serializable {
   private ArrayList<String> playerNames;
   private ArrayList<String> playerAvatars;
 
-  OnlineBoardJFrame onlineBoardJFrame;
+  private OnlineBoardJFrame onlineBoardJFrame;
 
   private static Game instance = null;
 
@@ -37,6 +37,10 @@ public class Game implements Serializable {
 
   private Game() {
     gameStarterAdapter = new GameStarterAdapter(this);
+  }
+
+  public OnlineBoardJFrame getOnlineBoardJFrame() {
+    return onlineBoardJFrame;
   }
 
   public void setGameStarterAdapter(IGameStarterAdapter gameStarterAdapter) {

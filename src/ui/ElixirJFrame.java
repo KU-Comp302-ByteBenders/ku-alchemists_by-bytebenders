@@ -1,7 +1,10 @@
 package ui;
 
 import game.Board;
+import game.Game;
 import game.Ingredient;
+import ui.interfaces.BoardFrame;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
@@ -85,7 +88,13 @@ public class ElixirJFrame extends JFrame {
           board.reorderIngredients(firstIng, secondIng, thirdIng);
 
           ElixirJFrame.this.dispose();
+
+        Game game = Game.getInstance();
+        if (!game.isOffline()) {
+          game.publishAction("Action "  + "1 " + "ElixirReorder " + firstIngredient + " " + secondIngredient + " " + thirdIngredient);
         }
+        }
+        
       }
     );
     this.add(submitButton);
