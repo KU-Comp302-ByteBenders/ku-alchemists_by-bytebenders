@@ -291,8 +291,6 @@ public class OfflineBoardJFrame extends JFrame implements ChangeableVisibility, 
       addTooltipToComponent(opponentIngLabel, "Opponent's Ingredient"); // added tool tips
     }
 
-    System.out.println("token1.getIngredients().size() = " + token1.getIngredients().size());
-
     for (int i = 0; i < token1IngredientsNumber; i++) {
       Ingredient token1Ingredient = token1.getIngredients().get(i);
       int ingID = token1Ingredient.getID();
@@ -972,7 +970,6 @@ public class OfflineBoardJFrame extends JFrame implements ChangeableVisibility, 
   }
 
   public void createRoundActions(Boolean endTurnFlag, State state) {
-    System.out.println("selam");
     if (!endTurnFlag) {
       if (state.getCurrentRound() == 1) {
         forageButton = createForageButton();
@@ -1044,9 +1041,7 @@ public class OfflineBoardJFrame extends JFrame implements ChangeableVisibility, 
   @Override
   public void controlRoundActions(Boolean endTurnFlag, State state) {
     if (endTurnFlag) {
-      System.out.println("asas");
       if (state.getCurrentRound() == 1) {
-        System.out.println("gel");
         row3.remove(forageButton);
         row3.remove(transmuteButton);
         row3.remove(experimentButton);

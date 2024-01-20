@@ -144,9 +144,6 @@ public class Server implements Serializable {
           System.out.println("Client message: " + clientMessage);
           String[] messageParts = clientMessage.split(" ");
           Game game = Game.getInstance();
-          for (String part : messageParts) {
-            System.out.println(part);
-          }
 
           if (messageParts[0].equals("credentials")) {
             String username = messageParts[1];
@@ -161,11 +158,7 @@ public class Server implements Serializable {
             String action = messageParts[2];
             server.publishAction(action);
 
-            System.out.println("Action: " + action);
-            System.out.println("Index: " + index);
-
             if (action.equals("EndTurn")) {
-              System.out.println("Inside End turn");
               board.endTurn();
               if (!(board.getRound() == 4)) {
                 game.reopenOnlineBoard(token, board);
@@ -175,24 +168,19 @@ public class Server implements Serializable {
             }
 
             if (action.equals("ForageForIngredient")) {
-              System.out.println("Inside ForageForIngredient");
               board.getTokens().get(Integer.parseInt(index)).forageForIngredient(board);
               game.reopenOnlineBoard(token, board);
             }
             if (action.equals("DeductionBoard")) {
-              System.out.println("Inside DeductionBoard");
               game.reopenOnlineBoard(token, board);
             }
             if (action.equals("TransmuteIngredient")) {
-              System.out.println("Inside TransmuteIngredient");
               String ingredientName = messageParts[3];
-              System.out.println(ingredientName);
               board.getTokens().get(Integer.parseInt(index)).transmuteIngredient(ingredientName);
               //board.getTokens().get(Integer.parseInt(index)).addGold(1);
               game.reopenOnlineBoard(token, board);
             }
             if (action.equals("MakeExperiment")) {
-              System.out.println("Inside MakeExperiment");
               String ingredientName = messageParts[3];
               String ingredientName2 = messageParts[4];
               String testOnSelf = messageParts[5];
@@ -201,13 +189,11 @@ public class Server implements Serializable {
               game.reopenOnlineBoard(token, board);
             }
             if (action.equals("SellPotion")) {
-              System.out.println("Inside SellPotion");
               String potionName = messageParts[3];
               board.getTokens().get(Integer.parseInt(index)).sellPotion(potionName);
               game.reopenOnlineBoard(token, board);
             }
             if (action.equals("PublishTheory")) {
-              System.out.println("Inside PublishTheory");
               try {
                 int ingredientIndex = Integer.parseInt(messageParts[3]);
                 int markerIndex = Integer.parseInt(messageParts[4]);
@@ -221,7 +207,6 @@ public class Server implements Serializable {
               }
             }
             if (action.equals("DebunkTheory")) {
-              System.out.println("Inside DebunkTheory");
               try {
                 String theoryName = messageParts[3];
                 Theory theory = board.getTheoryByName(theoryName);

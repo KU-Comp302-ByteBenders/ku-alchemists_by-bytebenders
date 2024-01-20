@@ -256,22 +256,9 @@ public class Board implements Serializable {
       token.getArtifactCardByName("Printing Press").applyEffect(token, this, null);
     }
 
-    System.out.println("Theory published!");
   }
 
   public boolean debunkTheory(Theory theory, Aspect aspect, Token token) throws Exception {
-    System.out.println(theory.getAlchemyMarker().getAspect1().getColor());
-    System.out.println(theory.getAlchemyMarker().getAspect1().getSign());
-    System.out.println(theory.getAlchemyMarker().getAspect1().getSize());
-    System.out.println(theory.getAlchemyMarker().getAspect2().getColor());
-    System.out.println(theory.getAlchemyMarker().getAspect2().getSign());
-    System.out.println(theory.getAlchemyMarker().getAspect2().getSize());
-    System.out.println(theory.getAlchemyMarker().getAspect3().getColor());
-    System.out.println(theory.getAlchemyMarker().getAspect3().getSign());
-    System.out.println(theory.getAlchemyMarker().getAspect3().getSize());
-    System.out.println(aspect.getColor());
-    System.out.println(aspect.getSign());
-    System.out.println(aspect.getSize());
     if (theory.belongsToToken(token)) {
       throw new Exception("You can't debunk your own theory!");
     }
@@ -312,7 +299,6 @@ public class Board implements Serializable {
     if (token.getGoldBalance() >= artifactCard.getGoldPrice()) {
       token.decreaseGold(artifactCard.getGoldPrice());
       token.addArtifactCard(artifactCard);
-      System.out.println("artifactCard succesfully added to token");
     } else {
       System.err.println("The player does not have enough gold to buy an artifact card");
     }
@@ -370,8 +356,6 @@ public class Board implements Serializable {
       turn++;
       if (turn % 3 == 1) {
         round++;
-        System.out.println("turn: " + turn);
-        System.out.println("round: " + round);
         if (round == 4) {
           EndGamer endGamer = new EndGamer(this);
           endGamer.openEndGame();

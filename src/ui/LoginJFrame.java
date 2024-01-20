@@ -213,18 +213,6 @@ public class LoginJFrame extends JFrame {
         this.add(comboBox);
         playerComboBoxes.add(comboBox); // Add the combo box to the list
 
-        // Print current elements in playerTextFields
-        System.out.println("Current playerTextFields elements:");
-        for (JTextField element : playerTextFields) {
-            System.out.println(element.getText());
-        }
-
-        // Print current elements in playerComboBoxes
-        System.out.println("Current playerComboBoxes elements:");
-        for (JComboBox<String> element : playerComboBoxes) {
-            System.out.println(element.getSelectedItem());
-        }
-    
         revalidate();
         repaint();
     

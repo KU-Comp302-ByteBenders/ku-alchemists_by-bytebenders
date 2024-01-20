@@ -30,9 +30,6 @@ public class State implements Serializable {
     currentTurn = 1;
     numberOfPlayers = tokens.size();
     initializeTurnMaps(tokens);
-    for(Token token : tokens){
-      System.out.println(token.getUsername());
-    }
   }
 
   private void initializeTurnMaps(ArrayList<Token> tokens) {

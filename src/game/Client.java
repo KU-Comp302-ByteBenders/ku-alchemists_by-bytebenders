@@ -107,11 +107,7 @@ public class Client implements Serializable {
             String index = messageParts[1];
             String action = messageParts[2];
 
-            System.out.println("index: " + index);
-            System.out.println("action: " + action);
-
             if (action.equals("EndTurn")) {
-              System.out.println("Inside EndTurn");
               board.endTurn();
               Game game = Game.getInstance();
 
@@ -123,27 +119,22 @@ public class Client implements Serializable {
             }
 
             if (action.equals("ForageForIngredient")) {
-              System.out.println("Inside ForageForIngredient");
               board.getTokens().get(Integer.parseInt(index)).forageForIngredient(board);
               Game game = Game.getInstance();
               game.reopenOnlineBoard(token, board);
             }
             if (action.equals("DeductionBoard")) {
-              System.out.println("Inside DeductionBoard");
               Game game = Game.getInstance();
               game.reopenOnlineBoard(token, board);
             }
             if (action.equals("TransmuteIngredient")) {
-              System.out.println("Inside TransmuteIngredient");
               String ingredientName = messageParts[3];
-              System.out.println(ingredientName);
               board.getTokens().get(Integer.parseInt(index)).transmuteIngredient(ingredientName);
               //board.getTokens().get(Integer.parseInt(index)).addGold(1);
               Game game = Game.getInstance();
               game.reopenOnlineBoard(token, board);
             }
             if (action.equals("MakeExperiment")) {
-              System.out.println("Inside MakeExperiment");
               String ingredientName = messageParts[3];
               String ingredientName2 = messageParts[4];
               String testOnSelf = messageParts[5];
@@ -152,13 +143,11 @@ public class Client implements Serializable {
               game.reopenOnlineBoard(token, board);
             }
             if (action.equals("SellPotion")) {
-              System.out.println("Inside SellPotion");
               String potionName = messageParts[3];
               board.getTokens().get(Integer.parseInt(index)).sellPotion(potionName);
               game.reopenOnlineBoard(token, board);
             }
             if (action.equals("PublishTheory")) {
-              System.out.println("Inside PublishTheory");
               try {
                 int ingredientIndex = Integer.parseInt(messageParts[3]);
                 int markerIndex = Integer.parseInt(messageParts[4]);
@@ -172,7 +161,6 @@ public class Client implements Serializable {
               }
             }
             if (action.equals("DebunkTheory")) {
-              System.out.println("Inside DebunkTheory");
               try {
                 String theoryName = messageParts[3];
                 Theory theory = board.getTheoryByName(theoryName);
